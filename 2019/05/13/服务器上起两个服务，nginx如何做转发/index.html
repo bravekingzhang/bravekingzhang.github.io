@@ -11,7 +11,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="server,nginx,express,https,">
+    <meta name="keywords" content="server,express,nginx,https,">
   
 
   
@@ -190,7 +190,7 @@
 <h4 id="好，下面就是开始开车了，配置"><a href="#好，下面就是开始开车了，配置" class="headerlink" title="好，下面就是开始开车了，配置"></a>好，下面就是开始开车了，配置</h4><h5 id="第一种方式，子域名"><a href="#第一种方式，子域名" class="headerlink" title="第一种方式，子域名"></a>第一种方式，子域名</h5><h6 id="我们先搞一个负载均衡，当然你可以可以不搞，没关系"><a href="#我们先搞一个负载均衡，当然你可以可以不搞，没关系" class="headerlink" title="我们先搞一个负载均衡，当然你可以可以不搞，没关系"></a>我们先搞一个负载均衡，当然你可以可以不搞，没关系</h6><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">upstream</span> mobile_pool&#123;</span><br><span class="line">        <span class="attribute">server</span> 127.0.0.1:3000;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h6 id="然后在搞一个server"><a href="#然后在搞一个server" class="headerlink" title="然后在搞一个server"></a>然后在搞一个server</h6><figure class="highlight apacheconf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">server</span> &#123;</span><br><span class="line">        <span class="attribute"><span class="nomarkup">listen</span></span>       443 ssl;</span><br><span class="line">        <span class="attribute"><span class="nomarkup">listen</span></span>      <span class="meta"> [::]:443 ssl;</span></span><br><span class="line"><span class="meta">        server_name  mobile.brzhang.club;</span></span><br><span class="line"><span class="meta">        root         /usr/share/nginx/html;</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">        ssl_certificate "1_mobile.brzhang.club_bundle.crt";</span></span><br><span class="line"><span class="meta">        ssl_certificate_key "2_mobile.brzhang.club.key";</span></span><br><span class="line"><span class="meta">        ssl_session_cache shared:SSL:1m;</span></span><br><span class="line"><span class="meta">        ssl_session_timeout  10m;</span></span><br><span class="line"><span class="meta">        ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</span></span><br><span class="line"><span class="meta">        ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;</span></span><br><span class="line"><span class="meta">        ssl_prefer_server_ciphers on;</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">        # Load configuration files for the default server block.</span></span><br><span class="line"><span class="meta">        include /etc/nginx/default.d/*.conf;</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">        location / &#123;</span></span><br><span class="line"><span class="meta">            proxy_pass http://mobile_pool;</span></span><br><span class="line"><span class="meta">        &#125;</span></span><br><span class="line"><span class="meta">    &#125;</span></span><br></pre></td></tr></table></figure>
 <p>可以看到location中proxy_pass 对应于上面那个负载均衡，你如果不想搞负载均衡，在这里写死就完了，只有一台机器，也没啥负载不负载的，我这里自我检讨下，有点装逼了，但是既然玩到了，也是要对这个有一定的了解吧。</p>
-<h6 id="ok，这里需要注意一下，因为我们配置的是443端口，因此，我们mobile-brzhang-club这个子域名是需要ssl证书的"><a href="#ok，这里需要注意一下，因为我们配置的是443端口，因此，我们mobile-brzhang-club这个子域名是需要ssl证书的" class="headerlink" title="ok，这里需要注意一下，因为我们配置的是443端口，因此，我们mobile.brzhang.club这个子域名是需要ssl证书的"></a>ok，这里需要注意一下，因为我们配置的是443端口，因此，我们mobile.brzhang.club这个子域名是需要ssl证书的</h6><p><img src="https://i.loli.net/2019/05/13/5cd8ebf223fce46172.png" alt="https://i.loli.net/2019/05/13/5cd8ebf223fce46172.png"></p>
+<h6 id="ok，这里需要注意一下，因为我们配置的是443端口，因此，我们mobile-brzhang-club这个子域名是需要ssl证书的"><a href="#ok，这里需要注意一下，因为我们配置的是443端口，因此，我们mobile-brzhang-club这个子域名是需要ssl证书的" class="headerlink" title="ok，这里需要注意一下，因为我们配置的是443端口，因此，我们mobile.brzhang.club这个子域名是需要ssl证书的"></a>ok，这里需要注意一下，因为我们配置的是443端口，因此，我们mobile.brzhang.club这个子域名是需要ssl证书的</h6><p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190513143920.png" alt="ssl"></p>
 <p>如上，我是为这个子域名申请证书了的，但如果是使用的80端口，那就省去申请ssl证书的问题了，但是小程序这种严格要求是https访问的，你就玩不了了。</p>
 <h6 id="重启下nginx，子域名这种方式应该就ok啦。"><a href="#重启下nginx，子域名这种方式应该就ok啦。" class="headerlink" title="重启下nginx，子域名这种方式应该就ok啦。"></a>重启下nginx，子域名这种方式应该就ok啦。</h6><p><code>nginx -s reload</code>好的方式是验证一下nginx配置是否正确 <code>nginx -t</code></p>
 <h5 id="第二种方式，路径区分的方式"><a href="#第二种方式，路径区分的方式" class="headerlink" title="第二种方式，路径区分的方式"></a>第二种方式，路径区分的方式</h5><p>这种方式就更加简单了，直接在443默认的server下面加一个location即可</p>
@@ -236,9 +236,9 @@
   
     <div class="passage-tags">
      
-      <a href="/tags/nginx/"><i class="fa fa-tags"></i>nginx</a>
-     
       <a href="/tags/express/"><i class="fa fa-tags"></i>express</a>
+     
+      <a href="/tags/nginx/"><i class="fa fa-tags"></i>nginx</a>
      
       <a href="/tags/https/"><i class="fa fa-tags"></i>https</a>
     
@@ -348,7 +348,7 @@
 
 <div class="bottom-bar">
   <div class="bottom-bar-left">
-    <a href="javascript:void(0);" data-enable="false">
+    <a href="/2019/05/13/Android插件化原理/" data-enable="true">
       <i class="fa fa-arrow-left"></i>
     </a>
     <a href="/2019/05/10/自己搭建一个server并用nginx反向代理/" data-enable="true">

@@ -6,12 +6,12 @@
   <meta name="author" content="hz">
   
   
-  <title>归档: 2019 | Hexo</title>
+  <title>Android插件化原理 | Hexo</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="Hexo, Theme-AD">
+    <meta name="keywords" content="Android,插件化,">
   
 
   
@@ -42,7 +42,7 @@
     welcome: {"enable":false,"interval":30},
     start_time: "2019-05-09",
     passwords: ["efe07af7441da2b69c4a41e42e73be4db47f66010a56900788a458354a7373ec", ],
-    is_post: false,
+    is_post: true,
     lock: false,
     author: "hz",
     share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
@@ -144,49 +144,110 @@
 </nav>
 <div id="site-process"></div>
     <main>
-      <div class="timeline">
-  <h2 class="timeline-title">归档: 6篇</h2>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2019-05-13
+    </span>
+    
+      <span>
+        | <a href="/categories/Android/"><i class="fa fa-bookmark"></i>Android</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    Android插件化原理
+  </h1>
   
-    
-      <h3 class="timeline-subtitle">2019</h3>
-    
-    <div class="timeline-item">
-      <time>2019-05-13</time>
-      <a target="_self" href="/2019/05/13/Android插件化原理/">Android插件化原理</a>
-    </div>
+  <article class="passage-article">
+    <h3 id="Android插件大致可以分为2中方式来实现："><a href="#Android插件大致可以分为2中方式来实现：" class="headerlink" title="Android插件大致可以分为2中方式来实现："></a>Android插件大致可以分为2中方式来实现：</h3><ol>
+<li><ol>
+<li><p><strong>通过代理的方式</strong></p>
+</li>
+<li><p><strong>通过hook的方式</strong></p>
+</li>
+</ol>
+<p>所以，两种方式都有自己的优缺点：</p>
+<p>比如通过代理方式的特点就是插件中的Activity必须继承<code>PluginActivity</code>，开发侵入性强,而且将之前定的实现方式改造为插件方式成本比较大。</p>
+<p>而使用hook的方式就没有这种缺点，但是因为是hook系统的，因此稳定性方面肯定肯定就会大打折扣了。</p>
+<h5 id="hook方式的实现原理"><a href="#hook方式的实现原理" class="headerlink" title="hook方式的实现原理"></a>hook方式的实现原理</h5><p>要了解hook方式的实现原理，需要清楚activity的创建过程，下图就是activity的创建过程：</p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190513164509.png" alt></p>
+</li>
+</ol>
+<p>其实说白了，hook的方式就是在这些过程中取找一些hook点，那么hook的方式启动插件中的Activity是如何做到的呢？</p>
+<p>要弄明白这个问题，就需要解决两个问题：</p>
+<ul>
+<li><p>插件中的Activity没有在AndroidManifest中注册，如何绕过检测。</p>
+</li>
+<li><p>如何构造Activity实例，同步生命周期</p>
+</li>
+</ul>
+<p>比如VirtualAPK就是这么实现的：</p>
+<ol>
+<li><p>先在Manifest中预埋StubActivity，启动时hook上图第1步，将Intent替换成StubActivity</p>
+</li>
+<li><p>通过插件的ClassLoader反射创建插件Activity</p>
+</li>
+<li><p>替换系统Instrumentation</p>
+</li>
+<li><p>hook activity启动过程</p>
+</li>
+<li><p>hook Activity的创建过程</p>
+</li>
+</ol>
+<p>具体的原理可以参考<a href="https://zhuanlan.zhihu.com/p/33017826" target="_blank" rel="noopener">这篇博客</a></p>
+<h5 id="总结一下"><a href="#总结一下" class="headerlink" title="总结一下"></a>总结一下</h5><p>hook方式的好处就是我们可以很轻松的将之前的业务改装成插件模式，各家插件化框架有各家的优点，比如RePlugin为了系统稳定性，选择了尽量少的hook，因此它并没有选择hook系统的startActivity方法来替换intent，而是通过重写Activity的startActivity。其他家的插件化框架各有千秋，选一个合适自己的用起。</p>
+
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Android插件大致可以分为2中方式来实现："><span class="toc-text">Android插件大致可以分为2中方式来实现：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#hook方式的实现原理"><span class="toc-text">hook方式的实现原理</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#总结一下"><span class="toc-text">总结一下</span></a></li></ol></li></ol>
+  </div>
+</aside>
   
-    
-    <div class="timeline-item">
-      <time>2019-05-13</time>
-      <a target="_self" href="/2019/05/13/服务器上起两个服务，nginx如何做转发/">服务器上起两个服务，nginx如何做转发</a>
-    </div>
+    <aside class="passage-copyright">
+      <div>本文作者: hz</div>
+      
+        <div>
+          原文链接: 
+          <a href target="_blank">https://blog.brzhang.club/2019/05/13/Android插件化原理/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
   
-    
-    <div class="timeline-item">
-      <time>2019-05-10</time>
-      <a target="_self" href="/2019/05/10/自己搭建一个server并用nginx反向代理/">自己搭建一个server并用nginx反向代理</a>
-    </div>
   
+    <div class="passage-tags">
+     
+      <a href="/tags/插件化/"><i class="fa fa-tags"></i>插件化</a>
     
-    <div class="timeline-item">
-      <time>2019-05-10</time>
-      <a target="_self" href="/2019/05/10/麦苗/">麦苗</a>
-    </div>
-  
-    
-    <div class="timeline-item">
-      <time>2019-05-10</time>
-      <a target="_self" href="/2019/05/10/勿忘初心-1/">勿忘初心</a>
-    </div>
-  
-    
-    <div class="timeline-item">
-      <time>2019-05-10</time>
-      <a target="_self" href="/2019/05/10/hello-world/">Hello World</a>
     </div>
   
 </div>
+
     </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
     
     <div class="site-footer-wrapper">
   <footer class="site-footer">
@@ -281,16 +342,16 @@
     <a href="javascript:void(0);" data-enable="false">
       <i class="fa fa-arrow-left"></i>
     </a>
-    <a href="javascript:void(0);" data-enable="false">
+    <a href="/2019/05/13/服务器上起两个服务，nginx如何做转发/" data-enable="true">
       <i class="fa fa-arrow-right"></i>
     </a>
   </div>
   <div class="bottom-bar-right">
-    <a href="javascript:void(0);" data-enable="false" id="site-toc-show-btn">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
       <i class="fa fa-bars"></i>
     </a>
     
-      <a href="javascript:void(0);" data-enable="false">
+      <a href="#site-comment" data-enable="true">
         <i class="fa fa-commenting"></i>
       </a>
     
