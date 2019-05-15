@@ -196,14 +196,14 @@
 <p><strong>这里为什么要配置反向代理，下面是摘抄的express官网的一句话</strong>：逆向代理位于 Web 应用程序之前，除了将请求转发给应用程序外，还对请求执行支持性操作。它还可以处理错误页、压缩、高速缓存、文件服务和负载均衡等功能。通过将无需了解应用程序状态的任务移交给逆向代理，可以使 Express 腾出资源来执行专门的应用程序任务。因此，<strong>建议在生产环境中，在 Nginx 或 HAProxy 之类的逆向代理背后运行 Express</strong></p>
 <h3 id="后台启动express"><a href="#后台启动express" class="headerlink" title="后台启动express"></a>后台启动express</h3><p>我们发现，启动express会出现启动之后再前台，在输入其他命令就输入不了了，而且，如果是远程连接到你服务器上启动的，远程连接关闭之后，这个服务也终止了，那么怎么样后台启动呢。使用<a href="[http://expressjs.com/zh-cn/advanced/pm.html#pm2](http://expressjs.com/zh-cn/advanced/pm.html#pm2">pm2</a>，也是不要太简单。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install pm2 -g</span><br></pre></td></tr></table></figure>
-<p><img src="https://i.loli.net/2019/05/10/5cd5384c57308.png" alt="pm2启动"></p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190515110157.png" alt></p>
 <h3 id="怎么给自己的服务器搞一个域名"><a href="#怎么给自己的服务器搞一个域名" class="headerlink" title="怎么给自己的服务器搞一个域名"></a>怎么给自己的服务器搞一个域名</h3><p>我直接在腾讯与上买了一个域名，直接买了5年，壕不？</p>
-<p><img src="https://i.loli.net/2019/05/10/5cd539d1b74d0.png" alt="域名解析"></p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190515110230.png" alt></p>
 <h3 id="怎么给用上https"><a href="#怎么给用上https" class="headerlink" title="怎么给用上https"></a>怎么给用上https</h3><p>https也是在腾讯云上免费申请了一个证书，免费1年，不用白不用。</p>
-<p><img src="https://i.loli.net/2019/05/10/5cd53a2e0b92c.png" alt="https证书"></p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190515110250.png" alt></p>
 <p>https证书申请完毕需要你绑定到你域名绑定的，看我域名那个图的示例，其中那个规则就是。</p>
 <p>你以为这样就玩了么？太天真，还需要到你的ngxin服务器上去配置，记得带上你下载好的证书和key。</p>
-<p><img src="https://i.loli.net/2019/05/10/5cd53af06469a.png" alt="nginx配置https"></p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190515110307.png" alt></p>
 <p>这样你才算让你的域名可用用上https了。</p>
 <h3 id="搞一个子域名，指向我的github博客"><a href="#搞一个子域名，指向我的github博客" class="headerlink" title="搞一个子域名，指向我的github博客"></a>搞一个子域名，指向我的github博客</h3><p>可以看到前面的域名那个图中有一个CNAME的，这条配置就是指向我的博客的那个子域名，CNAME是啥？CNAME就是你github博客仓库中的一个文件，里面填的内容就是你这个域名地址，是不是有点两个人互相握手的感觉，你要指向我，我CNAME还要指向你。</p>
 <h3 id="使用hexo时cname被覆盖的问题怎么办？"><a href="#使用hexo时cname被覆盖的问题怎么办？" class="headerlink" title="使用hexo时cname被覆盖的问题怎么办？"></a>使用hexo时cname被覆盖的问题怎么办？</h3><p>hexo-generator-cname 了解一下</p>
