@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta name="author" content="hz">
+  
+  
+  <title>如何利用node把别人的html变成你想要的json | 勿忘初心</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="server,node,爬虫,">
+  
+
+  
+  <meta name="description" content="hz的小站">
+
+  
+
+  
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+  
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"eexUwhjQYzulgd49WYdUfaht-gzGzoHsz","appkey":"SJuNIOUCls6lBLiabBwDpfd0","comment":true,"count":true},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2019-05-09",
+    passwords: ["efe07af7441da2b69c4a41e42e73be4db47f66010a56900788a458354a7373ec", ],
+    is_post: true,
+    lock: false,
+    author: "hz",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">hz</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | Life is full of ups and downs！Therefore, do not think too much, all the best,all is well。[Pup]</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/bravekingzhang/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2019-05-17
+    </span>
+    
+      <span>
+        | <a href="/categories/server/"><i class="fa fa-bookmark"></i>server</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    如何利用node把别人的html变成你想要的json
+  </h1>
+  
+  <article class="passage-article">
+    <p>相信作为一个移动端的老狗，当你遇到一个有内涵的网站的时候，而且当你发现里面有太多的噪音尤其是铺天盖地的 <code>广告</code> 的时候，你是不是有种想把它净化一下的感觉呢？比如来一个纯净版本的。</p>
+<p>没错，我最近就在折腾这个，如何把自己欣赏的网站 <code>html</code> 转变为 <code>json</code>,嗯，然后使用<code>flutter</code>啊，<code>小程序</code>啊稍微包装一下，就是自己的小应用，自己自嗨那是多么怡然自得啊！</p>
+<p>好，废话多说干嘛，说干就干咯。</p>
+<h3 id="那么，如何把别人的网站变成你的小json"><a href="#那么，如何把别人的网站变成你的小json" class="headerlink" title="那么，如何把别人的网站变成你的小json"></a>那么，如何把别人的网站变成你的小json</h3><h5 id="首先，你得有一个server。"><a href="#首先，你得有一个server。" class="headerlink" title="首先，你得有一个server。"></a>首先，你得有一个server。</h5><p>那么，server怎么选择呢，我现在玩node，那自然是选择的express了，如果你在玩python，你选择flask也没任何问题，思路嘛，全部都是相通的，人生[码路]没有绕不过去的坎。自如如何在你自己的小服务器上部署额外的一个express服务，相信读过我之前的文章《服务器上起两个服务，nginx如何转发》和《自己搭建一个server并用nginx反向代理》的化，你很容易起一个express了。当然，如果你只是在本地做做研究，并没打算部署到服务器上，造化千千万万的洁癖狗们，那就免了。</p>
+<h5 id="起一个express服务"><a href="#起一个express服务" class="headerlink" title="起一个express服务"></a>起一个express服务</h5><p>这个完全不用多说什么，直接按照<a href="https://expressjs.com/zh-cn/starter/installing.html" target="_blank" rel="noopener">https://expressjs.com/zh-cn/starter/installing.html</a>一通操作就好了。</p>
+<p>然后，我想强调的是，express如何做到后台启动，请了解一下<code>pm2</code>最近在用这个，简直爽的不要不要的。</p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190517100229.png" alt></p>
+<p>如图所示，查看由pm2管理的node 服务的各种参数，不要太清晰，服务配置有改动，代码有改动直接 <code>pm2 restart 1[id]</code>即可，id上面都有的，一清二楚。听到某个服务，只需要<code>pm2 stop 1</code>。</p>
+<p>然后，日志相关的全部放在.pm2的文件夹下，如下图所示</p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190517100533.png" alt></p>
+<h5 id="撸码环节，直接上代码了"><a href="#撸码环节，直接上代码了" class="headerlink" title="撸码环节，直接上代码了"></a>撸码环节，直接上代码了</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>)</span><br><span class="line"><span class="keyword">const</span> cheerio = <span class="built_in">require</span>(<span class="string">'cheerio'</span>)</span><br><span class="line"><span class="keyword">const</span> app = express()</span><br><span class="line"><span class="keyword">const</span> request = <span class="built_in">require</span>(<span class="string">'request'</span>)</span><br><span class="line"><span class="keyword">var</span> rp = <span class="built_in">require</span>(<span class="string">'request-promise'</span>);</span><br><span class="line"><span class="keyword">const</span> Iconv = <span class="built_in">require</span>(<span class="string">'iconv-lite'</span>)</span><br><span class="line"><span class="keyword">const</span> pc = <span class="built_in">require</span>(<span class="string">'phantomjs-cheerio'</span>)</span><br><span class="line"><span class="keyword">var</span> Rx = <span class="built_in">require</span>(<span class="string">'rxjs'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">getImages</span>(<span class="params">val</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">await</span> pc.request(&#123;<span class="attr">url</span>: val.link&#125;).then(<span class="function">(<span class="params">$</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> images = []</span><br><span class="line">        $(<span class="string">'.view-box .view-main p'</span>).each(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">let</span> image = <span class="string">'http://www.xiaoliaoba.cn'</span>.concat($(<span class="keyword">this</span>).find(<span class="string">'img'</span>).attr(<span class="string">'data-src'</span>))</span><br><span class="line">            images.push(image)</span><br><span class="line">        &#125;)</span><br><span class="line">        val.images = images</span><br><span class="line">        <span class="keyword">return</span> val</span><br><span class="line">    &#125;).catch(<span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> val</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">list</span>(<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> page = <span class="built_in">parseInt</span>(req.params.page)</span><br><span class="line">    <span class="keyword">let</span> url = <span class="string">`http://www.xiaoliaoba.cn/tags/%E5%8A%A8%E6%80%81%E5%9B%BE?page=<span class="subst">$&#123;page&#125;</span>`</span></span><br><span class="line">    <span class="keyword">let</span> option = &#123;</span><br><span class="line">        url: url,</span><br><span class="line">        encoding: <span class="literal">null</span>,</span><br><span class="line">        transform: <span class="function"><span class="keyword">function</span> (<span class="params">body</span>) </span>&#123;</span><br><span class="line">            body = Iconv.decode(body, <span class="string">'utf-8'</span>)</span><br><span class="line">            <span class="keyword">return</span> cheerio.load(body);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> results = <span class="keyword">await</span> rp(option).then(<span class="function"><span class="keyword">function</span> (<span class="params">$</span>) </span>&#123;</span><br><span class="line">        links = []</span><br><span class="line">        $(<span class="string">'.cont-item'</span>).each(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">let</span> header = $(<span class="keyword">this</span>).find(<span class="string">'.cont-editor-head a img'</span>).attr(<span class="string">'src'</span>)</span><br><span class="line">            <span class="keyword">let</span> name = $(<span class="keyword">this</span>).find(<span class="string">'.view-editor-name a'</span>).text()</span><br><span class="line">            <span class="keyword">let</span> time = $(<span class="keyword">this</span>).find(<span class="string">'.view-editor-name span'</span>).text()</span><br><span class="line">            <span class="keyword">let</span> id = $(<span class="keyword">this</span>).children().find(<span class="string">'.cont-list-in a'</span>).attr(<span class="string">'href'</span>).match(<span class="regexp">/\d+/</span>)[<span class="number">0</span>]</span><br><span class="line">            <span class="keyword">let</span> cover = $(<span class="keyword">this</span>)</span><br><span class="line">                .children(<span class="string">'.cont-list-main'</span>)</span><br><span class="line">                .find(<span class="string">'img'</span>)</span><br><span class="line">                .attr(<span class="string">'data-src'</span>)</span><br><span class="line">            <span class="keyword">let</span> count = $(<span class="keyword">this</span>)</span><br><span class="line">                .children(<span class="string">'.cont-list-main'</span>)</span><br><span class="line">                .find(<span class="string">'span'</span>)</span><br><span class="line">                .text()</span><br><span class="line">            <span class="keyword">if</span> (cover != <span class="literal">undefined</span>) &#123;</span><br><span class="line">                <span class="keyword">let</span> tmp = &#123;</span><br><span class="line">                    name: name,</span><br><span class="line">                    header: header,</span><br><span class="line">                    time: time,</span><br><span class="line">                    title: $(<span class="keyword">this</span>)</span><br><span class="line">                        .children(<span class="string">'.cont-list-title'</span>)</span><br><span class="line">                        .text(),</span><br><span class="line">                    cover: <span class="string">'http://www.xiaoliaoba.cn'</span>.concat(cover),</span><br><span class="line">                    count:count,</span><br><span class="line">                    id: id</span><br><span class="line">                &#125;</span><br><span class="line">                links.push(tmp)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">        <span class="keyword">return</span> links</span><br><span class="line">    &#125;).catch(<span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(err)</span><br><span class="line">        <span class="keyword">return</span> []</span><br><span class="line">    &#125;)</span><br><span class="line">    res.send(&#123;</span><br><span class="line">        code: <span class="number">200</span>,</span><br><span class="line">        data: results,</span><br><span class="line">        msg: <span class="string">''</span></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="comment">//使用套一个异步</span></span><br><span class="line">    <span class="comment">// for (result of results) &#123;</span></span><br><span class="line">    <span class="comment">//     console.log(result)</span></span><br><span class="line">    <span class="comment">//     result.images = await getImages(result.link)</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">    <span class="comment">//使用rxjs的concatmap来做，一样的，你大爷，二次异步请求，网页加载，太耗时！！！</span></span><br><span class="line">    <span class="comment">// const source = Rx.Observable.of(results)</span></span><br><span class="line">    <span class="comment">// const example = source.pipe(Rx.Operator.concatMap(val=&gt;getImages(val)),Rx.Operator.toArray())</span></span><br><span class="line">    <span class="comment">// const subscribe = example.subscribe(val =&gt;</span></span><br><span class="line">    <span class="comment">//     res.send(&#123;</span></span><br><span class="line">    <span class="comment">//         code: 200,</span></span><br><span class="line">    <span class="comment">//         data: val,</span></span><br><span class="line">    <span class="comment">//         msg: ''</span></span><br><span class="line">    <span class="comment">//     &#125;)</span></span><br><span class="line">    <span class="comment">// );</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/:page'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">isNaN</span>(req.params.page)) &#123;</span><br><span class="line">        res.send(&#123;</span><br><span class="line">            msg: <span class="string">'请正确填写page参数 int类型'</span>,</span><br><span class="line">            code: <span class="number">2</span></span><br><span class="line">        &#125;)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">    list(req, res)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">module</span>.exports = app</span><br></pre></td></tr></table></figure>
+<p>其实基本的原理就是使用request把网页请求回来，再用<code>cheerio</code>来解析网页,cheerio和jQuery查找dom的操作很像，个人很喜欢这种风格，当然也有xpath那样的库，想用也并不是没有，xpath有一个好处，就是Chrome浏览器中可以直接查看你想要的元素的xpath，可以少手写的点吗，免去耗费脑细胞。</p>
+<p>嗯，总结：</p>
+<ol>
+<li><p>request请求网页</p>
+</li>
+<li><p>cheerio解析网页，提取自己想要的元素，组合到一个dic中</p>
+</li>
+<li><p>输出</p>
+</li>
+</ol>
+<p>一般来说，我们需要使用路由把这个微服务挂钩到express下面</p>
+<p>类似于这样<code>app.use(&#39;/xx&#39;, require(&#39;./routes/xx&#39;))</code></p>
+<h5 id="那么，有没有坑"><a href="#那么，有没有坑" class="headerlink" title="那么，有没有坑"></a>那么，有没有坑</h5><p>有，当然有，而且我踩了三个</p>
+<ol>
+<li><p>网页内容是异步加载的，怎么办呢？</p>
+</li>
+<li><p>async、await操作对node版本是有要求的，怎么办？</p>
+</li>
+<li><p>拿到这个页面的数据，发现某个字段只是一个中间数据，还需要再次请求，才能拿到真正的那个数据，又怎么办？</p>
+</li>
+</ol>
+<h6 id="网页内容是异步加载的，怎么办呢？"><a href="#网页内容是异步加载的，怎么办呢？" class="headerlink" title="网页内容是异步加载的，怎么办呢？"></a>网页内容是异步加载的，怎么办呢？</h6><p>这里你该去了解一下phantomjs，简单的说，他就像是一个浏览器，不过没有界面而已，因此，异步加载的内容这个坑就可以交给他，只不过，这个库巨慢无比，感觉投入使用不大靠谱，但总是可以搞定异步加载的内容。</p>
+<h6 id="async、await操作对node版本是有要求的，怎么办"><a href="#async、await操作对node版本是有要求的，怎么办" class="headerlink" title="async、await操作对node版本是有要求的，怎么办"></a>async、await操作对node版本是有要求的，怎么办</h6><p>这时候，就要升级你的node了</p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190517102229.png" alt></p>
+<p>我记得貌似我之前是6.x版本，使用async/await操作是报错了的。</p>
+<h6 id="发现某个字段只是一个中间数据，还需要再次请求"><a href="#发现某个字段只是一个中间数据，还需要再次请求" class="headerlink" title="发现某个字段只是一个中间数据，还需要再次请求"></a>发现某个字段只是一个中间数据，还需要再次请求</h6><p>这种你应该从代码中可以看到我已经爬了这个坑，那就是对列表中每一项在发起一个异步请求。</p>
+<p>我这里尝试过直接for，也用过rx，都是ok的，个人感觉rx的concatMap操作更好，因为他帮你做了并发，你用for await，本质上是一个个在做。</p>
+<h4 id="大功告成"><a href="#大功告成" class="headerlink" title="大功告成"></a>大功告成</h4><p>来试试吧，这是我的<a href="https://brzhang.club/nodeapi/api/joke_gif/1" target="_blank" rel="noopener">https://brzhang.club/nodeapi/api/joke_gif/1</a></p>
+
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#那么，如何把别人的网站变成你的小json"><span class="toc-text">那么，如何把别人的网站变成你的小json</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#首先，你得有一个server。"><span class="toc-text">首先，你得有一个server。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#起一个express服务"><span class="toc-text">起一个express服务</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#撸码环节，直接上代码了"><span class="toc-text">撸码环节，直接上代码了</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#那么，有没有坑"><span class="toc-text">那么，有没有坑</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#网页内容是异步加载的，怎么办呢？"><span class="toc-text">网页内容是异步加载的，怎么办呢？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#async、await操作对node版本是有要求的，怎么办"><span class="toc-text">async、await操作对node版本是有要求的，怎么办</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#发现某个字段只是一个中间数据，还需要再次请求"><span class="toc-text">发现某个字段只是一个中间数据，还需要再次请求</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#大功告成"><span class="toc-text">大功告成</span></a></li></ol>
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: hz</div>
+      
+        <div>
+          原文链接: 
+          <a href target="_blank">https://blog.brzhang.club/2019/05/17/如何利用node把别人的html变成你想要的json/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/node/"><i class="fa fa-tags"></i>node</a>
+     
+      <a href="/tags/爬虫/"><i class="fa fa-tags"></i>爬虫</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">博客推荐</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/" target="_blank">GodBMW</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">系列教程</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/categories/webpack4%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" target="_blank">webpack4系列教程</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/design-patterns/" target="_blank">设计模式手册</a>
+            </span>
+          
+        </div>
+      
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> Email: bravekingzhang@qq.com
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/images/wechat.jpeg" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/images/alipay.jpeg" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="javascript:void(0);" data-enable="false">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/2019/05/14/UI绘制流程及原理/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>
