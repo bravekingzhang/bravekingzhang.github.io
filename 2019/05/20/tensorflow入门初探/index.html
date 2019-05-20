@@ -6,12 +6,12 @@
   <meta name="author" content="hz">
   
   
-  <title>归档 | 勿忘初心</title>
+  <title>tensorflow入门初探 | 勿忘初心</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="Hexo, Theme-AD">
+    <meta name="keywords" content="人工智能,tensorflow lite,">
   
 
   
@@ -42,7 +42,7 @@
     welcome: {"enable":false,"interval":30},
     start_time: "2019-05-09",
     passwords: ["efe07af7441da2b69c4a41e42e73be4db47f66010a56900788a458354a7373ec", ],
-    is_post: false,
+    is_post: true,
     lock: false,
     author: "hz",
     share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
@@ -144,73 +144,97 @@
 </nav>
 <div id="site-process"></div>
     <main>
-      <div class="timeline">
-  <h2 class="timeline-title">归档: 10篇</h2>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2019-05-20
+    </span>
+    
+      <span>
+        | <a href="/categories/人工智能/"><i class="fa fa-bookmark"></i>人工智能</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    tensorflow入门初探
+  </h1>
   
-    
-      <h3 class="timeline-subtitle">2019</h3>
-    
-    <div class="timeline-item">
-      <time>2019-05-20</time>
-      <a target="_self" href="/2019/05/20/tensorflow入门初探/">tensorflow入门初探</a>
-    </div>
+  <article class="passage-article">
+    <h4 id="tensorflow-lite是干嘛的"><a href="#tensorflow-lite是干嘛的" class="headerlink" title="tensorflow lite是干嘛的"></a>tensorflow lite是干嘛的</h4><blockquote>
+<p>TensorFlow Lite is an open source deep learning framework for on-device inference</p>
+</blockquote>
+<p>上面这句话是官网上面的原话，直接了当的说明了TensorFlow Lite是一个可以部署在端设备上的深度学习框架，这说明了，深度学习已经有着覆盖移动端设备的趋势了，所以，移动开发者似乎又有了新的学习任务。</p>
+<h4 id="那么，目前TensorFlow-Lite能干些啥"><a href="#那么，目前TensorFlow-Lite能干些啥" class="headerlink" title="那么，目前TensorFlow Lite能干些啥"></a>那么，目前TensorFlow Lite能干些啥</h4><ol>
+<li><p>图片分类</p>
+</li>
+<li><p>物体监测</p>
+</li>
+<li><p>聊天机器人</p>
+</li>
+</ol>
+<h4 id="嗯，看起来似乎有点意思，那呢他是如何工作的呢？"><a href="#嗯，看起来似乎有点意思，那呢他是如何工作的呢？" class="headerlink" title="嗯，看起来似乎有点意思，那呢他是如何工作的呢？"></a>嗯，看起来似乎有点意思，那呢他是如何工作的呢？</h4><p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190520153835.png" alt></p>
+<p>大抵就是经过上面四个步骤</p>
+<ol>
+<li><p>选择一个已有模型改吧改吧，当然你牛你可以自己训练，大部分都是选择开源模型</p>
+</li>
+<li><p>将它转换为lite可用的模型，这一步就是一个函数调用，不怕</p>
+</li>
+<li><p>部署到端设备，相当于加载一个数据库那么easy</p>
+</li>
+<li><p>进行识别调优，准确率需要自己不断地训练去教育它。</p>
+</li>
+</ol>
+
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#tensorflow-lite是干嘛的"><span class="toc-text">tensorflow lite是干嘛的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#那么，目前TensorFlow-Lite能干些啥"><span class="toc-text">那么，目前TensorFlow Lite能干些啥</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#嗯，看起来似乎有点意思，那呢他是如何工作的呢？"><span class="toc-text">嗯，看起来似乎有点意思，那呢他是如何工作的呢？</span></a></li></ol>
+  </div>
+</aside>
   
-    
-    <div class="timeline-item">
-      <time>2019-05-20</time>
-      <a target="_self" href="/2019/05/20/我读人世间的感悟/">我读人世间的感悟</a>
-    </div>
+    <aside class="passage-copyright">
+      <div>本文作者: hz</div>
+      
+        <div>
+          原文链接: 
+          <a href target="_blank">https://blog.brzhang.club/2019/05/20/tensorflow入门初探/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
   
-    
-    <div class="timeline-item">
-      <time>2019-05-17</time>
-      <a target="_self" href="/2019/05/17/如何利用node把别人的html变成你想要的json/">如何利用node把别人的html变成你想要的json</a>
-    </div>
   
+    <div class="passage-tags">
+     
+      <a href="/tags/tensorflow-lite/"><i class="fa fa-tags"></i>tensorflow lite</a>
     
-    <div class="timeline-item">
-      <time>2019-05-14</time>
-      <a target="_self" href="/2019/05/14/UI绘制流程及原理/">UI绘制流程及原理</a>
-    </div>
-  
-    
-    <div class="timeline-item">
-      <time>2019-05-13</time>
-      <a target="_self" href="/2019/05/13/人生是为了生气的吗？/">人生是为了生气的吗？</a>
-    </div>
-  
-    
-    <div class="timeline-item">
-      <time>2019-05-13</time>
-      <a target="_self" href="/2019/05/13/Android插件化原理/">Android插件化原理</a>
-    </div>
-  
-    
-    <div class="timeline-item">
-      <time>2019-05-13</time>
-      <a target="_self" href="/2019/05/13/服务器上起两个服务，nginx如何做转发/">服务器上起两个服务，nginx如何做转发</a>
-    </div>
-  
-    
-    <div class="timeline-item">
-      <time>2019-05-10</time>
-      <a target="_self" href="/2019/05/10/自己搭建一个server并用nginx反向代理/">自己搭建一个server并用nginx反向代理</a>
-    </div>
-  
-    
-    <div class="timeline-item">
-      <time>2019-05-10</time>
-      <a target="_self" href="/2019/05/10/麦苗/">麦苗</a>
-    </div>
-  
-    
-    <div class="timeline-item">
-      <time>2019-05-10</time>
-      <a target="_self" href="/2019/05/10/勿忘初心-1/">勿忘初心</a>
     </div>
   
 </div>
+
     </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
     
     <div class="site-footer-wrapper">
   <footer class="site-footer">
@@ -305,16 +329,16 @@
     <a href="javascript:void(0);" data-enable="false">
       <i class="fa fa-arrow-left"></i>
     </a>
-    <a href="javascript:void(0);" data-enable="false">
+    <a href="/2019/05/20/我读人世间的感悟/" data-enable="true">
       <i class="fa fa-arrow-right"></i>
     </a>
   </div>
   <div class="bottom-bar-right">
-    <a href="javascript:void(0);" data-enable="false" id="site-toc-show-btn">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
       <i class="fa fa-bars"></i>
     </a>
     
-      <a href="javascript:void(0);" data-enable="false">
+      <a href="#site-comment" data-enable="true">
         <i class="fa fa-commenting"></i>
       </a>
     
