@@ -6,12 +6,12 @@
   <meta name="author" content="hz">
   
   
-  <title>tensorflow入门初探 | 勿忘初心</title>
+  <title>Tenserflow Lite之图片识别 | 勿忘初心</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="人工智能,tensorflow lite,">
+    <meta name="keywords" content="人工智能,Tensorflow,图片识别,">
   
 
   
@@ -162,34 +162,38 @@
     
   </div>
   <h1 class="passage-title">
-    tensorflow入门初探
+    Tenserflow Lite之图片识别
   </h1>
   
   <article class="passage-article">
-    <h4 id="tensorflow-lite是干嘛的"><a href="#tensorflow-lite是干嘛的" class="headerlink" title="tensorflow lite是干嘛的"></a>tensorflow lite是干嘛的</h4><blockquote>
-<p>TensorFlow Lite is an open source deep learning framework for on-device inference</p>
-</blockquote>
-<p>上面这句话是官网上面的原话，直接了当的说明了TensorFlow Lite是一个可以部署在端设备上的深度学习框架，这说明了，深度学习已经有着覆盖移动端设备的趋势了，所以，移动开发者似乎又有了新的学习任务。</p>
-<h4 id="那么，目前TensorFlow-Lite能干些啥"><a href="#那么，目前TensorFlow-Lite能干些啥" class="headerlink" title="那么，目前TensorFlow Lite能干些啥"></a>那么，目前TensorFlow Lite能干些啥</h4><ol>
-<li><p>图片分类</p>
+    <h4 id="TensorFlow-lite的介绍"><a href="#TensorFlow-lite的介绍" class="headerlink" title="TensorFlow lite的介绍"></a>TensorFlow lite的介绍</h4><p>有关TensorFlow的介绍建议看官网，如果懒的话可以直接看我上篇文章。官方告诉我们，入门TensorFlow lite的最好姿势是学习他的demo，这里从第一个例子，图片识别开始。</p>
+<h6 id="环境搭建，建议在Android上尝试，因为ios安装真机需要证书或者越狱"><a href="#环境搭建，建议在Android上尝试，因为ios安装真机需要证书或者越狱" class="headerlink" title="环境搭建，建议在Android上尝试，因为ios安装真机需要证书或者越狱"></a>环境搭建，建议在Android上尝试，因为ios安装真机需要证书或者越狱</h6><ol>
+<li><p>安装<code>Android studio</code> 这里假设你已经安装好了Android studio了，官方建议版本<code>3.2</code>以上，这里如果不是最好更新一下咯。</p>
 </li>
-<li><p>物体监测</p>
+<li><p>git clone <a href="https://github.com/tensorflow/examples.git" target="_blank" rel="noopener">https://github.com/tensorflow/examples.git</a></p>
 </li>
-<li><p>聊天机器人</p>
+<li><p>图片识别的Android工程源码放在<code>examples/lite/examples</code>这里了，使用Android studio打开已存在的项目。</p>
 </li>
 </ol>
-<h4 id="嗯，看起来似乎有点意思，那呢他是如何工作的呢？"><a href="#嗯，看起来似乎有点意思，那呢他是如何工作的呢？" class="headerlink" title="嗯，看起来似乎有点意思，那呢他是如何工作的呢？"></a>嗯，看起来似乎有点意思，那呢他是如何工作的呢？</h4><p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190520153835.png" alt></p>
-<p>大抵就是经过上面四个步骤</p>
-<ol>
-<li><p>选择一个已有模型改吧改吧，当然你牛你可以自己训练，大部分都是选择开源模型</p>
-</li>
-<li><p>将它转换为lite可用的模型，这一步就是一个函数调用，不怕</p>
-</li>
-<li><p>部署到端设备，相当于加载一个数据库那么easy</p>
-</li>
-<li><p>进行识别调优，准确率需要自己不断地训练去教育它。</p>
-</li>
-</ol>
+<h6 id="跑起来之后，直接接可以识别了"><a href="#跑起来之后，直接接可以识别了" class="headerlink" title="跑起来之后，直接接可以识别了"></a>跑起来之后，直接接可以识别了</h6><p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190520170200.png" alt></p>
+<h6 id="已经有了结果了，当然是要纠结一下它是怎么run起来的了。"><a href="#已经有了结果了，当然是要纠结一下它是怎么run起来的了。" class="headerlink" title="已经有了结果了，当然是要纠结一下它是怎么run起来的了。"></a>已经有了结果了，当然是要纠结一下它是怎么run起来的了。</h6><p>图像识别，很显然需要用到相机，这里，对于Android平台，demo中处理了一下权限的问题，还有<code>camera</code>，<code>camera2</code>的一些api的兼容问题，这些过程都不是很重要，重要的是，我们拿到图片流之后的处理：我们随便拿一个，比如camera 方式的回调</p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190520192431.png" alt></p>
+<p>这里拿到图片之后，主要进行了一个<code>convertYUV420SPToARGB8888</code>的转换，因为camera拿到的字节是YUV格式的，而后面模型处理算法是RGB方式，因此需要转换一下。</p>
+<h6 id="好，接着进入processImage环节"><a href="#好，接着进入processImage环节" class="headerlink" title="好，接着进入processImage环节"></a>好，接着进入processImage环节</h6><p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190520194106.png" alt></p>
+<p>同样，代码没有多么难以理解，拿到刚刚捕获的RGB字节，将他写入rgbFrameBitmap中，然后将其转换一下，放到一个新的croppedBitmap中，然后直接就使用分类器来识别图片了，看起来就一句代码实现了这个图像识别。</p>
+<h6 id="那么这个classfier是在哪里创建的呢？"><a href="#那么这个classfier是在哪里创建的呢？" class="headerlink" title="那么这个classfier是在哪里创建的呢？"></a>那么这个classfier是在哪里创建的呢？</h6><p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190520194516.png" alt></p>
+<p>创建的代码在此处，这里传入的参数有model，设备，线程数，对应于一下ui界面这里的设置。</p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190520194706.png" alt></p>
+<h6 id="那么，分类器具体是如何构造的呢？"><a href="#那么，分类器具体是如何构造的呢？" class="headerlink" title="那么，分类器具体是如何构造的呢？"></a>那么，分类器具体是如何构造的呢？</h6><p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190520200223.png" alt></p>
+<p>构造一份分类器，需要用到模型文件，需要制定是使用CPU，还是NNAPI，还是GPU，然后需要把要识别的结果标签加载到内存中，使用不同的模型，构造器的具体实现类还不一样。</p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190520200448.png" alt></p>
+<p>具体的分类器的实现类有两个，比如我们就看<code>ClassifierQuantizedMobileNet</code>这个分类器的实现。</p>
+<h6 id="分类器构造好之后，就该了解具体是如何做识别的了"><a href="#分类器构造好之后，就该了解具体是如何做识别的了" class="headerlink" title="分类器构造好之后，就该了解具体是如何做识别的了"></a>分类器构造好之后，就该了解具体是如何做识别的了</h6><p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190520201141.png" alt></p>
+<p>说到底这里也是一句代码的调用，然后使用优先队列来做了一个排序，个人感觉有点多次一句，直接Arrays.sort()不就搞定了，还需要用什么优先队列先塞一下，在取了在塞，浪费~~~~。</p>
+<p>最后跟一下runInference这个方法，是一个抽象方法，前面说了，根据模型不同，由具体分类器自己实现，我们姑且看<code>ClassifierQuantizedMobileNet</code>这个，以为是价值一个亿的代码，结果就这么简简单单的一行而已，不过看了下label列表，大概有1000行，估摸着这样排序会快一些，相当于做了一个堆排序。</p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190520201530.png" alt></p>
+<p>也就是说tflite会根据此时的imgData来生成一个labelProbArray，然后具体哪个label的可能性如何就可以直接取了。</p>
+<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p>整个过程就分析完了，实际上有一个可用的模型的化，就很好办了，客户端写下套路代码就ok，应用这个模型就可以给出推断结果，那么，毫无疑问，模型是如何训练呢？欲知后事如何，请听下文分解。</p>
 
   </article>
   <aside class="table-content" id="site-toc">
@@ -198,7 +202,7 @@
     <span>目录</span>
   </div>
   <div class="table-content-main">
-    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#tensorflow-lite是干嘛的"><span class="toc-text">tensorflow lite是干嘛的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#那么，目前TensorFlow-Lite能干些啥"><span class="toc-text">那么，目前TensorFlow Lite能干些啥</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#嗯，看起来似乎有点意思，那呢他是如何工作的呢？"><span class="toc-text">嗯，看起来似乎有点意思，那呢他是如何工作的呢？</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#TensorFlow-lite的介绍"><span class="toc-text">TensorFlow lite的介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#环境搭建，建议在Android上尝试，因为ios安装真机需要证书或者越狱"><span class="toc-text">环境搭建，建议在Android上尝试，因为ios安装真机需要证书或者越狱</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#跑起来之后，直接接可以识别了"><span class="toc-text">跑起来之后，直接接可以识别了</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#已经有了结果了，当然是要纠结一下它是怎么run起来的了。"><span class="toc-text">已经有了结果了，当然是要纠结一下它是怎么run起来的了。</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#好，接着进入processImage环节"><span class="toc-text">好，接着进入processImage环节</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#那么这个classfier是在哪里创建的呢？"><span class="toc-text">那么这个classfier是在哪里创建的呢？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#那么，分类器具体是如何构造的呢？"><span class="toc-text">那么，分类器具体是如何构造的呢？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#分类器构造好之后，就该了解具体是如何做识别的了"><span class="toc-text">分类器构造好之后，就该了解具体是如何做识别的了</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol>
   </div>
 </aside>
   
@@ -207,7 +211,7 @@
       
         <div>
           原文链接: 
-          <a href target="_blank">https://blog.brzhang.club/2019/05/20/tensorflow入门初探/</a>
+          <a href target="_blank">https://blog.brzhang.club/2019/05/20/Tenserflow-Lite之图片识别/</a>
         </div>
       
       <div>
@@ -218,7 +222,9 @@
   
     <div class="passage-tags">
      
-      <a href="/tags/tensorflow-lite/"><i class="fa fa-tags"></i>tensorflow lite</a>
+      <a href="/tags/Tensorflow/"><i class="fa fa-tags"></i>Tensorflow</a>
+     
+      <a href="/tags/图片识别/"><i class="fa fa-tags"></i>图片识别</a>
     
     </div>
   
@@ -326,10 +332,10 @@
 
 <div class="bottom-bar">
   <div class="bottom-bar-left">
-    <a href="/2019/05/20/Tenserflow-Lite之图片识别/" data-enable="true">
+    <a href="javascript:void(0);" data-enable="false">
       <i class="fa fa-arrow-left"></i>
     </a>
-    <a href="/2019/05/20/我读人世间的感悟/" data-enable="true">
+    <a href="/2019/05/20/tensorflow入门初探/" data-enable="true">
       <i class="fa fa-arrow-right"></i>
     </a>
   </div>
