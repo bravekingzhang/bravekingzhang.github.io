@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta name="author" content="hz">
+  
+  
+  <title>重新认识TensorFlow Lite | 勿忘初心</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="人工智能,TensorFlow,">
+  
+
+  
+  <meta name="description" content="hz的小站">
+
+  
+
+  
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+  
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"eexUwhjQYzulgd49WYdUfaht-gzGzoHsz","appkey":"SJuNIOUCls6lBLiabBwDpfd0","comment":true,"count":true},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2019-05-09",
+    passwords: ["efe07af7441da2b69c4a41e42e73be4db47f66010a56900788a458354a7373ec", ],
+    is_post: true,
+    lock: false,
+    author: "hz",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">hz</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | Life is full of ups and downs！Therefore, Don't sweat it, all the best,all is well。[Pup]</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/bravekingzhang/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2019-05-21
+    </span>
+    
+      <span>
+        | <a href="/categories/人工智能/"><i class="fa fa-bookmark"></i>人工智能</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    重新认识TensorFlow Lite
+  </h1>
+  
+  <article class="passage-article">
+    <p>前天看了了解了TensorFlow的官网，然后稍微了解了下TensorFlow就写了一篇博客《TensorFlow入门初探》,相当于对TensorFlow有一个初步的认识，简单的了解一下概念，他是干嘛的，觉得还不是很全面，所以，<code>git clone</code>他的demo，跑了一个<code>图片识别</code>的示例之后，有了点新的认识，然后就回过头在来看官网详细的介绍，发现比之前理解更加深刻了，学习，就是这样一个过程，先了解一个大概，在玩一玩，在全面了解，在深究他的原理，在做点好玩的东西出来。</p>
+<h4 id="我们需要知道的TensorFlow-Lite"><a href="#我们需要知道的TensorFlow-Lite" class="headerlink" title="我们需要知道的TensorFlow Lite"></a>我们需要知道的TensorFlow Lite</h4><p>TensorFlow lite是指能够应用在终端设备上的机器学习工具集，说白点，就是TensorFlow的阉割版。他主要包括以下两个组件。</p>
+<ol>
+<li><p><a href="https://www.tensorflow.org/lite/guide/inference" target="_blank" rel="noopener">TensorFlow Lite interpreter</a></p>
+</li>
+<li><p><a href="https://www.tensorflow.org/lite/convert/index" target="_blank" rel="noopener">TensorFlow Lite converter</a></p>
+</li>
+</ol>
+<p>对于<code>interpreter</code>，不同平台上有不同的实现，但不用担心，大多都是Google给封装好的工具库，对应于Android平台就是一个arr，直接在gradle文件中引入就ok，其他不一一介绍。</p>
+<p>对于<code>converter</code>，顾名思义，就是做转换的，为什么需要这个转换器呢，答案就在于要去适配TensorFlow lite这个工具集，他可以将TensorFlow的模型转化为TensorFlow lite可用的模型，其里面的内容是<a href="https://www.tensorflow.org/lite/convert/index" target="_blank" rel="noopener">FlatBuffer</a>据官方介绍，这种数据格式相对来说更省空间，而且跨平台性好,和<a href="https://developers.google.com/protocol-buffers" target="_blank" rel="noopener">protocol buffers</a>类似，而且比<a href="https://developers.google.com/protocol-buffers" target="_blank" rel="noopener">protocol buffers</a>有更好的压缩空间。converter也是Google提供的一个工具，目前看到的是Python版本的，当然需要注意的是，并不是所有的模型可以直接转化，因为，TensorFlow lite是一个阉割版的，TensorFlow中的一些操作TensorFlow lite中并没有，亦或者TensorFlow lite仅仅支持<code>floating-point (float32)</code>和<code>quantized (uint8, int8)</code>,而TensorFlow支持<code>string</code>类型，解决的办法是<a href="https://www.tensorflow.org/lite/guide/ops_select" target="_blank" rel="noopener">using select TensorFlow ops</a>。</p>
+<h4 id="所以，我们怎么玩TensorFlow-lite呢？"><a href="#所以，我们怎么玩TensorFlow-lite呢？" class="headerlink" title="所以，我们怎么玩TensorFlow lite呢？"></a>所以，我们怎么玩TensorFlow lite呢？</h4><p>一般来说，就是4个步骤：</p>
+<h6 id="选择一个模型"><a href="#选择一个模型" class="headerlink" title="选择一个模型"></a>选择一个模型</h6><p>模型的选择可以选择官方提供了<a href="https://www.tensorflow.org/lite/models" target="_blank" rel="noopener">Pre-trained models</a>或者从模型仓库中去找<a href="https://www.tensorflow.org/hub" target="_blank" rel="noopener">TensorFlow Hub</a>，一般来说仓库中找到都需要使用前面提到的<code>converter</code>转换一下才可以使用。当然，你是大神，我相信你可以可以<code>Train a custom model</code></p>
+<h6 id="转换模型"><a href="#转换模型" class="headerlink" title="转换模型"></a>转换模型</h6><p>前面已经提到过，TensorFlow的模型是不能直接使用的，需要转换器转换一下才能使用。而且不是所有的模型都可以直接转换。转换代码很少，就一行：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tfconverter = tf.lite.TFLiteConverter.from_saved_model(saved_model_dir)tflite_model = converter.convert()open(<span class="string">"converted_model.tflite"</span>, <span class="string">"wb"</span>).write(tflite_model)</span><br></pre></td></tr></table></figure>
+<h6 id="部署到你终端app里，进行推断"><a href="#部署到你终端app里，进行推断" class="headerlink" title="部署到你终端app里，进行推断"></a>部署到你终端app里，进行推断</h6><p>如果抽象来看的化，其实就是<code>interpreter.runForMultipleInputsOutputs(inputs,outputs)</code>为了做这件事。Google官方文档上说的是：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> (Interpreter interpreter = new Interpreter(tensorflow_lite_model_file)) &#123;  interpreter.run(input, output);&#125;</span><br></pre></td></tr></table></figure>
+<p>你去看代码<code>run</code>最终还是调用了<code>runForMultipleInputsOutputs</code>，output就是我们要的结果，是input是我们给出的输入，一般来说是<code>图片</code>,<code>声音</code>类的数据，从官方demo来看，基本上都约等于是int[]这种类型，图像可以用这个数据表达，声音也是，这其实和之前我们提到的<code>converter</code>的局限性有点间接的关系，所以说处理的模型是有限的，想<code>string</code>这种如果想处理，就的利用select TensorFlow ops这个了，但句官文说，还在试验阶段，并没有release，所以想入坑可能有难度。</p>
+<p>在推断的过程中，你可以选择利用硬件加速，或者使用代理，据官方文档说，同样的环境泡在pixel3上，开启GPU加速于不开启，会有5.5倍的差距。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GpuDelegate delegate = <span class="keyword">new</span> GpuDelegate();Interpreter.Options options = (<span class="keyword">new</span> Interpreter.Options()).addDelegate(delegate);Interpreter interpreter = <span class="keyword">new</span> Interpreter(tensorflow_lite_model_file, options);<span class="keyword">try</span> &#123;  interpreter.run(input, output);&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>部署到应用上说起来是为这么一句代码铺路，实际上做的工作还是有挺多的，也不是那么轻松，比如demo中可以看到一些坑点。</p>
+</blockquote>
+<ol>
+<li><p>在图像识别demo中，案例有队camera和camera2的兼容处理。</p>
+</li>
+<li><p>再者相机拿到的原始数据并非是RGB格式的，还需要转化一下。</p>
+</li>
+<li><p>然后权限的相关操作，相机的权限是需要申请的</p>
+</li>
+<li><p>在就是获取相机资源的加锁</p>
+</li>
+<li><p>多线程的操作，耗时操作丢在后台线程</p>
+</li>
+</ol>
+<p>这样的一些东西玩得挺好，玩得挺6其实也不是一件容易的事情，因此，个人觉得这里还是有工作可以做一些，比如，独立出一个库出来，将这些操作都封装好，暴露一些接口：</p>
+<ol>
+<li><p>拿到相机输出的图片帧数据</p>
+</li>
+<li><p>切换前后相机</p>
+</li>
+<li><p>拿到录音机的帧数据</p>
+</li>
+</ol>
+<blockquote>
+<p>个人感觉，有了这样一个库之后，TensorFlow lite玩起来的痛点就主要在模型这一块了，而且也是最难啃的一块饼，尤其是，对于终端开发来说，这个对于选择一个合适的模型就已经不容易，更何况从0开始整出一个可用模型，而且识别率还完美。</p>
+</blockquote>
+<h6 id="优化模型"><a href="#优化模型" class="headerlink" title="优化模型"></a>优化模型</h6><p>优化模型的目的无外乎两个，优化<code>模型大小</code>，和<code>提升性能</code>，比如，对模型进行量化处理：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tfconverter = tf.lite.TFLiteConverter.from_saved_model(saved_model_dir)converter.optimizations = [tf.lite.Optimize.OPTIMIZE_FOR_SIZE]tflite_quant_model = converter.convert()open(<span class="string">"converted_model.tflite"</span>, <span class="string">"wb"</span>).write(tflite_quantized_model)</span><br></pre></td></tr></table></figure>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>所以，如何玩好TensorFlow lite，首先我们需要了解怎个过程，有一个宏观上的把握TensorFlow lite如何在端上run起来的流程，再者，我们知道难点在哪里。</p>
+<p>比如，难点就是如何找到一个合适的模型来满足我们的需求：</p>
+<ol>
+<li><p>可以利用Google为我们预留的模型吗？</p>
+</li>
+<li><p>可以在他的modehub中找到吗？</p>
+</li>
+<li><p>自己训练模型</p>
+<ol>
+<li><p>基于Google预留的模型基础上来训练</p>
+</li>
+<li><p>从0开始走流程</p>
+</li>
+</ol>
+</li>
+<li><p>模型转换</p>
+</li>
+</ol>
+
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#我们需要知道的TensorFlow-Lite"><span class="toc-text">我们需要知道的TensorFlow Lite</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#所以，我们怎么玩TensorFlow-lite呢？"><span class="toc-text">所以，我们怎么玩TensorFlow lite呢？</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#选择一个模型"><span class="toc-text">选择一个模型</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#转换模型"><span class="toc-text">转换模型</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#部署到你终端app里，进行推断"><span class="toc-text">部署到你终端app里，进行推断</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#优化模型"><span class="toc-text">优化模型</span></a></li></ol></li></ol><li class="toc-item toc-level-4"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li>
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: hz</div>
+      
+        <div>
+          原文链接: 
+          <a href target="_blank">https://blog.brzhang.club/2019/05/21/重新认识TensorFlow-Lite/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/TensorFlow/"><i class="fa fa-tags"></i>TensorFlow</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">博客推荐</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/" target="_blank">GodBMW</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">系列教程</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/categories/webpack4%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" target="_blank">webpack4系列教程</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/design-patterns/" target="_blank">设计模式手册</a>
+            </span>
+          
+        </div>
+      
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> Email: bravekingzhang@qq.com
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/images/wechat.jpeg" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/images/alipay.jpeg" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="javascript:void(0);" data-enable="false">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/2019/05/20/Tenserflow-Lite之图片识别/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>

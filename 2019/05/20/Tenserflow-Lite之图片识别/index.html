@@ -185,7 +185,7 @@
 <p>创建的代码在此处，这里传入的参数有model，设备，线程数，对应于一下ui界面这里的设置。</p>
 <p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190520194706.png" alt></p>
 <h6 id="那么，分类器具体是如何构造的呢？"><a href="#那么，分类器具体是如何构造的呢？" class="headerlink" title="那么，分类器具体是如何构造的呢？"></a>那么，分类器具体是如何构造的呢？</h6><p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190520200223.png" alt></p>
-<p>构造一份分类器，需要用到模型文件，需要制定是使用CPU，还是NNAPI，还是GPU，然后需要把要识别的结果标签加载到内存中，使用不同的模型，构造器的具体实现类还不一样。</p>
+<p>构造一份分类器，需要用到模型文件，需要制定是使用<code>CPU</code>，还是<code>NNAPI</code>（Android Neural Networks API (NNAPI) 是一个 Android C API，专门为在移动设备上对机器学习运行计算密集型运算而设计），还是<code>GPU</code>，然后需要把要识别的结果标签加载到内存中，使用不同的模型，构造器的具体实现类还不一样。</p>
 <p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190520200448.png" alt></p>
 <p>具体的分类器的实现类有两个，比如我们就看<code>ClassifierQuantizedMobileNet</code>这个分类器的实现。</p>
 <h6 id="分类器构造好之后，就该了解具体是如何做识别的了"><a href="#分类器构造好之后，就该了解具体是如何做识别的了" class="headerlink" title="分类器构造好之后，就该了解具体是如何做识别的了"></a>分类器构造好之后，就该了解具体是如何做识别的了</h6><p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190520201141.png" alt></p>
@@ -332,7 +332,7 @@
 
 <div class="bottom-bar">
   <div class="bottom-bar-left">
-    <a href="javascript:void(0);" data-enable="false">
+    <a href="/2019/05/21/重新认识TensorFlow-Lite/" data-enable="true">
       <i class="fa fa-arrow-left"></i>
     </a>
     <a href="/2019/05/20/tensorflow入门初探/" data-enable="true">
