@@ -6,12 +6,12 @@
   <meta name="author" content="hz">
   
   
-  <title>归档: 2019 | 第2页 | 勿忘初心</title>
+  <title>开源私密项目tok研究 | 勿忘初心</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="Hexo, Theme-AD">
+    <meta name="keywords" content="Android,私密,隐私,">
   
 
   
@@ -42,7 +42,7 @@
     welcome: {"enable":false,"interval":30},
     start_time: "2019-05-09",
     passwords: ["efe07af7441da2b69c4a41e42e73be4db47f66010a56900788a458354a7373ec", ],
-    is_post: false,
+    is_post: true,
     lock: false,
     author: "hz",
     share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
@@ -144,49 +144,105 @@
 </nav>
 <div id="site-process"></div>
     <main>
-      <div class="timeline">
-  <h2 class="timeline-title">归档: 16篇</h2>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2019-06-20
+    </span>
+    
+      <span>
+        | <a href="/categories/Android/"><i class="fa fa-bookmark"></i>Android</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    开源私密项目tok研究
+  </h1>
   
+  <article class="passage-article">
+    <p>现在，小伙伴觉得隐私是非常重要的一件事情，谁也不希望裸奔在互联网的汪洋大海之中，那么如何做到,P2P IM，无服务器IM.</p>
+<p>从Android源代码编译，发现里面有一个cpp的子工程原本想在模拟器上跑一下的，但是发现里面只有arm的静态链接库</p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190620181501.png" alt></p>
+<p>所以只能在真机上跑，或者去找到这个静态链接库的x86版本，修改一下这里：</p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190620181553.png" alt></p>
+<p>就可以在模拟器上跑了，这个库<code>opus</code>是做音频处理的一个开源库，这里暂时还不知道作者为嘛要装逼弄个ndk玩一玩。不过我想也不妨碍我们求知吧，先看看他封装了哪些JNI,其实挺少了，也就4-5个，看了下大概就是发送语音的时候需要录音，嗯~继续~</p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190620182018.png" alt></p>
+<p>其实，我看他源码主要是想了解为什么他<code>上线的速度比较慢</code>每次大概需要20s左右的时间，这对用户体验来说无疑是致命一击。因此，本文的目的其实是重点来关注下java工程，甚至，需要在github上clone一下他的server端看看，才能找到具体原因。[我想大概率是server端，因为我体验iOS也是如此之慢的连接速度，但是连上之后体验还好]</p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190620182308.png" alt></p>
+<p>判断是否需要登录的逻辑比较简单，初次登录之后，在pref中写了一个account数据，姑且是标识符把。然后如果有的化就认为不需要再让用户去登录了，直接就去主界面了，当然还有一重判断，我没框出来，那就是<code>聊天服务ChatMainService</code> 是否开启了，没有开启那是要先开启的。</p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190620182941.png" alt></p>
+<p>好吧，所以，我们应该需要看看ChatMainService为什么便秘了呢？？</p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190620184735.png" alt></p>
+<p>嗯，大概想都不用想，上线逻辑就在这里。细心的你应该看到，isRunning=ture表示服务应启动，但是并没有意味着已经上线，然后就进去了一个消息循环，我看到timer就想笑了，因为我之前看到的消息都是推送过来的，这次换成自己去查，有点接受不了。。。哈哈，先不管这么多，继续</p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190620185109.png" alt></p>
+<p>嗯，这个callback有点猛，这么一大堆回调合集啊，万绿丛中一点红，我似乎看到了我上线是由谁接待的了。</p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190620185341.png" alt></p>
+<p>OK，我服，这样一个消息过来，全部都滚一边，至于是谁，你们自己区分去吧。继续跟踪</p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190620185748.png" alt></p>
+<p>好吧，似乎看到了，继续下去：</p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190620185832.png" alt></p>
+<p>嗯，JNI了？？？</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ToxLoadJniLibrary.load(<span class="string">"tox4j-c"</span>);</span><br></pre></td></tr></table></figure>
+<p>那么，跟踪玩之后，看起来整个过程就是一个timer不停的在问<code>tox4j-c.so</code>各种状态啊，然后不停的对各种消息进行分发处理<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">虽然说上线慢的锅在后端哦【**注意是后端而不是后台**，**因为P2P网络不存在服务器的**】，但是就这样算了？？？没门，麻蛋，`tox4j-c.so`也拿来研究下吧</span><br></pre></td></tr></table></figure></p>
+<p><a href="https://github.com/InsightIM/jvm-toxcore-c/blob/master/cpp/src/tox/core.h" target="_blank" rel="noopener">https://github.com/InsightIM/jvm-toxcore-c/blob/master/cpp/src/tox/core.h</a></p>
+<p>这个链接可以看到我们上线函数的头文件在里面坐着。</p>
+<p><a href="https://github.com/TokTok/c-toxcore/blob/master/toxcore/TCP_client.c" target="_blank" rel="noopener">https://github.com/TokTok/c-toxcore/blob/master/toxcore/TCP_client.c</a></p>
+<p>然后看看这个文件，似乎发现，他们用几种连接方式，有：</p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190620194018.png" alt></p>
+<p>好吧，最后了解了一下<a href="https://juejin.im/entry/59c8d3695188256c4b726181" target="_blank" rel="noopener">p2p</a>，所以，稍微看了下nat穿透，嗯，实际上上线缓慢是因为在这些过程中会比较耗时。</p>
+
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
     
-      <h3 class="timeline-subtitle">2019</h3>
-    
-    <div class="timeline-item">
-      <time>2019-05-13</time>
-      <a target="_self" href="/2019/05/13/人生是为了生气的吗？/">人生是为了生气的吗？</a>
-    </div>
+  </div>
+</aside>
   
-    
-    <div class="timeline-item">
-      <time>2019-05-13</time>
-      <a target="_self" href="/2019/05/13/Android插件化原理/">Android插件化原理</a>
-    </div>
+    <aside class="passage-copyright">
+      <div>本文作者: hz</div>
+      
+        <div>
+          原文链接: 
+          <a href target="_blank">https://blog.brzhang.club/2019/06/20/开源私密项目tok研究/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
   
-    
-    <div class="timeline-item">
-      <time>2019-05-13</time>
-      <a target="_self" href="/2019/05/13/服务器上起两个服务，nginx如何做转发/">服务器上起两个服务，nginx如何做转发</a>
-    </div>
   
+    <div class="passage-tags">
+     
+      <a href="/tags/私密/"><i class="fa fa-tags"></i>私密</a>
+     
+      <a href="/tags/隐私/"><i class="fa fa-tags"></i>隐私</a>
     
-    <div class="timeline-item">
-      <time>2019-05-10</time>
-      <a target="_self" href="/2019/05/10/自己搭建一个server并用nginx反向代理/">自己搭建一个server并用nginx反向代理</a>
-    </div>
-  
-    
-    <div class="timeline-item">
-      <time>2019-05-10</time>
-      <a target="_self" href="/2019/05/10/麦苗/">麦苗</a>
-    </div>
-  
-    
-    <div class="timeline-item">
-      <time>2019-05-10</time>
-      <a target="_self" href="/2019/05/10/勿忘初心-1/">勿忘初心</a>
     </div>
   
 </div>
+
     </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
     
     <div class="site-footer-wrapper">
   <footer class="site-footer">
@@ -278,19 +334,19 @@
 
 <div class="bottom-bar">
   <div class="bottom-bar-left">
-    <a href="/archives/2019/" data-enable="true">
+    <a href="javascript:void(0);" data-enable="false">
       <i class="fa fa-arrow-left"></i>
     </a>
-    <a href="javascript:void(0);" data-enable="false">
+    <a href="/2019/06/04/uni-app使用Vuex指南/" data-enable="true">
       <i class="fa fa-arrow-right"></i>
     </a>
   </div>
   <div class="bottom-bar-right">
-    <a href="javascript:void(0);" data-enable="false" id="site-toc-show-btn">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
       <i class="fa fa-bars"></i>
     </a>
     
-      <a href="javascript:void(0);" data-enable="false">
+      <a href="#site-comment" data-enable="true">
         <i class="fa fa-commenting"></i>
       </a>
     
