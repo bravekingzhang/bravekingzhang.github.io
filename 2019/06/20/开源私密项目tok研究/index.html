@@ -189,13 +189,20 @@
 <p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190620185832.png" alt></p>
 <p>嗯，JNI了？？？</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ToxLoadJniLibrary.load(<span class="string">"tox4j-c"</span>);</span><br></pre></td></tr></table></figure>
-<p>那么，跟踪玩之后，看起来整个过程就是一个timer不停的在问<code>tox4j-c.so</code>各种状态啊，然后不停的对各种消息进行分发处理<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">虽然说上线慢的锅在后端哦【**注意是后端而不是后台**，**因为P2P网络不存在服务器的**】，但是就这样算了？？？没门，麻蛋，`tox4j-c.so`也拿来研究下吧</span><br></pre></td></tr></table></figure></p>
-<p><a href="https://github.com/InsightIM/jvm-toxcore-c/blob/master/cpp/src/tox/core.h" target="_blank" rel="noopener">https://github.com/InsightIM/jvm-toxcore-c/blob/master/cpp/src/tox/core.h</a></p>
-<p>这个链接可以看到我们上线函数的头文件在里面坐着。</p>
-<p><a href="https://github.com/TokTok/c-toxcore/blob/master/toxcore/TCP_client.c" target="_blank" rel="noopener">https://github.com/TokTok/c-toxcore/blob/master/toxcore/TCP_client.c</a></p>
-<p>然后看看这个文件，似乎发现，他们用几种连接方式，有：</p>
-<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190620194018.png" alt></p>
-<p>好吧，最后了解了一下<a href="https://juejin.im/entry/59c8d3695188256c4b726181" target="_blank" rel="noopener">p2p</a>，所以，稍微看了下nat穿透，嗯，实际上上线缓慢是因为在这些过程中会比较耗时。</p>
+<p>那么，跟踪玩之后，看起来整个过程就是一个timer不停的在问<code>tox4j-c.so</code>各种状态啊，然后不停的对各种消息进行分发处理~~~~</p>
+<p>虽然说上线慢的锅在后端哦【<strong>注意是后端而不是后台</strong>，<strong>因为P2P网络不存在服务器的</strong>】，但是就这样算了？？？没门，至少要看看他这个<strong>所谓的后端</strong>是怎么实现的把。</p>
+<p>他后端的项目放在这里<a href="https://github.com/TokTok/c-toxcore" target="_blank" rel="noopener">https://github.com/TokTok/c-toxcore</a></p>
+<p>好吧，我承认不那么容易看懂，不过初略的看，确实发现不存在一个中心化的后台server，当然然吗中确实有一个文件叫做TCP_server，不过，从注释<code>Implementation of the TCP relay server part of Tox</code>可以初略的看出来，这个是TCP中继服务，从后面我了解到的原理来看，这个很有可能是用来做NAT穿透的。</p>
+<p>好吧，最后了解了一下<a href="https://juejin.im/entry/59c8d3695188256c4b726181" target="_blank" rel="noopener">p2p</a>，所以，稍微看了下NAT穿透，嗯，实际上上线缓慢是因为在这些过程中会比较耗时。但是否还有优化空间，目前暂不能下结论。</p>
+<p>完了之后，在回过头来看了一下tox的核心源码。发现它是一个分布式的 p2p 网络协议。准确来说，它提供了这样的一个网络协议的各种接口，包含安全加密、DHT 网络、洋葱路由等核心部件的实现，以及朋友请求与连接对话、群聊等模块的实现，它还包含了音视频库以供用户实现音视频交流的功能。</p>
+<p>下图是源码中找到的建立连接的函数滴啊用，别看就这么简单的设置了一个回调，其实前面经历过了不少的步骤，比如，设置<strong>引导节点</strong>，设置<strong>tcp中继</strong>等等</p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190626111901.png" alt></p>
+<p>下面是源码文件目录的一览，可以看到核心部分有加密模块，分布式网络，洋葱路由，以及TCP中继（打通NAT）。</p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190626112256.png" alt></p>
+<p>最后奉献一些关于P2P的资料</p>
+<p><a href="https://evilpan.com/2015/10/31/p2p-over-middle-box/" target="_blank" rel="noopener">https://evilpan.com/2015/10/31/p2p-over-middle-box/</a></p>
+<p><a href="https://bitcoin-on-nodejs.ebookchain.org/3-%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/3-%E4%B8%80%E4%B8%AA%E7%B2%BE%E5%B7%A7%E7%9A%84p2p%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0.html" target="_blank" rel="noopener">https://bitcoin-on-nodejs.ebookchain.org/3-%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/3-%E4%B8%80%E4%B8%AA%E7%B2%BE%E5%B7%A7%E7%9A%84p2p%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0.html</a></p>
+<p><a href="https://blog.csdn.net/yuezu/article/details/78667146" target="_blank" rel="noopener">https://blog.csdn.net/yuezu/article/details/78667146</a></p>
 
   </article>
   <aside class="table-content" id="site-toc">
