@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta name="author" content="hz">
+  
+  
+  <title>开始使用vue搞H5 | 勿忘初心</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="H5,vue,">
+  
+
+  
+  <meta name="description" content="hz的小站">
+
+  
+
+  
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+  
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"eexUwhjQYzulgd49WYdUfaht-gzGzoHsz","appkey":"SJuNIOUCls6lBLiabBwDpfd0","comment":true,"count":true},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2019-05-09",
+    passwords: ["efe07af7441da2b69c4a41e42e73be4db47f66010a56900788a458354a7373ec", ],
+    is_post: true,
+    lock: false,
+    author: "hz",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">hz</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | Life is full of ups and downs！Therefore, Don't sweat it, all the best,all is well。[Pup]</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/bravekingzhang/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2019-07-04
+    </span>
+    
+      <span>
+        | <a href="/categories/H5/"><i class="fa fa-bookmark"></i>H5</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    开始使用vue搞H5
+  </h1>
+  
+  <article class="passage-article">
+    <p>闲的蛋疼，突然想做点h5开发了，对比了一下react和vue，果断选择了vue作为学习框架，一来是因为之前做小程序，比较熟悉vue这套模式，二来因为vue的的确确上手比react要轻松很多。</p>
+<h3 id="vue页面的框架结构"><a href="#vue页面的框架结构" class="headerlink" title="vue页面的框架结构"></a>vue页面的框架结构</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div&gt;书本详情&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">        name: <span class="string">"bookDetail"</span></span><br><span class="line">    &#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;style scoped&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;/</span>style&gt;</span><br></pre></td></tr></table></figure>
+<p><code>template</code>作为设计师给你的h5模板，理论上你应该放在这个里面，但是却不一定要全部放在里面，实际操作上我们可以把需要<code>变动</code>的那部分抠出来放进去。</p>
+<p><code>script</code>毫无疑问就是我们主要的代码部分，如果要和<code>template</code>发生点什么关系，我们可以简单的理解为，<code>template</code>里面预备了一些坑位，而坑位里面需要一些数据，就是从<code>script</code>里面生成出来的，因为，我们进一步理解，script里面的一些<code>属性</code>啊，<code>计算属性</code>啊，<code>方法</code>啊，其实全部都是为了数据，数据，数据，包括后面要讲到的<code>vuex</code>，本质上也是处理数据。数据变了，<code>template</code>就跟着变了，嗯，这既是<code>MVVM</code>了。</p>
+<p><code>style</code>作为设计师给到你的css，你可以放在这里面，当然，我了解到有些团队的设计师并不会给一块块的css，那么实际上你也没有必要放到这里了，当然，这改变不了这里是放样式的这样一个事实。</p>
+<h3 id="vue中的路由vue-route"><a href="#vue中的路由vue-route" class="headerlink" title="vue中的路由vue-route"></a>vue中的路由vue-route</h3><p>单页面的应用几乎是不可能玩得转的，现在哪个业务没有十来个页面的，而vue中的路由就是为了维护这么写个<code>角色</code>嗯，页面之间的闪亮登场的，但我说页面可能并不对，说准确点应该是<code>组件</code>，但我说<code>组件</code>可能有不大好理解了，那么还是姑且称之为<code>页面块</code>吧。</p>
+<p>要玩会路由，至少需要了解两个api，</p>
+<blockquote>
+<p>router-link</p>
+</blockquote>
+<p><code>router-link</code>让我们可以导向那个页面，当然高级点的玩法是可以带点参数的，当然更加高级点的玩法是可以做点转场动画的。</p>
+<blockquote>
+<p>router-view</p>
+</blockquote>
+<p><code>router-view</code>没有什么我只想说，他就是一个装路由的盒子而已，你配置好的页面块集合，是的，其实就是那个路由表，将会和这个关联起来，通常加载的第一个页面就是那个path==’/‘的那个页面，然后结合上面的<code>router-link</code>，似乎就可以转起来了。</p>
+<p>那么问题来了，你觉得你的业务仅仅只有一层路由吗？很显然，同学，你可能严重低估了产品同学的创造[挖坑]能力，当然即便这个锅不给产品同学来背，我们也有可能给自己来挖一个，因为，我们需要<code>组件化</code>。没错，没有那个大型的项目是不这么做的，不做么做的通常都在沙滩上，那么，什么是<code>组件化</code>。</p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190704162253.png" alt></p>
+<p>嗯哼，不要告诉我蓝色方块中的每一个tab页不是一个<code>组件</code>，那既然他是一个组件，那么这里一个是不是也需要放一个<code>router-view</code>来管理这些个tab对应的<code>页面块</code>呢？</p>
+<h3 id="vue中的全局数据共享"><a href="#vue中的全局数据共享" class="headerlink" title="vue中的全局数据共享"></a>vue中的全局数据共享</h3><p>为什么需要数据全局共享，其实这是一个哲学问题，因为需要所以存在，而并不是因为存在所以我们需要它，<code>vuex</code>的出现实际上是为了解决跨页面数据互通而诞生的一个强大的刚需插件，你可能说，我并不需要他，我只需要在<code>window</code>对象上挂一个全局变量就可以了，哈哈，其实不好意的说，我一开始也是这么想的，也是很无耻的坚持了一段时间，实在是坚持不下去了，因为实际上这种数据并没有交给vue来管理，因此，需要我们自己管理，因此出现了一些隐藏的很深的bug。使用vuex之后，世界终于清静了。</p>
+<p>那么，怎么玩<code>Vuex</code>呢？</p>
+<p>要完会vuex，你需要理解两个概念：</p>
+<blockquote>
+<p>vuex把数据放在store中，你可以直接取里面的数据，这些数据是vue维护的，也就是说，是响应式的。</p>
+</blockquote>
+<blockquote>
+<p>数据的改变需要commit mutation，嗯，提交变更，这就想数据库一样，你要修改数据库记录，你需要执行<code>update xxx from t where ...</code>，嗯，姑且这么理解，反正就是不能直接修改，直接修改，有些过程就触发不了，自然而然，响应式就是一纸空谈了。</p>
+</blockquote>
+<h3 id="export-defalut的坑与import-xxx-from-yyy-的坑"><a href="#export-defalut的坑与import-xxx-from-yyy-的坑" class="headerlink" title="export defalut的坑与import xxx from yyy 的坑"></a>export defalut的坑与import xxx from yyy 的坑</h3><p>嗯，这里是一个小插曲，表示个人对js语法的一点卑微的抗议吧，首先，我不知道</p>
+<ol>
+<li><p><code>export default router</code> 和 <code>export default {router}</code>居然不是一个意思，而且export default只能有一个,不需要写{}，export语法可以写多个，但是要带上{}。</p>
+</li>
+<li><p><code>import Main from &#39;./Main.vue&#39;</code>与<code>import Main from &#39;./main.vue&#39;</code>其实是一个意思，【what’s your problem】，这让我肯困惑啊，同时，vue可省去，但是省掉同样会出现一点小问题。</p>
+</li>
+<li><p><code></code>import Main from ‘./Main’`实际上会指向maim.js文件，并没有指向Main.vue，呵呵，有点受够了这种不严谨的语法了~~</p>
+</li>
+</ol>
+<h6 id="我敢说，只要弄清楚以上的一些事情，使用vue做h5开发你才算入门了，当然入门是不够的，如果需要玩得很6，至少需要有一下几个方面的意识："><a href="#我敢说，只要弄清楚以上的一些事情，使用vue做h5开发你才算入门了，当然入门是不够的，如果需要玩得很6，至少需要有一下几个方面的意识：" class="headerlink" title="我敢说，只要弄清楚以上的一些事情，使用vue做h5开发你才算入门了，当然入门是不够的，如果需要玩得很6，至少需要有一下几个方面的意识："></a>我敢说，只要弄清楚以上的一些事情，使用vue做h5开发你才算入门了，当然入门是不够的，如果需要玩得很6，至少需要有一下几个方面的意识：</h6><ol>
+<li><p>webpack的了解。</p>
+</li>
+<li><p>自动化测试，<code>mocha</code>和<code>nightwatchjs</code></p>
+<blockquote>
+<p>你一定不想在每个迭代之后把所有功能都人工回归一遍，太浪费时间了，修改一个函数，你能保证你不影响其他用到这个函数的功能，哪里来的自信呢？嗯，用自动化测试，就是这么自信。</p>
+</blockquote>
+</li>
+<li><p>响应式原理了解</p>
+<blockquote>
+<p>每个组件实例都对应一个 <strong>watcher</strong> 实例，它会在组件渲染的过程中把“接触”过的数据属性记录为依赖。之后当依赖项的 setter 触发时，会通知 watcher，从而使它关联的组件重新渲染</p>
+</blockquote>
+</li>
+<li><p>混入-复用</p>
+<blockquote>
+<p>把他想象为组合优于继承</p>
+</blockquote>
+</li>
+<li><p>如何做一个插件</p>
+<blockquote>
+<p>vue-loader是插件，vue-router也是插件，vuex也是插件，插件从某种角度上来讲简化了我们的工作，减少了代码，促进了工程化，自己从事的项目或多或少会有一些比较特殊的重复的工作，那么可以尝试用插件来简化。</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="VUE3-0解决跨域调试的问题"><a href="#VUE3-0解决跨域调试的问题" class="headerlink" title="VUE3.0解决跨域调试的问题"></a>VUE3.0解决跨域调试的问题</h3><p>使用vue3.0脚手架生成的项目，你是看不到<code>webpack</code>相关配置文件的，甚至<code>vue.config.js</code>文件也没有，这样做其实是为了隐藏细节，对开发者更加透明，专注于自己的业务，好了，闲话也不用多说了，这里的重点是怎么解决跨域调试的问题。那么问题来了，我们遇到了这样一个问题：</p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190711113050.png" alt></p>
+<p>嗯，典型的跨域了，这里不懂跨域的同学可以去搜一下什么是跨域，那么，怎么解决跨域呢？</p>
+<ol>
+<li><p>首先，我们得在项目工程先新建一个<code>vue.config.js</code>文件，如果你的项目已经有了，那么忽略，继续下一步。</p>
+</li>
+<li><p>在里面配置一个</p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190711113754.png" alt></p>
+<p>这个配置的意思是像这样的一些请求，比如</p>
+<p><code>&#39;api/getlist/full&#39;</code>会被转发到<code>&#39;https://xxx.com/getlist/full&#39;</code>请注意前面那个请求可没有什么http的头部。</p>
+</li>
+<li><p>然后需要修改一下axios配置，这一点很重要，因为我们要为调试环境构造一个以<code>&#39;api&#39;</code>开头的请求url。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> protocol = <span class="built_in">window</span>.location.protocol</span><br><span class="line"><span class="keyword">let</span> host = <span class="built_in">window</span>.location.host <span class="comment">//主机</span></span><br><span class="line"><span class="keyword">let</span> reg = <span class="regexp">/^localhost+/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (reg.test(host)) &#123;</span><br><span class="line">  <span class="comment">//若本地项目调试使用</span></span><br><span class="line">  axios.defaults.baseURL = <span class="string">'/api'</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="comment">//动态请求地址</span></span><br><span class="line">  axios.defaults.baseURL = <span class="string">`<span class="subst">$&#123;protocol&#125;</span>//xxx.com`</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>然后一切就ok了，你现在可以happy的在本地调试了，再也不用打包好脚本，上传到服务器，然后开始调试，开发效率直接上升1000%。</p>
+<h3 id="依据惯例，放一些学习链接"><a href="#依据惯例，放一些学习链接" class="headerlink" title="依据惯例，放一些学习链接"></a>依据惯例，放一些学习链接</h3><p><a href="https://juejin.im/post/5abe3ecf6fb9a028e25dab77" target="_blank" rel="noopener">https://juejin.im/post/5abe3ecf6fb9a028e25dab77</a></p>
+<p><a href="https://nightwatchjs.org/" target="_blank" rel="noopener">https://nightwatchjs.org/</a></p>
+<p><a href="https://juejin.im/entry/5a9f9d6af265da23a0491a2a" target="_blank" rel="noopener">https://juejin.im/entry/5a9f9d6af265da23a0491a2a</a></p>
+<p><a href="https://cn.vuejs.org/v2/guide/reactivity.html" target="_blank" rel="noopener">https://cn.vuejs.org/v2/guide/reactivity.html</a></p>
+<p><a href="https://segmentfault.com/a/1190000016101954" target="_blank" rel="noopener">https://segmentfault.com/a/1190000016101954</a></p>
+
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#vue页面的框架结构"><span class="toc-text">vue页面的框架结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#vue中的路由vue-route"><span class="toc-text">vue中的路由vue-route</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#vue中的全局数据共享"><span class="toc-text">vue中的全局数据共享</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#export-defalut的坑与import-xxx-from-yyy-的坑"><span class="toc-text">export defalut的坑与import xxx from yyy 的坑</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#我敢说，只要弄清楚以上的一些事情，使用vue做h5开发你才算入门了，当然入门是不够的，如果需要玩得很6，至少需要有一下几个方面的意识："><span class="toc-text">我敢说，只要弄清楚以上的一些事情，使用vue做h5开发你才算入门了，当然入门是不够的，如果需要玩得很6，至少需要有一下几个方面的意识：</span></a></li></ol></li></ol><li class="toc-item toc-level-3"><a class="toc-link" href="#VUE3-0解决跨域调试的问题"><span class="toc-text">VUE3.0解决跨域调试的问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#依据惯例，放一些学习链接"><span class="toc-text">依据惯例，放一些学习链接</span></a></li>
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: hz</div>
+      
+        <div>
+          原文链接: 
+          <a href target="_blank">https://blog.brzhang.club/2019/07/04/开始使用vue搞H5/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/vue/"><i class="fa fa-tags"></i>vue</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">博客推荐</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/" target="_blank">GodBMW</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">系列教程</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/categories/webpack4%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" target="_blank">webpack4系列教程</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/design-patterns/" target="_blank">设计模式手册</a>
+            </span>
+          
+        </div>
+      
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> Email: bravekingzhang@qq.com
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/images/wechat.jpeg" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/images/alipay.jpeg" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="javascript:void(0);" data-enable="false">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/2019/06/28/实现一门编程语言的过程/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>
