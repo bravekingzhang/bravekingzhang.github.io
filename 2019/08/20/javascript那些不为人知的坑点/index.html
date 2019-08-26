@@ -170,7 +170,7 @@
 <p>最近开始搞h5了，所以，所以少不了和js打交道，js红宝书很久之前看过，但是走马观花般的走过一遍，现在不一样了，是要投入生产了，如是，我又重视起来了，决定在好好的过一遍，记录一下自己认为自己以后可能会犯错的地方，及时避免自己入坑了还不知所以。</p>
 </blockquote>
 <ol>
-<li><p>在<script>元素中设置defer属性，相当于告诉浏览器立即下载，但延迟执行，这样可以加快页面的首屏渲染速度，扯到这个问题，为什么需要加defer呢？这不是脑子找抽吗？不如<strong>直接把加载js文件放入到<body>标签的最底部就ok啦</strong>。</p>
+<li><p>在<code>&lt;script&gt;</code>元素中设置defer属性，相当于告诉浏览器立即下载，但延迟执行，这样可以加快页面的首屏渲染速度，扯到这个问题，为什么需要加defer呢？这不是脑子找抽吗？不如<strong>直接把加载js文件放入到<body>标签的最底部就ok啦</body></strong>。</p>
 </li>
 <li><p>ECMAScript中的字符串是不可变的，也就是说，<strong>字符串一旦创建，它们的值就不能改变</strong>。要改变某个变量保存的字符串，首先要销毁原来的字符串，然后再用另一个包含新值的字符串填充该变量</p>
 </li>
@@ -207,26 +207,26 @@
 </ol>
 </li>
 <li><p>一般来说，定义一个函数，在函数内部是有arguments可以拿到callee，和caller的，但是严格模式下，就嗝屁了，所以，这个方式不靠谱，慎用。</p>
-<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190820194644.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190820194644.png" alt></p>
 </li>
 <li><p>ECMAScript中的函数是对象，因此函数也有属性和方法。<strong>每个函数都包含两个属性：length和prototype。其中，length属性表示函数希望接收的命名参数的个数</strong>。这点实在是有点坑，不知道的，以为这个函数啥时候转变成数组了？？？</p>
 </li>
 <li><p>每个函数都包含两个非继承而来的方法：apply()和call()，如果你打算直接传入arguments对象，使用apply会方便些，因为apply接受对象或者数组作为参数，然而，call需要把参数一个个写出来，但是，最重要的一点，apply，call是可以<strong>扩充作用域</strong>的，使用call()（或apply()）来扩充作用域的最大好处，就是对象不需要与方法有任何耦合关系，比如下面，我们不需要在对象o中定义一个sayColor的方法，就可以使用这个方法，是不是有点functionProgram的赶脚呢？</p>
-<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190820200131.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190820200131.png" alt></p>
 </li>
 <li><p>bind()方法，其实作用和上面扩充作用域有点类似，比如，延续上面的示例，将函数sayColor通过bind方法绑定到o，那么此时相当于作用域变到o了，感觉似乎要比call，apply那种方式更加清晰一些。</p>
-<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190820201032.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190820201032.png" alt></p>
 </li>
 <li><p>Boolean、Number和String。这些类型当然是引用类型，但同时也具有与各自的基本类型相应的特殊行为。实际上，每当读取一个基本类型值的时候，后台就会创建一个对应的基本包装类型的对象，从而让我们能够调用一些方法来操作这些数据，比如,你没好奇过，为什么一个基本类型可以有方法呢？？实际上就是你在访问他的时候，他用以上类型对应的包装了一下。</p>
-<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190820201753.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190820201753.png" alt></p>
 </li>
 <li><p>拿到全局对象的好方法，通过这个立即执行的函数即可。</p>
-<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190821103317.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190821103317.png" alt></p>
 </li>
 <li><p>Object.defineProperty定义属性访问器。</p>
-<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190821105550.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190821105550.png" alt></p>
 <p>下面这个是坑点，你对象中已经有一个year属性了，你还用Object.defineProperty定义一个，就这样了,而且，一旦指定属性访问器，<strong>只指定getter意味着属性是不能写，尝试写入属性会被忽略。在严格模式下，尝试写入只指定了getter函数的属性会抛出错误。类似地，没有指定setter函数的属性也不能读，否则在非严格模式下会返回undefined，而在严格模式下会抛出错误</strong></p>
-<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190821110054.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190821110054.png" alt></p>
 </li>
 <li><p>迷一样的原型链</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name,age</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.age = age;</span><br><span class="line">    <span class="keyword">this</span>.sayName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> person1 = <span class="keyword">new</span> Person(<span class="string">'hz'</span>,<span class="number">31</span>)</span><br><span class="line"><span class="keyword">var</span> person2 = <span class="keyword">new</span> Person(<span class="string">'sj'</span>,<span class="number">21</span>)</span><br><span class="line">person1.sayName == person2.sayName <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
@@ -250,7 +250,7 @@
 ![](https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190821192219.png)
 </code></pre><ol start="27">
 <li><p>你真的懂new 关键字吗？其实new 就是一个语法糖而已。</p>
-<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190821193500.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190821193500.png" alt></p>
 </li>
 <li><p>闭包，也是一个挺坑内存的地方了，<strong>当在函数内部定义了其他函数时，就创建了闭包</strong>。闭包有权访问包含函数内部的所有变量，原理如下。<br>□在后台执行环境中，闭包的作用域链包含着它自己的作用域、包含函数的作用域和全局作用域。<br>□通常，函数的作用域及其所有变量都会在函数执行结束后被销毁。<br>□但是，<strong>当函数返回了一个闭包时，这个函数的作用域将会一直在内存中保存到闭包不存在为止</strong>。使用闭包可以在JavaScript中模仿块级作用域（JavaScript本身没有块级作用域的概念），要点如下。<br>□创建并立即调用一个函数，这样既可以执行其中的代码，又不会在内存中留下对该函数的引用。<br>□　结果就是函数内部的所有变量都会被立即销毁一一除非将某些变量赋值给了包含作用域（即外部作用域）中的变量。<br>闭包还可以用于在对象中创建私有变量，相关概念和要点如下。<br>□　即使JavaScript中没有正式的私有对象属性的概念，但可以使用闭包来实现公有方法，而通过公有方法可以访问在包含作用域中定义的变量。<br>□　有权访问私有变量的公有方法叫做特权方法。<br>□　可以使用构造函数模式、原型模式来实现自定义类型的特权方法，也可以使用模块模式、增强的模块模式来实现单例的特权方法。<br>JavaScript中的函数表达式和闭包都是极其有用的特性，利用它们可以实现很多功能。不过，因为创建闭包必须维护额外的作用域，所以过度使用它们可能会占用大量内存</p>
 <blockquote>
@@ -258,7 +258,7 @@
 </blockquote>
 </li>
 </ol>
-</script></p></li></ol>
+
   </article>
   <aside class="table-content" id="site-toc">
   <div class="table-content-title">
