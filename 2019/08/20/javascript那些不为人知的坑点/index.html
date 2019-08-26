@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta name="author" content="hz">
+  
+  
+  <title>javascript那些不为人知的28个坑点 | 勿忘初心</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="前端,JavaScript,">
+  
+
+  
+  <meta name="description" content="hz的小站">
+
+  
+
+  
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+  
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"eexUwhjQYzulgd49WYdUfaht-gzGzoHsz","appkey":"SJuNIOUCls6lBLiabBwDpfd0","comment":true,"count":true},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2019-05-09",
+    passwords: ["efe07af7441da2b69c4a41e42e73be4db47f66010a56900788a458354a7373ec", ],
+    is_post: true,
+    lock: false,
+    author: "hz",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">hz</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | Life is full of ups and downs！Therefore, Don't sweat it, all the best,all is well。[Pup]</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/bravekingzhang/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2019-08-20
+    </span>
+    
+      <span>
+        | <a href="/categories/前端/"><i class="fa fa-bookmark"></i>前端</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    javascript那些不为人知的28个坑点
+  </h1>
+  
+  <article class="passage-article">
+    <blockquote>
+<p>最近开始搞h5了，所以，所以少不了和js打交道，js红宝书很久之前看过，但是走马观花般的走过一遍，现在不一样了，是要投入生产了，如是，我又重视起来了，决定在好好的过一遍，记录一下自己认为自己以后可能会犯错的地方，及时避免自己入坑了还不知所以。</p>
+</blockquote>
+<ol>
+<li><p>在<script>元素中设置defer属性，相当于告诉浏览器立即下载，但延迟执行，这样可以加快页面的首屏渲染速度，扯到这个问题，为什么需要加defer呢？这不是脑子找抽吗？不如<strong>直接把加载js文件放入到<body>标签的最底部就ok啦</strong>。</p>
+</li>
+<li><p>ECMAScript中的字符串是不可变的，也就是说，<strong>字符串一旦创建，它们的值就不能改变</strong>。要改变某个变量保存的字符串，首先要销毁原来的字符串，然后再用另一个包含新值的字符串填充该变量</p>
+</li>
+<li><p>if(obj) 这种方式在其他语言中是不可思议的，但是JavaScript中，这个obj会被转换为<strong>Boolean(obj)</strong>，这下你应该明白为什么可以这么写了吧，同理if(!obj)，这种也是会先转换，在取反，因此你应该见过这种 !!obj ，也瞬间可以理解这个意思了。</p>
+</li>
+<li><p>hasOwnProperty（propertyName）：用于检查给定的属性在当前对象实例中（<strong>而不是在实例的原型中</strong>）是否存在。其中，作为参数的属性名（propertyName）必须以字符串形式指定（例如：o.hasOwnProperty（”name”））</p>
+</li>
+<li><p><code>let ret = aa &amp;&amp; bb</code> 于 <code>let ret = aa||bb</code> ，神马，你给我说你没撸过这种代码，你没撸过你说你你写过JavaScript，谁他妈信呢？第二个表达式通常是为了给ret一个默认值，就是说，aa出问题的时候bb顶上，第一个表达式可以理解为，一路通关，直捣黄龙。</p>
+</li>
+<li><p>with语句可以让你少些一些代码，<strong>但是由于大量使用with语句会导致性能下降</strong>，同时也会给调试代码造成困难，因此在开发大型应用程序时，不建议使用with语句，嗯哼，有很多人喜欢装逼用with，你考虑过性能问题吗？</p>
+</li>
+<li><p>基本数据类型存放在栈，引用类型的真正数据存放在对，对，那个变量地址存放在栈，很多人似乎都忘记了！</p>
+</li>
+<li><p><strong>typeof</strong>操作符是确定一个变量是字符串、数值、布尔值，还是undefined的最佳工具。<strong>如果变量的值是一个对象或null，则typeof操作符会像下面例子中所示的那样返回”object”</strong>，这时候，你就得借助于instanceof操作符了，当然，判断是数组，貌似有一个更好的Array.isArray()</p>
+</li>
+<li><p>JavaScript没有块级作用域的!!!</p>
+</li>
+<li><p>JavaScript没有块级作用域的!!!</p>
+</li>
+<li><p>JavaScript没有块级作用域的!!!</p>
+</li>
+<li><p>请问，以上块指的是什么，是函数吗？错啦，是if，else，while，switch那样的块，也就是说，使用var 定义的变量其实就相当在块外面定义一样，所以，别那么惊讶，怎么块走完了，那变量还在，这里var，还更加坑呢，<strong>如果不用var，呵呵，sorry，变量提升到全局了</strong>。</p>
+</li>
+<li><p>黑科技，<strong>array [push,pop]实现栈，array[push,shift]实现队列</strong>，别傻傻的自己去实现什么堆，栈的数据结构了。</p>
+</li>
+<li><p>splice估计是array中使用最多的方法了，第一个参数是索引，表示从这里开始操作，第二个参数是删除多少个原生，0表示不删除，1表示删除一个，2表示…一次类推，第三个参数…表示加入的元素，因此，总结一下，<strong>splice的意思就是，从某个位置开始，先删除几个元素，在补充几个元素</strong>。</p>
+</li>
+<li><p>正则表达式，如果只是为了验证某字符串是否匹配某个模式，那么使用test就好了，没有必要用match，在看matches中是否有啥啥。</p>
+</li>
+<li><p>函数是一个对象，函数名是指针而已，所以，函数是引用类型的。特别注意，解析器会率先读取函数声明，并使其在执行任何代码之前可用（可以访问），这也就是所以，你可以这么撸代码</p>
+<ol>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这一段ok,解析器会率先读取函数声明</span></span><br><span class="line"><span class="keyword">let</span> ret = sum(<span class="number">1</span>,<span class="number">2</span>);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span>(<span class="params">a,b</span>)</span>&#123;</span><br><span class="line"> <span class="keyword">return</span> a+b</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**************************************************/</span></span><br><span class="line"><span class="comment">//这一段嗝屁，因为这是初始化语句，而不是函数申明</span></span><br><span class="line"><span class="keyword">let</span> ret = sum(<span class="number">1</span>,<span class="number">2</span>);</span><br><span class="line"><span class="keyword">let</span> sum = <span class="function"><span class="keyword">function</span> (<span class="params">a,b</span>)</span>&#123;</span><br><span class="line"> <span class="keyword">return</span> a+b</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><p>一般来说，定义一个函数，在函数内部是有arguments可以拿到callee，和caller的，但是严格模式下，就嗝屁了，所以，这个方式不靠谱，慎用。</p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190820194644.png" alt=""></p>
+</li>
+<li><p>ECMAScript中的函数是对象，因此函数也有属性和方法。<strong>每个函数都包含两个属性：length和prototype。其中，length属性表示函数希望接收的命名参数的个数</strong>。这点实在是有点坑，不知道的，以为这个函数啥时候转变成数组了？？？</p>
+</li>
+<li><p>每个函数都包含两个非继承而来的方法：apply()和call()，如果你打算直接传入arguments对象，使用apply会方便些，因为apply接受对象或者数组作为参数，然而，call需要把参数一个个写出来，但是，最重要的一点，apply，call是可以<strong>扩充作用域</strong>的，使用call()（或apply()）来扩充作用域的最大好处，就是对象不需要与方法有任何耦合关系，比如下面，我们不需要在对象o中定义一个sayColor的方法，就可以使用这个方法，是不是有点functionProgram的赶脚呢？</p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190820200131.png" alt=""></p>
+</li>
+<li><p>bind()方法，其实作用和上面扩充作用域有点类似，比如，延续上面的示例，将函数sayColor通过bind方法绑定到o，那么此时相当于作用域变到o了，感觉似乎要比call，apply那种方式更加清晰一些。</p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190820201032.png" alt=""></p>
+</li>
+<li><p>Boolean、Number和String。这些类型当然是引用类型，但同时也具有与各自的基本类型相应的特殊行为。实际上，每当读取一个基本类型值的时候，后台就会创建一个对应的基本包装类型的对象，从而让我们能够调用一些方法来操作这些数据，比如,你没好奇过，为什么一个基本类型可以有方法呢？？实际上就是你在访问他的时候，他用以上类型对应的包装了一下。</p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190820201753.png" alt=""></p>
+</li>
+<li><p>拿到全局对象的好方法，通过这个立即执行的函数即可。</p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190821103317.png" alt=""></p>
+</li>
+<li><p>Object.defineProperty定义属性访问器。</p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190821105550.png" alt=""></p>
+<p>下面这个是坑点，你对象中已经有一个year属性了，你还用Object.defineProperty定义一个，就这样了,而且，一旦指定属性访问器，<strong>只指定getter意味着属性是不能写，尝试写入属性会被忽略。在严格模式下，尝试写入只指定了getter函数的属性会抛出错误。类似地，没有指定setter函数的属性也不能读，否则在非严格模式下会返回undefined，而在严格模式下会抛出错误</strong></p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190821110054.png" alt=""></p>
+</li>
+<li><p>迷一样的原型链</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name,age</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.age = age;</span><br><span class="line">    <span class="keyword">this</span>.sayName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> person1 = <span class="keyword">new</span> Person(<span class="string">'hz'</span>,<span class="number">31</span>)</span><br><span class="line"><span class="keyword">var</span> person2 = <span class="keyword">new</span> Person(<span class="string">'sj'</span>,<span class="number">21</span>)</span><br><span class="line">person1.sayName == person2.sayName <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<pre><code>![](https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190821114518.png)
+
+这里，就尴尬了，使用同一个类Person生成对象，sayName居然不一样，为了解决这个问题，于是，祭出了原型链。**我们创建的每个函数都有一个prototype（原型）属性，这个属性是一个指针，指向一个对象，而这个对象的用途是包含可以由特定类型的所有实例共享的属性和方法**。
+</code></pre><ol start="25">
+<li><p>实例属性和原型属性，嗯，也是迷一样，<strong>监测是实例属性还是原型属性的一个方法是hasOwnProperty,</strong>实例属性和原型属性同名会先拿到实例属性，只有在没有的时候，才会跟着原型链走，拿到原型属性，换句话说，实例属性是实例属性，原型属性是原型属性，即便名字一样，个改各的，相互不影响，而且，实例属性是私有的，你有你的，不影响其他实例。</p>
+</li>
+<li><p>使用原型模式和构造模式来创建对象，因为这是标准方式，节省内存的方式，当然还有动态原型模式</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name,age,job</span>)</span>&#123;<span class="comment">//构造器模式，这里的属性new之后属于实例自己。</span></span><br><span class="line">    <span class="keyword">this</span>.name  =  name;</span><br><span class="line">    <span class="keyword">this</span>.age = age;</span><br><span class="line">    <span class="keyword">this</span>.job = job;</span><br><span class="line">    <span class="keyword">this</span>.friends = [<span class="string">'hz'</span>,<span class="string">'wander'</span>]</span><br><span class="line">&#125;</span><br><span class="line">Person.prototype = &#123;<span class="comment">//原型模式，往类上添加共享方法，且让构造函数指向构造函数</span></span><br><span class="line">    <span class="keyword">constructor</span>:Person,</span><br><span class="line">    sayName : function()&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;    </span><br><span class="line"><span class="keyword">let</span> person1 = <span class="keyword">new</span> Person(<span class="string">'hz'</span>,<span class="number">11</span>,<span class="string">'software'</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<pre><code>![](https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190821194838.png)
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name,age,job</span>)</span>&#123;</span><br><span class="line"><span class="keyword">this</span>.name  =  name;</span><br><span class="line"><span class="keyword">this</span>.age = age;</span><br><span class="line"><span class="keyword">this</span>.job = job;</span><br><span class="line"><span class="keyword">this</span>.friends = [<span class="string">'hz'</span>,<span class="string">'wander'</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>( <span class="keyword">typeof</span> <span class="keyword">this</span>.sayName !== <span class="string">'function'</span>)&#123;</span><br><span class="line">    Person.prototype.sayName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="keyword">this</span>.name)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+![](https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190821192219.png)
+</code></pre><ol start="27">
+<li><p>你真的懂new 关键字吗？其实new 就是一个语法糖而已。</p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190821193500.png" alt=""></p>
+</li>
+<li><p>闭包，也是一个挺坑内存的地方了，<strong>当在函数内部定义了其他函数时，就创建了闭包</strong>。闭包有权访问包含函数内部的所有变量，原理如下。<br>□在后台执行环境中，闭包的作用域链包含着它自己的作用域、包含函数的作用域和全局作用域。<br>□通常，函数的作用域及其所有变量都会在函数执行结束后被销毁。<br>□但是，<strong>当函数返回了一个闭包时，这个函数的作用域将会一直在内存中保存到闭包不存在为止</strong>。使用闭包可以在JavaScript中模仿块级作用域（JavaScript本身没有块级作用域的概念），要点如下。<br>□创建并立即调用一个函数，这样既可以执行其中的代码，又不会在内存中留下对该函数的引用。<br>□　结果就是函数内部的所有变量都会被立即销毁一一除非将某些变量赋值给了包含作用域（即外部作用域）中的变量。<br>闭包还可以用于在对象中创建私有变量，相关概念和要点如下。<br>□　即使JavaScript中没有正式的私有对象属性的概念，但可以使用闭包来实现公有方法，而通过公有方法可以访问在包含作用域中定义的变量。<br>□　有权访问私有变量的公有方法叫做特权方法。<br>□　可以使用构造函数模式、原型模式来实现自定义类型的特权方法，也可以使用模块模式、增强的模块模式来实现单例的特权方法。<br>JavaScript中的函数表达式和闭包都是极其有用的特性，利用它们可以实现很多功能。不过，因为创建闭包必须维护额外的作用域，所以过度使用它们可能会占用大量内存</p>
+<blockquote>
+<p>摘录来自: 泽卡斯. “JavaScript高级程序设计（第3版）。</p>
+</blockquote>
+</li>
+</ol>
+</script></p></li></ol>
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: hz</div>
+      
+        <div>
+          原文链接: 
+          <a href target="_blank">https://blog.brzhang.club/2019/08/20/javascript那些不为人知的坑点/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/JavaScript/"><i class="fa fa-tags"></i>JavaScript</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">博客推荐</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/" target="_blank">GodBMW</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">系列教程</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/categories/webpack4%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" target="_blank">webpack4系列教程</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/design-patterns/" target="_blank">设计模式手册</a>
+            </span>
+          
+        </div>
+      
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> Email: bravekingzhang@qq.com
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/images/wechat.jpeg" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/images/alipay.jpeg" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="javascript:void(0);" data-enable="false">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/2019/08/12/你真的会用vuex吗？/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>
