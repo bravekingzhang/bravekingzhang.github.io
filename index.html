@@ -1,720 +1,1514 @@
 <!DOCTYPE html>
-<html>
-  
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
-  <meta name="author" content="hz">
-  
-  
-  <title>勿忘初心</title>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.8.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="心随我动" type="application/atom+xml">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" href="/css/main.css">
 
-  
-    <meta name="keywords" content="Hexo, Theme-AD">
-  
 
-  
-  <meta name="description" content="hz的小站">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
 
-  
 
-  
-    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
-  
-
-  
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
-  
-
-  
-    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
-  
-
-  
-
-  <script>
-  // theme-ad's config script
-  // it can be used in every script
-  
-  window.AD_CONFIG = {
-    leancloud: {"appid":"eexUwhjQYzulgd49WYdUfaht-gzGzoHsz","appkey":"SJuNIOUCls6lBLiabBwDpfd0","comment":true,"count":true},
-    welcome: {"enable":false,"interval":30},
-    start_time: "2019-05-09",
-    passwords: ["efe07af7441da2b69c4a41e42e73be4db47f66010a56900788a458354a7373ec", ],
-    is_post: false,
-    lock: false,
-    author: "hz",
-    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
-    mathjax: true,
-    page_type: "",
-    root: "/"
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://blog.brzhang.club').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
   };
 </script>
 
-  <script src="/vendor/sha256.min.js"></script>
-<script src="/js/auth.js"></script>
-<script src="/js/index.js"></script>
-<script src="/vendor/qrcode.min.js"></script>
+  <meta property="og:type" content="website">
+<meta property="og:title" content="心随我动">
+<meta property="og:url" content="https://blog.brzhang.club/index.html">
+<meta property="og:site_name" content="心随我动">
+<meta property="og:locale" content="zh-Hans">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="心随我动">
 
+<link rel="canonical" href="https://blog.brzhang.club/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: true,
+    isPost: false,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>心随我动</title>
   
-    <link rel="icon" href="/images/favicon.ico">
-    <link rel="apple-touch-icon" href="/images/touch-icon.png">
-  
 
-  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
-  <link rel="stylesheet" href="/css/index.css">
-<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
 
-  
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
 </head>
-  <body>
-    <header class="site-header">
-  <div class="site-header-brand">
-    
-      <span class="site-header-brand-title">
-        <a href="/">hz</a>
-      </span>
-    
-    
-      <span class="site-header-brand-motto"> | Life is full of ups and downs！Therefore, Don't sweat it, all the best,all is well。[Pup]</span>
-    
-  </div>
-  <div class="site-header-right">
-    <nav class="site-header-navigation">
-      
-        <a href="/" target="_self">首页</a>
-      
-        <a href="/archives/" target="_self">归档</a>
-      
-        <a href="/categories/" target="_self">分类</a>
-      
-        <a href="/about/" target="_self">关于</a>
-      
-    </nav>
-    <div class="site-header-btn">
-      
-        <a href="https://github.com/bravekingzhang/" target="_blank" id="site-github">
-          <i class="fa fa-github-alt"></i>
-        </a>
-      
-      <a href="javascript:void(0);" id="site-search">
-        <i class="fa fa-search"></i>
-      </a>
-      <a href="javascript:void(0);" id="site-nav-btn">
-        <i class="fa fa-ellipsis-v"></i>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">心随我动</span>
+        <span class="logo-line-after"><i></i></span>
       </a>
     </div>
   </div>
-</header>
-<nav class="table-content" id="site-nav">
-  <div class="table-content-title">
-    <span>导航</span>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
   </div>
-  <div class="table-content-main">
-    <ol class="toc">
-      
-        <li class="toc-item">
-          <a href="/" target="_self">
-            首页
-          </a>
-        </li>
-      
-        <li class="toc-item">
-          <a href="/archives/" target="_self">
-            归档
-          </a>
-        </li>
-      
-        <li class="toc-item">
-          <a href="/categories/" target="_self">
-            分类
-          </a>
-        </li>
-      
-        <li class="toc-item">
-          <a href="/about/" target="_self">
-            关于
-          </a>
-        </li>
-      
-    </ol>
-  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
 </nav>
-<div id="site-process"></div>
-    <main>
-      <div class="home">
-  
-    <div class="home-article-wrapper clearfix">
-      <div class="home-article" data-cover="false">
-        <div class="home-article-inner" data-cover="false">
-          <div class="passage-meta">
-            <span>
-              <i class="fa fa-calendar"></i>2019-08-20
-            </span>
-            
-              <span>
-                | <a href="/categories/前端/"><i class="fa fa-bookmark"></i>前端</a>
-              </span>
-            
-            
-              <span>
-                | <i class="fa fa-unlock-alt"></i>UNLOCK
-              </span>
-            
-          </div>
-          <h1 class="home-article-title">
-            <a href="/2019/08/20/javascript那些不为人知的坑点/">javascript那些不为人知的28个坑点</a>
-          </h1>
-          <div class="home-article-content passage-article">
-            
-              
-            
-          </div>
-          <a class="home-article-read" href="/2019/08/20/javascript那些不为人知的坑点/">
-            README MORE >>>
-          </a>
-          
-            <div class="passage-tags">
-             
-              <a href="/tags/JavaScript/"><i class="fa fa-tags"></i>JavaScript</a>
-            
-            </div>
-          
-        </div>
-        
-      </div>
-    </div>
-  
-    <div class="home-article-wrapper clearfix">
-      <div class="home-article" data-cover="false">
-        <div class="home-article-inner" data-cover="false">
-          <div class="passage-meta">
-            <span>
-              <i class="fa fa-calendar"></i>2019-08-12
-            </span>
-            
-              <span>
-                | <a href="/categories/vue/"><i class="fa fa-bookmark"></i>vue</a>
-              </span>
-            
-            
-              <span>
-                | <i class="fa fa-unlock-alt"></i>UNLOCK
-              </span>
-            
-          </div>
-          <h1 class="home-article-title">
-            <a href="/2019/08/12/你真的会用vuex吗？/">你真的会用vuex吗？</a>
-          </h1>
-          <div class="home-article-content passage-article">
-            
-              
-            
-          </div>
-          <a class="home-article-read" href="/2019/08/12/你真的会用vuex吗？/">
-            README MORE >>>
-          </a>
-          
-            <div class="passage-tags">
-             
-              <a href="/tags/前端/"><i class="fa fa-tags"></i>前端</a>
-            
-            </div>
-          
-        </div>
-        
-      </div>
-    </div>
-  
-    <div class="home-article-wrapper clearfix">
-      <div class="home-article" data-cover="false">
-        <div class="home-article-inner" data-cover="false">
-          <div class="passage-meta">
-            <span>
-              <i class="fa fa-calendar"></i>2019-07-30
-            </span>
-            
-              <span>
-                | <a href="/categories/环境搭建/"><i class="fa fa-bookmark"></i>环境搭建</a>
-              </span>
-            
-            
-              <span>
-                | <i class="fa fa-unlock-alt"></i>UNLOCK
-              </span>
-            
-          </div>
-          <h1 class="home-article-title">
-            <a href="/2019/07/30/h5高效调试环境搭建/">h5高效本地调试环境搭建</a>
-          </h1>
-          <div class="home-article-content passage-article">
-            
-              
-            
-          </div>
-          <a class="home-article-read" href="/2019/07/30/h5高效调试环境搭建/">
-            README MORE >>>
-          </a>
-          
-            <div class="passage-tags">
-             
-              <a href="/tags/h5/"><i class="fa fa-tags"></i>h5</a>
-            
-            </div>
-          
-        </div>
-        
-      </div>
-    </div>
-  
-    <div class="home-article-wrapper clearfix">
-      <div class="home-article" data-cover="false">
-        <div class="home-article-inner" data-cover="false">
-          <div class="passage-meta">
-            <span>
-              <i class="fa fa-calendar"></i>2019-07-30
-            </span>
-            
-              <span>
-                | <a href="/categories/vue/"><i class="fa fa-bookmark"></i>vue</a>
-              </span>
-            
-            
-              <span>
-                | <i class="fa fa-unlock-alt"></i>UNLOCK
-              </span>
-            
-          </div>
-          <h1 class="home-article-title">
-            <a href="/2019/07/30/vue高效调试环境搭建/">原生app开发与h5开发体验对比</a>
-          </h1>
-          <div class="home-article-content passage-article">
-            
-              
-            
-          </div>
-          <a class="home-article-read" href="/2019/07/30/vue高效调试环境搭建/">
-            README MORE >>>
-          </a>
-          
-            <div class="passage-tags">
-             
-              <a href="/tags/前端/"><i class="fa fa-tags"></i>前端</a>
-            
-            </div>
-          
-        </div>
-        
-      </div>
-    </div>
-  
-    <div class="home-article-wrapper clearfix">
-      <div class="home-article" data-cover="false">
-        <div class="home-article-inner" data-cover="false">
-          <div class="passage-meta">
-            <span>
-              <i class="fa fa-calendar"></i>2019-07-04
-            </span>
-            
-              <span>
-                | <a href="/categories/H5/"><i class="fa fa-bookmark"></i>H5</a>
-              </span>
-            
-            
-              <span>
-                | <i class="fa fa-unlock-alt"></i>UNLOCK
-              </span>
-            
-          </div>
-          <h1 class="home-article-title">
-            <a href="/2019/07/04/开始使用vue搞H5/">开始使用vue搞H5</a>
-          </h1>
-          <div class="home-article-content passage-article">
-            
-              
-            
-          </div>
-          <a class="home-article-read" href="/2019/07/04/开始使用vue搞H5/">
-            README MORE >>>
-          </a>
-          
-            <div class="passage-tags">
-             
-              <a href="/tags/vue/"><i class="fa fa-tags"></i>vue</a>
-            
-            </div>
-          
-        </div>
-        
-      </div>
-    </div>
-  
-    <div class="home-article-wrapper clearfix">
-      <div class="home-article" data-cover="false">
-        <div class="home-article-inner" data-cover="false">
-          <div class="passage-meta">
-            <span>
-              <i class="fa fa-calendar"></i>2019-06-28
-            </span>
-            
-              <span>
-                | <a href="/categories/default/"><i class="fa fa-bookmark"></i>default</a>
-              </span>
-            
-            
-              <span>
-                | <i class="fa fa-unlock-alt"></i>UNLOCK
-              </span>
-            
-          </div>
-          <h1 class="home-article-title">
-            <a href="/2019/06/28/实现一门编程语言的过程/">实现一门编程语言的过程</a>
-          </h1>
-          <div class="home-article-content passage-article">
-            
-              
-            
-          </div>
-          <a class="home-article-read" href="/2019/06/28/实现一门编程语言的过程/">
-            README MORE >>>
-          </a>
-          
-            <div class="passage-tags">
-             
-              <a href="/tags/default/"><i class="fa fa-tags"></i>default</a>
-            
-            </div>
-          
-        </div>
-        
-      </div>
-    </div>
-  
-    <div class="home-article-wrapper clearfix">
-      <div class="home-article" data-cover="false">
-        <div class="home-article-inner" data-cover="false">
-          <div class="passage-meta">
-            <span>
-              <i class="fa fa-calendar"></i>2019-06-20
-            </span>
-            
-              <span>
-                | <a href="/categories/Android/"><i class="fa fa-bookmark"></i>Android</a>
-              </span>
-            
-            
-              <span>
-                | <i class="fa fa-unlock-alt"></i>UNLOCK
-              </span>
-            
-          </div>
-          <h1 class="home-article-title">
-            <a href="/2019/06/20/开源私密项目tok研究/">一个开源P2P-IM项目研究</a>
-          </h1>
-          <div class="home-article-content passage-article">
-            
-              
-            
-          </div>
-          <a class="home-article-read" href="/2019/06/20/开源私密项目tok研究/">
-            README MORE >>>
-          </a>
-          
-            <div class="passage-tags">
-             
-              <a href="/tags/P2P/"><i class="fa fa-tags"></i>P2P</a>
-             
-              <a href="/tags/隐私/"><i class="fa fa-tags"></i>隐私</a>
-            
-            </div>
-          
-        </div>
-        
-      </div>
-    </div>
-  
-    <div class="home-article-wrapper clearfix">
-      <div class="home-article" data-cover="false">
-        <div class="home-article-inner" data-cover="false">
-          <div class="passage-meta">
-            <span>
-              <i class="fa fa-calendar"></i>2019-06-04
-            </span>
-            
-              <span>
-                | <a href="/categories/小程序/"><i class="fa fa-bookmark"></i>小程序</a>
-              </span>
-            
-            
-              <span>
-                | <i class="fa fa-unlock-alt"></i>UNLOCK
-              </span>
-            
-          </div>
-          <h1 class="home-article-title">
-            <a href="/2019/06/04/uni-app使用Vuex指南/">uni-app使用Vuex指南</a>
-          </h1>
-          <div class="home-article-content passage-article">
-            
-              
-            
-          </div>
-          <a class="home-article-read" href="/2019/06/04/uni-app使用Vuex指南/">
-            README MORE >>>
-          </a>
-          
-            <div class="passage-tags">
-             
-              <a href="/tags/vuex/"><i class="fa fa-tags"></i>vuex</a>
-            
-            </div>
-          
-        </div>
-        
-      </div>
-    </div>
-  
-    <div class="home-article-wrapper clearfix">
-      <div class="home-article" data-cover="false">
-        <div class="home-article-inner" data-cover="false">
-          <div class="passage-meta">
-            <span>
-              <i class="fa fa-calendar"></i>2019-05-27
-            </span>
-            
-              <span>
-                | <a href="/categories/人工智能/"><i class="fa fa-bookmark"></i>人工智能</a>
-              </span>
-            
-            
-              <span>
-                | <i class="fa fa-unlock-alt"></i>UNLOCK
-              </span>
-            
-          </div>
-          <h1 class="home-article-title">
-            <a href="/2019/05/27/图解机器学习笔记/">图解机器学习笔记</a>
-          </h1>
-          <div class="home-article-content passage-article">
-            
-              
-            
-          </div>
-          <a class="home-article-read" href="/2019/05/27/图解机器学习笔记/">
-            README MORE >>>
-          </a>
-          
-            <div class="passage-tags">
-             
-              <a href="/tags/机器学习/"><i class="fa fa-tags"></i>机器学习</a>
-            
-            </div>
-          
-        </div>
-        
-      </div>
-    </div>
-  
-    <div class="home-article-wrapper clearfix">
-      <div class="home-article" data-cover="false">
-        <div class="home-article-inner" data-cover="false">
-          <div class="passage-meta">
-            <span>
-              <i class="fa fa-calendar"></i>2019-05-22
-            </span>
-            
-              <span>
-                | <a href="/categories/人工智能/"><i class="fa fa-bookmark"></i>人工智能</a>
-              </span>
-            
-            
-              <span>
-                | <i class="fa fa-unlock-alt"></i>UNLOCK
-              </span>
-            
-          </div>
-          <h1 class="home-article-title">
-            <a href="/2019/05/22/TensorFlow-Lite模型折腾系列/">TensorFlow Lite模型折腾系列</a>
-          </h1>
-          <div class="home-article-content passage-article">
-            
-              
-            
-          </div>
-          <a class="home-article-read" href="/2019/05/22/TensorFlow-Lite模型折腾系列/">
-            README MORE >>>
-          </a>
-          
-            <div class="passage-tags">
-             
-              <a href="/tags/TensorFlow/"><i class="fa fa-tags"></i>TensorFlow</a>
-             
-              <a href="/tags/模型/"><i class="fa fa-tags"></i>模型</a>
-            
-            </div>
-          
-        </div>
-        
-      </div>
-    </div>
-  
 </div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/bravekingzhang" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2019/08/20/javascript那些不为人知的坑点/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hz">
+      <meta itemprop="description" content>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心随我动">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/08/20/javascript那些不为人知的坑点/" class="post-title-link" itemprop="url">javascript那些不为人知的28个坑点</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-08-20 16:38:07" itemprop="dateCreated datePublished" datetime="2019-08-20T16:38:07+08:00">2019-08-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-25 15:47:12" itemprop="dateModified" datetime="2019-11-25T15:47:12+08:00">2019-11-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2019/08/20/javascript那些不为人知的坑点/" class="post-meta-item leancloud_visitors" data-flag-title="javascript那些不为人知的28个坑点" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/08/20/javascript那些不为人知的坑点/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/20/javascript那些不为人知的坑点/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>最近开始搞h5了，所以，所以少不了和js打交道，js红宝书很久之前看过，但是走马观花般的走过一遍，现在不一样了，是要投入生产了，如是，我又重视起来了，决定在好好的过一遍，记录一下自己认为自己以后可能会犯错的地方，及时避免自己入坑了还不知所以。</p>
+</blockquote>
+<ol>
+<li><p>在<code>script</code>元素中设置defer属性，相当于告诉浏览器立即下载，但延迟执行，这样可以加快页面的首屏渲染速度，扯到这个问题，为什么需要加defer呢？这不是脑子找抽吗？不如<strong>直接把加载js文件放入到<body>标签的最底部就ok啦</body></strong>。</p>
+</li>
+<li><p>ECMAScript中的字符串是不可变的，也就是说，<strong>字符串一旦创建，它们的值就不能改变</strong>。要改变某个变量保存的字符串，首先要销毁原来的字符串，然后再用另一个包含新值的字符串填充该变量
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/08/20/javascript那些不为人知的坑点/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </p></li></ol></div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2019/08/12/你真的会用vuex吗？/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hz">
+      <meta itemprop="description" content>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心随我动">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/08/12/你真的会用vuex吗？/" class="post-title-link" itemprop="url">你真的会用vuex吗？</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-08-12 14:42:41" itemprop="dateCreated datePublished" datetime="2019-08-12T14:42:41+08:00">2019-08-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-25 15:58:07" itemprop="dateModified" datetime="2019-11-25T15:58:07+08:00">2019-11-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vue/" itemprop="url" rel="index">
+                    <span itemprop="name">vue</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2019/08/12/你真的会用vuex吗？/" class="post-meta-item leancloud_visitors" data-flag-title="你真的会用vuex吗？" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/08/12/你真的会用vuex吗？/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/12/你真的会用vuex吗？/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>不得不说，vuex真实一个非常好用的库，在vue中起着举足轻重的作用，那么，vuex的作用是什么呢？作为一个新手，我们关心的是在什么样的场景下，应该请出vuex这个大杀器。</p>
+<h3 id="vuex的作用"><a href="#vuex的作用" class="headerlink" title="vuex的作用"></a>vuex的作用</h3><p>当然，我这里肯定不会给你讲官话，我将的只可能是基于实践中自己的感受，<strong>vuex实际上就是多页面共享数据仓库</strong>。是的，这就是我的vuex的理解，在我们开发也许需求的时候，不可避免的我们需要在多页面之间共享一些数据，比如用户基本信息，比如，省份城市列表等等，活在在举出一个例子，比如电商网站，用户的购物车数据，是的，这些数据都是要在所有页面中能个随时拿随时取的。好，我们不免有一个问题要问，难道我们就非得要使用vuex吗？
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/08/12/你真的会用vuex吗？/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </p></div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2019/07/30/h5高效调试环境搭建/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hz">
+      <meta itemprop="description" content>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心随我动">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/07/30/h5高效调试环境搭建/" class="post-title-link" itemprop="url">h5高效本地调试环境搭建</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-07-30 11:31:11" itemprop="dateCreated datePublished" datetime="2019-07-30T11:31:11+08:00">2019-07-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-25 15:58:40" itemprop="dateModified" datetime="2019-11-25T15:58:40+08:00">2019-11-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/环境搭建/" itemprop="url" rel="index">
+                    <span itemprop="name">环境搭建</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2019/07/30/h5高效调试环境搭建/" class="post-meta-item leancloud_visitors" data-flag-title="h5高效本地调试环境搭建" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/07/30/h5高效调试环境搭建/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/07/30/h5高效调试环境搭建/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>调试是永远和开发分不开的一个话题，我相信没有谁能够不经过调试，一气呵成，将一个需求开发出来，如果是这样，一般都是<code>一通操作猛于虎，一看bug在跳广场舞</code>。嗯，段子讲完了，那么久要进入正题了。</p><h2 id="首先，我们为什么需要搭建本地调试环境？"><a href="#首先，我们为什么需要搭建本地调试环境？" class="headerlink" title="首先，我们为什么需要搭建本地调试环境？"></a>首先，我们为什么需要搭建本地调试环境？</h2><p>因为，我们开发的业务绝对需要上线到正式环境的，不然你做的就是一个玩具，对吗？而我们在本地【localhost】开发，终究是用不到<code>线网的一些环境</code>，或许，比较规范的团队是有<code>测试环境</code>的，所以，我们有必要先来区分一下几个环境。</p><ol>
+<li><p>localhost：这里指你的本地环境，比如vue server可以启动一个server，来跑你的代码。</p>
+</li>
+<li><p>测试环境：这里不同于正式环境的是，他是提供给测试，或者产品体验的一个服务器，其体验仅次于正式环境了，甚至各种环境变量配置都和正式环境类似，只不过数据是随意制造的，除了这一点和有正式环境有略微差别，其他几乎没有差别。和localhost的差别主要就是一些登录校验在这上面可以过，但是在localhost不行，原因就是因为域名没有被后台配置为<code>白名单</code>。</p>
+</li>
+<li><p>正式环境：就是线网用户可以使用的环境，这个上面数据是真实数据，几乎和测试环境一致。</p>
+</li>
+</ol>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/07/30/h5高效调试环境搭建/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2019/07/30/vue高效调试环境搭建/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hz">
+      <meta itemprop="description" content>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心随我动">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/07/30/vue高效调试环境搭建/" class="post-title-link" itemprop="url">原生app开发与h5开发体验对比</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-07-30 09:58:30" itemprop="dateCreated datePublished" datetime="2019-07-30T09:58:30+08:00">2019-07-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-25 15:58:15" itemprop="dateModified" datetime="2019-11-25T15:58:15+08:00">2019-11-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vue/" itemprop="url" rel="index">
+                    <span itemprop="name">vue</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2019/07/30/vue高效调试环境搭建/" class="post-meta-item leancloud_visitors" data-flag-title="原生app开发与h5开发体验对比" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/07/30/vue高效调试环境搭建/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/07/30/vue高效调试环境搭建/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>从移动客户端转h5开发这一个月左右以来，给我最大的感触就是两者之间本质没有任何区别，为了证明我说的这一点，我将用移动客户端来类比h5，来”证明”我说的两者没有任何本质区别。</p><h3 id="直观上面的感受"><a href="#直观上面的感受" class="headerlink" title="直观上面的感受"></a>直观上面的感受</h3><p>看到下面这样一个页面，你能够直接肯定这是一个h5还是一个app原生页吗？答案肯定是你不能，我之前在做移动端app的时候，也用原生做过这样的页面。</p><p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190730100710.png" alt></p><h3 id="技术层面的类比"><a href="#技术层面的类比" class="headerlink" title="技术层面的类比"></a>技术层面的类比</h3><h5 id="从登陆说起"><a href="#从登陆说起" class="headerlink" title="从登陆说起"></a>从登陆说起</h5><p>当然登录页不是一个简单的事，这里只想说第三方登录，比如QQ或者微信登录，两端所做的事情是及其类似，比如，我们某一接口出发了登录态校验，发现用户没有登录态：</p><ol>
+<li><p>app的做法是：弹出登录页进行登录，登录之后，将登录信息存储到sharepreference中，在次请求的时候，通过<code>程序的做法</code>携带这些信息去请求，后台server就认识你是一个有身份的人啦。</p>
+</li>
+<li><p>h5端的做法是：后台发现你没有登录太，会在返回body中，一般来说是json中，告知你<code>redirect_url</code>和<code>jump_url</code>,redirect_url告知你去请求这个地址已获取登录太，这个实际上会触发你拉起微信登录或者手Q登录，微信或者手Q那边就会给你<code>中cookie</code>,然后jump_url会回到你刚刚发生请求的那个页(一般来说会是这样的，不过因为refer不能回略去一些params会略有不同)，此时你再次发送请求的时候，就可以携带cookie中的信息去后台请求，此时你也是一个有身份的人了。</p>
+</li>
+</ol>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/07/30/vue高效调试环境搭建/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2019/07/04/开始使用vue搞H5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hz">
+      <meta itemprop="description" content>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心随我动">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/07/04/开始使用vue搞H5/" class="post-title-link" itemprop="url">开始使用vue搞H5</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-07-04 10:46:49" itemprop="dateCreated datePublished" datetime="2019-07-04T10:46:49+08:00">2019-07-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-25 15:55:37" itemprop="dateModified" datetime="2019-11-25T15:55:37+08:00">2019-11-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/H5/" itemprop="url" rel="index">
+                    <span itemprop="name">H5</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2019/07/04/开始使用vue搞H5/" class="post-meta-item leancloud_visitors" data-flag-title="开始使用vue搞H5" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/07/04/开始使用vue搞H5/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/07/04/开始使用vue搞H5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>闲的蛋疼，突然想做点h5开发了，对比了一下react和vue，果断选择了vue作为学习框架，一来是因为之前做小程序，比较熟悉vue这套模式，二来因为vue的的确确上手比react要轻松很多。</p>
+<h3 id="vue页面的框架结构"><a href="#vue页面的框架结构" class="headerlink" title="vue页面的框架结构"></a>vue页面的框架结构</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div&gt;书本详情&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">        name: <span class="string">"bookDetail"</span></span><br><span class="line">    &#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;style scoped&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;/</span>style&gt;</span><br></pre></td></tr></table></figure>
+<p><code>template</code>作为设计师给你的h5模板，理论上你应该放在这个里面，但是却不一定要全部放在里面，实际操作上我们可以把需要<code>变动</code>的那部分抠出来放进去。</p>
+<p><code>script</code>毫无疑问就是我们主要的代码部分，如果要和<code>template</code>发生点什么关系，我们可以简单的理解为，<code>template</code>里面预备了一些坑位，而坑位里面需要一些数据，就是从<code>script</code>里面生成出来的，因为，我们进一步理解，script里面的一些<code>属性</code>啊，<code>计算属性</code>啊，<code>方法</code>啊，其实全部都是为了数据，数据，数据，包括后面要讲到的<code>vuex</code>，本质上也是处理数据。数据变了，<code>template</code>就跟着变了，嗯，这既是<code>MVVM</code>了。</p>
+<p><code>style</code>作为设计师给到你的css，你可以放在这里面，当然，我了解到有些团队的设计师并不会给一块块的css，那么实际上你也没有必要放到这里了，当然，这改变不了这里是放样式的这样一个事实。
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/07/04/开始使用vue搞H5/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </p></div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2019/06/28/实现一门编程语言的过程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hz">
+      <meta itemprop="description" content>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心随我动">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/06/28/实现一门编程语言的过程/" class="post-title-link" itemprop="url">实现一门编程语言的过程</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-06-28 16:50:43" itemprop="dateCreated datePublished" datetime="2019-06-28T16:50:43+08:00">2019-06-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-25 15:57:35" itemprop="dateModified" datetime="2019-11-25T15:57:35+08:00">2019-11-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/default/" itemprop="url" rel="index">
+                    <span itemprop="name">default</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2019/06/28/实现一门编程语言的过程/" class="post-meta-item leancloud_visitors" data-flag-title="实现一门编程语言的过程" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/06/28/实现一门编程语言的过程/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/06/28/实现一门编程语言的过程/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2019/06/20/开源私密项目tok研究/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hz">
+      <meta itemprop="description" content>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心随我动">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/06/20/开源私密项目tok研究/" class="post-title-link" itemprop="url">一个开源P2P-IM项目研究</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-06-20 18:12:02" itemprop="dateCreated datePublished" datetime="2019-06-20T18:12:02+08:00">2019-06-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-25 15:57:32" itemprop="dateModified" datetime="2019-11-25T15:57:32+08:00">2019-11-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2019/06/20/开源私密项目tok研究/" class="post-meta-item leancloud_visitors" data-flag-title="一个开源P2P-IM项目研究" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/06/20/开源私密项目tok研究/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/06/20/开源私密项目tok研究/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>现在，小伙伴觉得隐私是非常重要的一件事情，谁也不希望裸奔在互联网的汪洋大海之中，那么如何做到,P2P IM，无服务器IM.</p>
+<p>从Android源代码编译，发现里面有一个cpp的子工程原本想在模拟器上跑一下的，但是发现里面只有arm的静态链接库
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/06/20/开源私密项目tok研究/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </p></div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2019/06/04/uni-app使用Vuex指南/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hz">
+      <meta itemprop="description" content>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心随我动">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/06/04/uni-app使用Vuex指南/" class="post-title-link" itemprop="url">uni-app使用Vuex指南</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-06-04 20:18:20" itemprop="dateCreated datePublished" datetime="2019-06-04T20:18:20+08:00">2019-06-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-06-05 12:01:29" itemprop="dateModified" datetime="2019-06-05T12:01:29+08:00">2019-06-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/小程序/" itemprop="url" rel="index">
+                    <span itemprop="name">小程序</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2019/06/04/uni-app使用Vuex指南/" class="post-meta-item leancloud_visitors" data-flag-title="uni-app使用Vuex指南" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/06/04/uni-app使用Vuex指南/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/06/04/uni-app使用Vuex指南/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>今天遇到这样一个需求，需要将上一个页面的一坨数据带到下一个页面去，不只打怎么办才好。</p>
+<p>大概查了一下，有四中方式；</p>
+<ol>
+<li><p>公用模块</p>
+<p>这种方式就是做一个单例，把需要的变量放在一个js文件中，然后到处引用，可想而知有多混乱。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> websiteUrl = <span class="string">'http://uniapp.dcloud.io'</span>;  </span><br><span class="line"><span class="keyword">const</span> now = <span class="built_in">Date</span>.now || <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Date</span>().getTime();  </span><br><span class="line">&#125;;  </span><br><span class="line"><span class="keyword">const</span> isArray = <span class="built_in">Array</span>.isArray || <span class="function"><span class="keyword">function</span> (<span class="params">obj</span>) </span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> obj <span class="keyword">instanceof</span> <span class="built_in">Array</span>;  </span><br><span class="line">&#125;;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;  </span><br><span class="line">    websiteUrl,  </span><br><span class="line">    now,  </span><br><span class="line">    isArray  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>挂载 Vue.prototype</p>
+<p>  在 main.js 中挂载属性/方法，<strong>注意坑</strong>websiteUrl，这个在其他地方改了，另外的文件读到的还是后面初始化的这个值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Vue.prototype.websiteUrl = <span class="string">'http://uniapp.dcloud.io'</span>;  </span><br><span class="line">Vue.prototype.now = <span class="built_in">Date</span>.now || <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Date</span>().getTime();  </span><br><span class="line">&#125;;  </span><br><span class="line">Vue.prototype.isArray = <span class="built_in">Array</span>.isArray || <span class="function"><span class="keyword">function</span> (<span class="params">obj</span>) </span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> obj <span class="keyword">instanceof</span> <span class="built_in">Array</span>;  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>globalData</p>
+<p>在小程序中可以在 App 上声明 globalData，但在 Vue 中没有这个属性，可以使用 API 读写这个值。</p>
+<p>赋值：<code>getApp().globalData.text = &#39;test&#39;</code></p>
+<p>取值：<code>console.log(getApp().globalData.text) // &#39;test&#39;</code></p>
+<ol>
+<li><p>Vuex</p>
+<p>Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。它采用集中式存储管理应用的所有组件的状态，并以相应的规则保证状态以一种可预测的方式发生变化。</p>
+<p>虽然说很好，但是我玩的时候还是爬了点坑。</p>
+<p>1、在 uni-app 项目根目录下新建 store 目录，在 store 目录下创建 index.js 定义状态值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> Vuex <span class="keyword">from</span> <span class="string">'vuex'</span></span><br><span class="line"></span><br><span class="line">Vue.use(Vuex)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> store = <span class="keyword">new</span> Vuex.Store(&#123;</span><br><span class="line">    state: &#123;</span><br><span class="line">        rssItem: &#123;&#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    mutations: &#123;</span><br><span class="line">        setRssItem(state, payload) &#123;</span><br><span class="line">            state.login = <span class="literal">false</span>;</span><br><span class="line">            state.rssItem = payload.rssItem</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">"Vuex.Store set rssItem   "</span>, state.rssItem)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> store</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ol>
+<pre><code>2、需要在 main.js 挂载 Vuex
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> store <span class="keyword">from</span> <span class="string">'./store'</span>  </span><br><span class="line">Vue.prototype.$store = store  </span><br><span class="line">.....</span><br><span class="line">.....</span><br><span class="line"></span><br><span class="line"><span class="comment">//千万注意这里别忘记了。</span></span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">     store,</span><br><span class="line">     ...App</span><br><span class="line"> &#125;)</span><br></pre></td></tr></table></figure>
+
+
+ 3、使用
+
+  最后，在 pages/index/index.vue 使用
+
+  注意，这个`...`操作卸载你其他成员的后面为好
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;  </span><br><span class="line"> <span class="keyword">import</span> &#123;  </span><br><span class="line">     mapState,  </span><br><span class="line">     mapMutations  </span><br><span class="line"> &#125; <span class="keyword">from</span> <span class="string">'vuex'</span>;  </span><br><span class="line"></span><br><span class="line"> <span class="keyword">export</span> <span class="keyword">default</span> &#123;  </span><br><span class="line">     methods: &#123;  </span><br><span class="line">         ...mapMutations([<span class="string">'setRssItem'</span>])  </span><br><span class="line">     &#125;  </span><br><span class="line"> &#125;  </span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+ 4、赋值
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.$store.commit(&#123;</span><br><span class="line">					type: <span class="string">'setRssItem'</span>,</span><br><span class="line">					rssItem: <span class="keyword">this</span>.rssItemsFormat[index]</span><br><span class="line">				&#125;)</span><br></pre></td></tr></table></figure>
+
+
+ 5、取值
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//其他页面必须要import ，直接就</span></span><br><span class="line"> <span class="keyword">this</span>.$store.state.rssItem</span><br></pre></td></tr></table></figure>
+</code></pre><p>参考资料</p>
+<p><a href="https://ask.dcloud.net.cn/article/35021" target="_blank" rel="noopener">https://ask.dcloud.net.cn/article/35021</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2019/05/27/图解机器学习笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hz">
+      <meta itemprop="description" content>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心随我动">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/05/27/图解机器学习笔记/" class="post-title-link" itemprop="url">图解机器学习笔记</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-05-27 17:19:21 / Modified: 20:27:51" itemprop="dateCreated datePublished" datetime="2019-05-27T17:19:21+08:00">2019-05-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/人工智能/" itemprop="url" rel="index">
+                    <span itemprop="name">人工智能</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2019/05/27/图解机器学习笔记/" class="post-meta-item leancloud_visitors" data-flag-title="图解机器学习笔记" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/05/27/图解机器学习笔记/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/05/27/图解机器学习笔记/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="回归"><a href="#回归" class="headerlink" title="回归"></a>回归</h4><p>简单直观的了解就是曲线的拟合，可以用来预测房价，给定输入，预测输出。</p>
+<h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><p>主要是做模式识别，比如，判断一幅画是一条狗，还是一只猫，还是一束花。</p>
+<h4 id="聚类"><a href="#聚类" class="headerlink" title="聚类"></a>聚类</h4><p>同样可以通过学习，识别出类别，但是不同于分类的是，这种是无监督学习，因为学习的样本事先也不知道它具体属于那种类别。</p>
+<h4 id="最小二乘"><a href="#最小二乘" class="headerlink" title="最小二乘"></a>最小二乘</h4><p>最小二乘的原理是是的模型函数与真实值之前的这个差值得均方差最小的一种最优化方法</p>
+<h4 id="梯度下降"><a href="#梯度下降" class="headerlink" title="梯度下降"></a>梯度下降</h4><p>梯度下降过程中极容易出现拿到的是局部最优解，好像有一种方式可以有效的避免求得到的是局部最优解，那就是步伐先搞大点，然后在搞小点。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2019/05/22/TensorFlow-Lite模型折腾系列/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hz">
+      <meta itemprop="description" content>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心随我动">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/05/22/TensorFlow-Lite模型折腾系列/" class="post-title-link" itemprop="url">TensorFlow Lite模型折腾系列</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-05-22 20:24:19 / Modified: 14:31:32" itemprop="dateCreated datePublished" datetime="2019-05-22T20:24:19+08:00">2019-05-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/人工智能/" itemprop="url" rel="index">
+                    <span itemprop="name">人工智能</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2019/05/22/TensorFlow-Lite模型折腾系列/" class="post-meta-item leancloud_visitors" data-flag-title="TensorFlow Lite模型折腾系列" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/05/22/TensorFlow-Lite模型折腾系列/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/05/22/TensorFlow-Lite模型折腾系列/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>大家知道，玩TensorFlow ，玩的其实就是模型，如果没有一个合适的模型，TensorFlow压根就玩不起来。</p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190521202458.png" alt="官方关于模型的三种获取姿势"></p>
+<p>那么，根据官网介绍来看，第二种方式也许是我们会接触的比较多的一种，因为第一种方式直接拿Google替我们准备好的模型，可谓是小概率事件，哪有那么好的事，直接就给你对上了呢？</p>
+<p>所以来看看怎么做<code>Transfer learning</code>，也就是所谓的迁移学习，那么什么是迁移学习呢？迁移学习(Transfer learning) 顾名思义就是就是把已学训练好的模型参数迁移到新的模型来帮助新模型训练。考虑到大部分数据或任务是存在相关性的，所以通过迁移学习我们可以将已经学到的模型参数（也可理解为模型学到的知识）通过某种方式来分享给新模型从而加快并优化模型的学习效率不用像大多数网络那样从零学习。</p>
+<h5 id="Google给我们准别了一个学习的demo"><a href="#Google给我们准别了一个学习的demo" class="headerlink" title="Google给我们准别了一个学习的demo"></a>Google给我们准别了一个学习的demo</h5><p><a href="https://colab.research.google.com/github/tensorflow/examples/blob/master/community/en/flowers_tf_lite.ipynb#scrollTo=xxL2mjVVGIrV" target="_blank" rel="noopener">为图片识别添加新能力</a></p>
+<p>这个codelab主要就是基于<code>Image classification</code>这个模型来做迁移学习的，学习之后的目的训练出一个可以识别鲜花的模型出来。</p>
+<p>总结来说，这个训练的步骤大致的可以分为</p>
+<ol>
+<li><p>下载并解压训练数据集，如果我们自己做，很可能这些图像的数据需要我们自己来收集，比如到<code>Google图片</code>搜索<code>百合</code>，然后我们使用爬虫把这些图片下载到<code>百合</code>的目录下，以此类推，可以如此收集到<code>茉莉</code>，<code>喇叭花</code>,<code>栀子花</code>等等，如demo中下载的训练集是这样的：</p>
+<ol>
+<li><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190522120600.png" alt></li>
+</ol>
+</li>
+<li><p>将数据集分成<code>训练</code>和<code>验证</code>两块，参数值是0.2，表示80%用于训练，20%的用于验证模型。</p>
+<ol>
+<li><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">IMAGE_SIZE = <span class="number">224</span></span><br><span class="line">BATCH_SIZE = <span class="number">64</span></span><br><span class="line"></span><br><span class="line">datagen = tf.keras.preprocessing.image.ImageDataGenerator(</span><br><span class="line">    rescale=<span class="number">1.</span>/<span class="number">255</span>, </span><br><span class="line">    validation_split=<span class="number">0.2</span>)</span><br><span class="line"></span><br><span class="line">train_generator = datagen.flow_from_directory(</span><br><span class="line">    base_dir,</span><br><span class="line">    target_size=(IMAGE_SIZE, IMAGE_SIZE),</span><br><span class="line">    batch_size=BATCH_SIZE, </span><br><span class="line">    subset=<span class="string">'training'</span>)</span><br><span class="line"></span><br><span class="line">val_generator = datagen.flow_from_directory(</span><br><span class="line">    base_dir,</span><br><span class="line">    target_size=(IMAGE_SIZE, IMAGE_SIZE),</span><br><span class="line">    batch_size=BATCH_SIZE, </span><br><span class="line">    subset=<span class="string">'validation'</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ol>
+<ol start="2">
+<li><p>这里IMAGE_SIZE设置为224，是因为 MobileNet模型默认输入尺寸是 224x224，参考资料可以看<a href="https://keras.io/zh/applications/#mobilenetv2" target="_blank" rel="noopener">这里</a></p>
+</li>
+<li><p>BATCH_SIZE 设置为64个人觉得表示，每轮训练时取64个样本，官方介绍如下图</p>
+<ol>
+<li><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190522122221.png" alt></li>
+</ol>
+</li>
+</ol>
+<ol start="3">
+<li><p>加载基准模型</p>
+<ol>
+<li><p>demo中使用到的是MobileNetV2，但貌似可以不仅仅是选这个，有好多种，demo只是选择其中一个而已。</p>
+<ol>
+<li><p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190522122424.png" alt></p>
+</li>
+<li><p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190522122623.png" alt></p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>随后的过程就是基于这个基准模型进行训练了：</p>
+<ol>
+<li><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">history_fine = model.fit(train_generator,</span><br><span class="line"> epochs=<span class="number">5</span>,</span><br><span class="line"> validation_data=val_generator)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ol>
+<ol start="2">
+<li>上面这个过程需要进行微调，因此可能会经历两次真的过程。</li>
+</ol>
+<ol start="5">
+<li><p>得到模型之后，转换为端上可用的模型就over了。</p>
+<ol>
+<li><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">saved_model_dir = <span class="string">'save/fine_tuning'</span></span><br><span class="line">tf.saved_model.save(model, saved_model_dir)</span><br><span class="line"></span><br><span class="line">converter = tf.lite.TFLiteConverter.from_saved_model(saved_model_dir)</span><br><span class="line">tflite_model = converter.convert()</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'model.tflite'</span>, <span class="string">'wb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">  f.write(tflite_model)</span><br><span class="line">  </span><br><span class="line"><span class="keyword">from</span> google.colab <span class="keyword">import</span> files</span><br><span class="line"></span><br><span class="line">files.download(<span class="string">'model.tflite'</span>)</span><br><span class="line">files.download(<span class="string">'labels.txt'</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ol>
+<ol start="2">
+<li>这个操作做完之后会直接触发浏览器下载model.tflite,labels.txt,然后，替换官方<code>Image classification</code>中的assert下的数据即可。</li>
+</ol>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>整个过程似乎很清晰，但似乎又很模糊，主要表现在：</p>
+<ol>
+<li><p>为何选择MobileNetV2，选择其他基准模型，迁移学习的过程是否还是这样。</p>
+</li>
+<li><p>demo中说道了需要进行<code>fine-tune</code>,不知道是个什么概念</p>
+</li>
+<li><p>the weights of the top layers of the pre-trained也不知道是什么概念</p>
+</li>
+</ol>
+<p>因此，看来，有必要去找资料进一步了解这些细节。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+  </div>
+
+  
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hz</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/bravekingzhang" title="GitHub → https://github.com/bravekingzhang" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:bravekingzhang@qq.com" title="E-Mail → mailto:bravekingzhang@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
     </main>
-    
-    <div class="site-footer-wrapper">
-  <footer class="site-footer">
-    
-      
-        <div class="site-footer-col">
-          <h5 class="site-footer-title">博客推荐</h5>
-          
-            <span class="site-footer-item">
-              <a href="https://godbmw.com/" target="_blank">GodBMW</a>
-            </span>
-          
-            <span class="site-footer-item">
-              <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
-            </span>
-          
-        </div>
-      
-        <div class="site-footer-col">
-          <h5 class="site-footer-title">系列教程</h5>
-          
-            <span class="site-footer-item">
-              <a href="https://godbmw.com/categories/webpack4%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" target="_blank">webpack4系列教程</a>
-            </span>
-          
-            <span class="site-footer-item">
-              <a href="https://godbmw.com/design-patterns/" target="_blank">设计模式手册</a>
-            </span>
-          
-        </div>
-      
-    
-    <div class="site-footer-info">
-      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
-    </div>
-    
-      <div class="site-footer-info">
-        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
-      </div>
-    
-    
-      <div class="site-footer-info">
-        <i class="fa fa-at"></i> Email: bravekingzhang@qq.com
-      </div>
-    
-    <div class="site-footer-info">
-      <i class="fa fa-copyright"></i> 
-      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
-      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
-      All rights reserved.
-    </div>
-  </footer>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hz</span>
 </div>
-    <div id="site-layer" style="display:none;">
-  <div class="site-layer-content">
-    <div class="site-layer-header">
-      <span class="site-layer-header-title" id="site-layer-title"></span>
-      <i class="fa fa-close" id="site-layer-close"></i>
-    </div>
-    <div class="site-layer-body" id="site-layer-container">
-      <div class="site-layer-input" id="site-layer-search" style="display: none;">
-        <input type="text">
-        <i class="fa fa-search"></i>
-      </div>
-      
-        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
-          
-            <div>
-              <img src="/images/wechat.jpeg" alt="WeChat">
-              
-                <p>WeChat</p>
-              
-            </div>
-          
-            <div>
-              <img src="/images/alipay.jpeg" alt="AliPay">
-              
-                <p>AliPay</p>
-              
-            </div>
-          
-        </div>
-      
-      <div id="site-layer-welcome" style="display:none;"></div>
-    </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0
   </div>
-</div>
-    
-
-<div class="bottom-bar">
-  <div class="bottom-bar-left">
-    <a href="javascript:void(0);" data-enable="false">
-      <i class="fa fa-arrow-left"></i>
-    </a>
-    <a href="/page/2/" data-enable="true">
-      <i class="fa fa-arrow-right"></i>
-    </a>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.5.0
   </div>
-  <div class="bottom-bar-right">
-    <a href="javascript:void(0);" data-enable="false" id="site-toc-show-btn">
-      <i class="fa fa-bars"></i>
-    </a>
-    
-      <a href="javascript:void(0);" data-enable="false">
-        <i class="fa fa-commenting"></i>
-      </a>
-    
-    <a href="javascript:void(0);" id="site-toggle-share-btn">
-      <i class="fa fa-share-alt"></i>
-    </a>
-    
-      <a href="javascript:void(0);" id="site-reward">
-        <i class="fa fa-thumbs-up"></i>
-      </a>
-    
-    <a href="javascript:void(0);" id="back-top-btn">
-      <i class="fa fa-chevron-up"></i>
-    </a>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
   </div>
-</div>
-    <div id="share-btn">
+
   
-    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
-      <i class="fa fa-twitter"></i>
-    </a>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
   
-  
-    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
-      <i class="fa fa-facebook"></i>
-    </a>
-  
-  
-    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
-      <i class="fa fa-weibo"></i>
-    </a>
-  
-  
-    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
-      <i class="fa fa-qq"></i>
-    </a>
-  
-  
-    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
-      <i class="fa fa-wechat"></i>
-    </a>
-  
-</div>
-    
 
 
 
 
 
-    
-  </body>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'eexUwhjQYzulgd49WYdUfaht-gzGzoHsz',
+    appKey: 'SJuNIOUCls6lBLiabBwDpfd0',
+    placeholder: "Just go go",
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true,
+    lang: 'zh-cn' || 'zh-cn',
+    path: location.pathname,
+    recordIP: true,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
 </html>
