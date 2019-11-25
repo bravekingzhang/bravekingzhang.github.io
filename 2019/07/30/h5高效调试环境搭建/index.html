@@ -47,20 +47,20 @@
   };
 </script>
 
-  <meta name="description" content="调试是永远和开发分不开的一个话题，我相信没有谁能够不经过调试，一气呵成，将一个需求开发出来，如果是这样，一般都是一通操作猛于虎，一看bug在跳广场舞。嗯，段子讲完了，那么久要进入正题了。首先，我们为什么需要搭建本地调试环境？因为，我们开发的业务绝对需要上线到正式环境的，不然你做的就是一个玩具，对吗？而我们在本地【localhost】开发，终究是用不到线网的一些环境，或许，比较规范的团队是有测试环境">
+  <meta name="description" content="调试是永远和开发分不开的一个话题，我相信没有谁能够不经过调试，一气呵成，将一个需求开发出来，如果是这样，一般都是一通操作猛于虎，一看bug在跳广场舞。嗯，段子讲完了，那么久要进入正题了。 首先，我们为什么需要搭建本地调试环境？因为，我们开发的业务绝对需要上线到正式环境的，不然你做的就是一个玩具，对吗？而我们在本地【localhost】开发，终究是用不到线网的一些环境，或许，比较规范的团队是有测试环">
 <meta name="keywords" content="h5">
 <meta property="og:type" content="article">
 <meta property="og:title" content="h5高效本地调试环境搭建">
 <meta property="og:url" content="https://blog.brzhang.club/2019/07/30/h5高效调试环境搭建/index.html">
 <meta property="og:site_name" content="心随我动">
-<meta property="og:description" content="调试是永远和开发分不开的一个话题，我相信没有谁能够不经过调试，一气呵成，将一个需求开发出来，如果是这样，一般都是一通操作猛于虎，一看bug在跳广场舞。嗯，段子讲完了，那么久要进入正题了。首先，我们为什么需要搭建本地调试环境？因为，我们开发的业务绝对需要上线到正式环境的，不然你做的就是一个玩具，对吗？而我们在本地【localhost】开发，终究是用不到线网的一些环境，或许，比较规范的团队是有测试环境">
+<meta property="og:description" content="调试是永远和开发分不开的一个话题，我相信没有谁能够不经过调试，一气呵成，将一个需求开发出来，如果是这样，一般都是一通操作猛于虎，一看bug在跳广场舞。嗯，段子讲完了，那么久要进入正题了。 首先，我们为什么需要搭建本地调试环境？因为，我们开发的业务绝对需要上线到正式环境的，不然你做的就是一个玩具，对吗？而我们在本地【localhost】开发，终究是用不到线网的一些环境，或许，比较规范的团队是有测试环">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190730121924.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190730121426.png">
-<meta property="og:updated_time" content="2019-11-25T07:58:40.351Z">
+<meta property="og:updated_time" content="2019-11-25T08:23:56.850Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="h5高效本地调试环境搭建">
-<meta name="twitter:description" content="调试是永远和开发分不开的一个话题，我相信没有谁能够不经过调试，一气呵成，将一个需求开发出来，如果是这样，一般都是一通操作猛于虎，一看bug在跳广场舞。嗯，段子讲完了，那么久要进入正题了。首先，我们为什么需要搭建本地调试环境？因为，我们开发的业务绝对需要上线到正式环境的，不然你做的就是一个玩具，对吗？而我们在本地【localhost】开发，终究是用不到线网的一些环境，或许，比较规范的团队是有测试环境">
+<meta name="twitter:description" content="调试是永远和开发分不开的一个话题，我相信没有谁能够不经过调试，一气呵成，将一个需求开发出来，如果是这样，一般都是一通操作猛于虎，一看bug在跳广场舞。嗯，段子讲完了，那么久要进入正题了。 首先，我们为什么需要搭建本地调试环境？因为，我们开发的业务绝对需要上线到正式环境的，不然你做的就是一个玩具，对吗？而我们在本地【localhost】开发，终究是用不到线网的一些环境，或许，比较规范的团队是有测试环">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190730121924.png">
 
 <link rel="canonical" href="https://blog.brzhang.club/2019/07/30/h5高效调试环境搭建/">
@@ -224,7 +224,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-11-25 15:58:40" itemprop="dateModified" datetime="2019-11-25T15:58:40+08:00">2019-11-25</time>
+                <time title="Modified: 2019-11-25 16:23:56" itemprop="dateModified" datetime="2019-11-25T16:23:56+08:00">2019-11-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -270,16 +270,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>调试是永远和开发分不开的一个话题，我相信没有谁能够不经过调试，一气呵成，将一个需求开发出来，如果是这样，一般都是<code>一通操作猛于虎，一看bug在跳广场舞</code>。嗯，段子讲完了，那么久要进入正题了。</p><h2 id="首先，我们为什么需要搭建本地调试环境？"><a href="#首先，我们为什么需要搭建本地调试环境？" class="headerlink" title="首先，我们为什么需要搭建本地调试环境？"></a>首先，我们为什么需要搭建本地调试环境？</h2><p>因为，我们开发的业务绝对需要上线到正式环境的，不然你做的就是一个玩具，对吗？而我们在本地【localhost】开发，终究是用不到<code>线网的一些环境</code>，或许，比较规范的团队是有<code>测试环境</code>的，所以，我们有必要先来区分一下几个环境。</p><ol>
+        <p>调试是永远和开发分不开的一个话题，我相信没有谁能够不经过调试，一气呵成，将一个需求开发出来，如果是这样，一般都是<code>一通操作猛于虎，一看bug在跳广场舞</code>。嗯，段子讲完了，那么久要进入正题了。</p>
+<h2 id="首先，我们为什么需要搭建本地调试环境？"><a href="#首先，我们为什么需要搭建本地调试环境？" class="headerlink" title="首先，我们为什么需要搭建本地调试环境？"></a>首先，我们为什么需要搭建本地调试环境？</h2><p>因为，我们开发的业务绝对需要上线到正式环境的，不然你做的就是一个玩具，对吗？而我们在本地【localhost】开发，终究是用不到<code>线网的一些环境</code>，或许，比较规范的团队是有<code>测试环境</code>的，所以，我们有必要先来区分一下几个环境。<a id="more"></a></p>
+<ol>
 <li><p>localhost：这里指你的本地环境，比如vue server可以启动一个server，来跑你的代码。</p>
 </li>
 <li><p>测试环境：这里不同于正式环境的是，他是提供给测试，或者产品体验的一个服务器，其体验仅次于正式环境了，甚至各种环境变量配置都和正式环境类似，只不过数据是随意制造的，除了这一点和有正式环境有略微差别，其他几乎没有差别。和localhost的差别主要就是一些登录校验在这上面可以过，但是在localhost不行，原因就是因为域名没有被后台配置为<code>白名单</code>。</p>
 </li>
 <li><p>正式环境：就是线网用户可以使用的环境，这个上面数据是真实数据，几乎和测试环境一致。</p>
 </li>
-</ol><a id="more"></a>
-
-
+</ol>
 <p>好的，环境区分出来了，那么，还是回到话题上来，为什么要搭建本地调试？我认为最主要的是<code>提高开发效率</code>。反过来思考，我们如果不做本地调试配置的话，我们在本地调试会遇到什么问题？</p>
 <ol>
 <li><p>我们请求测试环境接口会出现跨域</p>
@@ -311,10 +311,31 @@
     
     
     
+        <div class="reward-container">
+  <div>赠人玫瑰，手留余香.</div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechat.jpeg" alt="hz WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.jpeg" alt="hz Alipay">
+        <p>Alipay</p>
+      </div>
+
+  </div>
+</div>
+
 
       <footer class="post-footer">
+          
           <div class="post-tags">
-              <a href="/tags/h5/" rel="tag"># h5</a>
+              <a href="/tags/h5/" rel="tag"><i class="fa fa-tag"></i> h5</a>
           </div>
 
         
