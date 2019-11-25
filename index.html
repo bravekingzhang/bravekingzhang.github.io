@@ -1007,9 +1007,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>今天遇到这样一个需求，需要将上一个页面的一坨数据带到下一个页面去，不只打怎么办才好。</p>
-<p>大概查了一下，有四中方式；</p>
-<ol>
+          <p>今天遇到这样一个需求，需要将上一个页面的一坨数据带到下一个页面去，不只打怎么办才好。</p><p>大概查了一下，有四中方式；</p><ol>
 <li><p>公用模块</p>
 <p>这种方式就是做一个单例，把需要的变量放在一个js文件中，然后到处引用，可想而知有多混乱。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> websiteUrl = <span class="string">'http://uniapp.dcloud.io'</span>;  </span><br><span class="line"><span class="keyword">const</span> now = <span class="built_in">Date</span>.now || <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Date</span>().getTime();  </span><br><span class="line">&#125;;  </span><br><span class="line"><span class="keyword">const</span> isArray = <span class="built_in">Array</span>.isArray || <span class="function"><span class="keyword">function</span> (<span class="params">obj</span>) </span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> obj <span class="keyword">instanceof</span> <span class="built_in">Array</span>;  </span><br><span class="line">&#125;;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;  </span><br><span class="line">    websiteUrl,  </span><br><span class="line">    now,  </span><br><span class="line">    isArray  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -1032,31 +1030,14 @@
 </ol>
 </li>
 </ol>
-<pre><code>2、需要在 main.js 挂载 Vuex
-
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> store <span class="keyword">from</span> <span class="string">'./store'</span>  </span><br><span class="line">Vue.prototype.$store = store  </span><br><span class="line">.....</span><br><span class="line">.....</span><br><span class="line"></span><br><span class="line"><span class="comment">//千万注意这里别忘记了。</span></span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">     store,</span><br><span class="line">     ...App</span><br><span class="line"> &#125;)</span><br></pre></td></tr></table></figure>
-
-
- 3、使用
-
-  最后，在 pages/index/index.vue 使用
-
-  注意，这个`...`操作卸载你其他成员的后面为好
-
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;  </span><br><span class="line"> <span class="keyword">import</span> &#123;  </span><br><span class="line">     mapState,  </span><br><span class="line">     mapMutations  </span><br><span class="line"> &#125; <span class="keyword">from</span> <span class="string">'vuex'</span>;  </span><br><span class="line"></span><br><span class="line"> <span class="keyword">export</span> <span class="keyword">default</span> &#123;  </span><br><span class="line">     methods: &#123;  </span><br><span class="line">         ...mapMutations([<span class="string">'setRssItem'</span>])  </span><br><span class="line">     &#125;  </span><br><span class="line"> &#125;  </span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
-
-
- 4、赋值
-
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.$store.commit(&#123;</span><br><span class="line">					type: <span class="string">'setRssItem'</span>,</span><br><span class="line">					rssItem: <span class="keyword">this</span>.rssItemsFormat[index]</span><br><span class="line">				&#125;)</span><br></pre></td></tr></table></figure>
-
-
- 5、取值
-
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//其他页面必须要import ，直接就</span></span><br><span class="line"> <span class="keyword">this</span>.$store.state.rssItem</span><br></pre></td></tr></table></figure>
-</code></pre><p>参考资料</p>
-<p><a href="https://ask.dcloud.net.cn/article/35021" target="_blank" rel="noopener">https://ask.dcloud.net.cn/article/35021</a></p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/06/04/uni-app使用Vuex指南/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1146,12 +1127,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h4 id="回归"><a href="#回归" class="headerlink" title="回归"></a>回归</h4><p>简单直观的了解就是曲线的拟合，可以用来预测房价，给定输入，预测输出。</p>
-<h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><p>主要是做模式识别，比如，判断一幅画是一条狗，还是一只猫，还是一束花。</p>
-<h4 id="聚类"><a href="#聚类" class="headerlink" title="聚类"></a>聚类</h4><p>同样可以通过学习，识别出类别，但是不同于分类的是，这种是无监督学习，因为学习的样本事先也不知道它具体属于那种类别。</p>
-<h4 id="最小二乘"><a href="#最小二乘" class="headerlink" title="最小二乘"></a>最小二乘</h4><p>最小二乘的原理是是的模型函数与真实值之前的这个差值得均方差最小的一种最优化方法</p>
-<h4 id="梯度下降"><a href="#梯度下降" class="headerlink" title="梯度下降"></a>梯度下降</h4><p>梯度下降过程中极容易出现拿到的是局部最优解，好像有一种方式可以有效的避免求得到的是局部最优解，那就是步伐先搞大点，然后在搞小点。</p>
-
+          <h4 id="回归"><a href="#回归" class="headerlink" title="回归"></a>回归</h4><p>简单直观的了解就是曲线的拟合，可以用来预测房价，给定输入，预测输出。</p><h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><p>主要是做模式识别，比如，判断一幅画是一条狗，还是一只猫，还是一束花。</p><h4 id="聚类"><a href="#聚类" class="headerlink" title="聚类"></a>聚类</h4><p>同样可以通过学习，识别出类别，但是不同于分类的是，这种是无监督学习，因为学习的样本事先也不知道它具体属于那种类别。</p><h4 id="最小二乘"><a href="#最小二乘" class="headerlink" title="最小二乘"></a>最小二乘</h4><p>最小二乘的原理是是的模型函数与真实值之前的这个差值得均方差最小的一种最优化方法</p><h4 id="梯度下降"><a href="#梯度下降" class="headerlink" title="梯度下降"></a>梯度下降</h4><p>梯度下降过程中极容易出现拿到的是局部最优解，好像有一种方式可以有效的避免求得到的是局部最优解，那就是步伐先搞大点，然后在搞小点。</p>
       
     </div>
 
@@ -1241,80 +1217,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>大家知道，玩TensorFlow ，玩的其实就是模型，如果没有一个合适的模型，TensorFlow压根就玩不起来。</p>
-<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190521202458.png" alt="官方关于模型的三种获取姿势"></p>
-<p>那么，根据官网介绍来看，第二种方式也许是我们会接触的比较多的一种，因为第一种方式直接拿Google替我们准备好的模型，可谓是小概率事件，哪有那么好的事，直接就给你对上了呢？</p>
-<p>所以来看看怎么做<code>Transfer learning</code>，也就是所谓的迁移学习，那么什么是迁移学习呢？迁移学习(Transfer learning) 顾名思义就是就是把已学训练好的模型参数迁移到新的模型来帮助新模型训练。考虑到大部分数据或任务是存在相关性的，所以通过迁移学习我们可以将已经学到的模型参数（也可理解为模型学到的知识）通过某种方式来分享给新模型从而加快并优化模型的学习效率不用像大多数网络那样从零学习。</p>
-<h5 id="Google给我们准别了一个学习的demo"><a href="#Google给我们准别了一个学习的demo" class="headerlink" title="Google给我们准别了一个学习的demo"></a>Google给我们准别了一个学习的demo</h5><p><a href="https://colab.research.google.com/github/tensorflow/examples/blob/master/community/en/flowers_tf_lite.ipynb#scrollTo=xxL2mjVVGIrV" target="_blank" rel="noopener">为图片识别添加新能力</a></p>
-<p>这个codelab主要就是基于<code>Image classification</code>这个模型来做迁移学习的，学习之后的目的训练出一个可以识别鲜花的模型出来。</p>
-<p>总结来说，这个训练的步骤大致的可以分为</p>
-<ol>
-<li><p>下载并解压训练数据集，如果我们自己做，很可能这些图像的数据需要我们自己来收集，比如到<code>Google图片</code>搜索<code>百合</code>，然后我们使用爬虫把这些图片下载到<code>百合</code>的目录下，以此类推，可以如此收集到<code>茉莉</code>，<code>喇叭花</code>,<code>栀子花</code>等等，如demo中下载的训练集是这样的：</p>
-<ol>
-<li><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190522120600.png" alt></li>
-</ol>
-</li>
-<li><p>将数据集分成<code>训练</code>和<code>验证</code>两块，参数值是0.2，表示80%用于训练，20%的用于验证模型。</p>
-<ol>
-<li><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">IMAGE_SIZE = <span class="number">224</span></span><br><span class="line">BATCH_SIZE = <span class="number">64</span></span><br><span class="line"></span><br><span class="line">datagen = tf.keras.preprocessing.image.ImageDataGenerator(</span><br><span class="line">    rescale=<span class="number">1.</span>/<span class="number">255</span>, </span><br><span class="line">    validation_split=<span class="number">0.2</span>)</span><br><span class="line"></span><br><span class="line">train_generator = datagen.flow_from_directory(</span><br><span class="line">    base_dir,</span><br><span class="line">    target_size=(IMAGE_SIZE, IMAGE_SIZE),</span><br><span class="line">    batch_size=BATCH_SIZE, </span><br><span class="line">    subset=<span class="string">'training'</span>)</span><br><span class="line"></span><br><span class="line">val_generator = datagen.flow_from_directory(</span><br><span class="line">    base_dir,</span><br><span class="line">    target_size=(IMAGE_SIZE, IMAGE_SIZE),</span><br><span class="line">    batch_size=BATCH_SIZE, </span><br><span class="line">    subset=<span class="string">'validation'</span>)</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-</li>
-</ol>
-<ol start="2">
-<li><p>这里IMAGE_SIZE设置为224，是因为 MobileNet模型默认输入尺寸是 224x224，参考资料可以看<a href="https://keras.io/zh/applications/#mobilenetv2" target="_blank" rel="noopener">这里</a></p>
-</li>
-<li><p>BATCH_SIZE 设置为64个人觉得表示，每轮训练时取64个样本，官方介绍如下图</p>
-<ol>
-<li><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190522122221.png" alt></li>
-</ol>
-</li>
-</ol>
-<ol start="3">
-<li><p>加载基准模型</p>
-<ol>
-<li><p>demo中使用到的是MobileNetV2，但貌似可以不仅仅是选这个，有好多种，demo只是选择其中一个而已。</p>
-<ol>
-<li><p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190522122424.png" alt></p>
-</li>
-<li><p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190522122623.png" alt></p>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-<li><p>随后的过程就是基于这个基准模型进行训练了：</p>
-<ol>
-<li><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">history_fine = model.fit(train_generator,</span><br><span class="line"> epochs=<span class="number">5</span>,</span><br><span class="line"> validation_data=val_generator)</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-</li>
-</ol>
-<ol start="2">
-<li>上面这个过程需要进行微调，因此可能会经历两次真的过程。</li>
-</ol>
-<ol start="5">
-<li><p>得到模型之后，转换为端上可用的模型就over了。</p>
-<ol>
-<li><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">saved_model_dir = <span class="string">'save/fine_tuning'</span></span><br><span class="line">tf.saved_model.save(model, saved_model_dir)</span><br><span class="line"></span><br><span class="line">converter = tf.lite.TFLiteConverter.from_saved_model(saved_model_dir)</span><br><span class="line">tflite_model = converter.convert()</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'model.tflite'</span>, <span class="string">'wb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">  f.write(tflite_model)</span><br><span class="line">  </span><br><span class="line"><span class="keyword">from</span> google.colab <span class="keyword">import</span> files</span><br><span class="line"></span><br><span class="line">files.download(<span class="string">'model.tflite'</span>)</span><br><span class="line">files.download(<span class="string">'labels.txt'</span>)</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-</li>
-</ol>
-<ol start="2">
-<li>这个操作做完之后会直接触发浏览器下载model.tflite,labels.txt,然后，替换官方<code>Image classification</code>中的assert下的数据即可。</li>
-</ol>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>整个过程似乎很清晰，但似乎又很模糊，主要表现在：</p>
-<ol>
-<li><p>为何选择MobileNetV2，选择其他基准模型，迁移学习的过程是否还是这样。</p>
-</li>
-<li><p>demo中说道了需要进行<code>fine-tune</code>,不知道是个什么概念</p>
-</li>
-<li><p>the weights of the top layers of the pre-trained也不知道是什么概念</p>
-</li>
-</ol>
-<p>因此，看来，有必要去找资料进一步了解这些细节。</p>
-
+          <p>大家知道，玩TensorFlow ，玩的其实就是模型，如果没有一个合适的模型，TensorFlow压根就玩不起来。</p><p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190521202458.png" alt="官方关于模型的三种获取姿势"></p><p>那么，根据官网介绍来看，第二种方式也许是我们会接触的比较多的一种，因为第一种方式直接拿Google替我们准备好的模型，可谓是小概率事件，哪有那么好的事，直接就给你对上了呢？</p><p>所以来看看怎么做<code>Transfer learning</code>，也就是所谓的迁移学习，那么什么是迁移学习呢？迁移学习(Transfer learning) 顾名思义就是就是把已学训练好的模型参数迁移到新的模型来帮助新模型训练。考虑到大部分数据或任务是存在相关性的，所以通过迁移学习我们可以将已经学到的模型参数（也可理解为模型学到的知识）通过某种方式来分享给新模型从而加快并优化模型的学习效率不用像大多数网络那样从零学习。</p><h5 id="Google给我们准别了一个学习的demo"><a href="#Google给我们准别了一个学习的demo" class="headerlink" title="Google给我们准别了一个学习的demo"></a>Google给我们准别了一个学习的demo</h5>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/05/22/TensorFlow-Lite模型折腾系列/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 

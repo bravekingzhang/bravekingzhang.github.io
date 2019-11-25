@@ -47,18 +47,18 @@
   };
 </script>
 
-  <meta name="description" content="今天遇到这样一个需求，需要将上一个页面的一坨数据带到下一个页面去，不只打怎么办才好。 大概查了一下，有四中方式；  公用模块 这种方式就是做一个单例，把需要的变量放在一个js文件中，然后到处引用，可想而知有多混乱。 12345678910111213const websiteUrl = &apos;http://uniapp.dcloud.io&apos;;  const now = Date.now || func">
+  <meta name="description" content="今天遇到这样一个需求，需要将上一个页面的一坨数据带到下一个页面去，不只打怎么办才好。大概查了一下，有四中方式； 公用模块 这种方式就是做一个单例，把需要的变量放在一个js文件中，然后到处引用，可想而知有多混乱。 12345678910111213const websiteUrl = &apos;http://uniapp.dcloud.io&apos;;  const now = Date.now || functi">
 <meta name="keywords" content="vuex">
 <meta property="og:type" content="article">
 <meta property="og:title" content="uni-app使用Vuex指南">
 <meta property="og:url" content="https://blog.brzhang.club/2019/06/04/uni-app使用Vuex指南/index.html">
 <meta property="og:site_name" content="心随我动">
-<meta property="og:description" content="今天遇到这样一个需求，需要将上一个页面的一坨数据带到下一个页面去，不只打怎么办才好。 大概查了一下，有四中方式；  公用模块 这种方式就是做一个单例，把需要的变量放在一个js文件中，然后到处引用，可想而知有多混乱。 12345678910111213const websiteUrl = &apos;http://uniapp.dcloud.io&apos;;  const now = Date.now || func">
+<meta property="og:description" content="今天遇到这样一个需求，需要将上一个页面的一坨数据带到下一个页面去，不只打怎么办才好。大概查了一下，有四中方式； 公用模块 这种方式就是做一个单例，把需要的变量放在一个js文件中，然后到处引用，可想而知有多混乱。 12345678910111213const websiteUrl = &apos;http://uniapp.dcloud.io&apos;;  const now = Date.now || functi">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2019-06-05T04:01:29.095Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="uni-app使用Vuex指南">
-<meta name="twitter:description" content="今天遇到这样一个需求，需要将上一个页面的一坨数据带到下一个页面去，不只打怎么办才好。 大概查了一下，有四中方式；  公用模块 这种方式就是做一个单例，把需要的变量放在一个js文件中，然后到处引用，可想而知有多混乱。 12345678910111213const websiteUrl = &apos;http://uniapp.dcloud.io&apos;;  const now = Date.now || func">
+<meta name="twitter:description" content="今天遇到这样一个需求，需要将上一个页面的一坨数据带到下一个页面去，不只打怎么办才好。大概查了一下，有四中方式； 公用模块 这种方式就是做一个单例，把需要的变量放在一个js文件中，然后到处引用，可想而知有多混乱。 12345678910111213const websiteUrl = &apos;http://uniapp.dcloud.io&apos;;  const now = Date.now || functi">
 
 <link rel="canonical" href="https://blog.brzhang.club/2019/06/04/uni-app使用Vuex指南/">
 
@@ -267,9 +267,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>今天遇到这样一个需求，需要将上一个页面的一坨数据带到下一个页面去，不只打怎么办才好。</p>
-<p>大概查了一下，有四中方式；</p>
-<ol>
+        <p>今天遇到这样一个需求，需要将上一个页面的一坨数据带到下一个页面去，不只打怎么办才好。</p><p>大概查了一下，有四中方式；</p><ol>
 <li><p>公用模块</p>
 <p>这种方式就是做一个单例，把需要的变量放在一个js文件中，然后到处引用，可想而知有多混乱。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> websiteUrl = <span class="string">'http://uniapp.dcloud.io'</span>;  </span><br><span class="line"><span class="keyword">const</span> now = <span class="built_in">Date</span>.now || <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Date</span>().getTime();  </span><br><span class="line">&#125;;  </span><br><span class="line"><span class="keyword">const</span> isArray = <span class="built_in">Array</span>.isArray || <span class="function"><span class="keyword">function</span> (<span class="params">obj</span>) </span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> obj <span class="keyword">instanceof</span> <span class="built_in">Array</span>;  </span><br><span class="line">&#125;;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;  </span><br><span class="line">    websiteUrl,  </span><br><span class="line">    now,  </span><br><span class="line">    isArray  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -291,7 +289,9 @@
 </li>
 </ol>
 </li>
-</ol>
+</ol><a id="more"></a>
+
+
 <pre><code>2、需要在 main.js 挂载 Vuex
 
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> store <span class="keyword">from</span> <span class="string">'./store'</span>  </span><br><span class="line">Vue.prototype.$store = store  </span><br><span class="line">.....</span><br><span class="line">.....</span><br><span class="line"></span><br><span class="line"><span class="comment">//千万注意这里别忘记了。</span></span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">     store,</span><br><span class="line">     ...App</span><br><span class="line"> &#125;)</span><br></pre></td></tr></table></figure>

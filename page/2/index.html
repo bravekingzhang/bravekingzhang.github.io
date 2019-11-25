@@ -367,35 +367,22 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h4 id="TensorFlow-lite的介绍"><a href="#TensorFlow-lite的介绍" class="headerlink" title="TensorFlow lite的介绍"></a>TensorFlow lite的介绍</h4><p>有关TensorFlow的介绍建议看官网，如果懒的话可以直接看我上篇文章。官方告诉我们，入门TensorFlow lite的最好姿势是学习他的demo，这里从第一个例子，图片识别开始。</p>
-<h6 id="环境搭建，建议在Android上尝试，因为ios安装真机需要证书或者越狱"><a href="#环境搭建，建议在Android上尝试，因为ios安装真机需要证书或者越狱" class="headerlink" title="环境搭建，建议在Android上尝试，因为ios安装真机需要证书或者越狱"></a>环境搭建，建议在Android上尝试，因为ios安装真机需要证书或者越狱</h6><ol>
+          <h4 id="TensorFlow-lite的介绍"><a href="#TensorFlow-lite的介绍" class="headerlink" title="TensorFlow lite的介绍"></a>TensorFlow lite的介绍</h4><p>有关TensorFlow的介绍建议看官网，如果懒的话可以直接看我上篇文章。官方告诉我们，入门TensorFlow lite的最好姿势是学习他的demo，这里从第一个例子，图片识别开始。</p><h6 id="环境搭建，建议在Android上尝试，因为ios安装真机需要证书或者越狱"><a href="#环境搭建，建议在Android上尝试，因为ios安装真机需要证书或者越狱" class="headerlink" title="环境搭建，建议在Android上尝试，因为ios安装真机需要证书或者越狱"></a>环境搭建，建议在Android上尝试，因为ios安装真机需要证书或者越狱</h6><ol>
 <li><p>安装<code>Android studio</code> 这里假设你已经安装好了Android studio了，官方建议版本<code>3.2</code>以上，这里如果不是最好更新一下咯。</p>
 </li>
 <li><p>git clone <a href="https://github.com/tensorflow/examples.git" target="_blank" rel="noopener">https://github.com/tensorflow/examples.git</a></p>
 </li>
 <li><p>图片识别的Android工程源码放在<code>examples/lite/examples</code>这里了，使用Android studio打开已存在的项目。</p>
 </li>
-</ol>
-<h6 id="跑起来之后，直接接可以识别了"><a href="#跑起来之后，直接接可以识别了" class="headerlink" title="跑起来之后，直接接可以识别了"></a>跑起来之后，直接接可以识别了</h6><p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190520170200.png" alt></p>
-<h6 id="已经有了结果了，当然是要纠结一下它是怎么run起来的了。"><a href="#已经有了结果了，当然是要纠结一下它是怎么run起来的了。" class="headerlink" title="已经有了结果了，当然是要纠结一下它是怎么run起来的了。"></a>已经有了结果了，当然是要纠结一下它是怎么run起来的了。</h6><p>图像识别，很显然需要用到相机，这里，对于Android平台，demo中处理了一下权限的问题，还有<code>camera</code>，<code>camera2</code>的一些api的兼容问题，这些过程都不是很重要，重要的是，我们拿到图片流之后的处理：我们随便拿一个，比如camera 方式的回调</p>
-<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190520192431.png" alt></p>
-<p>这里拿到图片之后，主要进行了一个<code>convertYUV420SPToARGB8888</code>的转换，因为camera拿到的字节是YUV格式的，而后面模型处理算法是RGB方式，因此需要转换一下。</p>
-<h6 id="好，接着进入processImage环节"><a href="#好，接着进入processImage环节" class="headerlink" title="好，接着进入processImage环节"></a>好，接着进入processImage环节</h6><p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190520194106.png" alt></p>
-<p>同样，代码没有多么难以理解，拿到刚刚捕获的RGB字节，将他写入rgbFrameBitmap中，然后将其转换一下，放到一个新的croppedBitmap中，然后直接就使用分类器来识别图片了，看起来就一句代码实现了这个图像识别。</p>
-<h6 id="那么这个classfier是在哪里创建的呢？"><a href="#那么这个classfier是在哪里创建的呢？" class="headerlink" title="那么这个classfier是在哪里创建的呢？"></a>那么这个classfier是在哪里创建的呢？</h6><p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190520194516.png" alt></p>
-<p>创建的代码在此处，这里传入的参数有model，设备，线程数，对应于一下ui界面这里的设置。</p>
-<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190520194706.png" alt></p>
-<h6 id="那么，分类器具体是如何构造的呢？"><a href="#那么，分类器具体是如何构造的呢？" class="headerlink" title="那么，分类器具体是如何构造的呢？"></a>那么，分类器具体是如何构造的呢？</h6><p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190520200223.png" alt></p>
-<p>构造一份分类器，需要用到模型文件，需要制定是使用<code>CPU</code>，还是<code>NNAPI</code>（Android Neural Networks API (NNAPI) 是一个 Android C API，专门为在移动设备上对机器学习运行计算密集型运算而设计），还是<code>GPU</code>，然后需要把要识别的结果标签加载到内存中，使用不同的模型，构造器的具体实现类还不一样。</p>
-<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190520200448.png" alt></p>
-<p>具体的分类器的实现类有两个，比如我们就看<code>ClassifierQuantizedMobileNet</code>这个分类器的实现。</p>
-<h6 id="分类器构造好之后，就该了解具体是如何做识别的了"><a href="#分类器构造好之后，就该了解具体是如何做识别的了" class="headerlink" title="分类器构造好之后，就该了解具体是如何做识别的了"></a>分类器构造好之后，就该了解具体是如何做识别的了</h6><p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190520201141.png" alt></p>
-<p>说到底这里也是一句代码的调用，然后使用优先队列来做了一个排序，个人感觉有点多次一句，直接Arrays.sort()不就搞定了，还需要用什么优先队列先塞一下，在取了在塞，浪费~~~~。</p>
-<p>最后跟一下runInference这个方法，是一个抽象方法，前面说了，根据模型不同，由具体分类器自己实现，我们姑且看<code>ClassifierQuantizedMobileNet</code>这个，以为是价值一个亿的代码，结果就这么简简单单的一行而已，不过看了下label列表，大概有1000行，估摸着这样排序会快一些，相当于做了一个堆排序。</p>
-<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190520201530.png" alt></p>
-<p>也就是说tflite会根据此时的imgData来生成一个labelProbArray，然后具体哪个label的可能性如何就可以直接取了。</p>
-<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p>整个过程就分析完了，实际上有一个可用的模型的化，就很好办了，客户端写下套路代码就ok，应用这个模型就可以给出推断结果，那么，毫无疑问，模型是如何训练呢？欲知后事如何，请听下文分解。</p>
-
+</ol><h6 id="跑起来之后，直接接可以识别了"><a href="#跑起来之后，直接接可以识别了" class="headerlink" title="跑起来之后，直接接可以识别了"></a>跑起来之后，直接接可以识别了</h6>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/05/20/Tenserflow-Lite之图片识别/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -487,19 +474,14 @@
       
           <h4 id="tensorflow-lite是干嘛的"><a href="#tensorflow-lite是干嘛的" class="headerlink" title="tensorflow lite是干嘛的"></a>tensorflow lite是干嘛的</h4><blockquote>
 <p>TensorFlow Lite is an open source deep learning framework for on-device inference</p>
-</blockquote>
-<p>上面这句话是官网上面的原话，直接了当的说明了TensorFlow Lite是一个可以部署在端设备上的深度学习框架，这说明了，深度学习已经有着覆盖移动端设备的趋势了，所以，移动开发者似乎又有了新的学习任务。</p>
-<h4 id="那么，目前TensorFlow-Lite能干些啥"><a href="#那么，目前TensorFlow-Lite能干些啥" class="headerlink" title="那么，目前TensorFlow Lite能干些啥"></a>那么，目前TensorFlow Lite能干些啥</h4><ol>
+</blockquote><p>上面这句话是官网上面的原话，直接了当的说明了TensorFlow Lite是一个可以部署在端设备上的深度学习框架，这说明了，深度学习已经有着覆盖移动端设备的趋势了，所以，移动开发者似乎又有了新的学习任务。</p><h4 id="那么，目前TensorFlow-Lite能干些啥"><a href="#那么，目前TensorFlow-Lite能干些啥" class="headerlink" title="那么，目前TensorFlow Lite能干些啥"></a>那么，目前TensorFlow Lite能干些啥</h4><ol>
 <li><p>图片分类</p>
 </li>
 <li><p>物体监测</p>
 </li>
 <li><p>聊天机器人</p>
 </li>
-</ol>
-<h4 id="嗯，看起来似乎有点意思，那呢他是如何工作的呢？"><a href="#嗯，看起来似乎有点意思，那呢他是如何工作的呢？" class="headerlink" title="嗯，看起来似乎有点意思，那呢他是如何工作的呢？"></a>嗯，看起来似乎有点意思，那呢他是如何工作的呢？</h4><p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190520153835.png" alt></p>
-<p>大抵就是经过上面四个步骤</p>
-<ol>
+</ol><h4 id="嗯，看起来似乎有点意思，那呢他是如何工作的呢？"><a href="#嗯，看起来似乎有点意思，那呢他是如何工作的呢？" class="headerlink" title="嗯，看起来似乎有点意思，那呢他是如何工作的呢？"></a>嗯，看起来似乎有点意思，那呢他是如何工作的呢？</h4><p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190520153835.png" alt></p><p>大抵就是经过上面四个步骤</p><ol>
 <li><p>选择一个已有模型改吧改吧，当然你牛你可以自己训练，大部分都是选择开源模型</p>
 </li>
 <li><p>将它转换为lite可用的模型，这一步就是一个函数调用，不怕</p>
@@ -509,7 +491,6 @@
 <li><p>进行识别调优，准确率需要自己不断地训练去教育它。</p>
 </li>
 </ol>
-
       
     </div>
 
@@ -815,39 +796,22 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190513200943.png" alt></p>
-<p>一个xml布局丢给调用setContentView方法，到创建整个DOM树的过程粗略的来看就是以上过程了。当然，只是创建了是不够的，就像你在淘宝买了一堆的宝贝，你乱糟糟的放着成何体统，当然是要整洁的摆放着，才能获得最佳体验，那么，这个最佳体验是怎么做的呢？</p>
-<p>这就需要你讲这个viewDOM绘制到屏幕上，而每一个视图的绘制过程都必须经历三个最主要的阶段，即onMeasure()、onLayout()和onDraw()。</p>
-<h6 id="onMeasure"><a href="#onMeasure" class="headerlink" title="onMeasure()"></a>onMeasure()</h6><p>顾名思义就是测量，这个过程是一个递归的过程，既然要测量，肯定就有一个尺子一样的东西，还有有一定的规则。</p>
-<ul>
+          <p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190513200943.png" alt></p><p>一个xml布局丢给调用setContentView方法，到创建整个DOM树的过程粗略的来看就是以上过程了。当然，只是创建了是不够的，就像你在淘宝买了一堆的宝贝，你乱糟糟的放着成何体统，当然是要整洁的摆放着，才能获得最佳体验，那么，这个最佳体验是怎么做的呢？</p><p>这就需要你讲这个viewDOM绘制到屏幕上，而每一个视图的绘制过程都必须经历三个最主要的阶段，即onMeasure()、onLayout()和onDraw()。</p><h6 id="onMeasure"><a href="#onMeasure" class="headerlink" title="onMeasure()"></a>onMeasure()</h6><p>顾名思义就是测量，这个过程是一个递归的过程，既然要测量，肯定就有一个尺子一样的东西，还有有一定的规则。</p><ul>
 <li><p>EXACTLY 精确值</p>
 </li>
 <li><p>AT_MOST 表示子视图最多只能是specSize中指定的大小</p>
 </li>
 <li><p>UNSPECIFIED 任意大小</p>
 </li>
-</ul>
-<p>因此在这个过程中，我们可以玩一些方形ImageView,就是在<code>onMeasure</code>中让宽度永远等于高度。</p>
-<h6 id="onLayout"><a href="#onLayout" class="headerlink" title="onLayout()"></a>onLayout()</h6><p>measure过程结束后就是onLayout()，顾明事宜就是按照测量好的大小，安放这些View了。</p>
-<p>ViewGroup中的onLayout()方法竟然是一个抽象方法，这就意味着所有ViewGroup的子类都必须重写这个方法，我们常用的LinearLayout,FrameLaout等，都是Google替我们写好了的，如果我们要从零开始自定义一个ViewGroup，我们必须实现这个方法。</p>
-<h6 id="onDraw"><a href="#onDraw" class="headerlink" title="onDraw()"></a>onDraw()</h6><p>接下来就是绘制了，绘制就更加清晰，绘制的方式主要是借助Canvas这个类，它会作为参数传入到onDraw()方法中，供给每个视图使用。Canvas这个类的用法非常丰富，基本可以把它当成一块画布，在上面绘制任意的东西。</p>
-<h5 id="卡顿原理，及VSYNC帧"><a href="#卡顿原理，及VSYNC帧" class="headerlink" title="卡顿原理，及VSYNC帧"></a>卡顿原理，及VSYNC帧</h5><p>GPU会获取图形数据进行渲染，然后硬件负责把渲染后的内容呈现到屏幕上，他们两者不停的进行协作，不幸的是，刷新频率和帧率并不是总能够保持相同的节奏。如果发生帧率与刷新频率不一致的情况，就会出现掉帧，也就是所谓的卡顿了。</p>
-<p>而控制这个节奏的实际上就是这个vsync帧，刷新频率是60fps，因此，1s/60 = 16.6ms,所以每隔16.6ms发送一个vsync帧，也就是说，这个渲染的过程能否在16.6ms内完成，决定是否卡顿。</p>
-<h6 id="卡顿检测工具"><a href="#卡顿检测工具" class="headerlink" title="卡顿检测工具"></a>卡顿检测工具</h6><ol>
-<li><p>利用loop()中打印的日志</p>
-</li>
-<li><p>基于利用Choreographer</p>
-</li>
-<li><p>利用Looper机制</p>
-</li>
-</ol>
-<p>loop的方式</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Looper.getMainLooper().setMessageLogging(<span class="keyword">new</span> Printer() &#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String START = <span class="string">"&gt;&gt;&gt;&gt;&gt; Dispatching"</span>;</span><br><span class="line">            <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String END = <span class="string">"&lt;&lt;&lt;&lt;&lt; Finished"</span>;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">println</span><span class="params">(String x)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">if</span> (x.startsWith(START)) &#123;</span><br><span class="line">                    LogMonitor.getInstance().startMonitor();</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (x.startsWith(END)) &#123;</span><br><span class="line">                    LogMonitor.getInstance().removeMonitor();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
-<p>choreographer方式</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Choreographer.getInstance()</span><br><span class="line">         .postFrameCallback(<span class="keyword">new</span> Choreographer.FrameCallback() &#123;</span><br><span class="line">             <span class="meta">@Override</span></span><br><span class="line">             <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doFrame</span><span class="params">(<span class="keyword">long</span> l)</span> </span>&#123;</span><br><span class="line">                 <span class="keyword">if</span> (LogMonitor.getInstance().isMonitor()) &#123;</span><br><span class="line">                     LogMonitor.getInstance().removeMonitor();                    </span><br><span class="line">                 &#125; </span><br><span class="line">                 LogMonitor.getInstance().startMonitor();</span><br><span class="line">                                         Choreographer.getInstance().postFrameCallback(<span class="keyword">this</span>);</span><br><span class="line">             &#125;</span><br><span class="line">     &#125;);</span><br></pre></td></tr></table></figure>
-<p>lopper机制</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Handler(Looper.getMainLooper()).post(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Looper mainLooper = Looper.getMainLooper();</span><br><span class="line">                    <span class="keyword">final</span> Looper me = mainLooper;</span><br><span class="line">                    <span class="keyword">final</span> MessageQueue queue;</span><br><span class="line">                    Field fieldQueue = me.getClass().getDeclaredField(FIELD_mQueue);</span><br><span class="line">                    fieldQueue.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">                    queue = (MessageQueue) fieldQueue.get(me);</span><br><span class="line">                    Method methodNext = queue.getClass().getDeclaredMethod(METHOD_next);</span><br><span class="line">                    methodNext.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">                    Binder.clearCallingIdentity();</span><br><span class="line">                    <span class="keyword">for</span> (; ; ) &#123;</span><br><span class="line">                        Message msg = (Message) methodNext.invoke(queue);</span><br><span class="line">                        <span class="keyword">if</span> (msg == <span class="keyword">null</span>) &#123;</span><br><span class="line">                            <span class="keyword">return</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                        LogMonitor.getInstance().startMonitor();</span><br><span class="line">                        msg.getTarget().dispatchMessage(msg);</span><br><span class="line">                        msg.recycle();</span><br><span class="line">                        LogMonitor.getInstance().removeMonitor();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
-
+</ul><p>因此在这个过程中，我们可以玩一些方形ImageView,就是在<code>onMeasure</code>中让宽度永远等于高度。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/05/14/UI绘制流程及原理/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -943,11 +907,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h5 id="生气，其实是人的主观愿望和客观事实严重不相符合时的一种消极的情绪反应，搞得不好就是出现愤青模式。"><a href="#生气，其实是人的主观愿望和客观事实严重不相符合时的一种消极的情绪反应，搞得不好就是出现愤青模式。" class="headerlink" title="生气，其实是人的主观愿望和客观事实严重不相符合时的一种消极的情绪反应，搞得不好就是出现愤青模式。"></a>生气，其实是人的主观愿望和客观事实严重不相符合时的一种消极的情绪反应，搞得不好就是出现愤青模式。</h5><p>比如说，早上你散步好好的，一辆奔驰而过的卡车压过昨天暴雨而造成低洼处积水的路面，将你淋了一个狗血临头，你能不保持生气，相信你肯定很佛系了，奶奶的，我就遇到咯。</p>
-<p>但是想一想，生气干嘛呢，那辆车无非就是一个匆匆过客了，你在怎么气，也是你自己的反应罢了，与别人又有什么关系呢~~，所谓的自伤罢了。</p>
-<h5 id="在生活中，我们在意得太多，我们太计较得失，所以我们并不快乐，如果因此失去更多，这绝对不是一个划算的买卖。佛系一点点并不是傻，而是一种失之淡然的态度，失去的，在笑着努力挣回来就是了。"><a href="#在生活中，我们在意得太多，我们太计较得失，所以我们并不快乐，如果因此失去更多，这绝对不是一个划算的买卖。佛系一点点并不是傻，而是一种失之淡然的态度，失去的，在笑着努力挣回来就是了。" class="headerlink" title="在生活中，我们在意得太多，我们太计较得失，所以我们并不快乐，如果因此失去更多，这绝对不是一个划算的买卖。佛系一点点并不是傻，而是一种失之淡然的态度，失去的，在笑着努力挣回来就是了。"></a>在生活中，我们在意得太多，我们太计较得失，所以我们并不快乐，如果因此失去更多，这绝对不是一个划算的买卖。佛系一点点并不是傻，而是一种失之淡然的态度，失去的，在笑着努力挣回来就是了。</h5><p> 但是，每个人应该有自己的底线，有自己的原则，并不是整天呵呵哈哈嘻嘻，愤怒有他存在的理由，我们所能做的是把这种情绪控制在合理的范围内，不伤自为好，不伤人为妙。</p>
-<h5 id="如何有效控制情绪"><a href="#如何有效控制情绪" class="headerlink" title="如何有效控制情绪"></a>如何有效控制情绪</h5><p>想想一下，现在这种情况，最坏的状况会是什么，你目前难道比最坏的状况都糟糕吗，所以，一切都是因为对比出来的，没有对比就没有伤害，减少伤害，从聪明对比做起，但我们不要做鸵鸟~，该争取的，不要轻易放过。</p>
-
+          <h5 id="生气，其实是人的主观愿望和客观事实严重不相符合时的一种消极的情绪反应，搞得不好就是出现愤青模式。"><a href="#生气，其实是人的主观愿望和客观事实严重不相符合时的一种消极的情绪反应，搞得不好就是出现愤青模式。" class="headerlink" title="生气，其实是人的主观愿望和客观事实严重不相符合时的一种消极的情绪反应，搞得不好就是出现愤青模式。"></a>生气，其实是人的主观愿望和客观事实严重不相符合时的一种消极的情绪反应，搞得不好就是出现愤青模式。</h5><p>比如说，早上你散步好好的，一辆奔驰而过的卡车压过昨天暴雨而造成低洼处积水的路面，将你淋了一个狗血临头，你能不保持生气，相信你肯定很佛系了，奶奶的，我就遇到咯。</p><p>但是想一想，生气干嘛呢，那辆车无非就是一个匆匆过客了，你在怎么气，也是你自己的反应罢了，与别人又有什么关系呢~~，所谓的自伤罢了。</p><h5 id="在生活中，我们在意得太多，我们太计较得失，所以我们并不快乐，如果因此失去更多，这绝对不是一个划算的买卖。佛系一点点并不是傻，而是一种失之淡然的态度，失去的，在笑着努力挣回来就是了。"><a href="#在生活中，我们在意得太多，我们太计较得失，所以我们并不快乐，如果因此失去更多，这绝对不是一个划算的买卖。佛系一点点并不是傻，而是一种失之淡然的态度，失去的，在笑着努力挣回来就是了。" class="headerlink" title="在生活中，我们在意得太多，我们太计较得失，所以我们并不快乐，如果因此失去更多，这绝对不是一个划算的买卖。佛系一点点并不是傻，而是一种失之淡然的态度，失去的，在笑着努力挣回来就是了。"></a>在生活中，我们在意得太多，我们太计较得失，所以我们并不快乐，如果因此失去更多，这绝对不是一个划算的买卖。佛系一点点并不是傻，而是一种失之淡然的态度，失去的，在笑着努力挣回来就是了。</h5><p> 但是，每个人应该有自己的底线，有自己的原则，并不是整天呵呵哈哈嘻嘻，愤怒有他存在的理由，我们所能做的是把这种情绪控制在合理的范围内，不伤自为好，不伤人为妙。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/05/13/人生是为了生气的吗？/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 

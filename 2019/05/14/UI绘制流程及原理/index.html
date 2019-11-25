@@ -47,19 +47,19 @@
   };
 </script>
 
-  <meta name="description" content="一个xml布局丢给调用setContentView方法，到创建整个DOM树的过程粗略的来看就是以上过程了。当然，只是创建了是不够的，就像你在淘宝买了一堆的宝贝，你乱糟糟的放着成何体统，当然是要整洁的摆放着，才能获得最佳体验，那么，这个最佳体验是怎么做的呢？ 这就需要你讲这个viewDOM绘制到屏幕上，而每一个视图的绘制过程都必须经历三个最主要的阶段，即onMeasure()、onLayout()">
+  <meta name="description" content="一个xml布局丢给调用setContentView方法，到创建整个DOM树的过程粗略的来看就是以上过程了。当然，只是创建了是不够的，就像你在淘宝买了一堆的宝贝，你乱糟糟的放着成何体统，当然是要整洁的摆放着，才能获得最佳体验，那么，这个最佳体验是怎么做的呢？这就需要你讲这个viewDOM绘制到屏幕上，而每一个视图的绘制过程都必须经历三个最主要的阶段，即onMeasure()、onLayout()和o">
 <meta name="keywords" content="绘制,UI,性能优化">
 <meta property="og:type" content="article">
 <meta property="og:title" content="UI绘制流程及原理">
 <meta property="og:url" content="https://blog.brzhang.club/2019/05/14/UI绘制流程及原理/index.html">
 <meta property="og:site_name" content="心随我动">
-<meta property="og:description" content="一个xml布局丢给调用setContentView方法，到创建整个DOM树的过程粗略的来看就是以上过程了。当然，只是创建了是不够的，就像你在淘宝买了一堆的宝贝，你乱糟糟的放着成何体统，当然是要整洁的摆放着，才能获得最佳体验，那么，这个最佳体验是怎么做的呢？ 这就需要你讲这个viewDOM绘制到屏幕上，而每一个视图的绘制过程都必须经历三个最主要的阶段，即onMeasure()、onLayout()">
+<meta property="og:description" content="一个xml布局丢给调用setContentView方法，到创建整个DOM树的过程粗略的来看就是以上过程了。当然，只是创建了是不够的，就像你在淘宝买了一堆的宝贝，你乱糟糟的放着成何体统，当然是要整洁的摆放着，才能获得最佳体验，那么，这个最佳体验是怎么做的呢？这就需要你讲这个viewDOM绘制到屏幕上，而每一个视图的绘制过程都必须经历三个最主要的阶段，即onMeasure()、onLayout()和o">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190513200943.png">
 <meta property="og:updated_time" content="2019-05-21T12:24:34.880Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="UI绘制流程及原理">
-<meta name="twitter:description" content="一个xml布局丢给调用setContentView方法，到创建整个DOM树的过程粗略的来看就是以上过程了。当然，只是创建了是不够的，就像你在淘宝买了一堆的宝贝，你乱糟糟的放着成何体统，当然是要整洁的摆放着，才能获得最佳体验，那么，这个最佳体验是怎么做的呢？ 这就需要你讲这个viewDOM绘制到屏幕上，而每一个视图的绘制过程都必须经历三个最主要的阶段，即onMeasure()、onLayout()">
+<meta name="twitter:description" content="一个xml布局丢给调用setContentView方法，到创建整个DOM树的过程粗略的来看就是以上过程了。当然，只是创建了是不够的，就像你在淘宝买了一堆的宝贝，你乱糟糟的放着成何体统，当然是要整洁的摆放着，才能获得最佳体验，那么，这个最佳体验是怎么做的呢？这就需要你讲这个viewDOM绘制到屏幕上，而每一个视图的绘制过程都必须经历三个最主要的阶段，即onMeasure()、onLayout()和o">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190513200943.png">
 
 <link rel="canonical" href="https://blog.brzhang.club/2019/05/14/UI绘制流程及原理/">
@@ -269,19 +269,19 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190513200943.png" alt></p>
-<p>一个xml布局丢给调用setContentView方法，到创建整个DOM树的过程粗略的来看就是以上过程了。当然，只是创建了是不够的，就像你在淘宝买了一堆的宝贝，你乱糟糟的放着成何体统，当然是要整洁的摆放着，才能获得最佳体验，那么，这个最佳体验是怎么做的呢？</p>
-<p>这就需要你讲这个viewDOM绘制到屏幕上，而每一个视图的绘制过程都必须经历三个最主要的阶段，即onMeasure()、onLayout()和onDraw()。</p>
-<h6 id="onMeasure"><a href="#onMeasure" class="headerlink" title="onMeasure()"></a>onMeasure()</h6><p>顾名思义就是测量，这个过程是一个递归的过程，既然要测量，肯定就有一个尺子一样的东西，还有有一定的规则。</p>
-<ul>
+        <p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190513200943.png" alt></p><p>一个xml布局丢给调用setContentView方法，到创建整个DOM树的过程粗略的来看就是以上过程了。当然，只是创建了是不够的，就像你在淘宝买了一堆的宝贝，你乱糟糟的放着成何体统，当然是要整洁的摆放着，才能获得最佳体验，那么，这个最佳体验是怎么做的呢？</p><p>这就需要你讲这个viewDOM绘制到屏幕上，而每一个视图的绘制过程都必须经历三个最主要的阶段，即onMeasure()、onLayout()和onDraw()。</p><h6 id="onMeasure"><a href="#onMeasure" class="headerlink" title="onMeasure()"></a>onMeasure()</h6><p>顾名思义就是测量，这个过程是一个递归的过程，既然要测量，肯定就有一个尺子一样的东西，还有有一定的规则。</p><ul>
 <li><p>EXACTLY 精确值</p>
 </li>
 <li><p>AT_MOST 表示子视图最多只能是specSize中指定的大小</p>
 </li>
 <li><p>UNSPECIFIED 任意大小</p>
 </li>
-</ul>
-<p>因此在这个过程中，我们可以玩一些方形ImageView,就是在<code>onMeasure</code>中让宽度永远等于高度。</p>
+</ul><p>因此在这个过程中，我们可以玩一些方形ImageView,就是在<code>onMeasure</code>中让宽度永远等于高度。</p><a id="more"></a>
+
+
+
+
+
 <h6 id="onLayout"><a href="#onLayout" class="headerlink" title="onLayout()"></a>onLayout()</h6><p>measure过程结束后就是onLayout()，顾明事宜就是按照测量好的大小，安放这些View了。</p>
 <p>ViewGroup中的onLayout()方法竟然是一个抽象方法，这就意味着所有ViewGroup的子类都必须重写这个方法，我们常用的LinearLayout,FrameLaout等，都是Google替我们写好了的，如果我们要从零开始自定义一个ViewGroup，我们必须实现这个方法。</p>
 <h6 id="onDraw"><a href="#onDraw" class="headerlink" title="onDraw()"></a>onDraw()</h6><p>接下来就是绘制了，绘制就更加清晰，绘制的方式主要是借助Canvas这个类，它会作为参数传入到onDraw()方法中，供给每个视图使用。Canvas这个类的用法非常丰富，基本可以把它当成一块画布，在上面绘制任意的东西。</p>

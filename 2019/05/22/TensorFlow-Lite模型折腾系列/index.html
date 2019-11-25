@@ -47,13 +47,13 @@
   };
 </script>
 
-  <meta name="description" content="大家知道，玩TensorFlow ，玩的其实就是模型，如果没有一个合适的模型，TensorFlow压根就玩不起来。  那么，根据官网介绍来看，第二种方式也许是我们会接触的比较多的一种，因为第一种方式直接拿Google替我们准备好的模型，可谓是小概率事件，哪有那么好的事，直接就给你对上了呢？ 所以来看看怎么做Transfer learning，也就是所谓的迁移学习，那么什么是迁移学习呢？迁移学习(T">
+  <meta name="description" content="大家知道，玩TensorFlow ，玩的其实就是模型，如果没有一个合适的模型，TensorFlow压根就玩不起来。那么，根据官网介绍来看，第二种方式也许是我们会接触的比较多的一种，因为第一种方式直接拿Google替我们准备好的模型，可谓是小概率事件，哪有那么好的事，直接就给你对上了呢？所以来看看怎么做Transfer learning，也就是所谓的迁移学习，那么什么是迁移学习呢？迁移学习(Tran">
 <meta name="keywords" content="TensorFlow,模型">
 <meta property="og:type" content="article">
 <meta property="og:title" content="TensorFlow Lite模型折腾系列">
 <meta property="og:url" content="https://blog.brzhang.club/2019/05/22/TensorFlow-Lite模型折腾系列/index.html">
 <meta property="og:site_name" content="心随我动">
-<meta property="og:description" content="大家知道，玩TensorFlow ，玩的其实就是模型，如果没有一个合适的模型，TensorFlow压根就玩不起来。  那么，根据官网介绍来看，第二种方式也许是我们会接触的比较多的一种，因为第一种方式直接拿Google替我们准备好的模型，可谓是小概率事件，哪有那么好的事，直接就给你对上了呢？ 所以来看看怎么做Transfer learning，也就是所谓的迁移学习，那么什么是迁移学习呢？迁移学习(T">
+<meta property="og:description" content="大家知道，玩TensorFlow ，玩的其实就是模型，如果没有一个合适的模型，TensorFlow压根就玩不起来。那么，根据官网介绍来看，第二种方式也许是我们会接触的比较多的一种，因为第一种方式直接拿Google替我们准备好的模型，可谓是小概率事件，哪有那么好的事，直接就给你对上了呢？所以来看看怎么做Transfer learning，也就是所谓的迁移学习，那么什么是迁移学习呢？迁移学习(Tran">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190521202458.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190522120600.png">
@@ -63,7 +63,7 @@
 <meta property="og:updated_time" content="2019-05-22T06:31:32.246Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TensorFlow Lite模型折腾系列">
-<meta name="twitter:description" content="大家知道，玩TensorFlow ，玩的其实就是模型，如果没有一个合适的模型，TensorFlow压根就玩不起来。  那么，根据官网介绍来看，第二种方式也许是我们会接触的比较多的一种，因为第一种方式直接拿Google替我们准备好的模型，可谓是小概率事件，哪有那么好的事，直接就给你对上了呢？ 所以来看看怎么做Transfer learning，也就是所谓的迁移学习，那么什么是迁移学习呢？迁移学习(T">
+<meta name="twitter:description" content="大家知道，玩TensorFlow ，玩的其实就是模型，如果没有一个合适的模型，TensorFlow压根就玩不起来。那么，根据官网介绍来看，第二种方式也许是我们会接触的比较多的一种，因为第一种方式直接拿Google替我们准备好的模型，可谓是小概率事件，哪有那么好的事，直接就给你对上了呢？所以来看看怎么做Transfer learning，也就是所谓的迁移学习，那么什么是迁移学习呢？迁移学习(Tran">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190521202458.png">
 
 <link rel="canonical" href="https://blog.brzhang.club/2019/05/22/TensorFlow-Lite模型折腾系列/">
@@ -267,11 +267,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>大家知道，玩TensorFlow ，玩的其实就是模型，如果没有一个合适的模型，TensorFlow压根就玩不起来。</p>
-<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190521202458.png" alt="官方关于模型的三种获取姿势"></p>
-<p>那么，根据官网介绍来看，第二种方式也许是我们会接触的比较多的一种，因为第一种方式直接拿Google替我们准备好的模型，可谓是小概率事件，哪有那么好的事，直接就给你对上了呢？</p>
-<p>所以来看看怎么做<code>Transfer learning</code>，也就是所谓的迁移学习，那么什么是迁移学习呢？迁移学习(Transfer learning) 顾名思义就是就是把已学训练好的模型参数迁移到新的模型来帮助新模型训练。考虑到大部分数据或任务是存在相关性的，所以通过迁移学习我们可以将已经学到的模型参数（也可理解为模型学到的知识）通过某种方式来分享给新模型从而加快并优化模型的学习效率不用像大多数网络那样从零学习。</p>
-<h5 id="Google给我们准别了一个学习的demo"><a href="#Google给我们准别了一个学习的demo" class="headerlink" title="Google给我们准别了一个学习的demo"></a>Google给我们准别了一个学习的demo</h5><p><a href="https://colab.research.google.com/github/tensorflow/examples/blob/master/community/en/flowers_tf_lite.ipynb#scrollTo=xxL2mjVVGIrV" target="_blank" rel="noopener">为图片识别添加新能力</a></p>
+        <p>大家知道，玩TensorFlow ，玩的其实就是模型，如果没有一个合适的模型，TensorFlow压根就玩不起来。</p><p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190521202458.png" alt="官方关于模型的三种获取姿势"></p><p>那么，根据官网介绍来看，第二种方式也许是我们会接触的比较多的一种，因为第一种方式直接拿Google替我们准备好的模型，可谓是小概率事件，哪有那么好的事，直接就给你对上了呢？</p><p>所以来看看怎么做<code>Transfer learning</code>，也就是所谓的迁移学习，那么什么是迁移学习呢？迁移学习(Transfer learning) 顾名思义就是就是把已学训练好的模型参数迁移到新的模型来帮助新模型训练。考虑到大部分数据或任务是存在相关性的，所以通过迁移学习我们可以将已经学到的模型参数（也可理解为模型学到的知识）通过某种方式来分享给新模型从而加快并优化模型的学习效率不用像大多数网络那样从零学习。</p><h5 id="Google给我们准别了一个学习的demo"><a href="#Google给我们准别了一个学习的demo" class="headerlink" title="Google给我们准别了一个学习的demo"></a>Google给我们准别了一个学习的demo</h5><a id="more"></a>
+
+
+
+<p><a href="https://colab.research.google.com/github/tensorflow/examples/blob/master/community/en/flowers_tf_lite.ipynb#scrollTo=xxL2mjVVGIrV" target="_blank" rel="noopener">为图片识别添加新能力</a></p>
 <p>这个codelab主要就是基于<code>Image classification</code>这个模型来做迁移学习的，学习之后的目的训练出一个可以识别鲜花的模型出来。</p>
 <p>总结来说，这个训练的步骤大致的可以分为</p>
 <ol>
