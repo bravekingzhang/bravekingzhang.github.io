@@ -47,33 +47,26 @@
   };
 </script>
 
-  <meta name="description" content="现在，小伙伴觉得隐私是非常重要的一件事情，谁也不希望裸奔在互联网的汪洋大海之中，那么如何做到,P2P IM，无服务器IM. 从Android源代码编译，发现里面有一个cpp的子工程原本想在模拟器上跑一下的，但是发现里面只有arm的静态链接库">
-<meta name="keywords" content="P2P,隐私">
+  <meta name="description" content="本文基本都是在flutter开发中总结的一些性能后话的经验之谈，按照这些建议去写flutter应用，相信不会你会离性能问题越来越远~~~~ 在正确的地方执行setState方法说简单的点就是局部更新，如果整棵树都去更新，执行时间肯定会比树叶更新要慢，性能要差，这个是理所当然的。然后就是尽量不要出发离屏渲染，那么什么骚操作会导致离屏渲染呢？ 带透明参数的图片  shader mask  color">
+<meta name="keywords" content="flutter,性能优化">
 <meta property="og:type" content="article">
-<meta property="og:title" content="一个开源P2P-IM项目研究">
-<meta property="og:url" content="https://blog.brzhang.club/2019/06/20/开源私密项目tok研究/index.html">
+<meta property="og:title" content="flutter性能优化参考">
+<meta property="og:url" content="https://blog.brzhang.club/2019/12/02/flutter性能优化参考/index.html">
 <meta property="og:site_name" content="心随我动">
-<meta property="og:description" content="现在，小伙伴觉得隐私是非常重要的一件事情，谁也不希望裸奔在互联网的汪洋大海之中，那么如何做到,P2P IM，无服务器IM. 从Android源代码编译，发现里面有一个cpp的子工程原本想在模拟器上跑一下的，但是发现里面只有arm的静态链接库">
+<meta property="og:description" content="本文基本都是在flutter开发中总结的一些性能后话的经验之谈，按照这些建议去写flutter应用，相信不会你会离性能问题越来越远~~~~ 在正确的地方执行setState方法说简单的点就是局部更新，如果整棵树都去更新，执行时间肯定会比树叶更新要慢，性能要差，这个是理所当然的。然后就是尽量不要出发离屏渲染，那么什么骚操作会导致离屏渲染呢？ 带透明参数的图片  shader mask  color">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190620181501.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190620181553.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190620182018.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190620182308.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190620182941.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190620184735.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190620185109.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190620185341.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190620185748.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190620185832.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190626111901.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190626112256.png">
-<meta property="og:updated_time" content="2019-11-25T07:57:32.731Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20191202100919.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20191202102630.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20191202102922.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20191202103353.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20191202103905.png">
+<meta property="og:updated_time" content="2019-12-02T02:43:46.948Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="一个开源P2P-IM项目研究">
-<meta name="twitter:description" content="现在，小伙伴觉得隐私是非常重要的一件事情，谁也不希望裸奔在互联网的汪洋大海之中，那么如何做到,P2P IM，无服务器IM. 从Android源代码编译，发现里面有一个cpp的子工程原本想在模拟器上跑一下的，但是发现里面只有arm的静态链接库">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190620181501.png">
+<meta name="twitter:title" content="flutter性能优化参考">
+<meta name="twitter:description" content="本文基本都是在flutter开发中总结的一些性能后话的经验之谈，按照这些建议去写flutter应用，相信不会你会离性能问题越来越远~~~~ 在正确的地方执行setState方法说简单的点就是局部更新，如果整棵树都去更新，执行时间肯定会比树叶更新要慢，性能要差，这个是理所当然的。然后就是尽量不要出发离屏渲染，那么什么骚操作会导致离屏渲染呢？ 带透明参数的图片  shader mask  color">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20191202100919.png">
 
-<link rel="canonical" href="https://blog.brzhang.club/2019/06/20/开源私密项目tok研究/">
+<link rel="canonical" href="https://blog.brzhang.club/2019/12/02/flutter性能优化参考/">
 
 
 <script id="page-configurations">
@@ -87,7 +80,7 @@
   };
 </script>
 
-  <title>一个开源P2P-IM项目研究 | 心随我动</title>
+  <title>flutter性能优化参考 | 心随我动</title>
   
 
 
@@ -204,7 +197,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2019/06/20/开源私密项目tok研究/">
+    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2019/12/02/flutter性能优化参考/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -217,7 +210,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          一个开源P2P-IM项目研究
+          flutter性能优化参考
         </h1>
 
         <div class="post-meta">
@@ -226,30 +219,24 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2019-06-20 18:12:02" itemprop="dateCreated datePublished" datetime="2019-06-20T18:12:02+08:00">2019-06-20</time>
+              <time title="Created: 2019-12-02 09:59:28 / Modified: 10:43:46" itemprop="dateCreated datePublished" datetime="2019-12-02T09:59:28+08:00">2019-12-02</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-11-25 15:57:32" itemprop="dateModified" datetime="2019-11-25T15:57:32+08:00">2019-11-25</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
+                  <a href="/categories/flutter/" itemprop="url" rel="index">
+                    <span itemprop="name">flutter</span>
                   </a>
                 </span>
             </span>
 
           
-            <span id="/2019/06/20/开源私密项目tok研究/" class="post-meta-item leancloud_visitors" data-flag-title="一个开源P2P-IM项目研究" title="Views">
+            <span id="/2019/12/02/flutter性能优化参考/" class="post-meta-item leancloud_visitors" data-flag-title="flutter性能优化参考" title="Views">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -264,8 +251,8 @@
       </span>
       <span class="post-meta-item-text">Valine: </span>
     
-    <a title="valine" href="/2019/06/20/开源私密项目tok研究/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/06/20/开源私密项目tok研究/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/12/02/flutter性能优化参考/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/02/flutter性能优化参考/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -280,43 +267,50 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>现在，小伙伴觉得隐私是非常重要的一件事情，谁也不希望裸奔在互联网的汪洋大海之中，那么如何做到,P2P IM，无服务器IM.</p>
-<p>从Android源代码编译，发现里面有一个cpp的子工程原本想在模拟器上跑一下的，但是发现里面只有arm的静态链接库<a id="more"></a></p>
-<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190620181501.png" alt></p>
-<p>所以只能在真机上跑，或者去找到这个静态链接库的x86版本，修改一下这里：</p>
-<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190620181553.png" alt></p>
-<p>就可以在模拟器上跑了，这个库<code>opus</code>是做音频处理的一个开源库，这里暂时还不知道作者为嘛要装逼弄个ndk玩一玩。不过我想也不妨碍我们求知吧，先看看他封装了哪些JNI,其实挺少了，也就4-5个，看了下大概就是发送语音的时候需要录音，嗯~继续~</p>
-<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190620182018.png" alt></p>
-<p>其实，我看他源码主要是想了解为什么他<code>上线的速度比较慢</code>每次大概需要20s左右的时间，这对用户体验来说无疑是致命一击。因此，本文的目的其实是重点来关注下java工程，甚至，需要在github上clone一下他的server端看看，才能找到具体原因。[我想大概率是server端，因为我体验iOS也是如此之慢的连接速度，但是连上之后体验还好]</p>
-<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190620182308.png" alt></p>
-<p>判断是否需要登录的逻辑比较简单，初次登录之后，在pref中写了一个account数据，姑且是标识符把。然后如果有的化就认为不需要再让用户去登录了，直接就去主界面了，当然还有一重判断，我没框出来，那就是<code>聊天服务ChatMainService</code> 是否开启了，没有开启那是要先开启的。</p>
-<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190620182941.png" alt></p>
-<p>好吧，所以，我们应该需要看看ChatMainService为什么便秘了呢？？</p>
-<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190620184735.png" alt></p>
-<p>嗯，大概想都不用想，上线逻辑就在这里。细心的你应该看到，isRunning=ture表示服务应启动，但是并没有意味着已经上线，然后就进去了一个消息循环，我看到timer就想笑了，因为我之前看到的消息都是推送过来的，这次换成自己去查，有点接受不了。。。哈哈，先不管这么多，继续</p>
-<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190620185109.png" alt></p>
-<p>嗯，这个callback有点猛，这么一大堆回调合集啊，万绿丛中一点红，我似乎看到了我上线是由谁接待的了。</p>
-<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190620185341.png" alt></p>
-<p>OK，我服，这样一个消息过来，全部都滚一边，至于是谁，你们自己区分去吧。继续跟踪</p>
-<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190620185748.png" alt></p>
-<p>好吧，似乎看到了，继续下去：</p>
-<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190620185832.png" alt></p>
-<p>嗯，JNI了？？？</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ToxLoadJniLibrary.load(<span class="string">"tox4j-c"</span>);</span><br></pre></td></tr></table></figure>
-<p>那么，跟踪玩之后，看起来整个过程就是一个timer不停的在问<code>tox4j-c.so</code>各种状态啊，然后不停的对各种消息进行分发处理~~~~</p>
-<p>虽然说上线慢的锅在后端哦【<strong>注意是后端而不是后台</strong>，<strong>因为P2P网络不存在服务器的</strong>】，但是就这样算了？？？没门，至少要看看他这个<strong>所谓的后端</strong>是怎么实现的把。</p>
-<p>他后端的项目放在这里<a href="https://github.com/TokTok/c-toxcore" target="_blank" rel="noopener">https://github.com/TokTok/c-toxcore</a></p>
-<p>好吧，我承认不那么容易看懂，不过初略的看，确实发现不存在一个中心化的后台server，当然然吗中确实有一个文件叫做TCP_server，不过，从注释<code>Implementation of the TCP relay server part of Tox</code>可以初略的看出来，这个是TCP中继服务，从后面我了解到的原理来看，这个很有可能是用来做NAT穿透的。</p>
-<p>好吧，最后了解了一下<a href="https://juejin.im/entry/59c8d3695188256c4b726181" target="_blank" rel="noopener">p2p</a>，所以，稍微看了下NAT穿透，嗯，实际上上线缓慢是因为在这些过程中会比较耗时。但是否还有优化空间，目前暂不能下结论。</p>
-<p>完了之后，在回过头来看了一下tox的核心源码。发现它是一个分布式的 p2p 网络协议。准确来说，它提供了这样的一个网络协议的各种接口，包含安全加密、DHT 网络、洋葱路由等核心部件的实现，以及朋友请求与连接对话、群聊等模块的实现，它还包含了音视频库以供用户实现音视频交流的功能。</p>
-<p>下图是源码中找到的建立连接的函数滴啊用，别看就这么简单的设置了一个回调，其实前面经历过了不少的步骤，比如，设置<strong>引导节点</strong>，设置<strong>tcp中继</strong>等等</p>
-<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190626111901.png" alt></p>
-<p>下面是源码文件目录的一览，可以看到核心部分有加密模块，分布式网络，洋葱路由，以及TCP中继（打通NAT）。</p>
-<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190626112256.png" alt></p>
-<p>最后奉献一些关于P2P的资料</p>
-<p><a href="https://evilpan.com/2015/10/31/p2p-over-middle-box/" target="_blank" rel="noopener">https://evilpan.com/2015/10/31/p2p-over-middle-box/</a></p>
-<p><a href="https://bitcoin-on-nodejs.ebookchain.org/3-%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/3-%E4%B8%80%E4%B8%AA%E7%B2%BE%E5%B7%A7%E7%9A%84p2p%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0.html" target="_blank" rel="noopener">https://bitcoin-on-nodejs.ebookchain.org/3-%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/3-%E4%B8%80%E4%B8%AA%E7%B2%BE%E5%B7%A7%E7%9A%84p2p%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0.html</a></p>
-<p><a href="https://blog.csdn.net/yuezu/article/details/78667146" target="_blank" rel="noopener">https://blog.csdn.net/yuezu/article/details/78667146</a></p>
+        <blockquote>
+<p>本文基本都是在flutter开发中总结的一些性能后话的经验之谈，按照这些建议去写flutter应用，相信不会你会离性能问题越来越远~~~~</p>
+</blockquote><h4 id="在正确的地方执行setState方法"><a href="#在正确的地方执行setState方法" class="headerlink" title="在正确的地方执行setState方法"></a>在正确的地方执行setState方法</h4><p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20191202100919.png" alt></p><p>说简单的点就是<code>局部更新</code>，如果整棵树都去更新，执行时间肯定会比树叶更新要慢，性能要差，这个是理所当然的。</p><p>然后就是尽量不要出发<code>离屏渲染</code>，那么什么骚操作会导致离屏渲染呢？</p><ol>
+<li><p>带透明参数的图片</p>
+</li>
+<li><p>shader mask</p>
+</li>
+<li><p>colorFilter</p>
+</li>
+<li><p>chip</p>
+</li>
+<li><p>text overflow</p>
+</li>
+<li><p>然后还要提一下clipping，裁剪—，其实也是对绘制性能有比较大的影响的。</p>
+</li>
+</ol><p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20191202102630.png" alt></p><p>所以，应该尽量规避这些骚操作，当然是在要使用，那也没有办法呀，但是还是有一些效果，可以使用一些黑科技替代的，比如，fadeinimage, 圆角使用borderRadius。</p><a id="more"></a>
+
+
+
+
+
+
+<h4 id="使用开发工具定位性能问题"><a href="#使用开发工具定位性能问题" class="headerlink" title="使用开发工具定位性能问题"></a>使用开发工具定位性能问题</h4><p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20191202102922.png" alt></p>
+<p>首先，我们要知道flutter有分配两个线程来处理UI上的一些绘制过程，直观的理解可以分为两个：</p>
+<ol>
+<li><p>构建UI结构的线程</p>
+</li>
+<li><p>专门渲染的线程</p>
+</li>
+</ol>
+<p>值得一提的是，我们可以使用 show widget rebuild information 这个工具来迅速找出有性能问题的点来，重点关注超过16ms的帧即可。</p>
+<h4 id="ListView-vs-CustomScrollerView"><a href="#ListView-vs-CustomScrollerView" class="headerlink" title="ListView vs CustomScrollerView"></a>ListView vs CustomScrollerView</h4><p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20191202103353.png" alt></p>
+<p>使用过flutter一段时间，你可能比有点困惑什么时候使用customScrollerView ,什么时候使用ListView，我们要知道的是ListVIew实际上是一个简化版本的CustomScrollerView而已，所以：</p>
+<ol>
+<li><p>既有ListView也有GridView的时候</p>
+</li>
+<li><p>ListView+headerView or SliverAppBar 的时候</p>
+</li>
+</ol>
+<p>以上两种情况建议使用CustomScrollView，结构化的框架已经给你准备好。</p>
+<p>其他情况使用ListView，当然要注意ListView使用不当也会引发性能问题，<strong>记住不要使用静态的方式构建长LIstVIew</strong>，这中方式不会重用。</p>
+<h4 id="const-widget-的作用"><a href="#const-widget-的作用" class="headerlink" title="const widget 的作用"></a>const widget 的作用</h4><p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20191202103905.png" alt></p>
+<p>加上const 关键字的控件在rebuilding 和 rending的时候是可以直接复用的,因此在确定控件不会发生变更的情况下尽量使用const 关键字。</p>
+<h4 id="JNI"><a href="#JNI" class="headerlink" title="JNI??"></a>JNI??</h4><p>你也许有点慌了，flutter也搞这个，是的没错，flutter也可以玩JNI这些黑科技，其实即便flutter没搞，实际上，通过channel也是可以调用原生的。</p>
 
     </div>
 
@@ -347,8 +341,8 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/P2P/" rel="tag"><i class="fa fa-tag"></i> P2P</a>
-              <a href="/tags/隐私/" rel="tag"><i class="fa fa-tag"></i> 隐私</a>
+              <a href="/tags/flutter/" rel="tag"><i class="fa fa-tag"></i> flutter</a>
+              <a href="/tags/性能优化/" rel="tag"><i class="fa fa-tag"></i> 性能优化</a>
           </div>
 
         
@@ -357,13 +351,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2019/06/04/uni-app使用Vuex指南/" rel="prev" title="uni-app使用Vuex指南">
-      <i class="fa fa-chevron-left"></i> uni-app使用Vuex指南
+    <a href="/2019/08/20/javascript那些不为人知的坑点/" rel="prev" title="javascript那些不为人知的28个坑点">
+      <i class="fa fa-chevron-left"></i> javascript那些不为人知的28个坑点
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2019/06/28/实现一门编程语言的过程/" rel="next" title="实现一门编程语言的过程">
-      实现一门编程语言的过程 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -402,6 +393,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#在正确的地方执行setState方法"><span class="nav-number">1.</span> <span class="nav-text">在正确的地方执行setState方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用开发工具定位性能问题"><span class="nav-number">2.</span> <span class="nav-text">使用开发工具定位性能问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ListView-vs-CustomScrollerView"><span class="nav-number">3.</span> <span class="nav-text">ListView vs CustomScrollerView</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#const-widget-的作用"><span class="nav-number">4.</span> <span class="nav-text">const widget 的作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JNI"><span class="nav-number">5.</span> <span class="nav-text">JNI??</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

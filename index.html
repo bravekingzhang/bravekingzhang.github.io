@@ -186,6 +186,119 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2019/12/02/flutter性能优化参考/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hz">
+      <meta itemprop="description" content>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心随我动">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/02/flutter性能优化参考/" class="post-title-link" itemprop="url">flutter性能优化参考</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-12-02 09:59:28 / Modified: 10:43:46" itemprop="dateCreated datePublished" datetime="2019-12-02T09:59:28+08:00">2019-12-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/flutter/" itemprop="url" rel="index">
+                    <span itemprop="name">flutter</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2019/12/02/flutter性能优化参考/" class="post-meta-item leancloud_visitors" data-flag-title="flutter性能优化参考" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/12/02/flutter性能优化参考/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/02/flutter性能优化参考/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>本文基本都是在flutter开发中总结的一些性能后话的经验之谈，按照这些建议去写flutter应用，相信不会你会离性能问题越来越远~~~~</p>
+</blockquote><h4 id="在正确的地方执行setState方法"><a href="#在正确的地方执行setState方法" class="headerlink" title="在正确的地方执行setState方法"></a>在正确的地方执行setState方法</h4><p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20191202100919.png" alt></p><p>说简单的点就是<code>局部更新</code>，如果整棵树都去更新，执行时间肯定会比树叶更新要慢，性能要差，这个是理所当然的。</p><p>然后就是尽量不要出发<code>离屏渲染</code>，那么什么骚操作会导致离屏渲染呢？</p><ol>
+<li><p>带透明参数的图片</p>
+</li>
+<li><p>shader mask</p>
+</li>
+<li><p>colorFilter</p>
+</li>
+<li><p>chip</p>
+</li>
+<li><p>text overflow</p>
+</li>
+<li><p>然后还要提一下clipping，裁剪—，其实也是对绘制性能有比较大的影响的。</p>
+</li>
+</ol><p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20191202102630.png" alt></p><p>所以，应该尽量规避这些骚操作，当然是在要使用，那也没有办法呀，但是还是有一些效果，可以使用一些黑科技替代的，比如，fadeinimage, 圆角使用borderRadius。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/12/02/flutter性能优化参考/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2019/08/20/javascript那些不为人知的坑点/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1136,104 +1249,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2019/05/22/TensorFlow-Lite模型折腾系列/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hz">
-      <meta itemprop="description" content>
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="心随我动">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/05/22/TensorFlow-Lite模型折腾系列/" class="post-title-link" itemprop="url">TensorFlow Lite模型折腾系列</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-05-22 20:24:19 / Modified: 14:31:32" itemprop="dateCreated datePublished" datetime="2019-05-22T20:24:19+08:00">2019-05-22</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/人工智能/" itemprop="url" rel="index">
-                    <span itemprop="name">人工智能</span>
-                  </a>
-                </span>
-            </span>
-
-          
-            <span id="/2019/05/22/TensorFlow-Lite模型折腾系列/" class="post-meta-item leancloud_visitors" data-flag-title="TensorFlow Lite模型折腾系列" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2019/05/22/TensorFlow-Lite模型折腾系列/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/05/22/TensorFlow-Lite模型折腾系列/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>大家知道，玩TensorFlow ，玩的其实就是模型，如果没有一个合适的模型，TensorFlow压根就玩不起来。</p><p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190521202458.png" alt="官方关于模型的三种获取姿势"></p><p>那么，根据官网介绍来看，第二种方式也许是我们会接触的比较多的一种，因为第一种方式直接拿Google替我们准备好的模型，可谓是小概率事件，哪有那么好的事，直接就给你对上了呢？</p><p>所以来看看怎么做<code>Transfer learning</code>，也就是所谓的迁移学习，那么什么是迁移学习呢？迁移学习(Transfer learning) 顾名思义就是就是把已学训练好的模型参数迁移到新的模型来帮助新模型训练。考虑到大部分数据或任务是存在相关性的，所以通过迁移学习我们可以将已经学到的模型参数（也可理解为模型学到的知识）通过某种方式来分享给新模型从而加快并优化模型的学习效率不用像大多数网络那样从零学习。</p><h5 id="Google给我们准别了一个学习的demo"><a href="#Google给我们准别了一个学习的demo" class="headerlink" title="Google给我们准别了一个学习的demo"></a>Google给我们准别了一个学习的demo</h5>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/05/22/TensorFlow-Lite模型折腾系列/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1282,20 +1297,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">23</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-count">31</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
