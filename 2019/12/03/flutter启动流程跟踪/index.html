@@ -55,15 +55,15 @@
 <meta property="og:site_name" content="心随我动">
 <meta property="og:description" content="我们项目接入flutter由来已久，采用的是混栈开发的方式，没有办法，因为项目开发了比较久，全部替换为flutter实现想想也不太现实，混栈开发的过程中，我们遇到了一些问题，当时都是一脸懵逼，貌似最后都是很侥幸的通过万能的Google给汤坑汤沟去了，说来也是惭愧，本来很简单的事情，却需要花费一些不必要的时间，所以，当时就想如果有时间，一定要好好研究下flutter的原理，我们接入flutter，f">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/D996F25F-9868-41F1-9B23-4B2303500888(1">
+<meta property="og:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/D996F25F-9868-41F1-9B23-4B2.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/E4186D89-AD06-4B00-BC9F-BBE7B2A34B02.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/16911D0E-A471-413D-94F0-65CF09C9398C.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/7EAC6C25-3C20-4A2D-944B-11AA4E9BAB2B(1">
-<meta property="og:updated_time" content="2019-12-03T06:28:30.196Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/7EAC6C25-3C20-4A2D-944B-11AA4E.jpg">
+<meta property="og:updated_time" content="2019-12-03T06:38:47.311Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="flutter启动流程跟踪">
 <meta name="twitter:description" content="我们项目接入flutter由来已久，采用的是混栈开发的方式，没有办法，因为项目开发了比较久，全部替换为flutter实现想想也不太现实，混栈开发的过程中，我们遇到了一些问题，当时都是一脸懵逼，貌似最后都是很侥幸的通过万能的Google给汤坑汤沟去了，说来也是惭愧，本来很简单的事情，却需要花费一些不必要的时间，所以，当时就想如果有时间，一定要好好研究下flutter的原理，我们接入flutter，f">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/D996F25F-9868-41F1-9B23-4B2303500888(1">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/D996F25F-9868-41F1-9B23-4B2.jpg">
 
 <link rel="canonical" href="https://blog.brzhang.club/2019/12/03/flutter启动流程跟踪/">
 
@@ -220,7 +220,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2019-12-03 11:00:28 / Modified: 14:28:30" itemprop="dateCreated datePublished" datetime="2019-12-03T11:00:28+08:00">2019-12-03</time>
+              <time title="Created: 2019-12-03 11:00:28 / Modified: 14:38:47" itemprop="dateCreated datePublished" datetime="2019-12-03T11:00:28+08:00">2019-12-03</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -268,7 +268,8 @@
       
         <p>我们项目接入flutter由来已久，采用的是<code>混栈开发</code>的方式，没有办法，因为项目开发了比较久，全部替换为flutter实现想想也不太现实，混栈开发的过程中，我们遇到了一些问题，当时都是一脸懵逼，貌似最后都是很侥幸的通过万能的Google给汤坑汤沟去了，说来也是惭愧，本来很简单的事情，却需要花费一些不必要的时间，所以，当时就想如果有时间，一定要好好研究下flutter的原理，我们接入flutter，flutter到底是如何启动的，启动的过程中他做了一些什么，假如以后需要做性能优化，我们该从何处入手。</p><h4 id="flutter启动流程简析"><a href="#flutter启动流程简析" class="headerlink" title="flutter启动流程简析"></a>flutter启动流程简析</h4><p>首先，这里有必要介绍一下我们接入flutter的方式，是的采用的是这种方式，相当于是直接字创建一个<code>FlutterView</code>，随后把这个FlutterView塞给一个Fragment即可。</p><a id="more"></a>
 
-<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/D996F25F-9868-41F1-9B23-4B2303500888(1" alt>.jpg)我们这里采用Fragment的原因是，复用性，比如首页Tab页面需要替换为Flutter页面，我们可以直接上这个Fragment，然后，比较独立的业务需要使用activity的话，也是可以直接嵌入这个有FlutterView的Fragment的。暂且不说这种做法的缺点，我们先来了解一下FlutterView是怎么一步一步创建出来的。</p>
+<p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/D996F25F-9868-41F1-9B23-4B2.jpg" alt></p>
+<p>我们这里采用Fragment的原因是，复用性，比如首页Tab页面需要替换为Flutter页面，我们可以直接上这个Fragment，然后，比较独立的业务需要使用activity的话，也是可以直接嵌入这个有FlutterView的Fragment的。暂且不说这种做法的缺点，我们先来了解一下FlutterView是怎么一步一步创建出来的。</p>
 <p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/E4186D89-AD06-4B00-BC9F-BBE7B2A34B02.jpg" alt></p>
 <p>当从native页打开一个flutter页，比如，你的首页的第三个tab是flutter，且启动App，进入首页，当你点击切换到第三个tab的时候，那么，此时就会触发这个创建FlutterView的流程。</p>
 <h4 id="FlutterMain-startInitialization"><a href="#FlutterMain-startInitialization" class="headerlink" title="FlutterMain.startInitialization"></a>FlutterMain.startInitialization</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">startInitialization</span><span class="params">(@NonNull Context applicationContext, @NonNull FlutterMain.Settings settings)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!isRunningInRobolectricTest) &#123;</span><br><span class="line">            <span class="keyword">if</span> (Looper.myLooper() != Looper.getMainLooper()) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"startInitialization must be called on the main thread"</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sSettings == <span class="keyword">null</span>) &#123;</span><br><span class="line">                sSettings = settings;</span><br><span class="line">                <span class="keyword">long</span> initStartTimestampMillis = SystemClock.uptimeMillis();</span><br><span class="line">                initConfig(applicationContext);</span><br><span class="line">                initResources(applicationContext);</span><br><span class="line">                System.loadLibrary(<span class="string">"flutter"</span>);</span><br><span class="line">                VsyncWaiter.getInstance((WindowManager)applicationContext.getSystemService(<span class="string">"window"</span>)).init();</span><br><span class="line">                <span class="keyword">long</span> initTimeMillis = SystemClock.uptimeMillis() - initStartTimestampMillis;</span><br><span class="line">                FlutterJNI.nativeRecordStartTimestamp(initTimeMillis);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
@@ -302,7 +303,7 @@
 </blockquote>
 <p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/16911D0E-A471-413D-94F0-65CF09C9398C.jpg" alt></p>
 <p>因此，我们可以看到对于我们Native中，有几个这样的flutterfragment，就会有几份FlutterJNI，DartExecutor等等，这些和界面似乎无关的东西并没有被很好的重用。</p>
-<h4 id="所以推荐的flutter接入方式是什么？"><a href="#所以推荐的flutter接入方式是什么？" class="headerlink" title="所以推荐的flutter接入方式是什么？"></a>所以推荐的flutter接入方式是什么？</h4><p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/7EAC6C25-3C20-4A2D-944B-11AA4E9BAB2B(1" alt>.jpg)</p>
+<h4 id="所以推荐的flutter接入方式是什么？"><a href="#所以推荐的flutter接入方式是什么？" class="headerlink" title="所以推荐的flutter接入方式是什么？"></a>所以推荐的flutter接入方式是什么？</h4><p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/7EAC6C25-3C20-4A2D-944B-11AA4E.jpg" alt></p>
 <p>在接入一段时间之后，我们发现，flutter接入层jar包中，有两个FlutterView，分别在不同的包目录下，我们上面的接入方式使用的是参考facade包下的FlutterFragment，内部的FlutterVIew直接继承自SurfaceView</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FlutterView</span> <span class="keyword">extends</span> <span class="title">SurfaceView</span> <span class="keyword">implements</span> <span class="title">BinaryMessenger</span>, <span class="title">TextureRegistry</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"FlutterView"</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> DartExecutor dartExecutor;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> FlutterRenderer flutterRenderer;</span><br></pre></td></tr></table></figure>
 <p>而，embadding包下面的FlutterVIew继承至FrameLayout</p>
