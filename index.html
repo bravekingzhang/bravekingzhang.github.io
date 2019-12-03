@@ -186,6 +186,104 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2019/12/03/flutter启动流程跟踪/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hz">
+      <meta itemprop="description" content>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心随我动">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/03/flutter启动流程跟踪/" class="post-title-link" itemprop="url">flutter启动流程跟踪</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-12-03 11:00:28 / Modified: 12:46:26" itemprop="dateCreated datePublished" datetime="2019-12-03T11:00:28+08:00">2019-12-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/flutter/" itemprop="url" rel="index">
+                    <span itemprop="name">flutter</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2019/12/03/flutter启动流程跟踪/" class="post-meta-item leancloud_visitors" data-flag-title="flutter启动流程跟踪" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/12/03/flutter启动流程跟踪/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/03/flutter启动流程跟踪/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>我们项目接入flutter由来已久，采用的是<code>混栈开发</code>的方式，没有办法，因为项目开发了比较久，全部替换为flutter实现想想也不太现实，混栈开发的过程中，我们遇到了一些问题，当时都是一脸懵逼，貌似最后都是很侥幸的通过万能的Google给汤坑汤沟去了，说来也是惭愧，本来很简单的事情，却需要花费一些不必要的时间，所以，当时就想如果有时间，一定要好好研究下flutter的原理，我们接入flutter，flutter到底是如何启动的，启动的过程中他做了一些什么，假如以后需要做性能优化，我们该从何处入手。</p><h4 id="flutter启动流程简析"><a href="#flutter启动流程简析" class="headerlink" title="flutter启动流程简析"></a>flutter启动流程简析</h4><p>首先，这里有必要介绍一下我们接入flutter的方式，是的采用的是这种方式，相当于是直接字创建一个<code>FlutterView</code>，随后把这个FlutterView塞给一个Fragment即可。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/12/03/flutter启动流程跟踪/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2019/12/02/flutter性能优化参考/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -211,7 +309,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2019-12-02 09:59:28 / Modified: 10:43:46" itemprop="dateCreated datePublished" datetime="2019-12-02T09:59:28+08:00">2019-12-02</time>
+              <time title="Created: 2019-12-02 09:59:28 / Modified: 15:23:39" itemprop="dateCreated datePublished" datetime="2019-12-02T09:59:28+08:00">2019-12-02</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -650,7 +748,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-11-25 15:58:15" itemprop="dateModified" datetime="2019-11-25T15:58:15+08:00">2019-11-25</time>
+                <time title="Modified: 2019-12-02 15:23:39" itemprop="dateModified" datetime="2019-12-02T15:23:39+08:00">2019-12-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -696,12 +794,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>从移动客户端转h5开发这一个月左右以来，给我最大的感触就是两者之间本质没有任何区别，为了证明我说的这一点，我将用移动客户端来类比h5，来”证明”我说的两者没有任何本质区别。</p><h3 id="直观上面的感受"><a href="#直观上面的感受" class="headerlink" title="直观上面的感受"></a>直观上面的感受</h3><p>看到下面这样一个页面，你能够直接肯定这是一个h5还是一个app原生页吗？答案肯定是你不能，我之前在做移动端app的时候，也用原生做过这样的页面。</p><p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190730100710.png" alt></p><h3 id="技术层面的类比"><a href="#技术层面的类比" class="headerlink" title="技术层面的类比"></a>技术层面的类比</h3><h5 id="从登陆说起"><a href="#从登陆说起" class="headerlink" title="从登陆说起"></a>从登陆说起</h5><p>当然登录页不是一个简单的事，这里只想说第三方登录，比如QQ或者微信登录，两端所做的事情是及其类似，比如，我们某一接口出发了登录态校验，发现用户没有登录态：</p><ol>
-<li><p>app的做法是：弹出登录页进行登录，登录之后，将登录信息存储到sharepreference中，在次请求的时候，通过<code>程序的做法</code>携带这些信息去请求，后台server就认识你是一个有身份的人啦。</p>
-</li>
-<li><p>h5端的做法是：后台发现你没有登录太，会在返回body中，一般来说是json中，告知你<code>redirect_url</code>和<code>jump_url</code>,redirect_url告知你去请求这个地址已获取登录太，这个实际上会触发你拉起微信登录或者手Q登录，微信或者手Q那边就会给你<code>中cookie</code>,然后jump_url会回到你刚刚发生请求的那个页(一般来说会是这样的，不过因为refer不能回略去一些params会略有不同)，此时你再次发送请求的时候，就可以携带cookie中的信息去后台请求，此时你也是一个有身份的人了。</p>
-</li>
-</ol>
+          <p>从移动客户端转h5开发这一个月左右以来，给我最大的感触就是两者之间本质没有任何区别，为了证明我说的这一点，我将用移动客户端来类比h5，来”证明”我说的两者没有任何本质区别。</p>
+<h3 id="直观上面的感受"><a href="#直观上面的感受" class="headerlink" title="直观上面的感受"></a>直观上面的感受</h3><p>看到下面这样一个页面，你能够直接肯定这是一个h5还是一个app原生页吗？答案肯定是你不能，我之前在做移动端app的时候，也用原生做过这样的页面。
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/07/30/vue高效调试环境搭建/#more" rel="contents">
@@ -711,7 +805,7 @@
           <!--/noindex-->
         
       
-    </div>
+    </p></div>
 
     
     
@@ -1159,96 +1253,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2019/05/27/图解机器学习笔记/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hz">
-      <meta itemprop="description" content>
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="心随我动">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/05/27/图解机器学习笔记/" class="post-title-link" itemprop="url">图解机器学习笔记</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-05-27 17:19:21 / Modified: 20:27:51" itemprop="dateCreated datePublished" datetime="2019-05-27T17:19:21+08:00">2019-05-27</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/人工智能/" itemprop="url" rel="index">
-                    <span itemprop="name">人工智能</span>
-                  </a>
-                </span>
-            </span>
-
-          
-            <span id="/2019/05/27/图解机器学习笔记/" class="post-meta-item leancloud_visitors" data-flag-title="图解机器学习笔记" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2019/05/27/图解机器学习笔记/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/05/27/图解机器学习笔记/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="回归"><a href="#回归" class="headerlink" title="回归"></a>回归</h4><p>简单直观的了解就是曲线的拟合，可以用来预测房价，给定输入，预测输出。</p><h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><p>主要是做模式识别，比如，判断一幅画是一条狗，还是一只猫，还是一束花。</p><h4 id="聚类"><a href="#聚类" class="headerlink" title="聚类"></a>聚类</h4><p>同样可以通过学习，识别出类别，但是不同于分类的是，这种是无监督学习，因为学习的样本事先也不知道它具体属于那种类别。</p><h4 id="最小二乘"><a href="#最小二乘" class="headerlink" title="最小二乘"></a>最小二乘</h4><p>最小二乘的原理是是的模型函数与真实值之前的这个差值得均方差最小的一种最优化方法</p><h4 id="梯度下降"><a href="#梯度下降" class="headerlink" title="梯度下降"></a>梯度下降</h4><p>梯度下降过程中极容易出现拿到的是局部最优解，好像有一种方式可以有效的避免求得到的是局部最优解，那就是步伐先搞大点，然后在搞小点。</p>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1297,7 +1301,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

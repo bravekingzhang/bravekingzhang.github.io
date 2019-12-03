@@ -60,7 +60,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20191202102922.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20191202103353.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20191202103905.png">
-<meta property="og:updated_time" content="2019-12-02T02:43:46.948Z">
+<meta property="og:updated_time" content="2019-12-02T07:23:39.760Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="flutter性能优化参考">
 <meta name="twitter:description" content="本文基本都是在flutter开发中总结的一些性能后话的经验之谈，按照这些建议去写flutter应用，相信不会你会离性能问题越来越远~~~~ 在正确的地方执行setState方法说简单的点就是局部更新，如果整棵树都去更新，执行时间肯定会比树叶更新要慢，性能要差，这个是理所当然的。然后就是尽量不要出发离屏渲染，那么什么骚操作会导致离屏渲染呢？ 带透明参数的图片  shader mask  color">
@@ -221,7 +221,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2019-12-02 09:59:28 / Modified: 10:43:46" itemprop="dateCreated datePublished" datetime="2019-12-02T09:59:28+08:00">2019-12-02</time>
+              <time title="Created: 2019-12-02 09:59:28 / Modified: 15:23:39" itemprop="dateCreated datePublished" datetime="2019-12-02T09:59:28+08:00">2019-12-02</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -310,7 +310,7 @@
 <p>其他情况使用ListView，当然要注意ListView使用不当也会引发性能问题，<strong>记住不要使用静态的方式构建长LIstVIew</strong>，这中方式不会重用。</p>
 <h4 id="const-widget-的作用"><a href="#const-widget-的作用" class="headerlink" title="const widget 的作用"></a>const widget 的作用</h4><p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20191202103905.png" alt></p>
 <p>加上const 关键字的控件在rebuilding 和 rending的时候是可以直接复用的,因此在确定控件不会发生变更的情况下尽量使用const 关键字。</p>
-<h4 id="JNI"><a href="#JNI" class="headerlink" title="JNI??"></a>JNI??</h4><p>你也许有点慌了，flutter也搞这个，是的没错，flutter也可以玩JNI这些黑科技，其实即便flutter没搞，实际上，通过channel也是可以调用原生的。</p>
+<h4 id="JNI"><a href="#JNI" class="headerlink" title="JNI??"></a>JNI??</h4><p>你也许有点慌了，flutter也搞这个，是的没错，flutter也可以玩JNI这些黑科技，其实即便flutter没搞，实际上，通过channel也是可以调用原生的。    </p>
 
     </div>
 
@@ -354,7 +354,10 @@
     <a href="/2019/08/20/javascript那些不为人知的坑点/" rel="prev" title="javascript那些不为人知的28个坑点">
       <i class="fa fa-chevron-left"></i> javascript那些不为人知的28个坑点
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2019/12/03/flutter启动流程跟踪/" rel="next" title="flutter启动流程跟踪">
+      flutter启动流程跟踪 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -407,7 +410,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
