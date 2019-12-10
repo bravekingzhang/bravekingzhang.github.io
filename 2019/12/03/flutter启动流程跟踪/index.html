@@ -59,7 +59,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/E4186D89-AD06-4B00-BC9F-BBE7B2A34B02.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/16911D0E-A471-413D-94F0-65CF09C9398C.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/7EAC6C25-3C20-4A2D-944B-11AA4E.jpg">
-<meta property="og:updated_time" content="2019-12-03T06:54:49.565Z">
+<meta property="og:updated_time" content="2019-12-10T08:42:37.590Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="flutter启动流程跟踪">
 <meta name="twitter:description" content="我们项目接入flutter由来已久，采用的是混栈开发的方式，没有办法，因为项目开发了比较久，全部替换为flutter实现想想也不太现实，混栈开发的过程中，我们遇到了一些问题，当时都是一脸懵逼，貌似最后都是很侥幸的通过万能的Google给汤坑汤沟去了，说来也是惭愧，本来很简单的事情，却需要花费一些不必要的时间，所以，当时就想如果有时间，一定要好好研究下flutter的原理，我们接入flutter，f">
@@ -218,10 +218,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2019-12-03 11:00:28 / Modified: 14:54:49" itemprop="dateCreated datePublished" datetime="2019-12-03T11:00:28+08:00">2019-12-03</time>
+              <time title="Created: 2019-12-03 11:00:28" itemprop="dateCreated datePublished" datetime="2019-12-03T11:00:28+08:00">2019-12-03</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-12-10 16:42:37" itemprop="dateModified" datetime="2019-12-10T16:42:37+08:00">2019-12-10</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -278,7 +284,7 @@
 <p>这个函数的作用是保证相关so、相关资源全部被加载完，因此，我们可以看到这样一条阻塞调用在此，<code>sResourceExtractor.waitForCompletion</code>，值得我们注意的是，此时的libflutter.so似乎又被加载了一次，不过，不是<code>System.loadLibrary</code>，而是调用<code>FlutterJNI.nativeInit</code>去加载的，而此时加载的还有<code>libapp.so</code>，这个libapp.so我们应该不会陌生，他就是我们用flutter写的业务逻辑所打包的产物，<strong>libflutter.so实际上可以理解为libapp.so执行所必备的环境之一</strong>。通常<strong>libflutter.so</strong>是有两个版本的，debug和release版本，因为flutter的debug和release执行的方式不一样，debug采用JIT，release采用AOT(性能更好)，这就是release模式可以明显感觉比debug流程很多的原因。</p>
 <h4 id="创建FLutterNativeView"><a href="#创建FLutterNativeView" class="headerlink" title="创建FLutterNativeView"></a>创建FLutterNativeView</h4><p>接下来的步骤是创建FlutterNativeView了。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">FlutterNativeView</span><span class="params">(@NonNull Context context, <span class="keyword">boolean</span> isBackgroundView)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.mContext = context;</span><br><span class="line">        <span class="keyword">this</span>.mPluginRegistry = <span class="keyword">new</span> FlutterPluginRegistry(<span class="keyword">this</span>, context);</span><br><span class="line">        <span class="keyword">this</span>.mFlutterJNI = <span class="keyword">new</span> FlutterJNI();</span><br><span class="line">        <span class="keyword">this</span>.mFlutterJNI.setRenderSurface(<span class="keyword">new</span> FlutterNativeView.RenderSurfaceImpl());</span><br><span class="line">        <span class="keyword">this</span>.dartExecutor = <span class="keyword">new</span> DartExecutor(<span class="keyword">this</span>.mFlutterJNI, context.getAssets());</span><br><span class="line">        <span class="keyword">this</span>.mFlutterJNI.addEngineLifecycleListener(<span class="keyword">new</span> FlutterNativeView.EngineLifecycleListenerImpl());</span><br><span class="line">        <span class="keyword">this</span>.attach(<span class="keyword">this</span>, isBackgroundView);</span><br><span class="line">        <span class="keyword">this</span>.assertAttached();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>从FlutterNativeView的构造方法中，我们可以看到这里初始化了插件注册器FlutterPluginRegistry，然后创建了FlutterJNI，为FlutterJNI添加了RenderSurface，然后初始化了一个dart的执行环境DartExecutor。</p>
+<p>从FlutterNativeView的构造方法中，我们可以看到这里初始化了插件注册器<code>FlutterPluginRegistry</code>，然后创建了<code>FlutterJNI</code>，为FlutterJNI添加了<code>RenderSurface</code>，然后初始化了一个dart的执行环境<code>DartExecutor</code>。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">attach</span><span class="params">(FlutterNativeView view, <span class="keyword">boolean</span> isBackgroundView)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.mFlutterJNI.attachToNative(isBackgroundView);</span><br><span class="line">        <span class="keyword">this</span>.dartExecutor.onAttachedToJNI();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>最重要的是，将FlutterJNI和DartExecutor及FlutterNativeView进行了关联</p>
@@ -352,7 +358,10 @@
     <a href="/2019/12/02/flutter性能优化参考/" rel="prev" title="flutter性能优化参考">
       <i class="fa fa-chevron-left"></i> flutter性能优化参考
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2019/12/10/强势案例一款markdown编辑器/" rel="next" title="强势案例一款markdown编辑器">
+      强势案例一款markdown编辑器 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -405,20 +414,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-count">25</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-count">32</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

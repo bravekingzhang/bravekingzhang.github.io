@@ -60,7 +60,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190522122221.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190522122424.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190522122623.png">
-<meta property="og:updated_time" content="2019-05-22T06:31:32.246Z">
+<meta property="og:updated_time" content="2019-12-10T08:42:37.591Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TensorFlow Lite模型折腾系列">
 <meta name="twitter:description" content="大家知道，玩TensorFlow ，玩的其实就是模型，如果没有一个合适的模型，TensorFlow压根就玩不起来。那么，根据官网介绍来看，第二种方式也许是我们会接触的比较多的一种，因为第一种方式直接拿Google替我们准备好的模型，可谓是小概率事件，哪有那么好的事，直接就给你对上了呢？所以来看看怎么做Transfer learning，也就是所谓的迁移学习，那么什么是迁移学习呢？迁移学习(Tran">
@@ -219,10 +219,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2019-05-22 20:24:19 / Modified: 14:31:32" itemprop="dateCreated datePublished" datetime="2019-05-22T20:24:19+08:00">2019-05-22</time>
+              <time title="Created: 2019-05-22 20:24:19" itemprop="dateCreated datePublished" datetime="2019-05-22T20:24:19+08:00">2019-05-22</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-12-10 16:42:37" itemprop="dateModified" datetime="2019-12-10T16:42:37+08:00">2019-12-10</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -322,7 +328,7 @@
 <ol start="5">
 <li><p>得到模型之后，转换为端上可用的模型就over了。</p>
 <ol>
-<li><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">saved_model_dir = <span class="string">'save/fine_tuning'</span></span><br><span class="line">tf.saved_model.save(model, saved_model_dir)</span><br><span class="line"></span><br><span class="line">converter = tf.lite.TFLiteConverter.from_saved_model(saved_model_dir)</span><br><span class="line">tflite_model = converter.convert()</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'model.tflite'</span>, <span class="string">'wb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">  f.write(tflite_model)</span><br><span class="line">  </span><br><span class="line"><span class="keyword">from</span> google.colab <span class="keyword">import</span> files</span><br><span class="line"></span><br><span class="line">files.download(<span class="string">'model.tflite'</span>)</span><br><span class="line">files.download(<span class="string">'labels.txt'</span>)</span><br></pre></td></tr></table></figure>
+<li><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">saved_model_dir = <span class="string">'save/fine_tuning'</span></span><br><span class="line">tf.saved_model.save(model, saved_model_dir)</span><br><span class="line"></span><br><span class="line">converter = tf.lite.TFLiteConverter.from_saved_model(saved_model_dir)</span><br><span class="line">tflite_model = converter.convert()</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'model.tflite'</span>, <span class="string">'wb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">  f.write(tflite_model)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> google.colab <span class="keyword">import</span> files</span><br><span class="line"></span><br><span class="line">files.download(<span class="string">'model.tflite'</span>)</span><br><span class="line">files.download(<span class="string">'labels.txt'</span>)</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 </li>
@@ -439,20 +445,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-count">25</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-count">32</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
