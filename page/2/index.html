@@ -186,6 +186,334 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2019/12/02/flutter性能优化参考/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hz">
+      <meta itemprop="description" content>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心随我动">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/02/flutter性能优化参考/" class="post-title-link" itemprop="url">flutter性能优化参考</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-12-02 09:59:28 / Modified: 15:23:39" itemprop="dateCreated datePublished" datetime="2019-12-02T09:59:28+08:00">2019-12-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/flutter/" itemprop="url" rel="index">
+                    <span itemprop="name">flutter</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2019/12/02/flutter性能优化参考/" class="post-meta-item leancloud_visitors" data-flag-title="flutter性能优化参考" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/12/02/flutter性能优化参考/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/02/flutter性能优化参考/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>本文基本都是在flutter开发中总结的一些性能后话的经验之谈，按照这些建议去写flutter应用，相信不会你会离性能问题越来越远~~~~</p>
+</blockquote><h4 id="在正确的地方执行setState方法"><a href="#在正确的地方执行setState方法" class="headerlink" title="在正确的地方执行setState方法"></a>在正确的地方执行setState方法</h4><p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20191202100919.png" alt></p><p>说简单的点就是<code>局部更新</code>，如果整棵树都去更新，执行时间肯定会比树叶更新要慢，性能要差，这个是理所当然的。</p><p>然后就是尽量不要出发<code>离屏渲染</code>，那么什么骚操作会导致离屏渲染呢？</p><ol>
+<li><p>带透明参数的图片</p>
+</li>
+<li><p>shader mask</p>
+</li>
+<li><p>colorFilter</p>
+</li>
+<li><p>chip</p>
+</li>
+<li><p>text overflow</p>
+</li>
+<li><p>然后还要提一下clipping，裁剪—，其实也是对绘制性能有比较大的影响的。</p>
+</li>
+</ol><p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20191202102630.png" alt></p><p>所以，应该尽量规避这些骚操作，当然是在要使用，那也没有办法呀，但是还是有一些效果，可以使用一些黑科技替代的，比如，fadeinimage, 圆角使用borderRadius。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/12/02/flutter性能优化参考/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2019/08/20/javascript那些不为人知的坑点/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hz">
+      <meta itemprop="description" content>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心随我动">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/08/20/javascript那些不为人知的坑点/" class="post-title-link" itemprop="url">javascript那些不为人知的28个坑点</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-08-20 16:38:07" itemprop="dateCreated datePublished" datetime="2019-08-20T16:38:07+08:00">2019-08-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-25 15:47:12" itemprop="dateModified" datetime="2019-11-25T15:47:12+08:00">2019-11-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2019/08/20/javascript那些不为人知的坑点/" class="post-meta-item leancloud_visitors" data-flag-title="javascript那些不为人知的28个坑点" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/08/20/javascript那些不为人知的坑点/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/20/javascript那些不为人知的坑点/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>最近开始搞h5了，所以，所以少不了和js打交道，js红宝书很久之前看过，但是走马观花般的走过一遍，现在不一样了，是要投入生产了，如是，我又重视起来了，决定在好好的过一遍，记录一下自己认为自己以后可能会犯错的地方，及时避免自己入坑了还不知所以。</p>
+</blockquote>
+<ol>
+<li><p>在<code>script</code>元素中设置defer属性，相当于告诉浏览器立即下载，但延迟执行，这样可以加快页面的首屏渲染速度，扯到这个问题，为什么需要加defer呢？这不是脑子找抽吗？不如<strong>直接把加载js文件放入到<body>标签的最底部就ok啦</body></strong>。</p>
+</li>
+<li><p>ECMAScript中的字符串是不可变的，也就是说，<strong>字符串一旦创建，它们的值就不能改变</strong>。要改变某个变量保存的字符串，首先要销毁原来的字符串，然后再用另一个包含新值的字符串填充该变量
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/08/20/javascript那些不为人知的坑点/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </p></li></ol></div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2019/08/12/你真的会用vuex吗？/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hz">
+      <meta itemprop="description" content>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心随我动">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/08/12/你真的会用vuex吗？/" class="post-title-link" itemprop="url">你真的会用vuex吗？</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-08-12 14:42:41" itemprop="dateCreated datePublished" datetime="2019-08-12T14:42:41+08:00">2019-08-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-25 15:58:07" itemprop="dateModified" datetime="2019-11-25T15:58:07+08:00">2019-11-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vue/" itemprop="url" rel="index">
+                    <span itemprop="name">vue</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2019/08/12/你真的会用vuex吗？/" class="post-meta-item leancloud_visitors" data-flag-title="你真的会用vuex吗？" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/08/12/你真的会用vuex吗？/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/12/你真的会用vuex吗？/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>不得不说，vuex真实一个非常好用的库，在vue中起着举足轻重的作用，那么，vuex的作用是什么呢？作为一个新手，我们关心的是在什么样的场景下，应该请出vuex这个大杀器。</p>
+<h3 id="vuex的作用"><a href="#vuex的作用" class="headerlink" title="vuex的作用"></a>vuex的作用</h3><p>当然，我这里肯定不会给你讲官话，我将的只可能是基于实践中自己的感受，<strong>vuex实际上就是多页面共享数据仓库</strong>。是的，这就是我的vuex的理解，在我们开发也许需求的时候，不可避免的我们需要在多页面之间共享一些数据，比如用户基本信息，比如，省份城市列表等等，活在在举出一个例子，比如电商网站，用户的购物车数据，是的，这些数据都是要在所有页面中能个随时拿随时取的。好，我们不免有一个问题要问，难道我们就非得要使用vuex吗？
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/08/12/你真的会用vuex吗？/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </p></div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2019/07/30/h5高效调试环境搭建/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -917,330 +1245,11 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2019/05/22/TensorFlow-Lite模型折腾系列/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hz">
-      <meta itemprop="description" content>
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="心随我动">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/05/22/TensorFlow-Lite模型折腾系列/" class="post-title-link" itemprop="url">TensorFlow Lite模型折腾系列</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-05-22 20:24:19" itemprop="dateCreated datePublished" datetime="2019-05-22T20:24:19+08:00">2019-05-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-12-10 16:42:37" itemprop="dateModified" datetime="2019-12-10T16:42:37+08:00">2019-12-10</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/人工智能/" itemprop="url" rel="index">
-                    <span itemprop="name">人工智能</span>
-                  </a>
-                </span>
-            </span>
-
-          
-            <span id="/2019/05/22/TensorFlow-Lite模型折腾系列/" class="post-meta-item leancloud_visitors" data-flag-title="TensorFlow Lite模型折腾系列" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2019/05/22/TensorFlow-Lite模型折腾系列/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/05/22/TensorFlow-Lite模型折腾系列/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>大家知道，玩TensorFlow ，玩的其实就是模型，如果没有一个合适的模型，TensorFlow压根就玩不起来。</p><p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190521202458.png" alt="官方关于模型的三种获取姿势"></p><p>那么，根据官网介绍来看，第二种方式也许是我们会接触的比较多的一种，因为第一种方式直接拿Google替我们准备好的模型，可谓是小概率事件，哪有那么好的事，直接就给你对上了呢？</p><p>所以来看看怎么做<code>Transfer learning</code>，也就是所谓的迁移学习，那么什么是迁移学习呢？迁移学习(Transfer learning) 顾名思义就是就是把已学训练好的模型参数迁移到新的模型来帮助新模型训练。考虑到大部分数据或任务是存在相关性的，所以通过迁移学习我们可以将已经学到的模型参数（也可理解为模型学到的知识）通过某种方式来分享给新模型从而加快并优化模型的学习效率不用像大多数网络那样从零学习。</p><h5 id="Google给我们准别了一个学习的demo"><a href="#Google给我们准别了一个学习的demo" class="headerlink" title="Google给我们准别了一个学习的demo"></a>Google给我们准别了一个学习的demo</h5>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/05/22/TensorFlow-Lite模型折腾系列/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2019/05/21/重新认识TensorFlow-Lite/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hz">
-      <meta itemprop="description" content>
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="心随我动">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/05/21/重新认识TensorFlow-Lite/" class="post-title-link" itemprop="url">重新认识TensorFlow Lite</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-05-21 17:47:55" itemprop="dateCreated datePublished" datetime="2019-05-21T17:47:55+08:00">2019-05-21</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-11-25 15:57:24" itemprop="dateModified" datetime="2019-11-25T15:57:24+08:00">2019-11-25</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/人工智能/" itemprop="url" rel="index">
-                    <span itemprop="name">人工智能</span>
-                  </a>
-                </span>
-            </span>
-
-          
-            <span id="/2019/05/21/重新认识TensorFlow-Lite/" class="post-meta-item leancloud_visitors" data-flag-title="重新认识TensorFlow Lite" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2019/05/21/重新认识TensorFlow-Lite/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/05/21/重新认识TensorFlow-Lite/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>前天看了了解了TensorFlow的官网，然后稍微了解了下TensorFlow就写了一篇博客《TensorFlow入门初探》,相当于对TensorFlow有一个初步的认识，简单的了解一下概念，他是干嘛的，觉得还不是很全面，所以，<code>git clone</code>他的demo，跑了一个<code>图片识别</code>的示例之后，有了点新的认识，然后就回过头在来看官网详细的介绍，发现比之前理解更加深刻了，学习，就是这样一个过程，先了解一个大概，在玩一玩，在全面了解，在深究他的原理，在做点好玩的东西出来。
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/05/21/重新认识TensorFlow-Lite/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </p></div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2019/05/20/Tenserflow-Lite之图片识别/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hz">
-      <meta itemprop="description" content>
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="心随我动">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/05/20/Tenserflow-Lite之图片识别/" class="post-title-link" itemprop="url">Tensorflow Lite之图片识别</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-05-20 17:02:53" itemprop="dateCreated datePublished" datetime="2019-05-20T17:02:53+08:00">2019-05-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-05-21 11:21:27" itemprop="dateModified" datetime="2019-05-21T11:21:27+08:00">2019-05-21</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/人工智能/" itemprop="url" rel="index">
-                    <span itemprop="name">人工智能</span>
-                  </a>
-                </span>
-            </span>
-
-          
-            <span id="/2019/05/20/Tenserflow-Lite之图片识别/" class="post-meta-item leancloud_visitors" data-flag-title="Tensorflow Lite之图片识别" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2019/05/20/Tenserflow-Lite之图片识别/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/05/20/Tenserflow-Lite之图片识别/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="TensorFlow-lite的介绍"><a href="#TensorFlow-lite的介绍" class="headerlink" title="TensorFlow lite的介绍"></a>TensorFlow lite的介绍</h4><p>有关TensorFlow的介绍建议看官网，如果懒的话可以直接看我上篇文章。官方告诉我们，入门TensorFlow lite的最好姿势是学习他的demo，这里从第一个例子，图片识别开始。</p><h6 id="环境搭建，建议在Android上尝试，因为ios安装真机需要证书或者越狱"><a href="#环境搭建，建议在Android上尝试，因为ios安装真机需要证书或者越狱" class="headerlink" title="环境搭建，建议在Android上尝试，因为ios安装真机需要证书或者越狱"></a>环境搭建，建议在Android上尝试，因为ios安装真机需要证书或者越狱</h6><ol>
-<li><p>安装<code>Android studio</code> 这里假设你已经安装好了Android studio了，官方建议版本<code>3.2</code>以上，这里如果不是最好更新一下咯。</p>
-</li>
-<li><p>git clone <a href="https://github.com/tensorflow/examples.git" target="_blank" rel="noopener">https://github.com/tensorflow/examples.git</a></p>
-</li>
-<li><p>图片识别的Android工程源码放在<code>examples/lite/examples</code>这里了，使用Android studio打开已存在的项目。</p>
-</li>
-</ol><h6 id="跑起来之后，直接接可以识别了"><a href="#跑起来之后，直接接可以识别了" class="headerlink" title="跑起来之后，直接接可以识别了"></a>跑起来之后，直接接可以识别了</h6>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/05/20/Tenserflow-Lite之图片识别/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1284,20 +1293,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-count">31</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">34</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
