@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.8.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="心随我动" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://blog.brzhang.club').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="【译】Profiling Flutter Applications Using the Timeline使用Timeline可以查找和解决应用程序中的特定性能问题。它也是一个很好的工具，可以识别出Flutter所提供的所有特性的相对性能成本，并允许您做出更明智的决定，确定哪些地方需要避免某些特性，哪些地方需要使用可能会让您的应用程序脱颖而出的效果 . The Timeline Flutter 提供">
+<meta name="keywords" content="flutter">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【译】Profiling Flutter Applications Using the Timeline">
+<meta property="og:url" content="https://blog.brzhang.club/2020/02/25/flutter性能优化典范一/index.html">
+<meta property="og:site_name" content="心随我动">
+<meta property="og:description" content="【译】Profiling Flutter Applications Using the Timeline使用Timeline可以查找和解决应用程序中的特定性能问题。它也是一个很好的工具，可以识别出Flutter所提供的所有特性的相对性能成本，并允许您做出更明智的决定，确定哪些地方需要避免某些特性，哪些地方需要使用可能会让您的应用程序脱颖而出的效果 . The Timeline Flutter 提供">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://miro.medium.com/max/3998/1*MBoVBDD8a68IiUpcaD3CjQ.png">
+<meta property="og:image" content="https://miro.medium.com/max/3998/1*ZVLNiQC-KCmz3e7t_w3LQg.png">
+<meta property="og:image" content="https://miro.medium.com/max/2984/1*jc6WYuRTFSJVslRi70YBHw.png">
+<meta property="og:image" content="https://miro.medium.com/max/3286/1*iDRQWjq4Y_mWd4Diyd67jQ.png">
+<meta property="og:image" content="https://miro.medium.com/max/3998/1*wA1fIv94nkn0LnY5OJ3IXg.png">
+<meta property="og:image" content="https://miro.medium.com/max/3998/1*ntk5Tcf1yuOhmHDlE8Zjig.png">
+<meta property="og:image" content="https://miro.medium.com/max/3052/1*TlX5df1vv352ypRRfveEAA.png">
+<meta property="og:image" content="https://miro.medium.com/max/3028/1*kS5PXfU-kAN-NgwijJFQ7w.png">
+<meta property="og:image" content="https://miro.medium.com/max/3418/1*tNI6e9KnMvxqSyJGqGA-gQ.png">
+<meta property="og:image" content="https://miro.medium.com/max/232/1*jSbyYB6C2wBoP5x_3FNGtA.png">
+<meta property="og:image" content="https://miro.medium.com/max/3998/1*YxI3oc-2oOSmCB0U5_Q2HA.png">
+<meta property="og:image" content="https://miro.medium.com/max/2544/1*iok8mEWRxvbqaZa_8dF9qQ.png">
+<meta property="og:image" content="https://miro.medium.com/max/3998/1*bEv-aW0gogJaxlpTDysf3Q.png">
+<meta property="og:image" content="https://miro.medium.com/max/3192/1*FcYP_acRHIIHKbGaAyM-9w.png">
+<meta property="og:image" content="https://miro.medium.com/max/3162/1*-8wNvN-zrrEQlIZZKT5s_A.png">
+<meta property="og:image" content="https://miro.medium.com/max/3588/1*MKXFenx4GEY1_JxHsdaSjQ.png">
+<meta property="og:updated_time" content="2020-02-26T04:35:33.268Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【译】Profiling Flutter Applications Using the Timeline">
+<meta name="twitter:description" content="【译】Profiling Flutter Applications Using the Timeline使用Timeline可以查找和解决应用程序中的特定性能问题。它也是一个很好的工具，可以识别出Flutter所提供的所有特性的相对性能成本，并允许您做出更明智的决定，确定哪些地方需要避免某些特性，哪些地方需要使用可能会让您的应用程序脱颖而出的效果 . The Timeline Flutter 提供">
+<meta name="twitter:image" content="https://miro.medium.com/max/3998/1*MBoVBDD8a68IiUpcaD3CjQ.png">
+
+<link rel="canonical" href="https://blog.brzhang.club/2020/02/25/flutter性能优化典范一/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>【译】Profiling Flutter Applications Using the Timeline | 心随我动</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">心随我动</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/bravekingzhang" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2020/02/25/flutter性能优化典范一/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hz">
+      <meta itemprop="description" content>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心随我动">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【译】Profiling Flutter Applications Using the Timeline
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-25 21:50:57" itemprop="dateCreated datePublished" datetime="2020-02-25T21:50:57+08:00">2020-02-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-02-26 12:35:33" itemprop="dateModified" datetime="2020-02-26T12:35:33+08:00">2020-02-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/翻译/" itemprop="url" rel="index">
+                    <span itemprop="name">翻译</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/02/25/flutter性能优化典范一/" class="post-meta-item leancloud_visitors" data-flag-title="【译】Profiling Flutter Applications Using the Timeline" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/02/25/flutter性能优化典范一/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/25/flutter性能优化典范一/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="【译】Profiling-Flutter-Applications-Using-the-Timeline"><a href="#【译】Profiling-Flutter-Applications-Using-the-Timeline" class="headerlink" title="【译】Profiling Flutter Applications Using the Timeline"></a>【译】Profiling Flutter Applications Using the Timeline</h1><p><em>使用Timeline可以查找和解决应用程序中的特定性能问题。它也是一个很好的工具，可以识别出Flutter所提供的所有特性的<strong>相对性能</strong>成本，并允许您做出更明智的决定，<strong>确定哪些地方需要避免某些特性</strong>，哪些地方需要使用可能会让您的应用程序脱颖而出的效果 .</em></p><p><img src="https://miro.medium.com/max/3998/1*MBoVBDD8a68IiUpcaD3CjQ.png" alt></p><blockquote>
+<p>The Timeline</p>
+</blockquote><p>Flutter 提供的一个开箱即用的性能分析工具去记录<strong>Dart Timeline</strong>的轨迹。Timeline 工具让您能够询问和回答为什么您的应用程序可能会janking的具体原因。作为经常被指派在不熟悉的代码库中查看性能问题的人员，使用Timeline工具进行概要分析和很轻松，压根不需要你对代码又多了解。因此，Timeline通常是我个人用来诊断和修复性能问题的第一个也是最有用的工具。对于是Flutter本身的性能瓶颈，请直接<a href="https://github.com/flutter/flutter/issues" target="_blank" rel="noopener">提交一个问题</a>，其中，你需要提供包必要的测试用例和Timeline trace，来帮助Flutter开发人员更容易识别（交叉引用和优化特定任务），已便进一步提升Flutter引擎和框架的性能。我必须承认，对于同样优先级的问题，我将首先选择带有附加Timeline trace的问题。</p><a id="more"></a>
+
+
+
+<h1 id="Timeline是干啥的"><a href="#Timeline是干啥的" class="headerlink" title="Timeline是干啥的"></a>Timeline是干啥的</h1><p>时间轴是一个<a href="https://en.wikipedia.org/wiki/Circular_buffer" target="_blank" rel="noopener">环形缓冲区</a>，记录应用程序代码在其运行过程中记录的事件。要记录的事件类型及其记录频率由发出事件的子系统的作者确定的与性能可能相关的内容决定。.</p>
+<p>要使用 Timeline, 请遵循:</p>
+<ul>
+<li>启动和停止记录TimeLine事件的能力。</li>
+<li>能够将TimeLine事件导出为可移植格式并在脱机状态下查看.</li>
+<li>使用代码发送 Timeline 事件.</li>
+</ul>
+<h1 id="Timeline-Trace-事件格式"><a href="#Timeline-Trace-事件格式" class="headerlink" title="Timeline Trace 事件格式"></a>Timeline Trace 事件格式</h1><p>记录在循环缓冲区中的事件是非常轻量级的。要以可诊断的形式实际查看这些事件，必须将其导出为适当的可移植格式。<a href="https://docs.google.com/document/d/1cvaclvlvffya5r - phyumn5ooqtymh4h6i0nsskchnaysu/edit" target="_blank" rel="noopener">Trace Event Format</a>被Flutter用来导出这些时间轴事件，以便在专用的跟踪查看器中查看。这和<a href="https://github.com/catapult-project/catapult" target="_blank" rel="noopener">Catapult</a>开发的性能概要收集、显示和分析家族工具有着<strong>相同的格式</strong>和<strong>查看器</strong>.</p>
+<p>跟踪事件格式和查看器，并被许多其他项目使用。这些项目包括<a href="http://dev.chromium.org/developers/how-tos/trace-event-profiling-tool" target="_blank" rel="noopener">Chromium</a>和<a href="https://developer.android.com/studio/command-line/systrace" target="_blank" rel="noopener">Android(通过systrace)</a>。事实上，它是如此有用，<strong>Chromium已经内置</strong>。可以尝试在基于chrome的浏览器中导航到<em>chrome://tracing</em>.</p>
+<p>您与其他开发人员共享的Traces是JSON文件或其tarball。直到最近我才知道，trace viewer可以自动解压缩JSON文件tarball。.</p>
+<h1 id="Flutter-渲染帧相关背景知识"><a href="#Flutter-渲染帧相关背景知识" class="headerlink" title="Flutter 渲染帧相关背景知识"></a>Flutter 渲染帧相关背景知识</h1><p>在我们尝试识别潜在的性能问题之前，我们需要对一个健康(大概是指基本无性能问题)的Flutter应用程序有一些了解。本节是一个关于Flutter如何渲染帧的一个快速介绍.</p>
+<h2 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h2><p>当Flutter应用启动时，它又启动(或从池中挑选)三个线程，这些线程有时有重叠的区域, 但大体上讲，它们被称为<strong>UI线程</strong>、<strong>GPU线程</strong>和<strong>IO线程</strong>. 这里需要注意的是<strong>UI线程</strong>和原生如Android平台的UI线程(主线程)并不是一回事，通常Android平台上称UI线程为主线程，然而，在Flutter中我们要注意，你眼里的主线程其实在Flutter这里是<strong>Platform thread</strong>.</p>
+<p><img src="https://miro.medium.com/max/3998/1*ZVLNiQC-KCmz3e7t_w3LQg.png" alt></p>
+<blockquote>
+<p> Flutter Engine里面的线程</p>
+</blockquote>
+<p>UI线程是所有代表框架执行的Dart代码和应用程序运行的线程。 Unless your application or the framework (via methods like <a href="https://docs.flutter.io/flutter/foundation/compute.html" target="_blank" rel="noopener">foundation::compute</a>) launches its own isolates (via methods like <a href="https://docs.flutter.io/flutter/dart-isolate/Isolate/spawn.html" target="_blank" rel="noopener">Isolate.spawn</a>), Dart code will never run on any other thread</p>
+<p><strong>一般来说dart代码将永远运行在UI线程，绝对不会跑到其他线程上</strong>，<strong>除非你的应用程序或框架通过以下两种方式启动专属的isolates</strong>：</p>
+<ol>
+<li><p><a href="https://docs.flutter.io/flutter/foundation/compute.html" target="_blank" rel="noopener">foundation::compute</a></p>
+</li>
+<li><p><a href="https://docs.flutter.io/flutter/dart-isolate/Isolate/spawn.html" target="_blank" rel="noopener">Isolate.spawn</a></p>
+</li>
+</ol>
+<p>而且要记住的是：即便启动一个新的 isolate , Dart code 也永远不可能会在 GPU线程 或者 IO 线程上执行。</p>
+<p><strong>平台线程</strong>是所有依赖插件的代码运行的地方。这个线程也是平台的本地框架为它们的任务提供服务的地方。Flutter应用程序以一种异步的方式与它们的插件进行交互，并且插件不应该去够阻塞任何由Flutter管理的线程.</p>
+<p>除了上述四个线程之外，Dart VM还管理一个线程池。这个线程池用于服务多种功能，如等待socket for <em>dart:io</em>、垃圾收集和JIT代码生成(仅在<em>debug</em>模式下，我们知道Flutter在<em>release</em>模式下使用AOT，<u>所以release模式是没有JIT代码生成线程【译者注】</u>)。.</p>
+<h2 id="The-Frame-Pipeline-管线"><a href="#The-Frame-Pipeline-管线" class="headerlink" title="The Frame Pipeline[管线]"></a>The Frame Pipeline[管线]</h2><p><img src="https://miro.medium.com/max/2984/1*jc6WYuRTFSJVslRi70YBHw.png" alt></p>
+<blockquote>
+<p>Frame Pipeline</p>
+</blockquote>
+<p>为了产生一个单一的帧，Flutter引擎首先装备一个<strong>vsync锁存器</strong>。vsync事件指示Flutter引擎开始工作，最终在屏幕上呈现新帧。平台生成的vsync事件考虑了显示的刷新率(以及其他因素)，也就是说，<u>平台生成vsync事件也有策略的，掉帧的化，vsync事件的生成应该会受影响</u>【译者注】。</p>
+<p>vsync事件唤醒UI线程。还记得吗，UI线程是Dart代码运行的地方。UI线程上的所有操作的结果是一个<strong>layer tree</strong>,他将交给后端(OpenGL、Vulkan或Software)去程序到屏幕上。</p>
+<p>一旦layer tree层树被创建，GPU线程被唤醒并开始转换layer tree到一个GPU命令缓冲区。然后这个命令缓冲区被提交给同一线程上的GPU.</p>
+<p>对于足够复杂的场景，UI线程可以并发地生成下一帧，因为GPU线程正在消耗前一帧的layer tree。将一个UI和GPU线程上串且完成看成一个单元的话，这个单元就叫<strong>pipeline Item</strong>。pipeline深度是引擎在任何给定时间所处理的帧工作负载的数量。管道深度可能不同.</p>
+<h2 id="为什么会掉帧"><a href="#为什么会掉帧" class="headerlink" title="为什么会掉帧"></a>为什么会掉帧</h2><p>特定的操作模式，掉帧现象可以在一个Flutter应用程序中被感知，比如满足下列条件之一:</p>
+<ul>
+<li>pipeline item的UI或GPU线程组件超出帧预算(对于60Hz的显示刷化率，通常为16.67 ms)<u>意思就是UI线程和GPU线程执行一帧执行时间都不要超过16.6666ms，超过了就会掉帧【译者注】</u>.</li>
+<li>引擎改变管道的深度</li>
+<li>来自平台的vsync事件以不一致的速率发出或挂接.</li>
+</ul>
+<p>这个列表中一个值得注意的例外是，引擎有选择地以一致的速度忽略vsync事件。例如，在60Hz的显示器上，如果引擎仅在其他vsync脉冲上的管道项上开始工作，那么Flutter应用程序将呈现一致的30Hz.</p>
+<p><img src="https://miro.medium.com/max/3286/1*iDRQWjq4Y_mWd4Diyd67jQ.png" alt></p>
+<p>掉帧(因为着色器编译）</p>
+<h1 id="如何收集-amp-解读-Timeline-Traces"><a href="#如何收集-amp-解读-Timeline-Traces" class="headerlink" title="如何收集 &amp; 解读 Timeline Traces"></a>如何收集 &amp; 解读 Timeline Traces</h1><p>有了对以上掉帧相关的了解，现在我们可以自己搜集Timeline Traces了。</p>
+<p>跟踪收集开销相当低，但对性能也有些许影响！因此，Flutter引擎仅在<a href="https://flutter.dev/docs/testing/build-modes#debug" target="_blank" rel="noopener">debug</a>或<a href="https://flutter.dev/docs/testing/build-modes#profile" target="_blank" rel="noopener">profile</a>模式中收集跟踪。profile模式与用户在运行应用程序时所期望的性能最为相似。此模式使用AOT编译您的Dart代码，与<a href="https://flutter.dev/docs/testing/build.modes #release" target="_blank" rel="noopener">release</a>模式类似。然而，它也支持时间轴，以及通过Dart observatory站提供的其他跟踪工具.</p>
+<p>profile模式构建所需的时间与release模式相同，<u>意思是会比debu耗时长点【译者注】</u>。但是，不要因此而放弃使用profile模式。我通常喜欢在debug模式下向时间轴添加跟踪(主要是有HotReload)。然后，当我合理地确信我的跟踪将收集我需要的信息时，我在profile模式中执行一个构建来收集有效的timing information.</p>
+<p>要收集 traces,你需要打开 Dart Observatory ， Observatory 是一个 web应用 application 服务端，主要你的flutter应用已debug，或profile模式跑起来，都会起一个服务，并且随机开一个端口，Flutter工具转发此端口到您的PC机器上。.</p>
+<blockquote>
+<p><strong>注意</strong>: Observatory 将会被  Dart DevTools 取代. 目前是preview版本. 参考资料 <a href="https://flutter.github.io/devtools/" target="_blank" rel="noopener">DevTools’ docs</a> and, <a href="https://flutter.github.io/devtools/timeline" target="_blank" rel="noopener">using the timeline view</a>.</p>
+</blockquote>
+<h2 id="命令行开启-Observatory"><a href="#命令行开启-Observatory" class="headerlink" title="命令行开启 Observatory"></a>命令行开启 Observatory</h2><ul>
+<li>使用 <strong><em>flutter run — profile</em></strong> (或者 <strong><em>debug</em></strong>)启动应用。</li>
+<li>应用跑起来，将会在命令行看到类似这样的: <strong><em>An Observatory debugger and profiler on iPhone X is available at: <a href="http://127.0.0.1:60551/" target="_blank" rel="noopener">http://127.0.0.1:60551/</a></em></strong></li>
+<li>直接点击就可以打开了</li>
+</ul>
+<h2 id="通过IDE打开Observatory"><a href="#通过IDE打开Observatory" class="headerlink" title="通过IDE打开Observatory"></a>通过IDE打开Observatory</h2><p><img src="https://miro.medium.com/max/3998/1*wA1fIv94nkn0LnY5OJ3IXg.png" alt></p>
+<h1 id="Observatory导航到-Timeline"><a href="#Observatory导航到-Timeline" class="headerlink" title="Observatory导航到 Timeline"></a>Observatory导航到 Timeline</h1><p>Either click on the timeline link on the main observatory page or navigate to the timeline directly by opening <strong><a href="http://127.0.0.1:61102/#/timeline" target="_blank" rel="noopener">http://127.0.0.1:61102/#/timeline</a></strong> (replace the # with the actual port number)</p>
+<p>点击main observatory主页上的时间轴链接，或者打开<code>http://127.0.0.1:61102/#/timeline 直接进入时间轴(用实际端口号替换时间轴)</code>.</p>
+<p>细心的人会发现，如果想指定端口，可以使用, <code>— observatory-port=&lt;port&gt;</code> . 输入 <strong>flutter help run</strong> 可以看更多细节.</p>
+<p><img src="https://miro.medium.com/max/3998/1*ntk5Tcf1yuOhmHDlE8Zjig.png" alt="The Observatory 主页"></p>
+<p>点击之后，就看到.</p>
+<p><img src="https://miro.medium.com/max/3052/1*TlX5df1vv352ypRRfveEAA.png" alt></p>
+<h1 id="搜集-Trace"><a href="#搜集-Trace" class="headerlink" title="搜集 Trace"></a>搜集 Trace</h1><p>通过点击<strong>all</strong>启用所有跟踪类别，一般勾选<strong>Flutter developer</strong>，然后点击<strong>clear</strong>按钮开始跟踪设备。请注意，“<strong>all</strong>”都已启用但时间轴仍然是空的，但设备已经开始收集痕迹。确保以向时间轴添加跟踪的方式与应用程序交互。通常，渲染一些帧是可行的</p>
+<p><img src="https://miro.medium.com/max/3028/1*kS5PXfU-kAN-NgwijJFQ7w.png" alt></p>
+<p>点击 <strong><em>Refresh</em></strong> 按钮， Observatory 会将 current trace buffer 从设备拉取过来。</p>
+<p><img src="https://miro.medium.com/max/3418/1*tNI6e9KnMvxqSyJGqGA-gQ.png" alt></p>
+<p>A Freshly Collected Trace (enable Flow &amp; VSync events)</p>
+<p><img src="https://miro.medium.com/max/232/1*jSbyYB6C2wBoP5x_3FNGtA.png" alt></p>
+<p>The Selection Pane (Easy to miss, so just use the shortcuts)</p>
+<p>当不知道怎么操作的时候，多看看右上角的<code>?</code>按钮.</p>
+<h1 id="保存-amp-分享-Traces"><a href="#保存-amp-分享-Traces" class="headerlink" title="保存 &amp; 分享 Traces"></a>保存 &amp; 分享 Traces</h1><p>单击<strong>save</strong>按钮将使浏览器下载包含跟踪的JSON文件。您可以在bug报告或电子邮件中共享跟踪。要查看共享跟踪，请在Chrome中导航到<strong>about://tracing</strong>，并加载之前保存的跟踪文件。</p>
+<p>Chrome中的跟踪查看器<strong>about://tracing</strong>也可以处理压缩的JSON文件。我发现这些更容易分享和工作。</p>
+<h1 id="Elements-of-a-Trace"><a href="#Elements-of-a-Trace" class="headerlink" title="Elements of a Trace"></a>Elements of a Trace</h1><h2 id="持续时间事件"><a href="#持续时间事件" class="headerlink" title="持续时间事件"></a>持续时间事件</h2><p>引擎中最常用的跟踪事件类型是持续时间事件。这样的事件允许您在跟踪中注释代码块。因为它们不需要标识符，所以添加它们非常简单。在Dart中，您可以使用 <a href="https://docs.flutter.io/flutter/dart-developer/Timeline-class.html" target="_blank" rel="noopener"><strong><em>dart:developer</em></strong> package’s <strong><em>Timeline</em></strong></a> 类来自己添加跟踪。Flutter engine &amp; framework已经将持续时间事件添加到它认为重要的工作负载中。你也可以这样做。点击一个特定的持续时间，你就会看到花在该事件上的时间摘要。</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Timeline.timeSync(<span class="string">"Doing Something"</span>, () &#123;</span><br><span class="line">  doSomething();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><img src="https://miro.medium.com/max/3998/1*YxI3oc-2oOSmCB0U5_Q2HA.png" alt="持续时间事件 &amp; 概要" title="持续时间事件 &amp; 概要"></p>
+<p>查找UI或GPU线程上的持续时间事件，它们是帧间隔的重要块。可以通过启用前面描述的<strong>Highlight Vsync</strong>按钮或者直接按<strong>v</strong>键来突出显示帧间隔。</p>
+<p>如果您看到一个特别大的持续时间事件，下一步是突出显示代码的哪一部分对该块有贡献。当使用下面描述的采样分析器时，识别这样的块要容易得多。但是，如果您对所讨论的代码库有一定的了解，您也可以推测地向代码中添加跟踪。虽然只有在<strong>profile</strong>模式下才能收集到可靠的仪表号，但是我喜欢在<strong>debug</strong>模式下使用热重载来推测性地添加跟踪，以查看我是否离隔离瓶颈越来越近了.</p>
+<h2 id="Event-summary"><a href="#Event-summary" class="headerlink" title="Event summary"></a>Event summary</h2><p>单击事件将在底部的窗格中显示事件摘要。摘要的<strong>Events</strong>部分特别有用，因为它尝试连接所有逻辑上相关的持续时间事件。这些关系是使用下面描述的流事件推断出来的。Flutter框架和引擎已经为所有框架相关的工作负载添加了流事件。通过这种方式，您可以更容易地隔离与特定框架相关的所有工作(跨多个线程)。当您单击相关流的链接时，跟踪查看器将选择并突出显示所有连接的流。</p>
+<p>在下面的示例中，选择所有相关的跟踪并按<strong>Self Time</strong>对列表排序，表明<strong>PhysicalShapeLayer::Paint</strong> trace是主导跟踪。可以看出这个跟踪是在GPU线程上，因为在摘要中对相同的图形进行鼠标拖动会突出显示相同的图形</p>
+<p><img src="https://miro.medium.com/max/2544/1*iok8mEWRxvbqaZa_8dF9qQ.png" alt="The Event Summary" title="The Event Summary"></p>
+<p>一旦确定了这些主要的跟踪，我通常就知道应该深入研究代码的哪些部分。摘要也很有用，因为在跟踪过程中很容易在视觉上错过多次持续时间极短的小事件。但是这样的痕迹会在摘要中立即突出显示</p>
+<h2 id="Repeating-Events"><a href="#Repeating-Events" class="headerlink" title="Repeating Events"></a>Repeating Events</h2><p>有时，您需要描述生成持续时间跟踪的重复事件的性能，而不是单个事件。这可以通过拖动选择包含此类事件的时间轴部分来实现</p>
+<p><img src="https://miro.medium.com/max/3998/1*bEv-aW0gogJaxlpTDysf3Q.png" alt="Analyzing Repeating Events" title="Analyzing Repeating Events"></p>
+<blockquote>
+<p>trace viewer<a href="https://www.google.com/url?q=https:// github.com/catapult-project/catapult/catapult&amp;sa = d&amp;ust=1551398816863000" target="_blank" rel="noopener">Catapult</a>，可能有不同版本的Catapult嵌入在Chrome的<strong>about://tracing</strong> 和Observatory。我使用最新版本的Chrome浏览器，因为它有更多的最新跟踪查看功能。你也可以直接在GitHub上使用Catapult。如果您想查看在最新版本的Catapult中在Observatory中收集的跟踪，请将跟踪保存为JSON并在不同版本的Catapult中加载相同的跟踪。JSON格式是稳定的。</p>
+</blockquote>
+<p>一旦您选择了一组跟踪，您应该会看到该选择中重复的所有跟踪的摘要。选择一个跟踪(在下面的例子中我使用的是最新版本的Catapult跟踪查看器)，应该会显示有用的信息，比如每片的平均时间、标准偏差、重复计数等。</p>
+<p><img src="https://miro.medium.com/max/3192/1*FcYP_acRHIIHKbGaAyM-9w.png" alt="Repeating Event Summary"></p>
+<p>这将使您更好地了解您对代码库所做的改进，这些改进反映在重复事件(如帧)中较小的持续时间事件中。此外，一旦您确定了异常值，您就可以更容易地选择相同的异常值，并分析围绕相同异常值的跟踪，以解释偏差。</p>
+<h2 id="Flow-Events"><a href="#Flow-Events" class="headerlink" title="Flow Events"></a>Flow Events</h2><p>流事件用于逻辑地连接持续时间事件(可能在多个线程上)。在跟踪查看器中，它们显示为箭头。默认情况下，流事件会使跟踪视图非常混乱，并且被禁用。要启用相同的功能，请选中“View Options”中的“Flow events”框。流事件必须起源于持续时间事件。使用 <a href="https://docs.flutter.io/flutter/dart-developer/Flow-class.html" target="_blank" rel="noopener">Flow class in the <strong><em>dart:developer</em></strong></a> 包中Flow类可以自动完成这项工作。Flutter引擎还将一个称为“PipelineItem”的隐式流添加到所有帧相关的工作负载中。在上面描述的事件摘要中，所有与流计数相关的持续时间事件都是“相关的”。关联事件的后代也被计算在内。</p>
+<p>在下面的例子中，在GPU线程渲染前，Flutter引擎正在UI线程上生成下一帧。如果没有流，就很难将持续时间事件与特定的框架工作负载关联起来。</p>
+<p><img src="https://miro.medium.com/max/3162/1*-8wNvN-zrrEQlIZZKT5s_A.png" alt="Flow Events for Pipeline Items" title="Flow Events for Pipeline Items"></p>
+<h2 id="The-Sampling-Profiler"><a href="#The-Sampling-Profiler" class="headerlink" title="The Sampling Profiler"></a>The Sampling Profiler</h2><p>通常，在添加跟踪时很难确定从哪里开始。每当引擎唤醒一个线程进行工作时，它都会添加一个名为<strong>MessageLoop::RunExpiredTasks</strong>的隐式持续时间跟踪。但是，在相同的跟踪中可能不会嵌套更多的跟踪。在这种情况下，采样分析器非常方便。Dart VM以特定的频率收集当前代码的回溯。无论何时运行任何Dart代码，这些示例都将在UI线程上显示为即时事件</p>
+<p><img src="https://miro.medium.com/max/3588/1*MKXFenx4GEY1_JxHsdaSjQ.png" alt="The Sampling Profiler" title="The Sampling Profiler"></p>
+<p>samples很容易丢失，但非常方便。选择一个samples会在那个时间点显示backtrace和本机堆栈的回溯轨迹。如果您迷路了，不知道从哪里开始添加跟踪，只要继续选择一个示例，直到您识别出看起来很熟悉的代码。</p>
+<p>这是一个简短的概述，您可以使用timeline工具提升您的应用程序。祝旅途快，现在才发现我开车，而且车速很快？</p>
+<p><a href="https://medium.com/flutter/profiling-flutter-applications-using-the-timeline-a1a434964af3" target="_blank" rel="noopener">原文链接</a></p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>赠人玫瑰，手留余香.</div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechat.jpeg" alt="hz WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.jpeg" alt="hz Alipay">
+        <p>Alipay</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/flutter/" rel="tag"><i class="fa fa-tag"></i> flutter</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/02/25/Flutter中耗时任务请使用Isolates/" rel="prev" title="Flutter中耗时任务请使用Isolates">
+      <i class="fa fa-chevron-left"></i> Flutter中耗时任务请使用Isolates
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/02/25/flutter性能优化典范二/" rel="next" title="flutter性能优化典范二">
+      flutter性能优化典范二 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="comments"></div>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#【译】Profiling-Flutter-Applications-Using-the-Timeline"><span class="nav-number">1.</span> <span class="nav-text">【译】Profiling Flutter Applications Using the Timeline</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Timeline是干啥的"><span class="nav-number">2.</span> <span class="nav-text">Timeline是干啥的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Timeline-Trace-事件格式"><span class="nav-number">3.</span> <span class="nav-text">Timeline Trace 事件格式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Flutter-渲染帧相关背景知识"><span class="nav-number">4.</span> <span class="nav-text">Flutter 渲染帧相关背景知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#线程"><span class="nav-number">4.1.</span> <span class="nav-text">线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Frame-Pipeline-管线"><span class="nav-number">4.2.</span> <span class="nav-text">The Frame Pipeline[管线]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么会掉帧"><span class="nav-number">4.3.</span> <span class="nav-text">为什么会掉帧</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何收集-amp-解读-Timeline-Traces"><span class="nav-number">5.</span> <span class="nav-text">如何收集 &amp; 解读 Timeline Traces</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#命令行开启-Observatory"><span class="nav-number">5.1.</span> <span class="nav-text">命令行开启 Observatory</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过IDE打开Observatory"><span class="nav-number">5.2.</span> <span class="nav-text">通过IDE打开Observatory</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Observatory导航到-Timeline"><span class="nav-number">6.</span> <span class="nav-text">Observatory导航到 Timeline</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#搜集-Trace"><span class="nav-number">7.</span> <span class="nav-text">搜集 Trace</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#保存-amp-分享-Traces"><span class="nav-number">8.</span> <span class="nav-text">保存 &amp; 分享 Traces</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Elements-of-a-Trace"><span class="nav-number">9.</span> <span class="nav-text">Elements of a Trace</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#持续时间事件"><span class="nav-number">9.1.</span> <span class="nav-text">持续时间事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Event-summary"><span class="nav-number">9.2.</span> <span class="nav-text">Event summary</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Repeating-Events"><span class="nav-number">9.3.</span> <span class="nav-text">Repeating Events</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Flow-Events"><span class="nav-number">9.4.</span> <span class="nav-text">Flow Events</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Sampling-Profiler"><span class="nav-number">9.5.</span> <span class="nav-text">The Sampling Profiler</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hz</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/bravekingzhang" title="GitHub → https://github.com/bravekingzhang" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:bravekingzhang@qq.com" title="E-Mail → mailto:bravekingzhang@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hz</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'eexUwhjQYzulgd49WYdUfaht-gzGzoHsz',
+    appKey: 'SJuNIOUCls6lBLiabBwDpfd0',
+    placeholder: "赶紧来抢沙发吧~~",
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true,
+    lang: 'zh-cn' || 'zh-cn',
+    path: location.pathname,
+    recordIP: true,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>
