@@ -289,7 +289,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2020/02/25/flutter性能优化典范二/" class="post-title-link" itemprop="url">flutter性能优化典范二</a>
+            <a href="/2020/02/25/flutter性能优化典范二/" class="post-title-link" itemprop="url">Flutter卡顿优化剪辑</a>
         </h1>
 
         <div class="post-meta">
@@ -301,20 +301,27 @@
 
               <time title="Created: 2020-02-25 21:51:12" itemprop="dateCreated datePublished" datetime="2020-02-25T21:51:12+08:00">2020-02-25</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-02-27 21:04:54" itemprop="dateModified" datetime="2020-02-27T21:04:54+08:00">2020-02-27</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/default/" itemprop="url" rel="index">
-                    <span itemprop="name">default</span>
+                  <a href="/categories/优化/" itemprop="url" rel="index">
+                    <span itemprop="name">优化</span>
                   </a>
                 </span>
             </span>
 
           
-            <span id="/2020/02/25/flutter性能优化典范二/" class="post-meta-item leancloud_visitors" data-flag-title="flutter性能优化典范二" title="Views">
+            <span id="/2020/02/25/flutter性能优化典范二/" class="post-meta-item leancloud_visitors" data-flag-title="Flutter卡顿优化剪辑" title="Views">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -345,7 +352,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          
+          <h1 id="Flutter卡顿优化必备基础知识"><a href="#Flutter卡顿优化必备基础知识" class="headerlink" title="Flutter卡顿优化必备基础知识"></a>Flutter卡顿优化必备基础知识</h1><p>首先，在做性能调优之前，我们应该对flutter相关基础知识有一定的了解，不然我们无从做起，首先，我们要了解flutter是干嘛的–<strong>Flutter 是谷歌2018年发布的跨平台移动UI框架</strong>。</p><p>然后，他相对于其他跨平台开发框架来说，是<strong>高效</strong>的，至于他为什么高效，原因是因为：</p><p><img src="https://user-gold-cdn.xitu.io/2019/9/6/16d04a2dde0b0705?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt></p><p>他是直接调用Skia框架，而其他框架需要借助现有的原始框架来转一下，在才开始去调用Skia框架，这一来二去，肯定就有所消耗，这是其一，然后，我们还需要知道flutter的四个线程。</p><h2 id="四个线程"><a href="#四个线程" class="headerlink" title="四个线程"></a>四个线程</h2><p><img src="https://miro.medium.com/max/3998/1*ZVLNiQC-KCmz3e7t_w3LQg.png" alt></p><p>分别是：</p><h5 id="平台线程"><a href="#平台线程" class="headerlink" title="平台线程"></a>平台线程</h5><p>该平台的主线程。插件代码在这里运行。更多信息请参阅：iOS 的程序 (<a href="https://developer.apple.com/documentation/uikit" target="_blank" rel="noopener">UIKit</a>) 文档，或者 Android 的主线程 (<a href="https://developer.android.google.cn/reference/android/support/annotation/MainThread" target="_blank" rel="noopener">MainThread</a>) 文档。性能图层并不会展示该线程。</p><h5 id="DartUI-线程"><a href="#DartUI-线程" class="headerlink" title="DartUI 线程"></a><a href="https://flutter.cn/docs/testing/ui-performance#ui-thread" target="_blank" rel="noopener">DartUI 线程</a></h5>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/02/25/flutter性能优化典范二/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -395,7 +410,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-02-26 12:35:33" itemprop="dateModified" datetime="2020-02-26T12:35:33+08:00">2020-02-26</time>
+                <time title="Modified: 2020-02-27 12:19:15" itemprop="dateModified" datetime="2020-02-27T12:19:15+08:00">2020-02-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -441,7 +456,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="【译】Profiling-Flutter-Applications-Using-the-Timeline"><a href="#【译】Profiling-Flutter-Applications-Using-the-Timeline" class="headerlink" title="【译】Profiling Flutter Applications Using the Timeline"></a>【译】Profiling Flutter Applications Using the Timeline</h1><p><em>使用Timeline可以查找和解决应用程序中的特定性能问题。它也是一个很好的工具，可以识别出Flutter所提供的所有特性的<strong>相对性能</strong>成本，并允许您做出更明智的决定，<strong>确定哪些地方需要避免某些特性</strong>，哪些地方需要使用可能会让您的应用程序脱颖而出的效果 .</em></p><p><img src="https://miro.medium.com/max/3998/1*MBoVBDD8a68IiUpcaD3CjQ.png" alt></p><blockquote>
+          <p><em>使用Timeline可以查找和解决应用程序中的特定性能问题。它也是一个很好的工具，可以识别出Flutter所提供的所有特性的<strong>相对性能</strong>成本，并允许您做出更明智的决定，<strong>确定哪些地方需要避免某些特性</strong>，哪些地方需要使用可能会让您的应用程序脱颖而出的效果 .</em></p><p><img src="https://miro.medium.com/max/3998/1*MBoVBDD8a68IiUpcaD3CjQ.png" alt></p><blockquote>
 <p>The Timeline</p>
 </blockquote><p>Flutter 提供的一个开箱即用的性能分析工具去记录<strong>Dart Timeline</strong>的轨迹。Timeline 工具让您能够询问和回答为什么您的应用程序可能会janking的具体原因。作为经常被指派在不熟悉的代码库中查看性能问题的人员，使用Timeline工具进行概要分析和很轻松，压根不需要你对代码又多了解。因此，Timeline通常是我个人用来诊断和修复性能问题的第一个也是最有用的工具。对于是Flutter本身的性能瓶颈，请直接<a href="https://github.com/flutter/flutter/issues" target="_blank" rel="noopener">提交一个问题</a>，其中，你需要提供包必要的测试用例和Timeline trace，来帮助Flutter开发人员更容易识别（交叉引用和优化特定任务），已便进一步提升Flutter引擎和框架的性能。我必须承认，对于同样优先级的问题，我将首先选择带有附加Timeline trace的问题。</p>
           <!--noindex-->
@@ -1257,7 +1272,7 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">

@@ -47,13 +47,13 @@
   };
 </script>
 
-  <meta name="description" content="【译】Profiling Flutter Applications Using the Timeline使用Timeline可以查找和解决应用程序中的特定性能问题。它也是一个很好的工具，可以识别出Flutter所提供的所有特性的相对性能成本，并允许您做出更明智的决定，确定哪些地方需要避免某些特性，哪些地方需要使用可能会让您的应用程序脱颖而出的效果 . The Timeline Flutter 提供">
+  <meta name="description" content="使用Timeline可以查找和解决应用程序中的特定性能问题。它也是一个很好的工具，可以识别出Flutter所提供的所有特性的相对性能成本，并允许您做出更明智的决定，确定哪些地方需要避免某些特性，哪些地方需要使用可能会让您的应用程序脱颖而出的效果 . The Timeline Flutter 提供的一个开箱即用的性能分析工具去记录Dart Timeline的轨迹。Timeline 工具让您能够询问和">
 <meta name="keywords" content="flutter">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【译】Profiling Flutter Applications Using the Timeline">
 <meta property="og:url" content="https://blog.brzhang.club/2020/02/25/flutter性能优化典范一/index.html">
 <meta property="og:site_name" content="心随我动">
-<meta property="og:description" content="【译】Profiling Flutter Applications Using the Timeline使用Timeline可以查找和解决应用程序中的特定性能问题。它也是一个很好的工具，可以识别出Flutter所提供的所有特性的相对性能成本，并允许您做出更明智的决定，确定哪些地方需要避免某些特性，哪些地方需要使用可能会让您的应用程序脱颖而出的效果 . The Timeline Flutter 提供">
+<meta property="og:description" content="使用Timeline可以查找和解决应用程序中的特定性能问题。它也是一个很好的工具，可以识别出Flutter所提供的所有特性的相对性能成本，并允许您做出更明智的决定，确定哪些地方需要避免某些特性，哪些地方需要使用可能会让您的应用程序脱颖而出的效果 . The Timeline Flutter 提供的一个开箱即用的性能分析工具去记录Dart Timeline的轨迹。Timeline 工具让您能够询问和">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://miro.medium.com/max/3998/1*MBoVBDD8a68IiUpcaD3CjQ.png">
 <meta property="og:image" content="https://miro.medium.com/max/3998/1*ZVLNiQC-KCmz3e7t_w3LQg.png">
@@ -71,10 +71,10 @@
 <meta property="og:image" content="https://miro.medium.com/max/3192/1*FcYP_acRHIIHKbGaAyM-9w.png">
 <meta property="og:image" content="https://miro.medium.com/max/3162/1*-8wNvN-zrrEQlIZZKT5s_A.png">
 <meta property="og:image" content="https://miro.medium.com/max/3588/1*MKXFenx4GEY1_JxHsdaSjQ.png">
-<meta property="og:updated_time" content="2020-02-26T04:35:33.268Z">
+<meta property="og:updated_time" content="2020-02-27T04:19:15.998Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【译】Profiling Flutter Applications Using the Timeline">
-<meta name="twitter:description" content="【译】Profiling Flutter Applications Using the Timeline使用Timeline可以查找和解决应用程序中的特定性能问题。它也是一个很好的工具，可以识别出Flutter所提供的所有特性的相对性能成本，并允许您做出更明智的决定，确定哪些地方需要避免某些特性，哪些地方需要使用可能会让您的应用程序脱颖而出的效果 . The Timeline Flutter 提供">
+<meta name="twitter:description" content="使用Timeline可以查找和解决应用程序中的特定性能问题。它也是一个很好的工具，可以识别出Flutter所提供的所有特性的相对性能成本，并允许您做出更明智的决定，确定哪些地方需要避免某些特性，哪些地方需要使用可能会让您的应用程序脱颖而出的效果 . The Timeline Flutter 提供的一个开箱即用的性能分析工具去记录Dart Timeline的轨迹。Timeline 工具让您能够询问和">
 <meta name="twitter:image" content="https://miro.medium.com/max/3998/1*MBoVBDD8a68IiUpcaD3CjQ.png">
 
 <link rel="canonical" href="https://blog.brzhang.club/2020/02/25/flutter性能优化典范一/">
@@ -238,7 +238,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-02-26 12:35:33" itemprop="dateModified" datetime="2020-02-26T12:35:33+08:00">2020-02-26</time>
+                <time title="Modified: 2020-02-27 12:19:15" itemprop="dateModified" datetime="2020-02-27T12:19:15+08:00">2020-02-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -284,7 +284,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="【译】Profiling-Flutter-Applications-Using-the-Timeline"><a href="#【译】Profiling-Flutter-Applications-Using-the-Timeline" class="headerlink" title="【译】Profiling Flutter Applications Using the Timeline"></a>【译】Profiling Flutter Applications Using the Timeline</h1><p><em>使用Timeline可以查找和解决应用程序中的特定性能问题。它也是一个很好的工具，可以识别出Flutter所提供的所有特性的<strong>相对性能</strong>成本，并允许您做出更明智的决定，<strong>确定哪些地方需要避免某些特性</strong>，哪些地方需要使用可能会让您的应用程序脱颖而出的效果 .</em></p><p><img src="https://miro.medium.com/max/3998/1*MBoVBDD8a68IiUpcaD3CjQ.png" alt></p><blockquote>
+        <p><em>使用Timeline可以查找和解决应用程序中的特定性能问题。它也是一个很好的工具，可以识别出Flutter所提供的所有特性的<strong>相对性能</strong>成本，并允许您做出更明智的决定，<strong>确定哪些地方需要避免某些特性</strong>，哪些地方需要使用可能会让您的应用程序脱颖而出的效果 .</em></p><p><img src="https://miro.medium.com/max/3998/1*MBoVBDD8a68IiUpcaD3CjQ.png" alt></p><blockquote>
 <p>The Timeline</p>
 </blockquote><p>Flutter 提供的一个开箱即用的性能分析工具去记录<strong>Dart Timeline</strong>的轨迹。Timeline 工具让您能够询问和回答为什么您的应用程序可能会janking的具体原因。作为经常被指派在不熟悉的代码库中查看性能问题的人员，使用Timeline工具进行概要分析和很轻松，压根不需要你对代码又多了解。因此，Timeline通常是我个人用来诊断和修复性能问题的第一个也是最有用的工具。对于是Flutter本身的性能瓶颈，请直接<a href="https://github.com/flutter/flutter/issues" target="_blank" rel="noopener">提交一个问题</a>，其中，你需要提供包必要的测试用例和Timeline trace，来帮助Flutter开发人员更容易识别（交叉引用和优化特定任务），已便进一步提升Flutter引擎和框架的性能。我必须承认，对于同样优先级的问题，我将首先选择带有附加Timeline trace的问题。</p><a id="more"></a>
 
@@ -431,8 +431,8 @@
       <i class="fa fa-chevron-left"></i> Flutter中耗时任务请使用Isolates
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/02/25/flutter性能优化典范二/" rel="next" title="flutter性能优化典范二">
-      flutter性能优化典范二 <i class="fa fa-chevron-right"></i>
+    <a href="/2020/02/25/flutter性能优化典范二/" rel="next" title="Flutter卡顿优化剪辑">
+      Flutter卡顿优化剪辑 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -472,7 +472,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#【译】Profiling-Flutter-Applications-Using-the-Timeline"><span class="nav-number">1.</span> <span class="nav-text">【译】Profiling Flutter Applications Using the Timeline</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Timeline是干啥的"><span class="nav-number">2.</span> <span class="nav-text">Timeline是干啥的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Timeline-Trace-事件格式"><span class="nav-number">3.</span> <span class="nav-text">Timeline Trace 事件格式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Flutter-渲染帧相关背景知识"><span class="nav-number">4.</span> <span class="nav-text">Flutter 渲染帧相关背景知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#线程"><span class="nav-number">4.1.</span> <span class="nav-text">线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Frame-Pipeline-管线"><span class="nav-number">4.2.</span> <span class="nav-text">The Frame Pipeline[管线]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么会掉帧"><span class="nav-number">4.3.</span> <span class="nav-text">为什么会掉帧</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何收集-amp-解读-Timeline-Traces"><span class="nav-number">5.</span> <span class="nav-text">如何收集 &amp; 解读 Timeline Traces</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#命令行开启-Observatory"><span class="nav-number">5.1.</span> <span class="nav-text">命令行开启 Observatory</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过IDE打开Observatory"><span class="nav-number">5.2.</span> <span class="nav-text">通过IDE打开Observatory</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Observatory导航到-Timeline"><span class="nav-number">6.</span> <span class="nav-text">Observatory导航到 Timeline</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#搜集-Trace"><span class="nav-number">7.</span> <span class="nav-text">搜集 Trace</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#保存-amp-分享-Traces"><span class="nav-number">8.</span> <span class="nav-text">保存 &amp; 分享 Traces</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Elements-of-a-Trace"><span class="nav-number">9.</span> <span class="nav-text">Elements of a Trace</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#持续时间事件"><span class="nav-number">9.1.</span> <span class="nav-text">持续时间事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Event-summary"><span class="nav-number">9.2.</span> <span class="nav-text">Event summary</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Repeating-Events"><span class="nav-number">9.3.</span> <span class="nav-text">Repeating Events</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Flow-Events"><span class="nav-number">9.4.</span> <span class="nav-text">Flow Events</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Sampling-Profiler"><span class="nav-number">9.5.</span> <span class="nav-text">The Sampling Profiler</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Timeline是干啥的"><span class="nav-number">1.</span> <span class="nav-text">Timeline是干啥的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Timeline-Trace-事件格式"><span class="nav-number">2.</span> <span class="nav-text">Timeline Trace 事件格式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Flutter-渲染帧相关背景知识"><span class="nav-number">3.</span> <span class="nav-text">Flutter 渲染帧相关背景知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#线程"><span class="nav-number">3.1.</span> <span class="nav-text">线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Frame-Pipeline-管线"><span class="nav-number">3.2.</span> <span class="nav-text">The Frame Pipeline[管线]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么会掉帧"><span class="nav-number">3.3.</span> <span class="nav-text">为什么会掉帧</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何收集-amp-解读-Timeline-Traces"><span class="nav-number">4.</span> <span class="nav-text">如何收集 &amp; 解读 Timeline Traces</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#命令行开启-Observatory"><span class="nav-number">4.1.</span> <span class="nav-text">命令行开启 Observatory</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过IDE打开Observatory"><span class="nav-number">4.2.</span> <span class="nav-text">通过IDE打开Observatory</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Observatory导航到-Timeline"><span class="nav-number">5.</span> <span class="nav-text">Observatory导航到 Timeline</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#搜集-Trace"><span class="nav-number">6.</span> <span class="nav-text">搜集 Trace</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#保存-amp-分享-Traces"><span class="nav-number">7.</span> <span class="nav-text">保存 &amp; 分享 Traces</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Elements-of-a-Trace"><span class="nav-number">8.</span> <span class="nav-text">Elements of a Trace</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#持续时间事件"><span class="nav-number">8.1.</span> <span class="nav-text">持续时间事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Event-summary"><span class="nav-number">8.2.</span> <span class="nav-text">Event summary</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Repeating-Events"><span class="nav-number">8.3.</span> <span class="nav-text">Repeating Events</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Flow-Events"><span class="nav-number">8.4.</span> <span class="nav-text">Flow Events</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Sampling-Profiler"><span class="nav-number">8.5.</span> <span class="nav-text">The Sampling Profiler</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -493,7 +493,7 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
