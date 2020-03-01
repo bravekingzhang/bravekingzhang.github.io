@@ -47,15 +47,20 @@
   };
 </script>
 
-  <meta name="keywords" content="default">
+  <meta name="description" content="Observatory与devTools区别卡顿相关timeline工具performance内存相关memory黑科技查看哪些代码被执行过widget 重建状态查看很直观的看出当前帧哪些控件重建了。">
+<meta name="keywords" content="flutter">
 <meta property="og:type" content="article">
-<meta property="og:title" content="flutter性能优化工具devTools常用工具简介">
+<meta property="og:title" content="flutter性能优化工具Observatory与devTools常用功能简介">
 <meta property="og:url" content="https://blog.brzhang.club/2020/02/25/flutter性能优化工具devTools常用工具简介/index.html">
 <meta property="og:site_name" content="心随我动">
+<meta property="og:description" content="Observatory与devTools区别卡顿相关timeline工具performance内存相关memory黑科技查看哪些代码被执行过widget 重建状态查看很直观的看出当前帧哪些控件重建了。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-02-25T13:52:26.842Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20200227212640.png">
+<meta property="og:updated_time" content="2020-03-01T12:11:54.598Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="flutter性能优化工具devTools常用工具简介">
+<meta name="twitter:title" content="flutter性能优化工具Observatory与devTools常用功能简介">
+<meta name="twitter:description" content="Observatory与devTools区别卡顿相关timeline工具performance内存相关memory黑科技查看哪些代码被执行过widget 重建状态查看很直观的看出当前帧哪些控件重建了。">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20200227212640.png">
 
 <link rel="canonical" href="https://blog.brzhang.club/2020/02/25/flutter性能优化工具devTools常用工具简介/">
 
@@ -71,7 +76,7 @@
   };
 </script>
 
-  <title>flutter性能优化工具devTools常用工具简介 | 心随我动</title>
+  <title>flutter性能优化工具Observatory与devTools常用功能简介 | 心随我动</title>
   
 
 
@@ -201,7 +206,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          flutter性能优化工具devTools常用工具简介
+          flutter性能优化工具Observatory与devTools常用功能简介
         </h1>
 
         <div class="post-meta">
@@ -213,20 +218,27 @@
 
               <time title="Created: 2020-02-25 21:52:26" itemprop="dateCreated datePublished" datetime="2020-02-25T21:52:26+08:00">2020-02-25</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-03-01 20:11:54" itemprop="dateModified" datetime="2020-03-01T20:11:54+08:00">2020-03-01</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/default/" itemprop="url" rel="index">
-                    <span itemprop="name">default</span>
+                  <a href="/categories/性能优化/" itemprop="url" rel="index">
+                    <span itemprop="name">性能优化</span>
                   </a>
                 </span>
             </span>
 
           
-            <span id="/2020/02/25/flutter性能优化工具devTools常用工具简介/" class="post-meta-item leancloud_visitors" data-flag-title="flutter性能优化工具devTools常用工具简介" title="Views">
+            <span id="/2020/02/25/flutter性能优化工具devTools常用工具简介/" class="post-meta-item leancloud_visitors" data-flag-title="flutter性能优化工具Observatory与devTools常用功能简介" title="Views">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -257,7 +269,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <h1 id="Observatory与devTools区别"><a href="#Observatory与devTools区别" class="headerlink" title="Observatory与devTools区别"></a>Observatory与devTools区别</h1><h1 id="卡顿相关"><a href="#卡顿相关" class="headerlink" title="卡顿相关"></a>卡顿相关</h1><h2 id="timeline工具"><a href="#timeline工具" class="headerlink" title="timeline工具"></a>timeline工具</h2><h2 id="performance"><a href="#performance" class="headerlink" title="performance"></a>performance</h2><h1 id="内存相关"><a href="#内存相关" class="headerlink" title="内存相关"></a>内存相关</h1><h2 id="memory"><a href="#memory" class="headerlink" title="memory"></a>memory</h2><h1 id="黑科技"><a href="#黑科技" class="headerlink" title="黑科技"></a>黑科技</h1><h2 id="查看哪些代码被执行过"><a href="#查看哪些代码被执行过" class="headerlink" title="查看哪些代码被执行过"></a>查看哪些代码被执行过</h2><h2 id="widget-重建状态查看"><a href="#widget-重建状态查看" class="headerlink" title="widget 重建状态查看"></a>widget 重建状态查看</h2><p><img title src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20200227212640.png" alt data-align="center" width="564"></p><p>很直观的看出当前帧哪些控件重建了。</p>
     </div>
 
     
@@ -287,7 +299,7 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/default/" rel="tag"><i class="fa fa-tag"></i> default</a>
+              <a href="/tags/flutter/" rel="tag"><i class="fa fa-tag"></i> flutter</a>
           </div>
 
         
@@ -299,7 +311,10 @@
     <a href="/2020/02/25/flutter性能优化典范二/" rel="prev" title="Flutter卡顿优化剪辑">
       <i class="fa fa-chevron-left"></i> Flutter卡顿优化剪辑
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/02/29/HowTo/" rel="next" title="FLutter做一个WiKiHowTo">
+      FLutter做一个WiKiHowTo <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -338,6 +353,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Observatory与devTools区别"><span class="nav-number">1.</span> <span class="nav-text">Observatory与devTools区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#卡顿相关"><span class="nav-number">2.</span> <span class="nav-text">卡顿相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#timeline工具"><span class="nav-number">2.1.</span> <span class="nav-text">timeline工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#performance"><span class="nav-number">2.2.</span> <span class="nav-text">performance</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内存相关"><span class="nav-number">3.</span> <span class="nav-text">内存相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#memory"><span class="nav-number">3.1.</span> <span class="nav-text">memory</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#黑科技"><span class="nav-number">4.</span> <span class="nav-text">黑科技</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#查看哪些代码被执行过"><span class="nav-number">4.1.</span> <span class="nav-text">查看哪些代码被执行过</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#widget-重建状态查看"><span class="nav-number">4.2.</span> <span class="nav-text">widget 重建状态查看</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -351,14 +367,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-count">38</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-count">23</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">

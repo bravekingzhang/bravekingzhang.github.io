@@ -47,22 +47,29 @@
   };
 </script>
 
-  <meta name="description" content="tensorflow lite是干嘛的 TensorFlow Lite is an open source deep learning framework for on-device inference 上面这句话是官网上面的原话，直接了当的说明了TensorFlow Lite是一个可以部署在端设备上的深度学习框架，这说明了，深度学习已经有着覆盖移动端设备的趋势了，所以，移动开发者似乎又有了新的学">
-<meta name="keywords" content="tensorflow lite">
+  <meta name="description" content="在App Store下载了一个Wiki HowTo的应用，觉得挺有意思的，只不过是英文版本，没法切换中文，因此想自己撸一个中文版本的。因为最近在玩flutter，所以，我就打算时候用flutter玩一玩咯。api怎么获取使用chares抓包，不过发现抓到的是乱码，看到是http协议，很显然，这个是https加密咯，所以，要配置支持https，具体怎么配置，我参考的这篇文章Charles 4.2.1">
+<meta name="keywords" content="flutter">
 <meta property="og:type" content="article">
-<meta property="og:title" content="tensorflow入门初探">
-<meta property="og:url" content="https://blog.brzhang.club/2019/05/20/tensorflow入门初探/index.html">
+<meta property="og:title" content="FLutter做一个WiKiHowTo">
+<meta property="og:url" content="https://blog.brzhang.club/2020/02/29/HowTo/index.html">
 <meta property="og:site_name" content="心随我动">
-<meta property="og:description" content="tensorflow lite是干嘛的 TensorFlow Lite is an open source deep learning framework for on-device inference 上面这句话是官网上面的原话，直接了当的说明了TensorFlow Lite是一个可以部署在端设备上的深度学习框架，这说明了，深度学习已经有着覆盖移动端设备的趋势了，所以，移动开发者似乎又有了新的学">
+<meta property="og:description" content="在App Store下载了一个Wiki HowTo的应用，觉得挺有意思的，只不过是英文版本，没法切换中文，因此想自己撸一个中文版本的。因为最近在玩flutter，所以，我就打算时候用flutter玩一玩咯。api怎么获取使用chares抓包，不过发现抓到的是乱码，看到是http协议，很显然，这个是https加密咯，所以，要配置支持https，具体怎么配置，我参考的这篇文章Charles 4.2.1">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190520153835.png">
-<meta property="og:updated_time" content="2019-05-20T07:41:33.684Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20200229172723.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20200229172504.png">
+<meta property="og:image" content="https://github.com/bravekingzhang/wikiHowTo/blob/master/art/feature.png">
+<meta property="og:image" content="https://github.com/bravekingzhang/wikiHowTo/blob/master/art/menu.png">
+<meta property="og:image" content="https://github.com/bravekingzhang/wikiHowTo/blob/master/art/collect.png">
+<meta property="og:image" content="https://github.com/bravekingzhang/wikiHowTo/blob/master/art/search.png">
+<meta property="og:image" content="https://github.com/bravekingzhang/wikiHowTo/blob/master/art/detail.png">
+<meta property="og:image" content="https://github.com/bravekingzhang/wikiHowTo/blob/master/art/detail.gif">
+<meta property="og:updated_time" content="2020-03-01T12:44:47.701Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tensorflow入门初探">
-<meta name="twitter:description" content="tensorflow lite是干嘛的 TensorFlow Lite is an open source deep learning framework for on-device inference 上面这句话是官网上面的原话，直接了当的说明了TensorFlow Lite是一个可以部署在端设备上的深度学习框架，这说明了，深度学习已经有着覆盖移动端设备的趋势了，所以，移动开发者似乎又有了新的学">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190520153835.png">
+<meta name="twitter:title" content="FLutter做一个WiKiHowTo">
+<meta name="twitter:description" content="在App Store下载了一个Wiki HowTo的应用，觉得挺有意思的，只不过是英文版本，没法切换中文，因此想自己撸一个中文版本的。因为最近在玩flutter，所以，我就打算时候用flutter玩一玩咯。api怎么获取使用chares抓包，不过发现抓到的是乱码，看到是http协议，很显然，这个是https加密咯，所以，要配置支持https，具体怎么配置，我参考的这篇文章Charles 4.2.1">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20200229172723.png">
 
-<link rel="canonical" href="https://blog.brzhang.club/2019/05/20/tensorflow入门初探/">
+<link rel="canonical" href="https://blog.brzhang.club/2020/02/29/HowTo/">
 
 
 <script id="page-configurations">
@@ -76,7 +83,7 @@
   };
 </script>
 
-  <title>tensorflow入门初探 | 心随我动</title>
+  <title>FLutter做一个WiKiHowTo | 心随我动</title>
   
 
 
@@ -193,7 +200,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2019/05/20/tensorflow入门初探/">
+    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2020/02/29/HowTo/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -206,7 +213,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          tensorflow入门初探
+          FLutter做一个WiKiHowTo
         </h1>
 
         <div class="post-meta">
@@ -215,24 +222,30 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2019-05-20 15:29:31 / Modified: 15:41:33" itemprop="dateCreated datePublished" datetime="2019-05-20T15:29:31+08:00">2019-05-20</time>
+              <time title="Created: 2020-02-29 11:31:11" itemprop="dateCreated datePublished" datetime="2020-02-29T11:31:11+08:00">2020-02-29</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-03-01 20:44:47" itemprop="dateModified" datetime="2020-03-01T20:44:47+08:00">2020-03-01</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/人工智能/" itemprop="url" rel="index">
-                    <span itemprop="name">人工智能</span>
+                  <a href="/categories/应用/" itemprop="url" rel="index">
+                    <span itemprop="name">应用</span>
                   </a>
                 </span>
             </span>
 
           
-            <span id="/2019/05/20/tensorflow入门初探/" class="post-meta-item leancloud_visitors" data-flag-title="tensorflow入门初探" title="Views">
+            <span id="/2020/02/29/HowTo/" class="post-meta-item leancloud_visitors" data-flag-title="FLutter做一个WiKiHowTo" title="Views">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -247,8 +260,8 @@
       </span>
       <span class="post-meta-item-text">Valine: </span>
     
-    <a title="valine" href="/2019/05/20/tensorflow入门初探/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/05/20/tensorflow入门初探/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/02/29/HowTo/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/29/HowTo/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -263,25 +276,61 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h4 id="tensorflow-lite是干嘛的"><a href="#tensorflow-lite是干嘛的" class="headerlink" title="tensorflow lite是干嘛的"></a>tensorflow lite是干嘛的</h4><blockquote>
-<p>TensorFlow Lite is an open source deep learning framework for on-device inference</p>
-</blockquote><p>上面这句话是官网上面的原话，直接了当的说明了TensorFlow Lite是一个可以部署在端设备上的深度学习框架，这说明了，深度学习已经有着覆盖移动端设备的趋势了，所以，移动开发者似乎又有了新的学习任务。</p><h4 id="那么，目前TensorFlow-Lite能干些啥"><a href="#那么，目前TensorFlow-Lite能干些啥" class="headerlink" title="那么，目前TensorFlow Lite能干些啥"></a>那么，目前TensorFlow Lite能干些啥</h4><ol>
-<li><p>图片分类</p>
-</li>
-<li><p>物体监测</p>
-</li>
-<li><p>聊天机器人</p>
-</li>
-</ol><h4 id="嗯，看起来似乎有点意思，那呢他是如何工作的呢？"><a href="#嗯，看起来似乎有点意思，那呢他是如何工作的呢？" class="headerlink" title="嗯，看起来似乎有点意思，那呢他是如何工作的呢？"></a>嗯，看起来似乎有点意思，那呢他是如何工作的呢？</h4><p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20190520153835.png" alt></p><p>大抵就是经过上面四个步骤</p><ol>
-<li><p>选择一个已有模型改吧改吧，当然你牛你可以自己训练，大部分都是选择开源模型</p>
-</li>
-<li><p>将它转换为lite可用的模型，这一步就是一个函数调用，不怕</p>
-</li>
-<li><p>部署到端设备，相当于加载一个数据库那么easy</p>
-</li>
-<li><p>进行识别调优，准确率需要自己不断地训练去教育它。</p>
-</li>
+        <p>在App Store下载了一个Wiki HowTo的应用，觉得挺有意思的，只不过是英文版本，没法切换中文，因此想自己撸一个中文版本的。</p><p>因为最近在玩flutter，所以，我就打算时候用flutter玩一玩咯。</p><h2 id="api怎么获取"><a href="#api怎么获取" class="headerlink" title="api怎么获取"></a>api怎么获取</h2><p>使用chares抓包，不过发现抓到的是乱码，看到是http协议，很显然，这个是https加密咯，所以，要配置支持https，具体怎么配置，我参考的这篇文章<a href="https://juejin.im/post/5a30a52a6fb9a0451d4175ed" target="_blank" rel="noopener">Charles 4.2.1 HTTPS抓包</a></p><p>一番功夫之后，我们就能够抓到这个包了</p><p><img title src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20200229172723.png" alt data-align="center" width="628"></p><blockquote>
+<p>获取列表的api</p>
+</blockquote><p><a href="https://www.wikihow.com/api.php?action=app&amp;subcmd=featured&amp;num=40&amp;format=json" target="_blank" rel="noopener">https://www.wikihow.com/api.php?action=app&amp;subcmd=featured&amp;num=40&amp;format=json</a></p><blockquote>
+<p>获取详情的api</p>
+</blockquote><p><a href="https://www.wikihow.com/api.php?action=app&amp;subcmd=article&amp;id=11630731&amp;format=json" target="_blank" rel="noopener">https://www.wikihow.com/api.php?action=app&amp;subcmd=article&amp;id=11630731&amp;format=json</a></p><a id="more"></a>
+
+
+
+
+
+
+
+
+<p>但是，我们需要的是chinese版本的，不知道它有没有呢？所以，就试一下，嘿嘿，没想到还真有呢。</p>
+<blockquote>
+<p>获取列表中文版，实际上就是加了zh开头</p>
+</blockquote>
+<p><a href="https://zh.wikihow.com/api.php?action=app&amp;subcmd=featured&amp;num=40&amp;format=json" target="_blank" rel="noopener">https://zh.wikihow.com/api.php?action=app&amp;subcmd=featured&amp;num=40&amp;format=json</a></p>
+<blockquote>
+<p>获取详情中文版</p>
+</blockquote>
+<p><a href="https://zh.wikihow.com/api.php?action=app&amp;subcmd=article&amp;id=2133329&amp;format=json" target="_blank" rel="noopener">https://zh.wikihow.com/api.php?action=app&amp;subcmd=article&amp;id=2133329&amp;format=json</a></p>
+<blockquote>
+<p>搜索</p>
+</blockquote>
+<p><a href="https://zh.wikihow.com/api.php?action=app&amp;subcmd=fsearch&amp;format=json&amp;q=aaron&amp;rows=25" target="_blank" rel="noopener">https://zh.wikihow.com/api.php?action=app&amp;subcmd=fsearch&amp;format=json&amp;q=aaron&amp;rows=25</a></p>
+<blockquote>
+<p>自定义搜索</p>
+</blockquote>
+<p><a href="https://zh.wikihow.com/api.php?action=app&amp;subcmd=psearch&amp;wt=json&amp;q=draw&amp;rows=25" target="_blank" rel="noopener">https://zh.wikihow.com/api.php?action=app&amp;subcmd=psearch&amp;wt=json&amp;q=draw&amp;rows=25</a></p>
+<blockquote>
+<p>随机给你一个</p>
+</blockquote>
+<p><a href="https://zh.wikihow.com/api.php?action=app&amp;subcmd=article&amp;random=true&amp;_=1582969083.511380&amp;format=json" target="_blank" rel="noopener">https://zh.wikihow.com/api.php?action=app&amp;subcmd=article&amp;random=true&amp;_=1582969083.511380&amp;format=json</a></p>
+<p><img title src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20200229172504.png" alt data-align="center" width="616"></p>
+<p>有了api之后，一切好办，下面，我们就要创建一个flutter工程，然后在就是做一个精致的应用了。我现在把我需要用到的控件说一下。</p>
+<p>首先，我们需要请求网络数据，所以我需要用到<a href="https://pub.dev/packages/dio" target="_blank" rel="noopener">dio | Dart Package</a>这个网络框架</p>
+<p>其次，因为我们展示图片，所以，我们还需要一个可以加载图片且代缓存的库<a href="https://pub.dev/packages/cached_network_image" target="_blank" rel="noopener">cached_network_image | Flutter Package</a></p>
+<p>然后，我打算使用bloc模式来分离页面和数据请求逻辑，所以，我需要引入<a href="https://pub.dev/packages/flutter_bloc" target="_blank" rel="noopener">flutter_bloc | Flutter Package</a></p>
+<p>再次，因为涉及到列表，所以我这里要用到上拉加载，和下来刷新，要不就将就着用下<a href="https://pub.dev/packages/pull_to_refresh" target="_blank" rel="noopener">pull_to_refresh | Flutter Package</a></p>
+<p>然后，我感觉基本上改引入的库也差不多啦~~，不够在做的过程中去加。</p>
+<h4 id="最终实现的点及效果"><a href="#最终实现的点及效果" class="headerlink" title="最终实现的点及效果"></a>最终实现的点及效果</h4><ol>
+<li>支持显示推荐列表  </li>
+<li>支持搜索，但是只能搜索到英文的，因为api不支持搜索到中文的  </li>
+<li>查看详情  </li>
+<li>详情里面播放视频的功能  </li>
+<li>显示html文本  </li>
+<li>支持收藏  </li>
+<li>支持从收藏移除  </li>
+<li>对请求做了缓存，先请求缓存，在请求网络。</li>
 </ol>
+<p><img title src="https://github.com/bravekingzhang/wikiHowTo/blob/master/art/feature.png" alt data-align="center" width="416"><br><img title src="https://github.com/bravekingzhang/wikiHowTo/blob/master/art/menu.png" alt data-align="center" width="416"><br><img title src="https://github.com/bravekingzhang/wikiHowTo/blob/master/art/collect.png" alt data-align="center" width="416"><br><img title src="https://github.com/bravekingzhang/wikiHowTo/blob/master/art/search.png" alt data-align="center" width="416"><br><img title src="https://github.com/bravekingzhang/wikiHowTo/blob/master/art/detail.png" alt data-align="center" width="416">  </p>
+<p><img src="https://github.com/bravekingzhang/wikiHowTo/blob/master/art/detail.gif" alt="添加二维码体验"></p>
+<h4 id="todo"><a href="#todo" class="headerlink" title="todo"></a>todo</h4><p>搜索 API不支持搜索中文，搜索结果返回是空的，需要找官方解决<br>使用云服务器中转，加速访问，目前国内访问比较慢</p>
+
     </div>
 
     
@@ -311,7 +360,7 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/tensorflow-lite/" rel="tag"><i class="fa fa-tag"></i> tensorflow lite</a>
+              <a href="/tags/flutter/" rel="tag"><i class="fa fa-tag"></i> flutter</a>
           </div>
 
         
@@ -320,13 +369,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2019/05/20/我读人世间的感悟/" rel="prev" title="我读人世间的感悟">
-      <i class="fa fa-chevron-left"></i> 我读人世间的感悟
+    <a href="/2020/02/25/flutter性能优化工具devTools常用工具简介/" rel="prev" title="flutter性能优化工具Observatory与devTools常用功能简介">
+      <i class="fa fa-chevron-left"></i> flutter性能优化工具Observatory与devTools常用功能简介
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2019/05/20/Tenserflow-Lite之图片识别/" rel="next" title="Tensorflow Lite之图片识别">
-      Tensorflow Lite之图片识别 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -365,7 +411,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#tensorflow-lite是干嘛的"><span class="nav-number">1.</span> <span class="nav-text">tensorflow lite是干嘛的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#那么，目前TensorFlow-Lite能干些啥"><span class="nav-number">2.</span> <span class="nav-text">那么，目前TensorFlow Lite能干些啥</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#嗯，看起来似乎有点意思，那呢他是如何工作的呢？"><span class="nav-number">3.</span> <span class="nav-text">嗯，看起来似乎有点意思，那呢他是如何工作的呢？</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#api怎么获取"><span class="nav-number">1.</span> <span class="nav-text">api怎么获取</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#最终实现的点及效果"><span class="nav-number">1.0.1.</span> <span class="nav-text">最终实现的点及效果</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#todo"><span class="nav-number">1.0.2.</span> <span class="nav-text">todo</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
