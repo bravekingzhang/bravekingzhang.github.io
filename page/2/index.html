@@ -186,6 +186,304 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2020/02/18/研究下flutter的devTools/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hz">
+      <meta itemprop="description" content>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心随我动">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/18/研究下flutter的devTools/" class="post-title-link" itemprop="url">研究下flutter的devTools</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-18 13:58:40" itemprop="dateCreated datePublished" datetime="2020-02-18T13:58:40+08:00">2020-02-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-03-01 20:12:08" itemprop="dateModified" datetime="2020-03-01T20:12:08+08:00">2020-03-01</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/flutter/" itemprop="url" rel="index">
+                    <span itemprop="name">flutter</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/02/18/研究下flutter的devTools/" class="post-meta-item leancloud_visitors" data-flag-title="研究下flutter的devTools" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/02/18/研究下flutter的devTools/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/18/研究下flutter的devTools/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Flutter的devTools是flutter中开发不可或缺的一个工具。</p><p><img title src="https://flutter.dev/assets/tools/devtools/inspector_screenshot-20506a87233698df68d6ba223034f3e95b3e4e11773da7d748a3c6fdd6ca8bf8.png" alt data-align="center" width="627"></p><p><img title src="https://flutter.dev/assets/tools/devtools/timeline-dark-mode-900678f534f0bd55edd3f75c129c40005720bbd674c09f72126b3931b4509b02.png" alt data-align="center" width="619"></p><p>常用的功能就有<code>性能调优</code>，<code>布局查看</code>，<code>函数调用栈</code>等。</p><p>安装这个工具可以直接在命令行下执行，用命令行安装是一个比较好的习惯：</p><p><code>flutter pub global activate devtools</code></p><p>然后，这不，你就会安装一下这些依赖库，如是，就可以对这个devtools的原理进行一个初步的分析。</p><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">Package devtools <span class="keyword">is</span> currently active at version <span class="number">0.1</span><span class="number">.14</span>.</span><br><span class="line">Resolving dependencies...</span><br><span class="line">+ args <span class="number">1.5</span><span class="number">.2</span></span><br><span class="line">+ <span class="keyword">async</span> <span class="number">2.4</span><span class="number">.0</span></span><br><span class="line">+ browser_launcher <span class="number">0.1</span><span class="number">.5</span></span><br><span class="line">+ charcode <span class="number">1.1</span><span class="number">.3</span></span><br><span class="line">+ collection <span class="number">1.14</span><span class="number">.12</span></span><br><span class="line">+ convert <span class="number">2.1</span><span class="number">.1</span></span><br><span class="line">+ crypto <span class="number">2.1</span><span class="number">.4</span></span><br><span class="line">+ devtools <span class="number">0.1</span><span class="number">.15</span></span><br><span class="line">+ devtools_server <span class="number">0.1</span><span class="number">.14</span></span><br><span class="line">+ devtools_shared <span class="number">0.2</span><span class="number">.0</span></span><br><span class="line">+ http <span class="number">0.12</span><span class="number">.0</span>+<span class="number">4</span></span><br><span class="line">+ http_multi_server <span class="number">2.2</span><span class="number">.0</span></span><br><span class="line">+ http_parser <span class="number">3.1</span><span class="number">.3</span></span><br><span class="line">+ intl <span class="number">0.16</span><span class="number">.1</span></span><br><span class="line">+ logging <span class="number">0.11</span><span class="number">.4</span></span><br><span class="line">+ meta <span class="number">1.1</span><span class="number">.8</span></span><br><span class="line">+ mime <span class="number">0.9</span><span class="number">.6</span>+<span class="number">3</span></span><br><span class="line">+ path <span class="number">1.6</span><span class="number">.4</span></span><br><span class="line">+ pedantic <span class="number">1.9</span><span class="number">.0</span></span><br><span class="line">+ shelf <span class="number">0.7</span><span class="number">.5</span></span><br><span class="line">+ shelf_static <span class="number">0.2</span><span class="number">.8</span></span><br><span class="line">+ source_span <span class="number">1.6</span><span class="number">.0</span></span><br><span class="line">+ sse <span class="number">3.1</span><span class="number">.2</span></span><br><span class="line">+ stack_trace <span class="number">1.9</span><span class="number">.3</span></span><br><span class="line">+ stream_channel <span class="number">2.0</span><span class="number">.0</span></span><br><span class="line">+ string_scanner <span class="number">1.0</span><span class="number">.5</span></span><br><span class="line">+ term_glyph <span class="number">1.1</span><span class="number">.0</span></span><br><span class="line">+ typed_data <span class="number">1.1</span><span class="number">.6</span></span><br><span class="line">+ usage <span class="number">3.4</span><span class="number">.1</span></span><br><span class="line">+ uuid <span class="number">2.0</span><span class="number">.4</span></span><br><span class="line">+ vm_service <span class="number">2.3</span><span class="number">.1</span></span><br><span class="line">+ webkit_inspection_protocol <span class="number">0.5</span><span class="number">.0</span></span><br><span class="line">Downloading devtools <span class="number">0.1</span><span class="number">.15</span>...</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/02/18/研究下flutter的devTools/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2020/02/13/其实Flutter中PlatFromView也是基于texture来实现的/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hz">
+      <meta itemprop="description" content>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心随我动">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/13/其实Flutter中PlatFromView也是基于texture来实现的/" class="post-title-link" itemprop="url">其实Flutter中PlatFromView也是基于texture来实现的</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-02-13 13:18:15 / Modified: 17:32:47" itemprop="dateCreated datePublished" datetime="2020-02-13T13:18:15+08:00">2020-02-13</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/flutter/" itemprop="url" rel="index">
+                    <span itemprop="name">flutter</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/02/13/其实Flutter中PlatFromView也是基于texture来实现的/" class="post-meta-item leancloud_visitors" data-flag-title="其实Flutter中PlatFromView也是基于texture来实现的" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/02/13/其实Flutter中PlatFromView也是基于texture来实现的/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/13/其实Flutter中PlatFromView也是基于texture来实现的/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>想要在flutter想显示原生的东东，大家知道，一般有两种方式，一种是PlatformView,另外一种是Texture(俗称外接纹理)。其中PlatformView区分Android和iOS，在Android平上上叫做 <strong>AndroidView</strong>，而在iOS平台，叫<strong>UIKitView</strong>。而今天，我要说的是，</p><p><strong><em>PlatformView和Texture看似两种不同的方式，其实是一种方式。</em></strong></p><blockquote>
+<p>PlatformView  <a href="https://api.flutter.dev/flutter/widgets/AndroidView-class.html" target="_blank" rel="noopener">https://api.flutter.dev/flutter/widgets/AndroidView-class.html</a></p>
+</blockquote><p>主要适用于flutter中不太容易实现的widget（Native中已经很成熟，并且很有优势的View），如官方的WebView。感兴趣的化可以了解一下。</p><blockquote>
+<p>Texture <a href="https://api.flutter.dev/flutter/widgets/Texture-class.html" target="_blank" rel="noopener">Texture class - widgets library - Dart API</a></p>
+</blockquote>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/02/13/其实Flutter中PlatFromView也是基于texture来实现的/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2020/02/11/在家办公哪些尴尬的事/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hz">
+      <meta itemprop="description" content>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心随我动">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/11/在家办公哪些尴尬的事/" class="post-title-link" itemprop="url">在家办公那些尴尬的事</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-02-11 13:11:14 / Modified: 14:19:34" itemprop="dateCreated datePublished" datetime="2020-02-11T13:11:14+08:00">2020-02-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/生活/" itemprop="url" rel="index">
+                    <span itemprop="name">生活</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/02/11/在家办公哪些尴尬的事/" class="post-meta-item leancloud_visitors" data-flag-title="在家办公那些尴尬的事" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/02/11/在家办公哪些尴尬的事/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/11/在家办公哪些尴尬的事/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ol>
+<li>早上9点起来写工作计划，下午6点写完成情况，9：00–12：30，1：30-2：00打卡，没人做饭真是尴尬啊~~~~。</li>
+</ol>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2020/01/30/围棋中的围/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -905,338 +1203,11 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2019/12/03/flutter启动流程跟踪/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hz">
-      <meta itemprop="description" content>
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="心随我动">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/03/flutter启动流程跟踪/" class="post-title-link" itemprop="url">flutter启动流程跟踪</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-12-03 11:00:28" itemprop="dateCreated datePublished" datetime="2019-12-03T11:00:28+08:00">2019-12-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-12-17 17:42:42" itemprop="dateModified" datetime="2019-12-17T17:42:42+08:00">2019-12-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/flutter/" itemprop="url" rel="index">
-                    <span itemprop="name">flutter</span>
-                  </a>
-                </span>
-            </span>
-
-          
-            <span id="/2019/12/03/flutter启动流程跟踪/" class="post-meta-item leancloud_visitors" data-flag-title="flutter启动流程跟踪" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2019/12/03/flutter启动流程跟踪/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/03/flutter启动流程跟踪/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>我们项目接入flutter由来已久，采用的是<code>混栈开发</code>的方式，没有办法，因为项目开发了比较久，全部替换为flutter实现想想也不太现实，混栈开发的过程中，我们遇到了一些问题，当时都是一脸懵逼，貌似最后都是很侥幸的通过万能的Google给汤坑汤沟去了，说来也是惭愧，本来很简单的事情，却需要花费一些不必要的时间，所以，当时就想如果有时间，一定要好好研究下flutter的原理，我们接入flutter，flutter到底是如何启动的，启动的过程中他做了一些什么，假如以后需要做性能优化，我们该从何处入手。</p><h4 id="flutter启动流程简析"><a href="#flutter启动流程简析" class="headerlink" title="flutter启动流程简析"></a>flutter启动流程简析</h4><p>首先，这里有必要介绍一下我们接入flutter的方式，是的采用的是这种方式，相当于是直接字创建一个<code>FlutterView</code>，随后把这个FlutterView塞给一个Fragment即可。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/12/03/flutter启动流程跟踪/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2019/12/02/flutter性能优化参考/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hz">
-      <meta itemprop="description" content>
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="心随我动">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/02/flutter性能优化参考/" class="post-title-link" itemprop="url">flutter性能优化参考</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-12-02 09:59:28 / Modified: 15:23:39" itemprop="dateCreated datePublished" datetime="2019-12-02T09:59:28+08:00">2019-12-02</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/flutter/" itemprop="url" rel="index">
-                    <span itemprop="name">flutter</span>
-                  </a>
-                </span>
-            </span>
-
-          
-            <span id="/2019/12/02/flutter性能优化参考/" class="post-meta-item leancloud_visitors" data-flag-title="flutter性能优化参考" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2019/12/02/flutter性能优化参考/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/02/flutter性能优化参考/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>本文基本都是在flutter开发中总结的一些性能后话的经验之谈，按照这些建议去写flutter应用，相信不会你会离性能问题越来越远~~~~</p>
-</blockquote><h4 id="在正确的地方执行setState方法"><a href="#在正确的地方执行setState方法" class="headerlink" title="在正确的地方执行setState方法"></a>在正确的地方执行setState方法</h4><p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20191202100919.png" alt></p><p>说简单的点就是<code>局部更新</code>，如果整棵树都去更新，执行时间肯定会比树叶更新要慢，性能要差，这个是理所当然的。</p><p>然后就是尽量不要出发<code>离屏渲染</code>，那么什么骚操作会导致离屏渲染呢？</p><ol>
-<li><p>带透明参数的图片</p>
-</li>
-<li><p>shader mask</p>
-</li>
-<li><p>colorFilter</p>
-</li>
-<li><p>chip</p>
-</li>
-<li><p>text overflow</p>
-</li>
-<li><p>然后还要提一下clipping，裁剪—，其实也是对绘制性能有比较大的影响的。</p>
-</li>
-</ol><p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20191202102630.png" alt></p><p>所以，应该尽量规避这些骚操作，当然是在要使用，那也没有办法呀，但是还是有一些效果，可以使用一些黑科技替代的，比如，fadeinimage, 圆角使用borderRadius。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/12/02/flutter性能优化参考/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2019/08/20/javascript那些不为人知的坑点/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hz">
-      <meta itemprop="description" content>
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="心随我动">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/08/20/javascript那些不为人知的坑点/" class="post-title-link" itemprop="url">javascript那些不为人知的28个坑点</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-08-20 16:38:07" itemprop="dateCreated datePublished" datetime="2019-08-20T16:38:07+08:00">2019-08-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-11-25 15:47:12" itemprop="dateModified" datetime="2019-11-25T15:47:12+08:00">2019-11-25</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
-                  </a>
-                </span>
-            </span>
-
-          
-            <span id="/2019/08/20/javascript那些不为人知的坑点/" class="post-meta-item leancloud_visitors" data-flag-title="javascript那些不为人知的28个坑点" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2019/08/20/javascript那些不为人知的坑点/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/20/javascript那些不为人知的坑点/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>最近开始搞h5了，所以，所以少不了和js打交道，js红宝书很久之前看过，但是走马观花般的走过一遍，现在不一样了，是要投入生产了，如是，我又重视起来了，决定在好好的过一遍，记录一下自己认为自己以后可能会犯错的地方，及时避免自己入坑了还不知所以。</p>
-</blockquote>
-<ol>
-<li><p>在<code>script</code>元素中设置defer属性，相当于告诉浏览器立即下载，但延迟执行，这样可以加快页面的首屏渲染速度，扯到这个问题，为什么需要加defer呢？这不是脑子找抽吗？不如<strong>直接把加载js文件放入到<body>标签的最底部就ok啦</body></strong>。</p>
-</li>
-<li><p>ECMAScript中的字符串是不可变的，也就是说，<strong>字符串一旦创建，它们的值就不能改变</strong>。要改变某个变量保存的字符串，首先要销毁原来的字符串，然后再用另一个包含新值的字符串填充该变量
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/08/20/javascript那些不为人知的坑点/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </p></li></ol></div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1280,20 +1251,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-count">42</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-count">38</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
