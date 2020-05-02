@@ -186,6 +186,115 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2020/02/23/你真的会做放重复点击吗？/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hz">
+      <meta itemprop="description" content>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心随我动">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/23/你真的会做放重复点击吗？/" class="post-title-link" itemprop="url">万万没想到，做防重复点击都会被坑4下</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-23 11:26:04" itemprop="dateCreated datePublished" datetime="2020-02-23T11:26:04+08:00">2020-02-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-03-01 20:12:06" itemprop="dateModified" datetime="2020-03-01T20:12:06+08:00">2020-03-01</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/02/23/你真的会做放重复点击吗？/" class="post-meta-item leancloud_visitors" data-flag-title="万万没想到，做防重复点击都会被坑4下" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/02/23/你真的会做放重复点击吗？/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/23/你真的会做放重复点击吗？/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>前几天，发现App设置页中有一堆的入口，举个例子，大概就是这个样子的：</p><p><img title src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20200223112749.png" alt data-align="center" width="377"></p><p>点击每个入口都会进入一个新的Activity，但是，如果快速点击的话，比如快速点击附近的人，将会出现两个附近的人页。</p><p>因此，我们要如何解决这个问题呢？</p><ol>
+<li><p>将所有的Activity设置为singleTop</p>
+</li>
+<li><p>对附近的人这个按钮的onClick事件做一个防止重复点击</p>
+</li>
+</ol><p>两种方式都是没问题的，但是，却都有问题，首页我们来分析第一种：</p><h3 id="将所有的Activity设置为singleTop"><a href="#将所有的Activity设置为singleTop" class="headerlink" title="将所有的Activity设置为singleTop"></a>将所有的Activity设置为singleTop</h3><p>为什么说这种方式有问题，首先，我们要了解singleTop启动模式是干嘛，他是说，如果当前Activity已经在栈顶了，那么，就不在启动一个新的这个Activity，只是调用它的<code>onNewIntent</code>，我们能排除一定不会在栈顶已经有这个Activity的时候，在开同样的页面吗？不能！业务千变万化。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/02/23/你真的会做放重复点击吗？/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2020/02/18/研究下flutter的devTools/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1096,113 +1205,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2019/12/10/强势案例一款markdown编辑器/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hz">
-      <meta itemprop="description" content>
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="心随我动">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/10/强势案例一款markdown编辑器/" class="post-title-link" itemprop="url">强势案例一款markdown编辑器</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-12-10 16:25:27 / Modified: 17:30:11" itemprop="dateCreated datePublished" datetime="2019-12-10T16:25:27+08:00">2019-12-10</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/工具/" itemprop="url" rel="index">
-                    <span itemprop="name">工具</span>
-                  </a>
-                </span>
-            </span>
-
-          
-            <span id="/2019/12/10/强势案例一款markdown编辑器/" class="post-meta-item leancloud_visitors" data-flag-title="强势案例一款markdown编辑器" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2019/12/10/强势案例一款markdown编辑器/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/10/强势案例一款markdown编辑器/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>今天想强势安利一款markdown编辑器，<strong>免费，开源</strong>，那就是<a href="https://marktext.app/" target="_blank" rel="noopener">https://marktext.app/</a>，喜欢写作的小伙伴一定不要错过，下面，来简单的介绍一下这款编辑器的强大功能。</p><h4 id="直接粘贴剪切板中图片"><a href="#直接粘贴剪切板中图片" class="headerlink" title="直接粘贴剪切板中图片"></a>直接粘贴剪切板中图片</h4><p>之前，我们编辑markdown有一个痛点，那就是本地的图片复制到剪切板，粘贴到markdown编辑器中，一般来说，路径会是本地。<code>![xx](/usr/local....jpg)</code>这种在写的时候会非常爽，但是，发步起来会很尴尬，需要一张张图上传为网络图片。一顿操作，搞得协作的欲望大大降低。现在有了marktext，这些痛点就没有啦。</p><blockquote>
-<p>只需要简简单单的两步就搞定啦</p>
-</blockquote><ol>
-<li><p><code>command</code>+<code>,</code>打开设置页面，配置图片粘贴后的行为</p>
-<p><img src="https://i.loli.net/2019/12/10/bHetwMoKsZOXqnC.png" title alt data-align="center"></p>
-</li>
-<li><p>配置图片上传器，注意勾选，然后点击设置为default即可。如果需要使用github图床，请搜索教程。</p>
-<p><img src="https://i.loli.net/2019/12/10/HPRYtyXvsAWS98c.png" title alt data-align="center"></p>
-</li>
-</ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/12/10/强势案例一款markdown编辑器/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1251,7 +1253,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-count">43</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
