@@ -186,6 +186,104 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2020/05/21/我玩了一个星期的react/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hz">
+      <meta itemprop="description" content>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心随我动">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/21/我玩了一个星期的react/" class="post-title-link" itemprop="url">我玩了一个星期的react的理解</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-05-21 15:54:03 / Modified: 16:47:11" itemprop="dateCreated datePublished" datetime="2020-05-21T15:54:03+08:00">2020-05-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/05/21/我玩了一个星期的react/" class="post-meta-item leancloud_visitors" data-flag-title="我玩了一个星期的react的理解" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/05/21/我玩了一个星期的react/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/05/21/我玩了一个星期的react/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>不知不觉，我居然已经玩了一个星期的react了，因为项目需要，所以一切从0开始，如大家所了解的那样，react上手的的确确要比vue难一些，但是也并没有传说中的那么难。按照我的套路，我感觉上手react会非常容易。</p><h4 id="1、首先，我们应该了解一下，一个简单的react应用是怎么样的。"><a href="#1、首先，我们应该了解一下，一个简单的react应用是怎么样的。" class="headerlink" title="1、首先，我们应该了解一下，一个简单的react应用是怎么样的。"></a>1、首先，我们应该了解一下，一个简单的react应用是怎么样的。</h4><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Game</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div className=<span class="string">"game"</span>&gt;</span><br><span class="line">        &lt;div className=<span class="string">"game-board"</span>&gt;</span><br><span class="line">          &lt;Board /&gt;</span><br><span class="line">        &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">        &lt;div className="game-info"&gt;</span></span><br><span class="line"><span class="regexp">          &lt;div&gt;&#123;/</span>* status *<span class="regexp">/&#125;&lt;/</span>div&gt;</span><br><span class="line">          &lt;ol&gt;&#123;<span class="comment">/* TODO */</span>&#125;&lt;<span class="regexp">/ol&gt;</span></span><br><span class="line"><span class="regexp">        &lt;/</span>div&gt;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ ========================================</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">ReactDOM.render(</span></span><br><span class="line"><span class="regexp">  &lt;Game /</span>&gt;,</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">'root'</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/05/21/我玩了一个星期的react/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2020/05/04/有意思的闭包/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1130,112 +1228,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2020/02/25/flutter性能优化典范一/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hz">
-      <meta itemprop="description" content>
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="心随我动">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/25/flutter性能优化典范一/" class="post-title-link" itemprop="url">【译】Profiling Flutter Applications Using the Timeline</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-02-25 21:50:57" itemprop="dateCreated datePublished" datetime="2020-02-25T21:50:57+08:00">2020-02-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-02-27 12:19:15" itemprop="dateModified" datetime="2020-02-27T12:19:15+08:00">2020-02-27</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/翻译/" itemprop="url" rel="index">
-                    <span itemprop="name">翻译</span>
-                  </a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/02/25/flutter性能优化典范一/" class="post-meta-item leancloud_visitors" data-flag-title="【译】Profiling Flutter Applications Using the Timeline" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2020/02/25/flutter性能优化典范一/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/25/flutter性能优化典范一/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><em>使用Timeline可以查找和解决应用程序中的特定性能问题。它也是一个很好的工具，可以识别出Flutter所提供的所有特性的<strong>相对性能</strong>成本，并允许您做出更明智的决定，<strong>确定哪些地方需要避免某些特性</strong>，哪些地方需要使用可能会让您的应用程序脱颖而出的效果 .</em></p><p><img src="https://miro.medium.com/max/3998/1*MBoVBDD8a68IiUpcaD3CjQ.png" alt></p><blockquote>
-<p>The Timeline</p>
-</blockquote><p>Flutter 提供的一个开箱即用的性能分析工具去记录<strong>Dart Timeline</strong>的轨迹。Timeline 工具让您能够询问和回答为什么您的应用程序可能会janking的具体原因。作为经常被指派在不熟悉的代码库中查看性能问题的人员，使用Timeline工具进行概要分析和很轻松，压根不需要你对代码又多了解。因此，Timeline通常是我个人用来诊断和修复性能问题的第一个也是最有用的工具。对于是Flutter本身的性能瓶颈，请直接<a href="https://github.com/flutter/flutter/issues" target="_blank" rel="noopener">提交一个问题</a>，其中，你需要提供包必要的测试用例和Timeline trace，来帮助Flutter开发人员更容易识别（交叉引用和优化特定任务），已便进一步提升Flutter引擎和框架的性能。我必须承认，对于同样优先级的问题，我将首先选择带有附加Timeline trace的问题。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/02/25/flutter性能优化典范一/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1284,7 +1276,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-count">46</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
