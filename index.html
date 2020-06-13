@@ -186,6 +186,104 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2020/06/12/简单理解koa源码/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hz">
+      <meta itemprop="description" content>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心随我动">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/06/12/简单理解koa源码/" class="post-title-link" itemprop="url">简单理解koa源码</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-06-12 17:05:43 / Modified: 23:56:00" itemprop="dateCreated datePublished" datetime="2020-06-12T17:05:43+08:00">2020-06-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/server/" itemprop="url" rel="index">
+                    <span itemprop="name">server</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/06/12/简单理解koa源码/" class="post-meta-item leancloud_visitors" data-flag-title="简单理解koa源码" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/06/12/简单理解koa源码/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/06/12/简单理解koa源码/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>之前，我一直在使用express做简单的后台server，写一些api，给自己做的前端来提供服务，觉着吧挺好用的，虽然koa也出来挺久的，但是我一直没有更换过，直到今天看到一个项目中别人是使用koa来做后端代理的，所以，我才想，是否需要了解一下koa的源码呢。其实，我并不是一个喜欢尝鲜的人，因为我总觉得新鲜的事物一般有他没有考虑到的地方，或许会有很多大大的坑等着我们。但是突然发现，koa其实已经好几年的历史了，沉淀的也差不多了，是时候了解一下，并切换到koa上来了。</p><p>了解一个框架最好的方式莫过于直接下载他的<a href="https://github.com/koajs/koa#readme" target="_blank" rel="noopener">源码</a>，然后，跑他最简单的例子，找到入口位置，一步一步的跟踪下去。</p><p>首先，koa的入口文件在<code>lib/application.js</code>中，这个是他的<code>package.json</code>文件中告诉我的，node的工程就是这点好，打开<code>package.json</code>文件，大概就知道入口健在在哪了，很方便跟踪源代码。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/06/12/简单理解koa源码/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2020/05/21/我玩了一个星期的react/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -503,10 +601,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-04-19 14:55:42 / Modified: 16:21:53" itemprop="dateCreated datePublished" datetime="2020-04-19T14:55:42+08:00">2020-04-19</time>
+              <time title="Created: 2020-04-19 14:55:42" itemprop="dateCreated datePublished" datetime="2020-04-19T14:55:42+08:00">2020-04-19</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-12 15:41:34" itemprop="dateModified" datetime="2020-06-12T15:41:34+08:00">2020-06-12</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -1124,110 +1228,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2020/02/25/flutter性能优化典范二/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hz">
-      <meta itemprop="description" content>
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="心随我动">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/25/flutter性能优化典范二/" class="post-title-link" itemprop="url">Flutter卡顿优化剪辑</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-02-25 21:51:12" itemprop="dateCreated datePublished" datetime="2020-02-25T21:51:12+08:00">2020-02-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-03-01 20:11:56" itemprop="dateModified" datetime="2020-03-01T20:11:56+08:00">2020-03-01</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/优化/" itemprop="url" rel="index">
-                    <span itemprop="name">优化</span>
-                  </a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/02/25/flutter性能优化典范二/" class="post-meta-item leancloud_visitors" data-flag-title="Flutter卡顿优化剪辑" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2020/02/25/flutter性能优化典范二/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/25/flutter性能优化典范二/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Flutter卡顿优化必备基础知识"><a href="#Flutter卡顿优化必备基础知识" class="headerlink" title="Flutter卡顿优化必备基础知识"></a>Flutter卡顿优化必备基础知识</h1><p>首先，在做性能调优之前，我们应该对flutter相关基础知识有一定的了解，不然我们无从做起，首先，我们要了解flutter是干嘛的–<strong>Flutter 是谷歌2018年发布的跨平台移动UI框架</strong>。</p><p>然后，他相对于其他跨平台开发框架来说，是<strong>高效</strong>的，至于他为什么高效，原因是因为：</p><p><img src="https://user-gold-cdn.xitu.io/2019/9/6/16d04a2dde0b0705?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt></p><p>他是直接调用Skia框架，而其他框架需要借助现有的原始框架来转一下，在才开始去调用Skia框架，这一来二去，肯定就有所消耗，这是其一，然后，我们还需要知道flutter的四个线程。</p><h2 id="四个线程"><a href="#四个线程" class="headerlink" title="四个线程"></a>四个线程</h2><p><img src="https://miro.medium.com/max/3998/1*ZVLNiQC-KCmz3e7t_w3LQg.png" alt></p><p>分别是：</p><h5 id="平台线程"><a href="#平台线程" class="headerlink" title="平台线程"></a>平台线程</h5><p>该平台的主线程。插件代码在这里运行。更多信息请参阅：iOS 的程序 (<a href="https://developer.apple.com/documentation/uikit" target="_blank" rel="noopener">UIKit</a>) 文档，或者 Android 的主线程 (<a href="https://developer.android.google.cn/reference/android/support/annotation/MainThread" target="_blank" rel="noopener">MainThread</a>) 文档。性能图层并不会展示该线程。</p><h5 id="DartUI-线程"><a href="#DartUI-线程" class="headerlink" title="DartUI 线程"></a><a href="https://flutter.cn/docs/testing/ui-performance#ui-thread" target="_blank" rel="noopener">DartUI 线程</a></h5>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/02/25/flutter性能优化典范二/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1276,7 +1276,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">46</span>
+          <span class="site-state-item-count">47</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1289,7 +1289,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-count">42</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
