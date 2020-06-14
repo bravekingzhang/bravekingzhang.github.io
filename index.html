@@ -186,6 +186,117 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2020/06/13/前端项目接pauseline/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hz">
+      <meta itemprop="description" content>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心随我动">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/06/13/前端项目接pauseline/" class="post-title-link" itemprop="url">前端项目接pulse-line</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-06-13 22:41:39" itemprop="dateCreated datePublished" datetime="2020-06-13T22:41:39+08:00">2020-06-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-14 11:45:18" itemprop="dateModified" datetime="2020-06-14T11:45:18+08:00">2020-06-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/工程化/" itemprop="url" rel="index">
+                    <span itemprop="name">工程化</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/06/13/前端项目接pauseline/" class="post-meta-item leancloud_visitors" data-flag-title="前端项目接pulse-line" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/06/13/前端项目接pauseline/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/06/13/前端项目接pauseline/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>首先，要明白我们为什么需要接入pulse-line？简单的来说是为了让工程化做的更加规范，让大家的项目从开发到运维部署上线的整个流程都是一致的。</p><p>其次，pulse-line是基于spinnaker基础开发的一个平台，那么问题又转到了spinnaker是啥，如果你想了解详细的知识，请参考<a href="https://aws.amazon.com/cn/blogs/china/deployment-pipeline-spinnaker-kubernetes/" target="_blank" rel="noopener">这篇文章</a>，如果只想了解一个大概，请直接继续享用。</p><p>简单的来说，<a href="https://www.spinnaker.io/" target="_blank" rel="noopener">Spinnaker</a> 是一种持续交付平台，最初由 Netflix 开发，用于快速、可靠地发布软件更改。Spinnaker 使开发人员可以更轻松地专注于编写代码，而无需担心底层的云基础设施。它与 Jenkins【而我们使用的pulse-line借助于orange-ci】 以及其他流行的构建工具无缝集成。</p><p>整个过程如下图所示：</p><p><img src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/2020/image-20200614083851611.png" alt="image-20200614083851611"></p><p>那么，具体的流程描述如下：</p><ol>
+<li>用户创建前端工程，在本地保证根据项目的Dockerfile可以build出镜像，且可以跑起来。</li>
+<li>因为目前前端项目没有完善自动化接入pulse-line，因此，需要将你的git仓库地址告诉@evincai 熊哥，让他帮创建一个，他会告诉你一个地址。</li>
+<li>此时，将你的分支打一个tag，然后做一次tag push到git仓库，默认情况下是master分支，此时会触发一个web Hook。</li>
+<li>有了这个web Hook，orrange-ci会出发构建docker image的流程。</li>
+<li>docker image build成功，会推送到公司的docker 仓库，构建和推送的都是orange-ci做的，这些都在配置文件中，后面会提到。</li>
+<li>随后pulse-line流程触发，开始部署，整个流程就结束了。</li>
+</ol>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/06/13/前端项目接pauseline/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2020/06/13/前端面试经常问到的一些点/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -209,8 +320,9 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2020-06-13 16:09:52" itemprop="dateCreated datePublished" datetime="2020-06-13T16:09:52+08:00">2020-06-13</time>
+              <time title="Created: 2020-06-13 16:09:52 / Modified: 22:41:47" itemprop="dateCreated datePublished" datetime="2020-06-13T16:09:52+08:00">2020-06-13</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -218,8 +330,8 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/default/" itemprop="url" rel="index">
-                    <span itemprop="name">default</span>
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
                   </a>
                 </span>
             </span>
@@ -256,7 +368,50 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          
+          <h3 id="1、自我介绍环节"><a href="#1、自我介绍环节" class="headerlink" title="1、自我介绍环节"></a>1、自我介绍环节</h3><p>这个环节很显然是避免不了的，这个环节候选人应该注意不要平铺直述自己的简历，而是应该尽量做到熟练清晰的介绍自己的教育背景，工作履历，及自己参与过的几个重大的项目，在里面分别承担了什么样的角色，使用什么技术解决了什么样的问题，以及取得了哪些成绩。如果你这部分说的比较刘畅，有底气，不卑不亢，会给面试官一个很好的第一印象，最起码的，会觉得你思维清晰，能够清晰的认识自己的优缺点，简历上提到的一些点大概率都是你自己的产出。</p><h3 id="2、前端基础知识考查"><a href="#2、前端基础知识考查" class="headerlink" title="2、前端基础知识考查"></a>2、前端基础知识考查</h3><p>这个环节通常所谓的一些点包括：</p><ol>
+<li>javascript基础<ol>
+<li>闭包</li>
+<li>this指向，bind，call</li>
+<li>原型链</li>
+<li>面向对象，如何实现继承</li>
+<li>作用域，var，let区别</li>
+<li>浏览器兼容</li>
+<li>数组、字符串对象考查，例如数组哪些操作可以改变原数组、正则表达式匹配等(一般比较基础，不会太复杂)</li>
+<li>cookie，跨域发送cookie等。</li>
+<li>session</li>
+</ol>
+</li>
+<li>网络相关<ol>
+<li>TCP链接及断开过程，http状态码，304，302，401，20x</li>
+<li>Https原理，加密过程</li>
+<li>Http2，多路复用，头部压缩</li>
+<li>跨域，如何解决等</li>
+</ol>
+</li>
+<li>前端缓存<ol>
+<li>LocalStorage</li>
+<li>SessionStorage</li>
+</ol>
+</li>
+<li>前端安全<ol>
+<li>xss</li>
+<li>csrf</li>
+</ol>
+</li>
+<li>性能调优<ol>
+<li>内存泄漏</li>
+<li>ANR</li>
+</ol>
+</li>
+</ol>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/06/13/前端面试经常问到的一些点/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1119,114 +1274,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2020/02/29/HowTo/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hz">
-      <meta itemprop="description" content>
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="心随我动">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/29/HowTo/" class="post-title-link" itemprop="url">FLutter做一个WiKiHowTo</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-02-29 11:31:11" itemprop="dateCreated datePublished" datetime="2020-02-29T11:31:11+08:00">2020-02-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-03-03 11:32:37" itemprop="dateModified" datetime="2020-03-03T11:32:37+08:00">2020-03-03</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/应用/" itemprop="url" rel="index">
-                    <span itemprop="name">应用</span>
-                  </a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/02/29/HowTo/" class="post-meta-item leancloud_visitors" data-flag-title="FLutter做一个WiKiHowTo" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2020/02/29/HowTo/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/29/HowTo/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>在App Store下载了一个Wiki HowTo的应用，觉得挺有意思的，只不过是英文版本，没法切换中文，因此想自己撸一个中文版本的。</p><p>因为最近在玩flutter，所以，我就打算时候用flutter玩一玩咯。</p><h2 id="api怎么获取"><a href="#api怎么获取" class="headerlink" title="api怎么获取"></a>api怎么获取</h2><p>使用chares抓包，不过发现抓到的是乱码，看到是http协议，很显然，这个是https加密咯，所以，要配置支持https，具体怎么配置，我参考的这篇文章<a href="https://juejin.im/post/5a30a52a6fb9a0451d4175ed" target="_blank" rel="noopener">Charles 4.2.1 HTTPS抓包</a></p><p>一番功夫之后，我们就能够抓到这个包了</p><p><img title src="https://raw.githubusercontent.com/bravekingzhang/pic_go/master/20200229172723.png" alt data-align="center" width="628"></p><blockquote>
-<p>获取列表的api</p>
-</blockquote><p><a href="https://www.wikihow.com/api.php?action=app&amp;subcmd=featured&amp;num=40&amp;format=json" target="_blank" rel="noopener">https://www.wikihow.com/api.php?action=app&amp;subcmd=featured&amp;num=40&amp;format=json</a></p><blockquote>
-<p>获取详情的api</p>
-</blockquote><p><a href="https://www.wikihow.com/api.php?action=app&amp;subcmd=article&amp;id=11630731&amp;format=json" target="_blank" rel="noopener">https://www.wikihow.com/api.php?action=app&amp;subcmd=article&amp;id=11630731&amp;format=json</a></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/02/29/HowTo/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1275,20 +1322,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">48</span>
+          <span class="site-state-item-count">49</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-count">44</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
