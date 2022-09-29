@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.brzhang.club","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":true,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="官方优化建议避免使用大图页面中若大量使用大图资源，会造成页面切换的卡顿，导致系统内存升高，甚至白屏崩溃。 尤其是不要把多张大图缩小后显示在一个屏幕内，比如上传图片前选了数张几M体积的照片，然后缩小在一个屏幕中展示多张几M的大图，非常容易白屏崩溃。对大体积的二进制文件进行base64，也非常耗费资源。 优化数据更新在 uni-app 中，定义在 data 里面的数据每次变化时都会通知视图层重新渲染页">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Uni-App小程序优化指南">
+<meta property="og:url" content="https://blog.brzhang.club/2022/04/03/uni-app%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BC%98%E5%8C%96%E6%8C%87%E5%8D%97/index.html">
+<meta property="og:site_name" content="心随我动">
+<meta property="og:description" content="官方优化建议避免使用大图页面中若大量使用大图资源，会造成页面切换的卡顿，导致系统内存升高，甚至白屏崩溃。 尤其是不要把多张大图缩小后显示在一个屏幕内，比如上传图片前选了数张几M体积的照片，然后缩小在一个屏幕中展示多张几M的大图，非常容易白屏崩溃。对大体积的二进制文件进行base64，也非常耗费资源。 优化数据更新在 uni-app 中，定义在 data 里面的数据每次变化时都会通知视图层重新渲染页">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://res.wx.qq.com/wxdoc/dist/assets/img/route-1.2700b598.svg">
+<meta property="article:published_time" content="2022-04-03T09:43:19.000Z">
+<meta property="article:modified_time" content="2022-09-29T07:18:14.092Z">
+<meta property="article:author" content="hz">
+<meta property="article:tag" content="小程序">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://res.wx.qq.com/wxdoc/dist/assets/img/route-1.2700b598.svg">
+
+<link rel="canonical" href="https://blog.brzhang.club/2022/04/03/uni-app%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BC%98%E5%8C%96%E6%8C%87%E5%8D%97/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Uni-App小程序优化指南 | 心随我动</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">心随我动</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-主页">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>主页</a>
+
+  </li>
+        <li class="menu-item menu-item-关于">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-标签">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-归档">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/bravekingzhang" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2022/04/03/uni-app%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BC%98%E5%8C%96%E6%8C%87%E5%8D%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hz">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心随我动">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Uni-App小程序优化指南
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-04-03 17:43:19" itemprop="dateCreated datePublished" datetime="2022-04-03T17:43:19+08:00">2022-04-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-09-29 15:18:14" itemprop="dateModified" datetime="2022-09-29T15:18:14+08:00">2022-09-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="官方优化建议"><a href="#官方优化建议" class="headerlink" title="官方优化建议"></a>官方优化建议</h2><h4 id="避免使用大图"><a href="#避免使用大图" class="headerlink" title="避免使用大图"></a>避免使用大图</h4><p>页面中若大量使用大图资源，会造成页面切换的卡顿，导致系统内存升高，甚至白屏崩溃。</p>
+<p>尤其是不要把多张大图缩小后显示在一个屏幕内，比如上传图片前选了数张几M体积的照片，然后缩小在一个屏幕中展示多张几M的大图，非常容易白屏崩溃。对大体积的二进制文件进行base64，也非常耗费资源。</p>
+<h4 id="优化数据更新"><a href="#优化数据更新" class="headerlink" title="优化数据更新"></a>优化数据更新</h4><p>在 <code>uni-app</code> 中，定义在 data 里面的数据每次变化时都会通知视图层重新渲染页面。<strong>所以如果不是视图所需要的变量，可以不定义在 data 中，可在外部定义变量或直接挂载在vue实例上，以避免造成资源浪费</strong>。</p>
+<h5 id="长列表"><a href="#长列表" class="headerlink" title="长列表"></a>长列表</h5><ul>
+<li>长列表中如果每个item有一个点赞按钮，点击后点赞数字+1，此时点赞组件必须是一个<strong>单独引用的组件，才能做到差量数据更新</strong>。否则会造成整个列表数据重载。</li>
+<li>长列表中每个item并不一定需要做成组件，取决于你的业务中是否需要差量更新某一行item的数据，如没有此类需求则不应该引入大量组件。（点击item后背景变色，属于css调整，没有更新data数据和渲染，不涉及这个问题）</li>
+<li>单个组件中存在大量数据时（比如长列表），在App和小程序端数据更新时会消耗较多时间，建议使用组件对数据进行分页，将变更限制更小范围。可以参考：<a target="_blank" rel="noopener" href="https://ext.dcloud.net.cn/plugin?id=2863#detail">长列表优化示例(opens new window)</a></li>
+<li>如需要左右滑动的长列表，请在HBuilderX新建uni-app项目选新闻模板，那是一个标杆实现。自己用swiper和scroll-view做很容易引发性能问题。</li>
+</ul>
+<h4 id="减少一次性渲染的节点数量"><a href="#减少一次性渲染的节点数量" class="headerlink" title="减少一次性渲染的节点数量"></a>减少一次性渲染的节点数量</h4><p><strong>页面初始化时，逻辑层如果一次性向视图层传递很大的数据，使视图层一次性渲染大量节点，可能造成通讯变慢、页面切换卡顿</strong>，所以建议以局部更新页面的方式渲染页面。如：服务端返回100条数据，可进行分批加载，一次加载50条，500ms 后进行下一次加载。</p>
+<h4 id="减少组件数量、减少节点嵌套层级"><a href="#减少组件数量、减少节点嵌套层级" class="headerlink" title="减少组件数量、减少节点嵌套层级"></a>减少组件数量、减少节点嵌套层级</h4><p>深层嵌套的节点在页面初始化构建时往往需要更多的内存占用，并且在遍历节点时也会更慢些，所以建议减少深层的节点嵌套，即页面结果更加扁平化。</p>
+<h4 id="避免视图层和逻辑层频繁进行通讯"><a href="#避免视图层和逻辑层频繁进行通讯" class="headerlink" title="避免视图层和逻辑层频繁进行通讯"></a>避免视图层和逻辑层频繁进行通讯</h4><ul>
+<li>减少 scroll-view 组件的 scroll 事件监听，当监听 scroll-view 的滚动事件时，视图层会频繁的向逻辑层发送数据；</li>
+<li>监听 scroll-view 组件的滚动事件时，不要实时的改变 scroll-top/scroll-left 属性，因为监听滚动时，视图层向逻辑层通讯，改变 scroll-top/scroll-left 时，逻辑层又向视图层通讯，这样就可能造成通讯卡顿。</li>
+<li>注意 onPageScroll 的使用，onPageScroll 进行监听时，视图层会频繁的向逻辑层发送数据；</li>
+<li>多使用css动画，而不是通过js的定时器操作界面做动画</li>
+<li>如需在canvas里做跟手操作，小程序端建议使用web-view组件。<strong>web-view里的页面没有逻辑层和视图层分离的概念</strong>，自然也不会有通信折损。</li>
+</ul>
+<h4 id="优化页面切换动画"><a href="#优化页面切换动画" class="headerlink" title="优化页面切换动画"></a>优化页面切换动画</h4><ul>
+<li>页面初始化时若存在大量图片或<strong>原生组件渲染和大量数据通讯，会发生新页面渲染和窗体进入动画抢资源，造成页面切换卡顿、掉帧</strong>。建议延时100ms~300ms渲染图片或复杂原生组件，分批进行数据通讯，以减少一次性渲染的节点数量。</li>
+</ul>
+<h4 id="优化背景色闪白"><a href="#优化背景色闪白" class="headerlink" title="优化背景色闪白"></a>优化背景色闪白</h4><ol>
+<li>如果是新页面进入时背景闪白</li>
+</ol>
+<ul>
+<li>如果页面背景是深色，在vue页面中可能会发生新窗体刚开始动画时是灰白色背景，动画结束时才变为深色背景，造成闪屏。这是因为webview的背景生效太慢的问题。此时需将样式写在 <code>App.vue</code> 里，可以加速页面样式渲染速度。<code>App.vue</code> 里面的样式是全局样式，每次新开页面会优先加载 <code>App.vue</code> 里面的样式，然后加载普通 vue 页面的样式。</li>
+</ul>
+<h4 id="优化启动速度"><a href="#优化启动速度" class="headerlink" title="优化启动速度"></a>优化启动速度</h4><ul>
+<li>工程代码越多，包括背景图和本地字体文件越大，对小程序启动速度有影响，应注意控制体积。组件引用的前景图不影响性能。</li>
+</ul>
+<h4 id="优化包体积"><a href="#优化包体积" class="headerlink" title="优化包体积"></a>优化包体积</h4><ul>
+<li><p>uni-app发行到小程序时，自带引擎只有几十K，主要是一个定制过的vue.js核心库。如果使用了es6转es5、css对齐的功能，可能会增大代码体积，可以配置这些编译功能是否开启。</p>
+</li>
+<li><h5 id="解决uni-app编译后vendor-js文件过大"><a href="#解决uni-app编译后vendor-js文件过大" class="headerlink" title="解决uni-app编译后vendor.js文件过大"></a><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000022034729">解决uni-app编译后vendor.js文件过大</a></h5><ul>
+<li><strong>开启生产环境gzip</strong>，vendor.js从2.5M减少到440k</li>
+<li>使用 <a target="_blank" rel="noopener" href="https://link.segmentfault.com/?enc=55naxIfeVBleEhh0keJWfQ%3D%3D.ejew0C%2F77C%2Fi4a23Ple5Ws84RAXAcgN0bIPdNLEDaAfUIrhQ4rawtZSX8TpRQTpA7QAlJ%2BgGALw4OzlnkYU1pw%3D%3D">webpackBundleAnalyzer</a>，可以帮助分析文件大小。</li>
+</ul>
+</li>
+</ul>
+<h2 id="微信官方优化建议"><a href="#微信官方优化建议" class="headerlink" title="微信官方优化建议"></a>微信官方优化建议</h2><h4 id="小程序启动性能优化"><a href="#小程序启动性能优化" class="headerlink" title="小程序启动性能优化"></a>小程序启动性能优化</h4><p>这部分主要是冷加载首屏渲染优化</p>
+<ol>
+<li>按需注入组件</li>
+<li>小程序支持启用<strong>初始渲染缓存</strong>。开启后，可以在<strong>非首次</strong>启动时，使视图层不需要等待逻辑层初始化完毕，而直接提前将页面渲染结果展示给用户，这可以使「首页渲染完成」和页面对用户可见的时间大大提前</li>
+<li>当组件不被使用时，应及时从 <code>usingComponents</code> 中移除。</li>
+<li>与视图层渲染无关的数据应尽量不要放在 data 中，避免影响页面渲染时间。</li>
+<li>读写本地缓存的能力，数据存储在本地，返回的会比网络请求快</li>
+<li>骨架屏，分模块加载</li>
+</ol>
+<h4 id="小程序运行时性能优化"><a href="#小程序运行时性能优化" class="headerlink" title="小程序运行时性能优化"></a>小程序运行时性能优化</h4><hr>
+<h5 id="合理使用-setData"><a href="#合理使用-setData" class="headerlink" title="合理使用 setData"></a>合理使用 setData</h5><p><code>setData</code> 是小程序开发中使用最频繁、也是最容易引发性能问题的接口。</p>
+<h5 id="1-setData-的流程"><a href="#1-setData-的流程" class="headerlink" title="1. setData 的流程"></a>1. setData 的流程</h5><p><code>setData</code> 的过程，大致可以分成几个阶段：</p>
+<ul>
+<li>逻辑层虚拟 DOM 树的遍历和更新，触发组件生命周期和 observer 等；</li>
+<li>将 data 从逻辑层传输到视图层；</li>
+<li>视图层虚拟 DOM 树的更新、真实 DOM 元素的更新并触发页面渲染更新。</li>
+<li>于小程序的逻辑层和视图层是两个独立的运行环境、分属不同的线程或进程，不能直接进行数据共享，需要进行数据的序列化、跨线程/进程的数据传输、数据的反序列化，因此数据传输过程是<strong>异步的、非实时的</strong></li>
+<li>数据传输的耗时与<strong>数据量的大小</strong>正相关，如果对端线程处于繁忙状态，数据会在<strong>消息队列中等待</strong>。</li>
+</ul>
+<h5 id="2、优化建议"><a href="#2、优化建议" class="headerlink" title="2、优化建议"></a>2、优化建议</h5><ul>
+<li><strong>data 应只包括渲染相关的数据setData</strong> ：用 setData 的方式更新渲染无关的字段，会触发额外的渲染流程，或者增加传输的数据量，影响渲染耗时。</li>
+<li><strong>控制 setData 的频率</strong>：仅在需要进行页面内容更新时调用 setData、对连续的 setData 调用尽可能的进行<strong>合并</strong></li>
+<li><strong>选择合适的 setData 范围</strong>：对于需要频繁更新的页面元素，可以封装为独立的组件，在组件内进行 setData 操作。</li>
+<li><strong>setData应该只传变化的数据</strong>：<code>this.setData(&#123;&#39;array[2].message&#39;: &#39;newVal&#39;, &#39;a.b.c.d&#39;: &#39;newVal&#39;&#125;)</code>，而不是每次都更新整个对象或数组；</li>
+<li><strong>setData应该避免后台页面刷新</strong>：页面切后台后的更新操作，应尽量避免，或延迟到页面 <code>onShow</code> 后延迟进行</li>
+</ul>
+<p>## </p>
+<h5 id="渲染性能优化"><a href="#渲染性能优化" class="headerlink" title="渲染性能优化"></a>渲染性能优化</h5><ol>
+<li>非必要不监听 scroll 事件；</li>
+<li>选择高性能动画实现方式，如优先使用 CSS 渐变、CSS 动画</li>
+<li>建议使用<a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/miniprogram/dev/api/wxml/wx.createIntersectionObserver.html">节点布局相交状态监听 IntersectionObserver</a> 推断某些节点是否可见、有多大比例可见，而不是监听scrollview</li>
+</ol>
+<hr>
+<h5 id="页面切换优化"><a href="#页面切换优化" class="headerlink" title="页面切换优化"></a>页面切换优化</h5><p><img data-src="https://res.wx.qq.com/wxdoc/dist/assets/img/route-1.2700b598.svg" alt="img"></p>
+<ol>
+<li>onHide/onUnload 中的逻辑应尽量简单，若必须要进行部分复杂逻辑，可以考虑用 setTimeout 延迟进行。</li>
+<li>跳转到分包页面时，从发起页面跳转到页面 onLoad 之间可能有较长的时间间隔，可以利用时间进行网络数据加载，提前准备分包页数据。</li>
+<li>避免预加载流程对页面加载过程的影响，开发者可以配置 <code>handleWebviewPreload</code> 选项，来控制预加载下个页面的时机。设置<code>&quot;handleWebviewPreload&quot;: &quot;auto&quot;</code></li>
+</ol>
+<hr>
+<h5 id="资源加载优化"><a href="#资源加载优化" class="headerlink" title="资源加载优化"></a>资源加载优化</h5><h5 id="1-控制图片资源的大小"><a href="#1-控制图片资源的大小" class="headerlink" title="1. 控制图片资源的大小"></a>1. 控制图片资源的大小</h5><p>开发者应根据功能需要和实际显示区域的大小，选择合适的图片尺寸、图片格式和压缩比。</p>
+<p><strong>图片体积太大，可能导致下列后果</strong></p>
+<ul>
+<li>增加图片下载时间，导致用户看到图片时机延迟；</li>
+<li>对用户造成非必要的流量消耗；</li>
+<li>影响图片解码和绘制的耗时，可能更容易造成掉帧、卡顿或白屏，甚至无法正常进行滚动和页面切换（低端设备上会尤为明显）；</li>
+<li>内存占用增长，尤其是大图片和长列表中的大量图片会导致内存占用急剧上升。</li>
+</ul>
+<h5 id="图片对内存的影响"><a href="#图片对内存的影响" class="headerlink" title="图片对内存的影响"></a><strong>图片对内存的影响</strong></h5><p>iOS 系统内存紧张时，会主动回收掉一部分 WebView。大图片和长列表中的大量图片很容易引起系统对 WebView 的回收，导致小程序白屏，严重时会触发微信强制关闭小程序。</p>
+<p>内存增长如果超过了限制，也会导致小程序出现白屏或黑屏，甚至整个小程序发生闪退。</p>
+<h5 id="2-避免滥用-image-组件的-widthFix-heightFix-模式"><a href="#2-避免滥用-image-组件的-widthFix-heightFix-模式" class="headerlink" title="2. 避免滥用 image 组件的 widthFix/heightFix 模式"></a>2. 避免滥用 image 组件的 widthFix/heightFix 模式</h5><p>widthFix/heightFix 模式会在图片加载完成后，动态改变图片的高度或宽度。图片高度或宽度的动态改变，可能会引起页面内大范围的布局重排，导致页面发生抖动，并造成卡顿。</p>
+<p>对于页面的背景图或 banner 图，应尽量预先指定图片的尺寸，避免图片加载完成后再进行二次的尺寸调整。</p>
+<hr>
+<h5 id="内存优化"><a href="#内存优化" class="headerlink" title="内存优化"></a>内存优化</h5><ol>
+<li>建议小程序在必要时使用 <a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/miniprogram/dev/api/device/memory/wx.onMemoryWarning.html">wx.onMemoryWarning</a> 监听内存告警事件，进行必要的内存清理。例如：释放一些暂时不用的组件或 JS 对象。</li>
+<li>页面 unload 之后，基础库会从页面栈中将页面实例清理，unload 中进行必要的清理。<ol>
+<li>事件监听器中持有了页面的 this</li>
+<li>函数闭包内持有了页面的 this</li>
+<li>异步回调中访问了页面的 this，如wx.request</li>
+<li>定时器等清理</li>
+</ol>
+</li>
+<li>按需加载图片，过大的图片渲染到过小的组件区域是一种内存浪费</li>
+<li>不要发送无用的网络请求，解析数据都是内存消耗。</li>
+</ol>
+<hr>
+<h2 id="自己沉淀优化"><a href="#自己沉淀优化" class="headerlink" title="自己沉淀优化"></a>自己沉淀优化</h2><h4 id="页面切换优化-1"><a href="#页面切换优化-1" class="headerlink" title="页面切换优化"></a>页面切换优化</h4><ol>
+<li>预加载图片，可以定义一个预加载图片组件，提前预加载图片，加载完记得释放组件</li>
+<li>列表进入详情，直接带上item项进入，在loading数据，配合骨架屏。</li>
+<li>优化网络请求耗时，接口缓存机制</li>
+</ol>
+<h4 id="内存优化-1"><a href="#内存优化-1" class="headerlink" title="内存优化"></a>内存优化</h4><ol>
+<li>图片使用合理的尺寸</li>
+<li>避免网络数据冗余</li>
+</ol>
+<h2 id="监控体系搭建"><a href="#监控体系搭建" class="headerlink" title="监控体系搭建"></a>监控体系搭建</h2><p>目的：提供优化指导，对比优化后的数据，数据呈现,TAM，小程序测速均ok</p>
+<h4 id="图片监控"><a href="#图片监控" class="headerlink" title="图片监控"></a>图片监控</h4><ol>
+<li>网络图片远远大于控件尺寸</li>
+<li>加载耗时严重</li>
+<li>预加载图片、命中效果</li>
+</ol>
+<h4 id="setData尺寸过大，频率过快"><a href="#setData尺寸过大，频率过快" class="headerlink" title="setData尺寸过大，频率过快"></a>setData尺寸过大，频率过快</h4><ol>
+<li>setData数据过大</li>
+<li>setData次数过于频繁</li>
+</ol>
+<h4 id="网络监控"><a href="#网络监控" class="headerlink" title="网络监控"></a>网络监控</h4><ol>
+<li>接口请求异常</li>
+<li>连接耗时过长</li>
+<li>接口数据包大</li>
+<li>接口http cache</li>
+</ol>
+<h4 id="内存监控"><a href="#内存监控" class="headerlink" title="内存监控"></a>内存监控</h4><ol>
+<li>内存触发告警</li>
+<li>dump 分析</li>
+</ol>
+<h4 id="卡顿监控"><a href="#卡顿监控" class="headerlink" title="卡顿监控"></a>卡顿监控</h4><ol>
+<li>首次渲染超过500ms</li>
+<li>路由卡顿？这个貌似波动很大</li>
+<li>点击卡顿</li>
+</ol>
+<p>方案通用话，最好是SDK接入，方便外部团队接入</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" rel="tag"># 小程序</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/03/30/Google-workSpace-Market-docsign%E6%8F%92%E4%BB%B6%E7%A0%94%E7%A9%B6/" rel="prev" title="Google workSpace Market Docsign插件研究">
+      <i class="fa fa-chevron-left"></i> Google workSpace Market Docsign插件研究
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/04/12/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%9B%BE%E7%89%87%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96/" rel="next" title="小程序图片加载优化">
+      小程序图片加载优化 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%98%E6%96%B9%E4%BC%98%E5%8C%96%E5%BB%BA%E8%AE%AE"><span class="nav-number">1.</span> <span class="nav-text">官方优化建议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%81%BF%E5%85%8D%E4%BD%BF%E7%94%A8%E5%A4%A7%E5%9B%BE"><span class="nav-number">1.0.1.</span> <span class="nav-text">避免使用大图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E6%95%B0%E6%8D%AE%E6%9B%B4%E6%96%B0"><span class="nav-number">1.0.2.</span> <span class="nav-text">优化数据更新</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%95%BF%E5%88%97%E8%A1%A8"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">长列表</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%8F%E5%B0%91%E4%B8%80%E6%AC%A1%E6%80%A7%E6%B8%B2%E6%9F%93%E7%9A%84%E8%8A%82%E7%82%B9%E6%95%B0%E9%87%8F"><span class="nav-number">1.0.3.</span> <span class="nav-text">减少一次性渲染的节点数量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%8F%E5%B0%91%E7%BB%84%E4%BB%B6%E6%95%B0%E9%87%8F%E3%80%81%E5%87%8F%E5%B0%91%E8%8A%82%E7%82%B9%E5%B5%8C%E5%A5%97%E5%B1%82%E7%BA%A7"><span class="nav-number">1.0.4.</span> <span class="nav-text">减少组件数量、减少节点嵌套层级</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%81%BF%E5%85%8D%E8%A7%86%E5%9B%BE%E5%B1%82%E5%92%8C%E9%80%BB%E8%BE%91%E5%B1%82%E9%A2%91%E7%B9%81%E8%BF%9B%E8%A1%8C%E9%80%9A%E8%AE%AF"><span class="nav-number">1.0.5.</span> <span class="nav-text">避免视图层和逻辑层频繁进行通讯</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E9%A1%B5%E9%9D%A2%E5%88%87%E6%8D%A2%E5%8A%A8%E7%94%BB"><span class="nav-number">1.0.6.</span> <span class="nav-text">优化页面切换动画</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E8%83%8C%E6%99%AF%E8%89%B2%E9%97%AA%E7%99%BD"><span class="nav-number">1.0.7.</span> <span class="nav-text">优化背景色闪白</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E5%90%AF%E5%8A%A8%E9%80%9F%E5%BA%A6"><span class="nav-number">1.0.8.</span> <span class="nav-text">优化启动速度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E5%8C%85%E4%BD%93%E7%A7%AF"><span class="nav-number">1.0.9.</span> <span class="nav-text">优化包体积</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3uni-app%E7%BC%96%E8%AF%91%E5%90%8Evendor-js%E6%96%87%E4%BB%B6%E8%BF%87%E5%A4%A7"><span class="nav-number">1.0.9.1.</span> <span class="nav-text">解决uni-app编译后vendor.js文件过大</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%AE%E4%BF%A1%E5%AE%98%E6%96%B9%E4%BC%98%E5%8C%96%E5%BB%BA%E8%AE%AE"><span class="nav-number">2.</span> <span class="nav-text">微信官方优化建议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%90%AF%E5%8A%A8%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="nav-number">2.0.1.</span> <span class="nav-text">小程序启动性能优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%8F%E7%A8%8B%E5%BA%8F%E8%BF%90%E8%A1%8C%E6%97%B6%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="nav-number">2.0.2.</span> <span class="nav-text">小程序运行时性能优化</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%88%E7%90%86%E4%BD%BF%E7%94%A8-setData"><span class="nav-number">2.0.2.1.</span> <span class="nav-text">合理使用 setData</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-setData-%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="nav-number">2.0.2.2.</span> <span class="nav-text">1. setData 的流程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2%E3%80%81%E4%BC%98%E5%8C%96%E5%BB%BA%E8%AE%AE"><span class="nav-number">2.0.2.3.</span> <span class="nav-text">2、优化建议</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%B2%E6%9F%93%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="nav-number">2.0.2.4.</span> <span class="nav-text">渲染性能优化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%A1%B5%E9%9D%A2%E5%88%87%E6%8D%A2%E4%BC%98%E5%8C%96"><span class="nav-number">2.0.2.5.</span> <span class="nav-text">页面切换优化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96"><span class="nav-number">2.0.2.6.</span> <span class="nav-text">资源加载优化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E6%8E%A7%E5%88%B6%E5%9B%BE%E7%89%87%E8%B5%84%E6%BA%90%E7%9A%84%E5%A4%A7%E5%B0%8F"><span class="nav-number">2.0.2.7.</span> <span class="nav-text">1. 控制图片资源的大小</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9B%BE%E7%89%87%E5%AF%B9%E5%86%85%E5%AD%98%E7%9A%84%E5%BD%B1%E5%93%8D"><span class="nav-number">2.0.2.8.</span> <span class="nav-text">图片对内存的影响</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E9%81%BF%E5%85%8D%E6%BB%A5%E7%94%A8-image-%E7%BB%84%E4%BB%B6%E7%9A%84-widthFix-heightFix-%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.0.2.9.</span> <span class="nav-text">2. 避免滥用 image 组件的 widthFix&#x2F;heightFix 模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E4%BC%98%E5%8C%96"><span class="nav-number">2.0.2.10.</span> <span class="nav-text">内存优化</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%B7%B1%E6%B2%89%E6%B7%80%E4%BC%98%E5%8C%96"><span class="nav-number">3.</span> <span class="nav-text">自己沉淀优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A1%B5%E9%9D%A2%E5%88%87%E6%8D%A2%E4%BC%98%E5%8C%96-1"><span class="nav-number">3.0.1.</span> <span class="nav-text">页面切换优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E4%BC%98%E5%8C%96-1"><span class="nav-number">3.0.2.</span> <span class="nav-text">内存优化</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%91%E6%8E%A7%E4%BD%93%E7%B3%BB%E6%90%AD%E5%BB%BA"><span class="nav-number">4.</span> <span class="nav-text">监控体系搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%BE%E7%89%87%E7%9B%91%E6%8E%A7"><span class="nav-number">4.0.1.</span> <span class="nav-text">图片监控</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#setData%E5%B0%BA%E5%AF%B8%E8%BF%87%E5%A4%A7%EF%BC%8C%E9%A2%91%E7%8E%87%E8%BF%87%E5%BF%AB"><span class="nav-number">4.0.2.</span> <span class="nav-text">setData尺寸过大，频率过快</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E7%9B%91%E6%8E%A7"><span class="nav-number">4.0.3.</span> <span class="nav-text">网络监控</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E7%9B%91%E6%8E%A7"><span class="nav-number">4.0.4.</span> <span class="nav-text">内存监控</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%A1%E9%A1%BF%E7%9B%91%E6%8E%A7"><span class="nav-number">4.0.5.</span> <span class="nav-text">卡顿监控</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hz</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/bravekingzhang" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;bravekingzhang" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hz</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.1.0/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/lozad.js/1.14.0/lozad.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'ba71a05708000167b907',
+      clientSecret: '32c7f2b320469e3c90e930e7548a397773f36bd0',
+      repo        : 'bravekingzhang.github.io',
+      owner       : 'bravekingzhang',
+      admin       : ['bravekingzhang'],
+      id          : 'e4c1126f7ccfc482f804567cca8b8bcb',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>
