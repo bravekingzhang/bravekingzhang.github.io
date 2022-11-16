@@ -161,7 +161,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2022/09/29/yew%E5%88%9D%E6%8E%A2/">
+    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2022/10/26/ts%E5%AE%9E%E7%8E%B0%E6%95%B4%E6%B4%81%E6%9E%B6%E6%9E%84%E9%A2%86%E5%9F%9F%E5%B1%82/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -175,7 +175,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/09/29/yew%E5%88%9D%E6%8E%A2/" class="post-title-link" itemprop="url">Yew初探</a>
+            <a href="/2022/10/26/ts%E5%AE%9E%E7%8E%B0%E6%95%B4%E6%B4%81%E6%9E%B6%E6%9E%84%E9%A2%86%E5%9F%9F%E5%B1%82/" class="post-title-link" itemprop="url">Ts实现整洁架构领域层</a>
         </h2>
 
         <div class="post-meta">
@@ -184,16 +184,10 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2022-09-29 15:19:56" itemprop="dateCreated datePublished" datetime="2022-09-29T15:19:56+08:00">2022-09-29</time>
+              <time title="创建时间：2022-10-26 12:31:53 / 修改时间：12:43:07" itemprop="dateCreated datePublished" datetime="2022-10-26T12:31:53+08:00">2022-10-26</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-10-07 15:32:20" itemprop="dateModified" datetime="2022-10-07T15:32:20+08:00">2022-10-07</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -215,89 +209,19 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="yew是啥"><a href="#yew是啥" class="headerlink" title="yew是啥"></a>yew是啥</h2><p><strong>Yew</strong> 是一个设计先进的 <a target="_blank" rel="noopener" href="https://www.rust-lang.org/">Rust</a> 框架，目的是使用 <a target="_blank" rel="noopener" href="https://webassembly.org/">WebAssembly</a> 来创建多线程的前端 web 应用，众所周知，webAssembly是前端的未来，比如设计软件之神figma就是使用rust写的一个webAssembly，其打败sketch的直接原因就是由于其性能秒杀了它，因此毫无疑问，后面越来越多的web应用将会拥抱webAssembly。实现webAssembly很多种方式，为什么选用rust，其实业界有很多种对比，我觉得figma就是很好的例子，因为它用的是rust，而yew是一个这样的框架，这里是<a target="_blank" rel="noopener" href="https://yew.rs/zh-Hans">yew</a>的介绍。</p>
-<h2 id="yew入门"><a href="#yew入门" class="headerlink" title="yew入门"></a>yew入门</h2><h3 id="安装yew环境"><a href="#安装yew环境" class="headerlink" title="安装yew环境"></a>安装yew环境</h3><h4 id="安装rust环境"><a href="#安装rust环境" class="headerlink" title="安装rust环境"></a>安装rust环境</h4><p>要使用yew，需要先安装rust环境，命令简单的不得了</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">curl --proto &#39;&#x3D;https&#39; --tlsv1.2 -sSf https:&#x2F;&#x2F;sh.rustup.rs | sh<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>执行完之后记得</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">source &quot;$HOME&#x2F;.cargo&#x2F;env&quot;
-cargo --version
--&gt;cargo 1.64.0 (387270bc7 2022-09-16)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>来验证下rust环境是否安装成功。</p>
-<h4 id="安装WebAssembly目标"><a href="#安装WebAssembly目标" class="headerlink" title="安装WebAssembly目标"></a>安装WebAssembly目标</h4><p>Rust 可以编译成不同的 “目标”。浏览器上支持的目标是 “wasm32-unknown-unknown”，安装的办法是：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">rustup target add wasm32-unknown-unknown<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h4 id="安装trunk这个包管理工具"><a href="#安装trunk这个包管理工具" class="headerlink" title="安装trunk这个包管理工具"></a>安装trunk这个包管理工具</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cargo install trunk<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="开始体验一个yew的简单项目"><a href="#开始体验一个yew的简单项目" class="headerlink" title="开始体验一个yew的简单项目"></a>开始体验一个yew的简单项目</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cargo new yew-app
-cd yew-app
-cargo run<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>跑起来之后，你会发现只是在控制台打印了一个开门红，此时也许你也不了解rust，也别着急，我们先把项目转换为web应用。</p>
-<h5 id="使用vscode打开项目，编辑cargo-toml"><a href="#使用vscode打开项目，编辑cargo-toml" class="headerlink" title="使用vscode打开项目，编辑cargo.toml"></a>使用vscode打开项目，编辑cargo.toml</h5><pre class="line-numbers language-toml" data-language="toml"><code class="language-toml"><span class="token punctuation">[</span><span class="token table class-name">package</span><span class="token punctuation">]</span>
-<span class="token key property">name</span> <span class="token punctuation">=</span> <span class="token string">"yew-app"</span>
-<span class="token key property">version</span> <span class="token punctuation">=</span> <span class="token string">"0.1.0"</span>
-<span class="token key property">edition</span> <span class="token punctuation">=</span> <span class="token string">"2021"</span>
-
-<span class="token comment"># See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html</span>
-
-<span class="token punctuation">[</span><span class="token table class-name">dependencies</span><span class="token punctuation">]</span>
-<span class="token comment"># 因为我操作时最新的是0.19.3，如果你验证是已经有更加新的版本，可以尝试更新的版本。</span>
-<span class="token key property">yew</span> <span class="token punctuation">=</span> <span class="token string">"0.19.3"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h5 id="编辑一下main-rs"><a href="#编辑一下main-rs" class="headerlink" title="编辑一下main.rs"></a>编辑一下main.rs</h5><pre class="line-numbers language-rust" data-language="rust"><code class="language-rust"><span class="token keyword">use</span> <span class="token namespace">yew<span class="token punctuation">::</span>prelude<span class="token punctuation">::</span></span><span class="token operator">*</span><span class="token punctuation">;</span>
-
-<span class="token keyword">enum</span> <span class="token type-definition class-name">Msg</span> <span class="token punctuation">&#123;</span>
-    <span class="token class-name">AddOne</span><span class="token punctuation">,</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token keyword">struct</span> <span class="token type-definition class-name">Model</span> <span class="token punctuation">&#123;</span>
-    value<span class="token punctuation">:</span> <span class="token keyword">i64</span><span class="token punctuation">,</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token keyword">impl</span> <span class="token class-name">Component</span> <span class="token keyword">for</span> <span class="token class-name">Model</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">type</span> <span class="token type-definition class-name">Message</span> <span class="token operator">=</span> <span class="token class-name">Msg</span><span class="token punctuation">;</span>
-    <span class="token keyword">type</span> <span class="token type-definition class-name">Properties</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">fn</span> <span class="token function-definition function">create</span><span class="token punctuation">(</span>_ctx<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token class-name">Context</span><span class="token operator">&lt;</span><span class="token keyword">Self</span><span class="token operator">></span><span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token keyword">Self</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">Self</span> <span class="token punctuation">&#123;</span>
-            value<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
-
-    <span class="token keyword">fn</span> <span class="token function-definition function">update</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">mut</span> <span class="token keyword">self</span><span class="token punctuation">,</span> _ctx<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token class-name">Context</span><span class="token operator">&lt;</span><span class="token keyword">Self</span><span class="token operator">></span><span class="token punctuation">,</span> msg<span class="token punctuation">:</span> <span class="token keyword">Self</span><span class="token punctuation">::</span><span class="token class-name">Message</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token keyword">bool</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">match</span> msg <span class="token punctuation">&#123;</span>
-            <span class="token class-name">Msg</span><span class="token punctuation">::</span><span class="token class-name">AddOne</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-                <span class="token keyword">self</span><span class="token punctuation">.</span>value <span class="token operator">+=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-                <span class="token comment">// the value has changed so we need to</span>
-                <span class="token comment">// re-render for it to appear on the page</span>
-                <span class="token boolean">true</span>
-            <span class="token punctuation">&#125;</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
-
-    <span class="token keyword">fn</span> <span class="token function-definition function">view</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">,</span> ctx<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token class-name">Context</span><span class="token operator">&lt;</span><span class="token keyword">Self</span><span class="token operator">></span><span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token class-name">Html</span> <span class="token punctuation">&#123;</span>
-        <span class="token comment">// This gives us a component's "`Scope`" which allows us to send messages, etc to the component.</span>
-        <span class="token keyword">let</span> link <span class="token operator">=</span> ctx<span class="token punctuation">.</span><span class="token function">link</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token macro property">html!</span> <span class="token punctuation">&#123;</span>
-            <span class="token operator">&lt;</span>div<span class="token operator">></span>
-                <span class="token operator">&lt;</span>button onclick<span class="token operator">=</span><span class="token punctuation">&#123;</span>link<span class="token punctuation">.</span><span class="token function">callback</span><span class="token punctuation">(</span><span class="token closure-params"><span class="token closure-punctuation punctuation">|</span>_<span class="token closure-punctuation punctuation">|</span></span> <span class="token class-name">Msg</span><span class="token punctuation">::</span><span class="token class-name">AddOne</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span><span class="token operator">></span><span class="token punctuation">&#123;</span> <span class="token string">"+1"</span> <span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">></span>
-                <span class="token operator">&lt;</span>p<span class="token operator">></span><span class="token punctuation">&#123;</span> <span class="token keyword">self</span><span class="token punctuation">.</span>value <span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>
-            <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token keyword">fn</span> <span class="token function-definition function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token namespace">yew<span class="token punctuation">::</span></span><span class="token function">start_app</span><span class="token punctuation">::</span><span class="token operator">&lt;</span><span class="token class-name">Model</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h5 id="创建一个index-html"><a href="#创建一个index-html" class="headerlink" title="创建一个index.html"></a>创建一个index.html</h5><pre class="line-numbers language-html" data-language="html"><code class="language-html"><span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">html</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>utf-8<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>Yew App<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h5 id="好了，编译出你的web应用吧"><a href="#好了，编译出你的web应用吧" class="headerlink" title="好了，编译出你的web应用吧"></a>好了，编译出你的web应用吧</h5><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">trunk serve<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h5 id="打开浏览器卡看"><a href="#打开浏览器卡看" class="headerlink" title="打开浏览器卡看"></a>打开浏览器卡看</h5><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">http:&#x2F;&#x2F;127.0.0.1:8080<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h5 id="打包生成的文件是"><a href="#打包生成的文件是" class="headerlink" title="打包生成的文件是"></a>打包生成的文件是</h5><p><img data-src="/2022/09/29/yew%E5%88%9D%E6%8E%A2/image-20220929165528190.png" alt="image-20220929165528190" src="/2022/09/29/yew%E5%88%9D%E6%8E%A2/image-20220929165528190.png"></p>
-<p>这个框架也算是比较人性化，对rs文件的变更，保存之后，也会马上热更新。</p>
-<p>至此，yew的初探就完成了，下期，尝试写一个比较复杂的应用吧。</p>
+          <h3 id="Typescript中实现清洁架构的模块化应用领域层"><a href="#Typescript中实现清洁架构的模块化应用领域层" class="headerlink" title="Typescript中实现清洁架构的模块化应用领域层"></a>Typescript中实现清洁架构的模块化应用领域层</h3><p>为什么使用Typescript，只是因为它越来越流行，但这是有原因的。据说，<strong>Typescript可以帮助开发中减少15%的错误</strong>。它对与其他开发者合作也很有用，因为每个组件属性、类属性和函数参数都可以在代码中定义其类型；</p>
+<p>Clean arhcitecture是一种设计模式，旨在将应用逻辑与用户界面或外部服务分开。它通过在一个圆圈中定义层，其中每一层只能与圆圈中心的其他层进行交互。用Vue的话来说，这些层是（从外到内） <strong>Components + Store -&gt; Use cases -&gt; Entities</strong>，如下图所示。</p>
+<p><img data-src="/2022/10/26/ts%E5%AE%9E%E7%8E%B0%E6%95%B4%E6%B4%81%E6%9E%B6%E6%9E%84%E9%A2%86%E5%9F%9F%E5%B1%82/clean-architecture.png" alt="clean-architecture.png" src="/2022/10/26/ts%E5%AE%9E%E7%8E%B0%E6%95%B4%E6%B4%81%E6%9E%B6%E6%9E%84%E9%A2%86%E5%9F%9F%E5%B1%82/clean-architecture.png"></p>
+<h4 id="领域层"><a href="#领域层" class="headerlink" title="领域层"></a>领域层</h4><p>领域层包含定义我们的应用程序将使用的基本数据的实体。应用层包含所有应用于实体的逻辑和操作。UI/Store层包含用户界面、控制器和演示器，这主要是应用程序的Vue/Nuxt部分。有一些元素组成了每个层，我们需要定义这些元素来构建这样的应用程序。</p>
+<h4 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h4><p>这就是我们所知道的vue组件。因为它包含了一些逻辑，也包含了用户界面，所以它既是视图也是展示者。这意味着它负责将商店中的任何数据转化为界面（按钮、下拉菜单、表格等）能够理解的数据结构。</p>
+<h4 id="Vuex-store"><a href="#Vuex-store" class="headerlink" title="Vuex store"></a>Vuex store</h4><p>我们将使用存储模块。你应该对此很熟悉，但这次我们将使用有一些限制的存储。由于store将是我们的 “控制器”，它负责接收来自用户的输入（来自组件的数据）并对这些数据进行操作。为了执行这个操作，它应该调用一个Interactor，而不是自己执行这个逻辑。商店应该只被组件调用（vuex actions），并相应地更新其状态（vuex mutations），把所有的逻辑留给内层。</p>
+<h4 id="Interactor"><a href="#Interactor" class="headerlink" title="Interactor"></a>Interactor</h4><p>交互器是一个被控制器调用的元素，通过服务执行任务并将结果返回给控制器。每个用例都应该有一个交互器。</p>
+<h4 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h4><p>在我们的例子中，服务是一个作为交互器的查找表的对象。所有的操作都应该在服务中可用。每个实体可以有一个服务，例如，TodoService将拥有与Todo实体交互的所有逻辑，如获取、创建、编辑、删除。事实上，该服务应该实现一个属于领域层的接口，它定义了所有可能的用例。它也可以有外部服务，比如从API中获取数据的HTTP服务。</p>
+<p>请注意，我们通常在Vuex商店做的事情，现在被委托（delegated）给一个调用服务的用例Interactor。</p>
+<h4 id="Repository"><a href="#Repository" class="headerlink" title="Repository"></a>Repository</h4><p>这是一个接口（interface），定义了一个实体的所有用例和操作。</p>
+<h4 id="Entity"><a href="#Entity" class="headerlink" title="Entity"></a>Entity</h4><p>这是一个类或类型定义，定义了我们应用程序中对象的数据和领域限制（domain restrictions ）。验证逻辑也应该由实体来涵盖。即使实体仅仅描述了数据结构和验证逻辑，我们也不会通过层传递实体。组件永远不会看到一个实体对象，只有实体的序列化表示。</p>
+<p>下图显示了所有这些元素之间的相互作用。</p>
+<p><img data-src="/2022/10/26/ts%E5%AE%9E%E7%8E%B0%E6%95%B4%E6%B4%81%E6%9E%B6%E6%9E%84%E9%A2%86%E5%9F%9F%E5%B1%82/clean-arch-flow.png" alt="clean-arch-flow.png" src="/2022/10/26/ts%E5%AE%9E%E7%8E%B0%E6%95%B4%E6%B4%81%E6%9E%B6%E6%9E%84%E9%A2%86%E5%9F%9F%E5%B1%82/clean-arch-flow.png"></p>
 
       
     </div>
@@ -316,7 +240,7 @@ cargo run<span aria-hidden="true" class="line-numbers-rows"><span></span><span><
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/32/">32</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -381,7 +305,7 @@ cargo run<span aria-hidden="true" class="line-numbers-rows"><span></span><span><
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-count">32</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -392,7 +316,7 @@ cargo run<span aria-hidden="true" class="line-numbers-rows"><span></span><span><
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

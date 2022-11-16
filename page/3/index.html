@@ -161,7 +161,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2022/10/26/ts%E5%AE%9E%E7%8E%B0%E6%95%B4%E6%B4%81%E6%9E%B6%E6%9E%84%E9%A2%86%E5%9F%9F%E5%B1%82/">
+    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2022/11/16/%E5%B8%82%E5%9C%BA%E8%90%A5%E9%94%80/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -175,7 +175,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/10/26/ts%E5%AE%9E%E7%8E%B0%E6%95%B4%E6%B4%81%E6%9E%B6%E6%9E%84%E9%A2%86%E5%9F%9F%E5%B1%82/" class="post-title-link" itemprop="url">Ts实现整洁架构领域层</a>
+            <a href="/2022/11/16/%E5%B8%82%E5%9C%BA%E8%90%A5%E9%94%80/" class="post-title-link" itemprop="url">市场营销</a>
         </h2>
 
         <div class="post-meta">
@@ -186,7 +186,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2022-10-26 12:31:53 / 修改时间：12:43:07" itemprop="dateCreated datePublished" datetime="2022-10-26T12:31:53+08:00">2022-10-26</time>
+              <time title="创建时间：2022-11-16 18:22:17 / 修改时间：18:29:55" itemprop="dateCreated datePublished" datetime="2022-11-16T18:22:17+08:00">2022-11-16</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -194,7 +194,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/default/" itemprop="url" rel="index"><span itemprop="name">default</span></a>
+                  <a href="/categories/%E5%B8%82%E5%9C%BA%E8%90%A5%E9%94%80/" itemprop="url" rel="index"><span itemprop="name">市场营销</span></a>
                 </span>
             </span>
 
@@ -209,19 +209,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="Typescript中实现清洁架构的模块化应用领域层"><a href="#Typescript中实现清洁架构的模块化应用领域层" class="headerlink" title="Typescript中实现清洁架构的模块化应用领域层"></a>Typescript中实现清洁架构的模块化应用领域层</h3><p>为什么使用Typescript，只是因为它越来越流行，但这是有原因的。据说，<strong>Typescript可以帮助开发中减少15%的错误</strong>。它对与其他开发者合作也很有用，因为每个组件属性、类属性和函数参数都可以在代码中定义其类型；</p>
-<p>Clean arhcitecture是一种设计模式，旨在将应用逻辑与用户界面或外部服务分开。它通过在一个圆圈中定义层，其中每一层只能与圆圈中心的其他层进行交互。用Vue的话来说，这些层是（从外到内） <strong>Components + Store -&gt; Use cases -&gt; Entities</strong>，如下图所示。</p>
-<p><img data-src="/2022/10/26/ts%E5%AE%9E%E7%8E%B0%E6%95%B4%E6%B4%81%E6%9E%B6%E6%9E%84%E9%A2%86%E5%9F%9F%E5%B1%82/clean-architecture.png" alt="clean-architecture.png" src="/2022/10/26/ts%E5%AE%9E%E7%8E%B0%E6%95%B4%E6%B4%81%E6%9E%B6%E6%9E%84%E9%A2%86%E5%9F%9F%E5%B1%82/clean-architecture.png"></p>
-<h4 id="领域层"><a href="#领域层" class="headerlink" title="领域层"></a>领域层</h4><p>领域层包含定义我们的应用程序将使用的基本数据的实体。应用层包含所有应用于实体的逻辑和操作。UI/Store层包含用户界面、控制器和演示器，这主要是应用程序的Vue/Nuxt部分。有一些元素组成了每个层，我们需要定义这些元素来构建这样的应用程序。</p>
-<h4 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h4><p>这就是我们所知道的vue组件。因为它包含了一些逻辑，也包含了用户界面，所以它既是视图也是展示者。这意味着它负责将商店中的任何数据转化为界面（按钮、下拉菜单、表格等）能够理解的数据结构。</p>
-<h4 id="Vuex-store"><a href="#Vuex-store" class="headerlink" title="Vuex store"></a>Vuex store</h4><p>我们将使用存储模块。你应该对此很熟悉，但这次我们将使用有一些限制的存储。由于store将是我们的 “控制器”，它负责接收来自用户的输入（来自组件的数据）并对这些数据进行操作。为了执行这个操作，它应该调用一个Interactor，而不是自己执行这个逻辑。商店应该只被组件调用（vuex actions），并相应地更新其状态（vuex mutations），把所有的逻辑留给内层。</p>
-<h4 id="Interactor"><a href="#Interactor" class="headerlink" title="Interactor"></a>Interactor</h4><p>交互器是一个被控制器调用的元素，通过服务执行任务并将结果返回给控制器。每个用例都应该有一个交互器。</p>
-<h4 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h4><p>在我们的例子中，服务是一个作为交互器的查找表的对象。所有的操作都应该在服务中可用。每个实体可以有一个服务，例如，TodoService将拥有与Todo实体交互的所有逻辑，如获取、创建、编辑、删除。事实上，该服务应该实现一个属于领域层的接口，它定义了所有可能的用例。它也可以有外部服务，比如从API中获取数据的HTTP服务。</p>
-<p>请注意，我们通常在Vuex商店做的事情，现在被委托（delegated）给一个调用服务的用例Interactor。</p>
-<h4 id="Repository"><a href="#Repository" class="headerlink" title="Repository"></a>Repository</h4><p>这是一个接口（interface），定义了一个实体的所有用例和操作。</p>
-<h4 id="Entity"><a href="#Entity" class="headerlink" title="Entity"></a>Entity</h4><p>这是一个类或类型定义，定义了我们应用程序中对象的数据和领域限制（domain restrictions ）。验证逻辑也应该由实体来涵盖。即使实体仅仅描述了数据结构和验证逻辑，我们也不会通过层传递实体。组件永远不会看到一个实体对象，只有实体的序列化表示。</p>
-<p>下图显示了所有这些元素之间的相互作用。</p>
-<p><img data-src="/2022/10/26/ts%E5%AE%9E%E7%8E%B0%E6%95%B4%E6%B4%81%E6%9E%B6%E6%9E%84%E9%A2%86%E5%9F%9F%E5%B1%82/clean-arch-flow.png" alt="clean-arch-flow.png" src="/2022/10/26/ts%E5%AE%9E%E7%8E%B0%E6%95%B4%E6%B4%81%E6%9E%B6%E6%9E%84%E9%A2%86%E5%9F%9F%E5%B1%82/clean-arch-flow.png"></p>
+          <h3 id="市场营销的阶段"><a href="#市场营销的阶段" class="headerlink" title="市场营销的阶段"></a>市场营销的阶段</h3><p><img data-src="/2022/11/16/%E5%B8%82%E5%9C%BA%E8%90%A5%E9%94%80/image-20221116182330539.png" alt="image-20221116182330539" src="/2022/11/16/%E5%B8%82%E5%9C%BA%E8%90%A5%E9%94%80/image-20221116182330539.png"></p>
+<h4 id="市场营销1-0"><a href="#市场营销1-0" class="headerlink" title="市场营销1.0"></a>市场营销1.0</h4><p>首先在世界还未形成一体的时代，市场营销并不是必要的。在那种状 况下，当产品推出，并且它是必需品的话，就不难销售。只要处于尚未产 生竞争的状态中，那么埋头生产，再将产品卖出就可以了。</p>
+<h4 id="市场营销2-0"><a href="#市场营销2-0" class="headerlink" title="市场营销2.0"></a>市场营销2.0</h4><p>在商品过于充足的现在，任何产品都不可能生产出来就不愁销售。 总会有类似产品或是替代品出现，在竞争中拉低价格，并且顾客需求也开 始多样化。商人将面对各种障碍，因此之前的市场营销1.0，也就是只负责 生产的思维模式很快就被市场淘汰了。</p>
+<p>于是许多情况下，商品在推出市场之前会进行调查。也就是所谓的3C 分析(市场·顾客分析、内部环境分析、竞争分析)。并且会反复思考 S(segmentation细分)、T(targeting目标)、P(positioning定位)和4P(Marketing mix市场营销组合)这四点针对销售的策略后再投入市场。</p>
+<p>当产品投入市场后，还会进行严密管理，让商品进入有空缺的市场。 </p>
+<h4 id="市场营销3-0"><a href="#市场营销3-0" class="headerlink" title="市场营销3.0"></a>市场营销3.0</h4><p>从无竞争的世界中以体力决定胜负的市场营销进化为以头脑决定胜负 的市场营销。市场营销2.0就是科特勒从1970到1980年代的著作中所提出的 理论。</p>
+<p>而后，市场营销逐渐介入品牌认知和个人意识，从而发展到认知科学 领域。这是市场营销2.0之后的世界</p>
+<h3 id="产品分析-价值大致可分为两种"><a href="#产品分析-价值大致可分为两种" class="headerlink" title="产品分析:价值大致可分为两种"></a>产品分析:价值大致可分为两种</h3><ol>
+<li>其一是“将不平稳的状态恢复正常状态(由负到零)”，也就是解决问 题型。比如受伤时所使用的创可贴，以及牙签、卫生纸等日用品(质量水 准基本持平的可代替商品)这一类产品。</li>
+<li>其二则是“将正常状态进一步提升为高昂状态(从零到正)”，也就是 提高心灵满足感。比如以奢侈品为代表的产品，拥有它就能提高心灵的满足感。<strong>这方面也可以称作情绪性消费</strong></li>
+</ol>
 
       
     </div>
@@ -240,7 +238,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/32/">32</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -305,7 +303,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-count">32</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -316,7 +314,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

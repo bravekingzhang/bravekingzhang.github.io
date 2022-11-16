@@ -161,7 +161,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2021/09/21/hexo%E4%BD%BF%E7%94%A8type%E7%BC%96%E8%BE%91%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87%E6%97%A0%E6%B3%95%E9%A2%84%E8%A7%88%E7%9A%84%E5%9D%91%E7%9A%84%E8%A7%A3%E5%86%B3/">
+    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2021/09/22/%E5%A6%82%E4%BD%95%E5%81%9A%E4%B8%80%E4%B8%AA%E5%A5%BDleader/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -175,7 +175,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/09/21/hexo%E4%BD%BF%E7%94%A8type%E7%BC%96%E8%BE%91%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87%E6%97%A0%E6%B3%95%E9%A2%84%E8%A7%88%E7%9A%84%E5%9D%91%E7%9A%84%E8%A7%A3%E5%86%B3/" class="post-title-link" itemprop="url">Hexo使用typora编辑插入图片无法预览的坑的解决</a>
+            <a href="/2021/09/22/%E5%A6%82%E4%BD%95%E5%81%9A%E4%B8%80%E4%B8%AA%E5%A5%BDleader/" class="post-title-link" itemprop="url">管理者应该做的事情</a>
         </h2>
 
         <div class="post-meta">
@@ -185,7 +185,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-09-21 21:34:52" itemprop="dateCreated datePublished" datetime="2021-09-21T21:34:52+08:00">2021-09-21</time>
+              <time title="创建时间：2021-09-22 11:14:38" itemprop="dateCreated datePublished" datetime="2021-09-22T11:14:38+08:00">2021-09-22</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
@@ -200,7 +200,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                  <a href="/categories/%E5%9B%A2%E9%98%9F/" itemprop="url" rel="index"><span itemprop="name">团队</span></a>
                 </span>
             </span>
 
@@ -215,119 +215,64 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>事情是这个样子的，今天准备开个自己的博客，如是研究了下，使用 hexo 在 github 上发布博客是一个号的选择。</p>
-<p>hexo 可以参考这里 <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">https://hexo.io/zh-cn/</a><br>typora 可以参考这里 <a target="_blank" rel="noopener" href="https://typora.io/">https://typora.io/</a></p>
-<p>这两个哥们搭配，干活就珍惜不累了，安装hexo和安装typora的工作暂且就不在这里唠叨了，随便Google一下，相信你很快就可以安装上了。</p>
-<p>然后，这篇文章主要想说的是，在配置typora插图的过程中，遇到了一个坑，我是这么按照hexo的教程配置的：</p>
-<p><a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/asset-folders">https://hexo.io/zh-cn/docs/asset-folders</a> </p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">_config<span class="token punctuation">.</span>yml
-<span class="token literal-property property">post_asset_folder</span><span class="token operator">:</span> <span class="token boolean">true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>据说，当资源文件管理功能打开后，Hexo将会在你每一次通过 <code>hexo new [layout] &lt;title&gt;</code> 命令创建新文章时自动创建一个文件夹。</p>
-<p><img data-src="/2021/09/21/hexo%E4%BD%BF%E7%94%A8type%E7%BC%96%E8%BE%91%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87%E6%97%A0%E6%B3%95%E9%A2%84%E8%A7%88%E7%9A%84%E5%9D%91%E7%9A%84%E8%A7%A3%E5%86%B3/image-20210921214156375.png" alt="image-20210921214156375" src="/2021/09/21/hexo%E4%BD%BF%E7%94%A8type%E7%BC%96%E8%BE%91%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87%E6%97%A0%E6%B3%95%E9%A2%84%E8%A7%88%E7%9A%84%E5%9D%91%E7%9A%84%E8%A7%A3%E5%86%B3/image-20210921214156375.png"></p>
-<p>对的，没错，老铁，就是上面这个样子，一顿操作猛如虎，结果</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">hexo g
-hexo d <span class="token comment">//部署到github上显示不了</span>
-hexo server <span class="token comment">//本地预览显示不了</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>看了一下，图片压根就显示不出来，看了下，明显图片路径有问题。</p>
-<p>后面看到一个哥们的文章，<a target="_blank" rel="noopener" href="https://cxyzjd.com/article/huyun9666/104256799">hexo使用markdown图片无法显示问题_jhhuang-程序员宅基地</a>然后install他的插件之后，发现部署到github上确实可以显示，but，本地没法预览呀，这个有点上火，看了下源码，就自己果断撸了一个；</p>
-<p><img data-src="/2021/09/21/hexo%E4%BD%BF%E7%94%A8type%E7%BC%96%E8%BE%91%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87%E6%97%A0%E6%B3%95%E9%A2%84%E8%A7%88%E7%9A%84%E5%9D%91%E7%9A%84%E8%A7%A3%E5%86%B3/image-20210921214625183.png" alt="image-20210921214625183" src="/2021/09/21/hexo%E4%BD%BF%E7%94%A8type%E7%BC%96%E8%BE%91%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87%E6%97%A0%E6%B3%95%E9%A2%84%E8%A7%88%E7%9A%84%E5%9D%91%E7%9A%84%E8%A7%A3%E5%86%B3/image-20210921214625183.png"></p>
-<p>一通操作猛如虎，其实就改了这么几行，把作者之前的替换的路径</p>
-<p>//yousite/path/to/your/image.jgp  修改为了  /path/to/your/image.jgp</p>
-<p>需要的老铁可以直接使用我<a target="_blank" rel="noopener" href="https://github.com/bravekingzhang/hexo-asset-image">这个补丁</a>就ok啦 ，用法已经在readme中有详细介绍了。</p>
-<h4 id="最后附上我的所有关键配置"><a href="#最后附上我的所有关键配置" class="headerlink" title="最后附上我的所有关键配置"></a>最后附上我的所有关键配置</h4><h5 id="hexo的配置"><a href="#hexo的配置" class="headerlink" title="hexo的配置"></a>hexo的配置</h5><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"># Hexo Configuration
-## Docs<span class="token operator">:</span> https<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>hexo<span class="token punctuation">.</span>io<span class="token operator">/</span>docs<span class="token operator">/</span>configuration<span class="token punctuation">.</span>html
-## Source<span class="token operator">:</span> https<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>github<span class="token punctuation">.</span>com<span class="token operator">/</span>hexojs<span class="token operator">/</span>hexo<span class="token operator">/</span>
-
-# Site
-<span class="token literal-property property">title</span><span class="token operator">:</span> 心随我动
-<span class="token literal-property property">subtitle</span><span class="token operator">:</span>
-<span class="token literal-property property">description</span><span class="token operator">:</span>
-<span class="token literal-property property">author</span><span class="token operator">:</span> hz
-<span class="token literal-property property">language</span><span class="token operator">:</span> zh<span class="token operator">-</span><span class="token constant">CN</span>
-<span class="token literal-property property">timezone</span><span class="token operator">:</span> Asia<span class="token operator">/</span>Shanghai
-
-# <span class="token constant">URL</span>
-## If your site is put <span class="token keyword">in</span> a subdirectory<span class="token punctuation">,</span> <span class="token keyword">set</span> url <span class="token keyword">as</span> <span class="token string">'http://yoursite.com/child'</span> and root <span class="token keyword">as</span> <span class="token string">'/child/'</span>
-<span class="token literal-property property">url</span><span class="token operator">:</span> https<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>blog<span class="token punctuation">.</span>brzhang<span class="token punctuation">.</span>club
-<span class="token literal-property property">root</span><span class="token operator">:</span> <span class="token operator">/</span>
-<span class="token literal-property property">permalink</span><span class="token operator">:</span> <span class="token operator">:</span>year<span class="token operator">/</span><span class="token operator">:</span>month<span class="token operator">/</span><span class="token operator">:</span>day<span class="token operator">/</span><span class="token operator">:</span>title<span class="token operator">/</span>
-<span class="token literal-property property">permalink_defaults</span><span class="token operator">:</span>
-
-# Directory
-<span class="token literal-property property">source_dir</span><span class="token operator">:</span> source
-<span class="token literal-property property">public_dir</span><span class="token operator">:</span> <span class="token keyword">public</span>
-<span class="token literal-property property">tag_dir</span><span class="token operator">:</span> tags
-<span class="token literal-property property">archive_dir</span><span class="token operator">:</span> archives
-<span class="token literal-property property">category_dir</span><span class="token operator">:</span> categories
-<span class="token literal-property property">code_dir</span><span class="token operator">:</span> downloads<span class="token operator">/</span>code
-<span class="token literal-property property">i18n_dir</span><span class="token operator">:</span> <span class="token operator">:</span>lang
-<span class="token literal-property property">skip_render</span><span class="token operator">:</span>
-
-# Writing
-<span class="token literal-property property">new_post_name</span><span class="token operator">:</span> <span class="token operator">:</span>title<span class="token punctuation">.</span>md # File name <span class="token keyword">of</span> <span class="token keyword">new</span> <span class="token class-name">posts</span>
-<span class="token literal-property property">default_layout</span><span class="token operator">:</span> post
-<span class="token literal-property property">titlecase</span><span class="token operator">:</span> <span class="token boolean">false</span> # Transform title into titlecase
-<span class="token literal-property property">external_link</span><span class="token operator">:</span> <span class="token boolean">true</span> # Open external links <span class="token keyword">in</span> <span class="token keyword">new</span> <span class="token class-name">tab</span>
-<span class="token literal-property property">filename_case</span><span class="token operator">:</span> <span class="token number">0</span>
-<span class="token literal-property property">render_drafts</span><span class="token operator">:</span> <span class="token boolean">false</span>
-<span class="token literal-property property">post_asset_folder</span><span class="token operator">:</span> <span class="token boolean">true</span>
-<span class="token literal-property property">marked</span><span class="token operator">:</span>
-  <span class="token literal-property property">prependRoot</span><span class="token operator">:</span> <span class="token boolean">false</span>
-  <span class="token literal-property property">postAsset</span><span class="token operator">:</span> <span class="token boolean">true</span>
-  <span class="token literal-property property">lazyload</span><span class="token operator">:</span> <span class="token boolean">true</span>
-<span class="token literal-property property">relative_link</span><span class="token operator">:</span> <span class="token boolean">true</span>
-<span class="token literal-property property">future</span><span class="token operator">:</span> <span class="token boolean">true</span>
-<span class="token literal-property property">highlight</span><span class="token operator">:</span>
-  <span class="token literal-property property">enable</span><span class="token operator">:</span> <span class="token boolean">true</span>
-  <span class="token literal-property property">line_number</span><span class="token operator">:</span> <span class="token boolean">true</span>
-  <span class="token literal-property property">auto_detect</span><span class="token operator">:</span> <span class="token boolean">false</span>
-  <span class="token literal-property property">tab_replace</span><span class="token operator">:</span>
-
-# Home page setting
-# path<span class="token operator">:</span> Root path <span class="token keyword">for</span> your blogs index page<span class="token punctuation">.</span> <span class="token punctuation">(</span><span class="token keyword">default</span> <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">)</span>
-# per_page<span class="token operator">:</span> Posts displayed per page<span class="token punctuation">.</span> <span class="token punctuation">(</span><span class="token number">0</span> <span class="token operator">=</span> disable pagination<span class="token punctuation">)</span>
-# order_by<span class="token operator">:</span> Posts order<span class="token punctuation">.</span> <span class="token punctuation">(</span>Order by date descending by <span class="token keyword">default</span><span class="token punctuation">)</span>
-<span class="token literal-property property">index_generator</span><span class="token operator">:</span>
-  <span class="token literal-property property">path</span><span class="token operator">:</span> <span class="token string">""</span>
-  <span class="token literal-property property">per_page</span><span class="token operator">:</span> <span class="token number">10</span>
-  <span class="token literal-property property">order_by</span><span class="token operator">:</span> <span class="token operator">-</span>date
-
-# Category <span class="token operator">&amp;</span> Tag
-<span class="token literal-property property">default_category</span><span class="token operator">:</span> uncategorized
-<span class="token literal-property property">category_map</span><span class="token operator">:</span>
-<span class="token literal-property property">tag_map</span><span class="token operator">:</span>
-
-# Date <span class="token operator">/</span> Time format
-## Hexo uses Moment<span class="token punctuation">.</span>js to parse and display date
-## You can customize the date format <span class="token keyword">as</span> defined <span class="token keyword">in</span>
-## http<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>momentjs<span class="token punctuation">.</span>com<span class="token operator">/</span>docs<span class="token operator">/</span>#<span class="token operator">/</span>displaying<span class="token operator">/</span>format<span class="token operator">/</span>
-<span class="token literal-property property">date_format</span><span class="token operator">:</span> <span class="token constant">YYYY</span><span class="token operator">-</span><span class="token constant">MM</span><span class="token operator">-</span><span class="token constant">DD</span>
-<span class="token literal-property property">time_format</span><span class="token operator">:</span> <span class="token constant">HH</span><span class="token operator">:</span>mm<span class="token operator">:</span>ss
-
-# Pagination
-## Set per_page to <span class="token number">0</span> to disable pagination
-<span class="token literal-property property">per_page</span><span class="token operator">:</span> <span class="token number">10</span>
-<span class="token literal-property property">pagination_dir</span><span class="token operator">:</span> page
-
-# Extensions
-## Plugins<span class="token operator">:</span> https<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>hexo<span class="token punctuation">.</span>io<span class="token operator">/</span>plugins<span class="token operator">/</span>
-## Themes<span class="token operator">:</span> https<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>hexo<span class="token punctuation">.</span>io<span class="token operator">/</span>themes<span class="token operator">/</span>
-
-<span class="token literal-property property">tag_generator</span><span class="token operator">:</span>
-  <span class="token literal-property property">per_page</span><span class="token operator">:</span> <span class="token number">10</span>
-  <span class="token literal-property property">order_by</span><span class="token operator">:</span> <span class="token operator">-</span>date
-
-<span class="token literal-property property">theme</span><span class="token operator">:</span> ocean
-
-# Deployment
-## Docs<span class="token operator">:</span> https<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>hexo<span class="token punctuation">.</span>io<span class="token operator">/</span>docs<span class="token operator">/</span>deployment<span class="token punctuation">.</span>html
-<span class="token literal-property property">deploy</span><span class="token operator">:</span>
-  <span class="token literal-property property">type</span><span class="token operator">:</span> git
-  <span class="token literal-property property">repository</span><span class="token operator">:</span> https<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>github<span class="token punctuation">.</span>com<span class="token operator">/</span>bravekingzhang<span class="token operator">/</span>bravekingzhang<span class="token punctuation">.</span>github<span class="token punctuation">.</span>io<span class="token punctuation">.</span>git
-  <span class="token literal-property property">brance</span><span class="token operator">:</span> master
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>typora的图片上传配置</p>
-<p><img data-src="/2021/09/21/hexo%E4%BD%BF%E7%94%A8type%E7%BC%96%E8%BE%91%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87%E6%97%A0%E6%B3%95%E9%A2%84%E8%A7%88%E7%9A%84%E5%9D%91%E7%9A%84%E8%A7%A3%E5%86%B3/image-20210921215142921.png" alt="image-20210921215142921" src="/2021/09/21/hexo%E4%BD%BF%E7%94%A8type%E7%BC%96%E8%BE%91%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87%E6%97%A0%E6%B3%95%E9%A2%84%E8%A7%88%E7%9A%84%E5%9D%91%E7%9A%84%E8%A7%A3%E5%86%B3/image-20210921215142921.png"></p>
+          <h3 id="管理者应该做的事情"><a href="#管理者应该做的事情" class="headerlink" title="管理者应该做的事情"></a>管理者应该做的事情</h3><ol>
+<li>关注小伙伴优点，并非弱点，用人所长容人所短，找出优点，放大优点。</li>
+<li>充当教练，培养人才，找出每个人的才能，表现好需要积极反馈，表现不好需要进一步完善的建议。</li>
+<li>关心下属，设定成功的目标，在成功的途中做一些辅导。</li>
+<li>需要怀疑但也需要倾听，保持尊敬，心平气和接受反馈。</li>
+<li>协助小伙伴共渡难关，但要分辨什么时候提供什么样的帮助，掌握分寸。</li>
+<li>需要讲一些故事来说明愿景，打造一支高效的团队，让大家参与愿景建设。</li>
+<li>不断充实自己，保持对行业技能能敏锐，分享学习心得。</li>
+<li>就事论事，客观看待事情。</li>
+</ol>
+<h3 id="技术团队leader的要求"><a href="#技术团队leader的要求" class="headerlink" title="技术团队leader的要求"></a>技术团队leader的要求</h3><h4 id="基本要求"><a href="#基本要求" class="headerlink" title="基本要求"></a>基本要求</h4><p>了解每个小伙伴的技术特长，根据以往项目经历合理分配任务，保证业务按时高质量完成。</p>
+<h4 id="更高要求"><a href="#更高要求" class="headerlink" title="更高要求"></a>更高要求</h4><ol>
+<li><p>团队文化（团队氛围）建设</p>
+<ol>
+<li><p>大多数人的认可文化才是团队的文化。</p>
+</li>
+<li><p>可以具体实施的，绝对不是空泛不可达的。</p>
+</li>
+<li><blockquote>
+<p>如电子签前端，做技术中心最开心的开发【事假机制灵活，通勤时间不做考量，任务导向，拒绝无效加班，责任为先】</p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><p>小伙伴技能水平提升</p>
+<ol>
+<li>业务之外，<strong>技术成长与业务需求相结合，产品需求和自研需求相结合</strong></li>
+<li>控制下产品需求的进度和占比，留出一些时间用来做自研需求。</li>
+<li>分享，尽量和平时工作有点关联，可以维护一个技术分享的主题池，控制分享质量及相关度</li>
+</ol>
+</li>
+<li><p>研发规范体系建设</p>
+<ol>
+<li>流程、规范与稳定高于一切</li>
+<li>崇尚技术深度，而不盲目崇尚新技术，且不可拿项目稳定性开玩笑</li>
+</ol>
+</li>
+<li><p>团队凝聚力（稳定性）建设</p>
+<ol>
+<li>注重培养归属感、责任感与主动性，并明确赏罚机制</li>
+<li>backup机制，避免应对线网问题时出现单点故障</li>
+<li>灵活的“7*24”，而不盲目推崇固定的“996”，事情多的时候，大家就辛苦点，多加点班；事情少的时候，大家就早点回家，多休息休息，养精蓄锐而不是在公司干耗着混加班时间。</li>
+</ol>
+</li>
+<li><p>上通下达</p>
+<ol>
+<li>下达，对齐目标，把控项目风险，攻克技术难点，通过晨会周会的形式。</li>
+<li>上通，月度总结，宣讲，邀请领导参与，了解小伙伴工作。</li>
+</ol>
+</li>
+<li><p>注入新的血液，新人培训机制</p>
+<ol>
+<li>流程规范培训要优先于技术培训，新人引发的问题中，很多都是由于操作不按照流程，不遵守规范导致的</li>
+<li>老人踩过的坑，新人也很有可能会踩，每个新人入职时，都把这些常见的坑提前多熟悉几遍，不要求全都一一记住，至少要在脑海中留个印象</li>
+<li>明确新人熟悉系统、技术等的顺序和进度安排，制定一个合理的熟悉顺序和进度安排，明确每天任务，确定deadline</li>
+</ol>
+</li>
+</ol>
 
       
     </div>
@@ -346,7 +291,7 @@ hexo server <span class="token comment">//本地预览显示不了</span><span a
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/28/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><span class="page-number current">29</span><a class="page-number" href="/page/30/">30</a><a class="page-number" href="/page/31/">31</a><a class="extend next" rel="next" href="/page/30/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/28/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><span class="page-number current">29</span><a class="page-number" href="/page/30/">30</a><span class="space">&hellip;</span><a class="page-number" href="/page/32/">32</a><a class="extend next" rel="next" href="/page/30/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -411,7 +356,7 @@ hexo server <span class="token comment">//本地预览显示不了</span><span a
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-count">32</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -422,7 +367,7 @@ hexo server <span class="token comment">//本地预览显示不了</span><span a
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
