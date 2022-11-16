@@ -161,7 +161,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2022/04/12/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%9B%BE%E7%89%87%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96/">
+    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2022/10/26/ts%E5%AE%9E%E7%8E%B0%E6%95%B4%E6%B4%81%E6%9E%B6%E6%9E%84%E9%A2%86%E5%9F%9F%E5%B1%82/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -175,7 +175,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/04/12/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%9B%BE%E7%89%87%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96/" class="post-title-link" itemprop="url">小程序图片加载优化</a>
+            <a href="/2022/10/26/ts%E5%AE%9E%E7%8E%B0%E6%95%B4%E6%B4%81%E6%9E%B6%E6%9E%84%E9%A2%86%E5%9F%9F%E5%B1%82/" class="post-title-link" itemprop="url">Ts实现整洁架构领域层</a>
         </h2>
 
         <div class="post-meta">
@@ -184,23 +184,17 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2022-04-12 15:48:55" itemprop="dateCreated datePublished" datetime="2022-04-12T15:48:55+08:00">2022-04-12</time>
+              <time title="创建时间：2022-10-26 12:31:53 / 修改时间：12:43:07" itemprop="dateCreated datePublished" datetime="2022-10-26T12:31:53+08:00">2022-10-26</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-09-29 15:18:14" itemprop="dateModified" datetime="2022-09-29T15:18:14+08:00">2022-09-29</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                  <a href="/categories/default/" itemprop="url" rel="index"><span itemprop="name">default</span></a>
                 </span>
             </span>
 
@@ -215,69 +209,19 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h4 id="小程序图片加载优化的意义"><a href="#小程序图片加载优化的意义" class="headerlink" title="小程序图片加载优化的意义"></a>小程序图片加载优化的意义</h4><ol>
-<li>提示加载速度，让用户觉得爽</li>
-<li>降低内存占用，使得小程序允许保持在一个较低水平的内存，不用户oom导致crash</li>
-</ol>
-<h4 id="加速方面"><a href="#加速方面" class="headerlink" title="加速方面"></a>加速方面</h4><p>降低网络图片内容大小，可以使用webp替代jpg，因为同等质量下webp体积拳打png脚踢jpg，且根据小程序官网来看，目前是支持webp的</p>
-<p><img data-src="/2022/04/12/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%9B%BE%E7%89%87%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96/image-20220412155601770.png" alt="小程序webp支持" src="/2022/04/12/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%9B%BE%E7%89%87%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96/image-20220412155601770.png"></p>
-<p>那么，真是的测试效果是，之前150k左右的jpg，目前只需要80k，而且清晰度比之前高很多，体积比之前小了，显然加载就快了，这部分不需要多少例证。</p>
-<p>比较容易忽略的是，本身用户的网络不好，处于弱网情况下，我们改怎么优化？</p>
-<p>一个比较容易想到的办法是预加载，事实上，腾讯电子签也是这么做的，我们做了一个自定义组件，传一堆图片url进来，帮助加载，设置每个图片像素是1个像素，加载ok之后，干掉[v-if=”false”]，避免占用dom节点。</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token operator">&lt;</span>template<span class="token operator">></span>
-  <span class="token operator">&lt;</span>view v<span class="token operator">-</span><span class="token keyword">if</span><span class="token operator">=</span><span class="token string">"!imageLoaded"</span><span class="token operator">></span>
-    <span class="token operator">&lt;</span>image
-      v<span class="token operator">-</span>show<span class="token operator">=</span><span class="token string">"false"</span>
-      v<span class="token operator">-</span><span class="token keyword">for</span><span class="token operator">=</span><span class="token string">"(item, index) in urls"</span>
-      @load<span class="token operator">=</span><span class="token string">"imageLoad"</span>
-      <span class="token operator">:</span>key<span class="token operator">=</span><span class="token string">"index"</span>
-      <span class="token operator">:</span>src<span class="token operator">=</span><span class="token string">"item"</span>
-      <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"image-item-pre-loader"</span>
-    <span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>image<span class="token operator">></span>
-  <span class="token operator">&lt;</span><span class="token operator">/</span>view<span class="token operator">></span>
-<span class="token operator">&lt;</span><span class="token operator">/</span>template<span class="token operator">></span>
-<span class="token operator">&lt;</span>script<span class="token operator">></span>
-
-<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">&#123;</span>
-  <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> <span class="token punctuation">&#123;</span>
-      <span class="token literal-property property">imageLoaded</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-  <span class="token literal-property property">props</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-    <span class="token literal-property property">urls</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-      <span class="token literal-property property">type</span><span class="token operator">:</span> Array<span class="token punctuation">,</span>
-      <span class="token function-variable function">default</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-  <span class="token literal-property property">methods</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-    <span class="token function">imageLoad</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-      <span class="token keyword">this</span><span class="token punctuation">.</span>imageLoaded <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span><span class="token comment">// 预加载图片成功后，干掉预加载图片控件，避免占用内存</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-<span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span>
-<span class="token operator">&lt;</span>style<span class="token operator">></span>
-<span class="token punctuation">.</span>image<span class="token operator">-</span>item<span class="token operator">-</span>pre<span class="token operator">-</span>loader <span class="token punctuation">&#123;</span>
-  <span class="token literal-property property">width</span><span class="token operator">:</span> 1px<span class="token punctuation">;</span>
-  <span class="token literal-property property">height</span><span class="token operator">:</span> 1px<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token operator">&lt;</span><span class="token operator">/</span>style<span class="token operator">></span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>用法是，在进入页面之前提前加载下一页需要用到的图片资源，细心的你可以发现，这个预加载图片自定义组件做得更绝，加载完之后，把自己销毁了，但是达到了目的，提前把图片加载到了磁盘，因此，下一次加载图片的时候，会是load from disk.</p>
-<p><img data-src="/2022/04/12/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%9B%BE%E7%89%87%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96/wecom-temp-b937585e2817c5f55fa765a64d0d022a.png" alt="load from disk" src="/2022/04/12/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%9B%BE%E7%89%87%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96/wecom-temp-b937585e2817c5f55fa765a64d0d022a.png"></p>
-<p>体验明显会更加好，给用户的感觉是加载更快了。</p>
-<h4 id="内存占用方面"><a href="#内存占用方面" class="headerlink" title="内存占用方面"></a>内存占用方面</h4><p>众所周知，一张图片在App中占用的内存和他的体积没有实际关系，只和图片的真实像素有关，换句话说，<strong>图片的width*height越大，所占用的内存就越大</strong>。普遍看，几乎所有的App中都存在这样的场景，加载的图片的实际尺寸远远大于控件的尺寸，这是对内存赤裸裸的浪费，在腾讯电子签小程序中也存在不少这样的场景，例如,这个小图用的是一个超级大图。</p>
-<p><img data-src="/2022/04/12/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%9B%BE%E7%89%87%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96/image-20220412155942568.png" alt="实际加载图片尺寸远大于控件尺寸" src="/2022/04/12/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%9B%BE%E7%89%87%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96/image-20220412155942568.png"></p>
-<p>针对这样的场景，其解法是需要提供一份与之尺寸匹配的图片。</p>
-<p>但，这样并不是终点，我们如何能做到防微杜渐，避免这些悲剧不断发生才是王道。因为，腾讯电子签采取的措施是在image控件的onload回调中做文章。</p>
-<ol>
-<li>在image的onload方法中获取图片实际的尺寸。</li>
-<li>通过微信小程序 createSelectorQuery 暴露出来的api拿到图片的实际尺寸</li>
-<li>两者想比较，如果实际图片远大于控件尺寸，进行告警，逐一修复</li>
-</ol>
-<p>最终我们实现了日志加告警，目前已经正在投入使用中，并且对检查出来的大图进行逐一修复中。</p>
-<p>另外：在监控告警中，我们意外发现，<strong>有些图片居然没有设置固定宽高，通常出现的这种情况比较容易会造成页面的重绘</strong>，所以在监控中，我们也加入了图片没有设置尺寸的告警，进而进一步优化用户体验。</p>
+          <h3 id="Typescript中实现清洁架构的模块化应用领域层"><a href="#Typescript中实现清洁架构的模块化应用领域层" class="headerlink" title="Typescript中实现清洁架构的模块化应用领域层"></a>Typescript中实现清洁架构的模块化应用领域层</h3><p>为什么使用Typescript，只是因为它越来越流行，但这是有原因的。据说，<strong>Typescript可以帮助开发中减少15%的错误</strong>。它对与其他开发者合作也很有用，因为每个组件属性、类属性和函数参数都可以在代码中定义其类型；</p>
+<p>Clean arhcitecture是一种设计模式，旨在将应用逻辑与用户界面或外部服务分开。它通过在一个圆圈中定义层，其中每一层只能与圆圈中心的其他层进行交互。用Vue的话来说，这些层是（从外到内） <strong>Components + Store -&gt; Use cases -&gt; Entities</strong>，如下图所示。</p>
+<p><img data-src="/2022/10/26/ts%E5%AE%9E%E7%8E%B0%E6%95%B4%E6%B4%81%E6%9E%B6%E6%9E%84%E9%A2%86%E5%9F%9F%E5%B1%82/clean-architecture.png" alt="clean-architecture.png" src="/2022/10/26/ts%E5%AE%9E%E7%8E%B0%E6%95%B4%E6%B4%81%E6%9E%B6%E6%9E%84%E9%A2%86%E5%9F%9F%E5%B1%82/clean-architecture.png"></p>
+<h4 id="领域层"><a href="#领域层" class="headerlink" title="领域层"></a>领域层</h4><p>领域层包含定义我们的应用程序将使用的基本数据的实体。应用层包含所有应用于实体的逻辑和操作。UI/Store层包含用户界面、控制器和演示器，这主要是应用程序的Vue/Nuxt部分。有一些元素组成了每个层，我们需要定义这些元素来构建这样的应用程序。</p>
+<h4 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h4><p>这就是我们所知道的vue组件。因为它包含了一些逻辑，也包含了用户界面，所以它既是视图也是展示者。这意味着它负责将商店中的任何数据转化为界面（按钮、下拉菜单、表格等）能够理解的数据结构。</p>
+<h4 id="Vuex-store"><a href="#Vuex-store" class="headerlink" title="Vuex store"></a>Vuex store</h4><p>我们将使用存储模块。你应该对此很熟悉，但这次我们将使用有一些限制的存储。由于store将是我们的 “控制器”，它负责接收来自用户的输入（来自组件的数据）并对这些数据进行操作。为了执行这个操作，它应该调用一个Interactor，而不是自己执行这个逻辑。商店应该只被组件调用（vuex actions），并相应地更新其状态（vuex mutations），把所有的逻辑留给内层。</p>
+<h4 id="Interactor"><a href="#Interactor" class="headerlink" title="Interactor"></a>Interactor</h4><p>交互器是一个被控制器调用的元素，通过服务执行任务并将结果返回给控制器。每个用例都应该有一个交互器。</p>
+<h4 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h4><p>在我们的例子中，服务是一个作为交互器的查找表的对象。所有的操作都应该在服务中可用。每个实体可以有一个服务，例如，TodoService将拥有与Todo实体交互的所有逻辑，如获取、创建、编辑、删除。事实上，该服务应该实现一个属于领域层的接口，它定义了所有可能的用例。它也可以有外部服务，比如从API中获取数据的HTTP服务。</p>
+<p>请注意，我们通常在Vuex商店做的事情，现在被委托（delegated）给一个调用服务的用例Interactor。</p>
+<h4 id="Repository"><a href="#Repository" class="headerlink" title="Repository"></a>Repository</h4><p>这是一个接口（interface），定义了一个实体的所有用例和操作。</p>
+<h4 id="Entity"><a href="#Entity" class="headerlink" title="Entity"></a>Entity</h4><p>这是一个类或类型定义，定义了我们应用程序中对象的数据和领域限制（domain restrictions ）。验证逻辑也应该由实体来涵盖。即使实体仅仅描述了数据结构和验证逻辑，我们也不会通过层传递实体。组件永远不会看到一个实体对象，只有实体的序列化表示。</p>
+<p>下图显示了所有这些元素之间的相互作用。</p>
+<p><img data-src="/2022/10/26/ts%E5%AE%9E%E7%8E%B0%E6%95%B4%E6%B4%81%E6%9E%B6%E6%9E%84%E9%A2%86%E5%9F%9F%E5%B1%82/clean-arch-flow.png" alt="clean-arch-flow.png" src="/2022/10/26/ts%E5%AE%9E%E7%8E%B0%E6%95%B4%E6%B4%81%E6%9E%B6%E6%9E%84%E9%A2%86%E5%9F%9F%E5%B1%82/clean-arch-flow.png"></p>
 
       
     </div>
@@ -296,7 +240,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -361,18 +305,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-count">30</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

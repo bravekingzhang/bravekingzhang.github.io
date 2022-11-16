@@ -161,7 +161,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2021/09/21/%E4%B8%BA%E5%95%A5API%E8%AE%BE%E8%AE%A1%E5%A6%82%E6%AD%A4%E9%87%8D%E8%A6%81/">
+    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2021/09/22/%E5%A6%82%E4%BD%95%E5%81%9A%E4%B8%80%E4%B8%AA%E5%A5%BDleader/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -175,7 +175,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/09/21/%E4%B8%BA%E5%95%A5API%E8%AE%BE%E8%AE%A1%E5%A6%82%E6%AD%A4%E9%87%8D%E8%A6%81/" class="post-title-link" itemprop="url">为啥API设计如此重要</a>
+            <a href="/2021/09/22/%E5%A6%82%E4%BD%95%E5%81%9A%E4%B8%80%E4%B8%AA%E5%A5%BDleader/" class="post-title-link" itemprop="url">管理者应该做的事情</a>
         </h2>
 
         <div class="post-meta">
@@ -185,7 +185,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-09-21 17:25:38" itemprop="dateCreated datePublished" datetime="2021-09-21T17:25:38+08:00">2021-09-21</time>
+              <time title="创建时间：2021-09-22 11:14:38" itemprop="dateCreated datePublished" datetime="2021-09-22T11:14:38+08:00">2021-09-22</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
@@ -200,7 +200,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                  <a href="/categories/%E5%9B%A2%E9%98%9F/" itemprop="url" rel="index"><span itemprop="name">团队</span></a>
                 </span>
             </span>
 
@@ -215,57 +215,64 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h4 id="为什么-API-设计很重要？"><a href="#为什么-API-设计很重要？" class="headerlink" title="为什么 API 设计很重要？"></a>为什么 API 设计很重要？</h4><ul>
-<li>API 可以是一个公司最重要的资产之一【<strong>客户投入大量资金：购买、编写、学习</strong><br><strong>停止使用 API 的成本可能很高，成功的公共 API 可以捕获客户</strong>】</li>
-<li>也可能是公司最大的负债之一 【<strong>不好的 API 会导致无休止的支持电话流</strong>】</li>
-<li>公共 API 是永久性的【<strong>只有一次机会可以做好它</strong>】</li>
-</ul>
-<h4 id="为什么-API-设计对你很重要？"><a href="#为什么-API-设计对你很重要？" class="headerlink" title="为什么 API 设计对你很重要？"></a>为什么 API 设计对你很重要？</h4><p>如果你编程，你就是一个 API 设计师，好的代码是模块化的–每个模块都有一个 API</p>
-<ul>
-<li>有用的模块往往会被重复使用<br>一旦模块有了用户，就不能随意改变 API _好的可重复使用的模块是企业资产</li>
-<li>从 API 的角度思考问题可以提高代码质量</li>
-</ul>
-<h4 id="好的-API-的特点"><a href="#好的-API-的特点" class="headerlink" title="好的 API 的特点"></a>好的 API 的特点</h4><ul>
-<li>易于学习</li>
-<li>易于使用，即使没有文档</li>
-<li>难以误用</li>
-<li>易于阅读和维护使用它的代码 - 足够强大以满足需求 - 易于扩展</li>
-<li>适合受众</li>
-</ul>
-<h4 id="好的API是如何设计出来的"><a href="#好的API是如何设计出来的" class="headerlink" title="好的API是如何设计出来的"></a>好的API是如何设计出来的</h4><p>一般来说，好的API需要遵循一下几大类设计</p>
-<p><img data-src="/2021/09/21/%E4%B8%BA%E5%95%A5API%E8%AE%BE%E8%AE%A1%E5%A6%82%E6%AD%A4%E9%87%8D%E8%A6%81/image-20210921194438582.png" alt="image-20210921194438582" src="/2021/09/21/%E4%B8%BA%E5%95%A5API%E8%AE%BE%E8%AE%A1%E5%A6%82%E6%AD%A4%E9%87%8D%E8%A6%81/image-20210921194438582.png"></p>
-<h5 id="收集需求–带着一定程度的怀疑态度"><a href="#收集需求–带着一定程度的怀疑态度" class="headerlink" title="收集需求–带着一定程度的怀疑态度"></a>收集需求–带着一定程度的怀疑态度</h5><ul>
-<li>通常你会得到建议的解决方案 _ 可能存在更好的解决方案</li>
-<li>你的工作是提取真正的需求 _ 应该采取用例的形式</li>
-<li>建立一个更普遍的东西可能更容易，也更有意义。</li>
-</ul>
-<h5 id="一切从简"><a href="#一切从简" class="headerlink" title="一切从简"></a>一切从简</h5><ul>
-<li>在这个阶段，敏捷性胜过完整性</li>
-<li>尽可能让更多的人了解规格，听取他们的意见并认真对待</li>
-<li>如果你保持简短的规格，就很容易修改。</li>
-<li>当你获得信心时，就可以使其更加完善_这必然涉及到编码问题</li>
-</ul>
-<h5 id="API应该只做一件事，而且要做得极致"><a href="#API应该只做一件事，而且要做得极致" class="headerlink" title="API应该只做一件事，而且要做得极致"></a>API应该只做一件事，而且要做得极致</h5><ul>
-<li>功能应该容易解释<br>如果它很难被命名，这通常是个坏兆头 _ 好的名字能推动开发<br>_ 要便于拆分和合并模块</li>
-</ul>
-<h5 id="尽量自闭环"><a href="#尽量自闭环" class="headerlink" title="尽量自闭环"></a>尽量自闭环</h5><ul>
-<li>尽可能地使类和成员成为私有的</li>
-<li>公有类应该没有公有字段<br>(常量除外)</li>
-<li>这样可以最大限度地隐藏信息</li>
-<li>允许模块被独立使用、理解、构建、测试和调试</li>
-</ul>
-<h5 id="名字很重要–名称应该基本上是不言自明的-避免使用隐晦的缩略语"><a href="#名字很重要–名称应该基本上是不言自明的-避免使用隐晦的缩略语" class="headerlink" title="名字很重要–名称应该基本上是不言自明的 _ 避免使用隐晦的缩略语"></a>名字很重要–名称应该基本上是不言自明的 _ 避免使用隐晦的缩略语</h5><ul>
-<li><p>要一致–相同的词意味着相同的事情 _ 在整个API中，（在平台的各个API中）。</p>
+          <h3 id="管理者应该做的事情"><a href="#管理者应该做的事情" class="headerlink" title="管理者应该做的事情"></a>管理者应该做的事情</h3><ol>
+<li>关注小伙伴优点，并非弱点，用人所长容人所短，找出优点，放大优点。</li>
+<li>充当教练，培养人才，找出每个人的才能，表现好需要积极反馈，表现不好需要进一步完善的建议。</li>
+<li>关心下属，设定成功的目标，在成功的途中做一些辅导。</li>
+<li>需要怀疑但也需要倾听，保持尊敬，心平气和接受反馈。</li>
+<li>协助小伙伴共渡难关，但要分辨什么时候提供什么样的帮助，掌握分寸。</li>
+<li>需要讲一些故事来说明愿景，打造一支高效的团队，让大家参与愿景建设。</li>
+<li>不断充实自己，保持对行业技能能敏锐，分享学习心得。</li>
+<li>就事论事，客观看待事情。</li>
+</ol>
+<h3 id="技术团队leader的要求"><a href="#技术团队leader的要求" class="headerlink" title="技术团队leader的要求"></a>技术团队leader的要求</h3><h4 id="基本要求"><a href="#基本要求" class="headerlink" title="基本要求"></a>基本要求</h4><p>了解每个小伙伴的技术特长，根据以往项目经历合理分配任务，保证业务按时高质量完成。</p>
+<h4 id="更高要求"><a href="#更高要求" class="headerlink" title="更高要求"></a>更高要求</h4><ol>
+<li><p>团队文化（团队氛围）建设</p>
+<ol>
+<li><p>大多数人的认可文化才是团队的文化。</p>
 </li>
-<li><p>要有规律–力求对称–代码应该像散文一样阅读</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">if</span> <span class="token punctuation">(</span>car<span class="token punctuation">.</span><span class="token function">speed</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">2</span> <span class="token operator">*</span> <span class="token constant">SPEED_LIMIT</span><span class="token punctuation">)</span> 
-  <span class="token function">generateAlert</span><span class="token punctuation">(</span><span class="token string">"Watch out for cops!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<li><p>可以具体实施的，绝对不是空泛不可达的。</p>
 </li>
-</ul>
-<h5 id="总体来说，API设计是一项高尚而有意义的工作，它可以改善程序员、终端用户、公司的命运。"><a href="#总体来说，API设计是一项高尚而有意义的工作，它可以改善程序员、终端用户、公司的命运。" class="headerlink" title="总体来说，API设计是一项高尚而有意义的工作，它可以改善程序员、终端用户、公司的命运。"></a>总体来说，API设计是一项高尚而有意义的工作，它可以改善程序员、终端用户、公司的命运。</h5><ul>
-<li>这个讲座涵盖了这门手艺的一些启发式方法 _ 不要一味地遵守它们，但是……<br>不要在没有充分理由的情况下违反它们</li>
-<li>API设计是艰难的<br>-不是一个单独的活动<br>-完美是不可能的，但还是要努力。</li>
-</ul>
+<li><blockquote>
+<p>如电子签前端，做技术中心最开心的开发【事假机制灵活，通勤时间不做考量，任务导向，拒绝无效加班，责任为先】</p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><p>小伙伴技能水平提升</p>
+<ol>
+<li>业务之外，<strong>技术成长与业务需求相结合，产品需求和自研需求相结合</strong></li>
+<li>控制下产品需求的进度和占比，留出一些时间用来做自研需求。</li>
+<li>分享，尽量和平时工作有点关联，可以维护一个技术分享的主题池，控制分享质量及相关度</li>
+</ol>
+</li>
+<li><p>研发规范体系建设</p>
+<ol>
+<li>流程、规范与稳定高于一切</li>
+<li>崇尚技术深度，而不盲目崇尚新技术，且不可拿项目稳定性开玩笑</li>
+</ol>
+</li>
+<li><p>团队凝聚力（稳定性）建设</p>
+<ol>
+<li>注重培养归属感、责任感与主动性，并明确赏罚机制</li>
+<li>backup机制，避免应对线网问题时出现单点故障</li>
+<li>灵活的“7*24”，而不盲目推崇固定的“996”，事情多的时候，大家就辛苦点，多加点班；事情少的时候，大家就早点回家，多休息休息，养精蓄锐而不是在公司干耗着混加班时间。</li>
+</ol>
+</li>
+<li><p>上通下达</p>
+<ol>
+<li>下达，对齐目标，把控项目风险，攻克技术难点，通过晨会周会的形式。</li>
+<li>上通，月度总结，宣讲，邀请领导参与，了解小伙伴工作。</li>
+</ol>
+</li>
+<li><p>注入新的血液，新人培训机制</p>
+<ol>
+<li>流程规范培训要优先于技术培训，新人引发的问题中，很多都是由于操作不按照流程，不遵守规范导致的</li>
+<li>老人踩过的坑，新人也很有可能会踩，每个新人入职时，都把这些常见的坑提前多熟悉几遍，不要求全都一一记住，至少要在脑海中留个印象</li>
+<li>明确新人熟悉系统、技术等的顺序和进度安排，制定一个合理的熟悉顺序和进度安排，明确每天任务，确定deadline</li>
+</ol>
+</li>
+</ol>
 
       
     </div>
@@ -284,7 +291,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/26/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><span class="page-number current">27</span><a class="page-number" href="/page/28/">28</a><a class="extend next" rel="next" href="/page/28/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/26/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><span class="page-number current">27</span><a class="page-number" href="/page/28/">28</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><a class="extend next" rel="next" href="/page/28/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -349,18 +356,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-count">30</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
