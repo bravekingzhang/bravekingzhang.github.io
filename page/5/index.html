@@ -161,7 +161,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2022/04/03/uni-app%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BC%98%E5%8C%96%E6%8C%87%E5%8D%97/">
+    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2022/04/12/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%9B%BE%E7%89%87%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -175,7 +175,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/04/03/uni-app%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BC%98%E5%8C%96%E6%8C%87%E5%8D%97/" class="post-title-link" itemprop="url">Uni-App小程序优化指南</a>
+            <a href="/2022/04/12/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%9B%BE%E7%89%87%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96/" class="post-title-link" itemprop="url">小程序图片加载优化</a>
         </h2>
 
         <div class="post-meta">
@@ -185,7 +185,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2022-04-03 17:43:19" itemprop="dateCreated datePublished" datetime="2022-04-03T17:43:19+08:00">2022-04-03</time>
+              <time title="创建时间：2022-04-12 15:48:55" itemprop="dateCreated datePublished" datetime="2022-04-12T15:48:55+08:00">2022-04-12</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
@@ -215,146 +215,69 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="官方优化建议"><a href="#官方优化建议" class="headerlink" title="官方优化建议"></a>官方优化建议</h2><h4 id="避免使用大图"><a href="#避免使用大图" class="headerlink" title="避免使用大图"></a>避免使用大图</h4><p>页面中若大量使用大图资源，会造成页面切换的卡顿，导致系统内存升高，甚至白屏崩溃。</p>
-<p>尤其是不要把多张大图缩小后显示在一个屏幕内，比如上传图片前选了数张几M体积的照片，然后缩小在一个屏幕中展示多张几M的大图，非常容易白屏崩溃。对大体积的二进制文件进行base64，也非常耗费资源。</p>
-<h4 id="优化数据更新"><a href="#优化数据更新" class="headerlink" title="优化数据更新"></a>优化数据更新</h4><p>在 <code>uni-app</code> 中，定义在 data 里面的数据每次变化时都会通知视图层重新渲染页面。<strong>所以如果不是视图所需要的变量，可以不定义在 data 中，可在外部定义变量或直接挂载在vue实例上，以避免造成资源浪费</strong>。</p>
-<h5 id="长列表"><a href="#长列表" class="headerlink" title="长列表"></a>长列表</h5><ul>
-<li>长列表中如果每个item有一个点赞按钮，点击后点赞数字+1，此时点赞组件必须是一个<strong>单独引用的组件，才能做到差量数据更新</strong>。否则会造成整个列表数据重载。</li>
-<li>长列表中每个item并不一定需要做成组件，取决于你的业务中是否需要差量更新某一行item的数据，如没有此类需求则不应该引入大量组件。（点击item后背景变色，属于css调整，没有更新data数据和渲染，不涉及这个问题）</li>
-<li>单个组件中存在大量数据时（比如长列表），在App和小程序端数据更新时会消耗较多时间，建议使用组件对数据进行分页，将变更限制更小范围。可以参考：<a target="_blank" rel="noopener" href="https://ext.dcloud.net.cn/plugin?id=2863#detail">长列表优化示例(opens new window)</a></li>
-<li>如需要左右滑动的长列表，请在HBuilderX新建uni-app项目选新闻模板，那是一个标杆实现。自己用swiper和scroll-view做很容易引发性能问题。</li>
-</ul>
-<h4 id="减少一次性渲染的节点数量"><a href="#减少一次性渲染的节点数量" class="headerlink" title="减少一次性渲染的节点数量"></a>减少一次性渲染的节点数量</h4><p><strong>页面初始化时，逻辑层如果一次性向视图层传递很大的数据，使视图层一次性渲染大量节点，可能造成通讯变慢、页面切换卡顿</strong>，所以建议以局部更新页面的方式渲染页面。如：服务端返回100条数据，可进行分批加载，一次加载50条，500ms 后进行下一次加载。</p>
-<h4 id="减少组件数量、减少节点嵌套层级"><a href="#减少组件数量、减少节点嵌套层级" class="headerlink" title="减少组件数量、减少节点嵌套层级"></a>减少组件数量、减少节点嵌套层级</h4><p>深层嵌套的节点在页面初始化构建时往往需要更多的内存占用，并且在遍历节点时也会更慢些，所以建议减少深层的节点嵌套，即页面结果更加扁平化。</p>
-<h4 id="避免视图层和逻辑层频繁进行通讯"><a href="#避免视图层和逻辑层频繁进行通讯" class="headerlink" title="避免视图层和逻辑层频繁进行通讯"></a>避免视图层和逻辑层频繁进行通讯</h4><ul>
-<li>减少 scroll-view 组件的 scroll 事件监听，当监听 scroll-view 的滚动事件时，视图层会频繁的向逻辑层发送数据；</li>
-<li>监听 scroll-view 组件的滚动事件时，不要实时的改变 scroll-top/scroll-left 属性，因为监听滚动时，视图层向逻辑层通讯，改变 scroll-top/scroll-left 时，逻辑层又向视图层通讯，这样就可能造成通讯卡顿。</li>
-<li>注意 onPageScroll 的使用，onPageScroll 进行监听时，视图层会频繁的向逻辑层发送数据；</li>
-<li>多使用css动画，而不是通过js的定时器操作界面做动画</li>
-<li>如需在canvas里做跟手操作，小程序端建议使用web-view组件。<strong>web-view里的页面没有逻辑层和视图层分离的概念</strong>，自然也不会有通信折损。</li>
-</ul>
-<h4 id="优化页面切换动画"><a href="#优化页面切换动画" class="headerlink" title="优化页面切换动画"></a>优化页面切换动画</h4><ul>
-<li>页面初始化时若存在大量图片或<strong>原生组件渲染和大量数据通讯，会发生新页面渲染和窗体进入动画抢资源，造成页面切换卡顿、掉帧</strong>。建议延时100ms~300ms渲染图片或复杂原生组件，分批进行数据通讯，以减少一次性渲染的节点数量。</li>
-</ul>
-<h4 id="优化背景色闪白"><a href="#优化背景色闪白" class="headerlink" title="优化背景色闪白"></a>优化背景色闪白</h4><ol>
-<li>如果是新页面进入时背景闪白</li>
+          <h4 id="小程序图片加载优化的意义"><a href="#小程序图片加载优化的意义" class="headerlink" title="小程序图片加载优化的意义"></a>小程序图片加载优化的意义</h4><ol>
+<li>提示加载速度，让用户觉得爽</li>
+<li>降低内存占用，使得小程序允许保持在一个较低水平的内存，不用户oom导致crash</li>
 </ol>
-<ul>
-<li>如果页面背景是深色，在vue页面中可能会发生新窗体刚开始动画时是灰白色背景，动画结束时才变为深色背景，造成闪屏。这是因为webview的背景生效太慢的问题。此时需将样式写在 <code>App.vue</code> 里，可以加速页面样式渲染速度。<code>App.vue</code> 里面的样式是全局样式，每次新开页面会优先加载 <code>App.vue</code> 里面的样式，然后加载普通 vue 页面的样式。</li>
-</ul>
-<h4 id="优化启动速度"><a href="#优化启动速度" class="headerlink" title="优化启动速度"></a>优化启动速度</h4><ul>
-<li>工程代码越多，包括背景图和本地字体文件越大，对小程序启动速度有影响，应注意控制体积。组件引用的前景图不影响性能。</li>
-</ul>
-<h4 id="优化包体积"><a href="#优化包体积" class="headerlink" title="优化包体积"></a>优化包体积</h4><ul>
-<li><p>uni-app发行到小程序时，自带引擎只有几十K，主要是一个定制过的vue.js核心库。如果使用了es6转es5、css对齐的功能，可能会增大代码体积，可以配置这些编译功能是否开启。</p>
-</li>
-<li><h5 id="解决uni-app编译后vendor-js文件过大"><a href="#解决uni-app编译后vendor-js文件过大" class="headerlink" title="解决uni-app编译后vendor.js文件过大"></a><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000022034729">解决uni-app编译后vendor.js文件过大</a></h5><ul>
-<li><strong>开启生产环境gzip</strong>，vendor.js从2.5M减少到440k</li>
-<li>使用 <a target="_blank" rel="noopener" href="https://link.segmentfault.com/?enc=55naxIfeVBleEhh0keJWfQ%3D%3D.ejew0C%2F77C%2Fi4a23Ple5Ws84RAXAcgN0bIPdNLEDaAfUIrhQ4rawtZSX8TpRQTpA7QAlJ%2BgGALw4OzlnkYU1pw%3D%3D">webpackBundleAnalyzer</a>，可以帮助分析文件大小。</li>
-</ul>
-</li>
-</ul>
-<h2 id="微信官方优化建议"><a href="#微信官方优化建议" class="headerlink" title="微信官方优化建议"></a>微信官方优化建议</h2><h4 id="小程序启动性能优化"><a href="#小程序启动性能优化" class="headerlink" title="小程序启动性能优化"></a>小程序启动性能优化</h4><p>这部分主要是冷加载首屏渲染优化</p>
+<h4 id="加速方面"><a href="#加速方面" class="headerlink" title="加速方面"></a>加速方面</h4><p>降低网络图片内容大小，可以使用webp替代jpg，因为同等质量下webp体积拳打png脚踢jpg，且根据小程序官网来看，目前是支持webp的</p>
+<p><img data-src="/2022/04/12/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%9B%BE%E7%89%87%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96/image-20220412155601770.png" alt="小程序webp支持" src="/2022/04/12/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%9B%BE%E7%89%87%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96/image-20220412155601770.png"></p>
+<p>那么，真是的测试效果是，之前150k左右的jpg，目前只需要80k，而且清晰度比之前高很多，体积比之前小了，显然加载就快了，这部分不需要多少例证。</p>
+<p>比较容易忽略的是，本身用户的网络不好，处于弱网情况下，我们改怎么优化？</p>
+<p>一个比较容易想到的办法是预加载，事实上，腾讯电子签也是这么做的，我们做了一个自定义组件，传一堆图片url进来，帮助加载，设置每个图片像素是1个像素，加载ok之后，干掉[v-if=”false”]，避免占用dom节点。</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token operator">&lt;</span>template<span class="token operator">></span>
+  <span class="token operator">&lt;</span>view v<span class="token operator">-</span><span class="token keyword">if</span><span class="token operator">=</span><span class="token string">"!imageLoaded"</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span>image
+      v<span class="token operator">-</span>show<span class="token operator">=</span><span class="token string">"false"</span>
+      v<span class="token operator">-</span><span class="token keyword">for</span><span class="token operator">=</span><span class="token string">"(item, index) in urls"</span>
+      @load<span class="token operator">=</span><span class="token string">"imageLoad"</span>
+      <span class="token operator">:</span>key<span class="token operator">=</span><span class="token string">"index"</span>
+      <span class="token operator">:</span>src<span class="token operator">=</span><span class="token string">"item"</span>
+      <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"image-item-pre-loader"</span>
+    <span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>image<span class="token operator">></span>
+  <span class="token operator">&lt;</span><span class="token operator">/</span>view<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>template<span class="token operator">></span>
+<span class="token operator">&lt;</span>script<span class="token operator">></span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">&#123;</span>
+  <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">&#123;</span>
+      <span class="token literal-property property">imageLoaded</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">props</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token literal-property property">urls</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token literal-property property">type</span><span class="token operator">:</span> Array<span class="token punctuation">,</span>
+      <span class="token function-variable function">default</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">methods</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token function">imageLoad</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>imageLoaded <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span><span class="token comment">// 预加载图片成功后，干掉预加载图片控件，避免占用内存</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span>
+<span class="token operator">&lt;</span>style<span class="token operator">></span>
+<span class="token punctuation">.</span>image<span class="token operator">-</span>item<span class="token operator">-</span>pre<span class="token operator">-</span>loader <span class="token punctuation">&#123;</span>
+  <span class="token literal-property property">width</span><span class="token operator">:</span> 1px<span class="token punctuation">;</span>
+  <span class="token literal-property property">height</span><span class="token operator">:</span> 1px<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>style<span class="token operator">></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>用法是，在进入页面之前提前加载下一页需要用到的图片资源，细心的你可以发现，这个预加载图片自定义组件做得更绝，加载完之后，把自己销毁了，但是达到了目的，提前把图片加载到了磁盘，因此，下一次加载图片的时候，会是load from disk.</p>
+<p><img data-src="/2022/04/12/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%9B%BE%E7%89%87%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96/wecom-temp-b937585e2817c5f55fa765a64d0d022a.png" alt="load from disk" src="/2022/04/12/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%9B%BE%E7%89%87%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96/wecom-temp-b937585e2817c5f55fa765a64d0d022a.png"></p>
+<p>体验明显会更加好，给用户的感觉是加载更快了。</p>
+<h4 id="内存占用方面"><a href="#内存占用方面" class="headerlink" title="内存占用方面"></a>内存占用方面</h4><p>众所周知，一张图片在App中占用的内存和他的体积没有实际关系，只和图片的真实像素有关，换句话说，<strong>图片的width*height越大，所占用的内存就越大</strong>。普遍看，几乎所有的App中都存在这样的场景，加载的图片的实际尺寸远远大于控件的尺寸，这是对内存赤裸裸的浪费，在腾讯电子签小程序中也存在不少这样的场景，例如,这个小图用的是一个超级大图。</p>
+<p><img data-src="/2022/04/12/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%9B%BE%E7%89%87%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96/image-20220412155942568.png" alt="实际加载图片尺寸远大于控件尺寸" src="/2022/04/12/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%9B%BE%E7%89%87%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96/image-20220412155942568.png"></p>
+<p>针对这样的场景，其解法是需要提供一份与之尺寸匹配的图片。</p>
+<p>但，这样并不是终点，我们如何能做到防微杜渐，避免这些悲剧不断发生才是王道。因为，腾讯电子签采取的措施是在image控件的onload回调中做文章。</p>
 <ol>
-<li>按需注入组件</li>
-<li>小程序支持启用<strong>初始渲染缓存</strong>。开启后，可以在<strong>非首次</strong>启动时，使视图层不需要等待逻辑层初始化完毕，而直接提前将页面渲染结果展示给用户，这可以使「首页渲染完成」和页面对用户可见的时间大大提前</li>
-<li>当组件不被使用时，应及时从 <code>usingComponents</code> 中移除。</li>
-<li>与视图层渲染无关的数据应尽量不要放在 data 中，避免影响页面渲染时间。</li>
-<li>读写本地缓存的能力，数据存储在本地，返回的会比网络请求快</li>
-<li>骨架屏，分模块加载</li>
+<li>在image的onload方法中获取图片实际的尺寸。</li>
+<li>通过微信小程序 createSelectorQuery 暴露出来的api拿到图片的实际尺寸</li>
+<li>两者想比较，如果实际图片远大于控件尺寸，进行告警，逐一修复</li>
 </ol>
-<h4 id="小程序运行时性能优化"><a href="#小程序运行时性能优化" class="headerlink" title="小程序运行时性能优化"></a>小程序运行时性能优化</h4><hr>
-<h5 id="合理使用-setData"><a href="#合理使用-setData" class="headerlink" title="合理使用 setData"></a>合理使用 setData</h5><p><code>setData</code> 是小程序开发中使用最频繁、也是最容易引发性能问题的接口。</p>
-<h5 id="1-setData-的流程"><a href="#1-setData-的流程" class="headerlink" title="1. setData 的流程"></a>1. setData 的流程</h5><p><code>setData</code> 的过程，大致可以分成几个阶段：</p>
-<ul>
-<li>逻辑层虚拟 DOM 树的遍历和更新，触发组件生命周期和 observer 等；</li>
-<li>将 data 从逻辑层传输到视图层；</li>
-<li>视图层虚拟 DOM 树的更新、真实 DOM 元素的更新并触发页面渲染更新。</li>
-<li>于小程序的逻辑层和视图层是两个独立的运行环境、分属不同的线程或进程，不能直接进行数据共享，需要进行数据的序列化、跨线程/进程的数据传输、数据的反序列化，因此数据传输过程是<strong>异步的、非实时的</strong></li>
-<li>数据传输的耗时与<strong>数据量的大小</strong>正相关，如果对端线程处于繁忙状态，数据会在<strong>消息队列中等待</strong>。</li>
-</ul>
-<h5 id="2、优化建议"><a href="#2、优化建议" class="headerlink" title="2、优化建议"></a>2、优化建议</h5><ul>
-<li><strong>data 应只包括渲染相关的数据setData</strong> ：用 setData 的方式更新渲染无关的字段，会触发额外的渲染流程，或者增加传输的数据量，影响渲染耗时。</li>
-<li><strong>控制 setData 的频率</strong>：仅在需要进行页面内容更新时调用 setData、对连续的 setData 调用尽可能的进行<strong>合并</strong></li>
-<li><strong>选择合适的 setData 范围</strong>：对于需要频繁更新的页面元素，可以封装为独立的组件，在组件内进行 setData 操作。</li>
-<li><strong>setData应该只传变化的数据</strong>：<code>this.setData(&#123;&#39;array[2].message&#39;: &#39;newVal&#39;, &#39;a.b.c.d&#39;: &#39;newVal&#39;&#125;)</code>，而不是每次都更新整个对象或数组；</li>
-<li><strong>setData应该避免后台页面刷新</strong>：页面切后台后的更新操作，应尽量避免，或延迟到页面 <code>onShow</code> 后延迟进行</li>
-</ul>
-<p>## </p>
-<h5 id="渲染性能优化"><a href="#渲染性能优化" class="headerlink" title="渲染性能优化"></a>渲染性能优化</h5><ol>
-<li>非必要不监听 scroll 事件；</li>
-<li>选择高性能动画实现方式，如优先使用 CSS 渐变、CSS 动画</li>
-<li>建议使用<a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/miniprogram/dev/api/wxml/wx.createIntersectionObserver.html">节点布局相交状态监听 IntersectionObserver</a> 推断某些节点是否可见、有多大比例可见，而不是监听scrollview</li>
-</ol>
-<hr>
-<h5 id="页面切换优化"><a href="#页面切换优化" class="headerlink" title="页面切换优化"></a>页面切换优化</h5><p><img data-src="https://res.wx.qq.com/wxdoc/dist/assets/img/route-1.2700b598.svg" alt="img"></p>
-<ol>
-<li>onHide/onUnload 中的逻辑应尽量简单，若必须要进行部分复杂逻辑，可以考虑用 setTimeout 延迟进行。</li>
-<li>跳转到分包页面时，从发起页面跳转到页面 onLoad 之间可能有较长的时间间隔，可以利用时间进行网络数据加载，提前准备分包页数据。</li>
-<li>避免预加载流程对页面加载过程的影响，开发者可以配置 <code>handleWebviewPreload</code> 选项，来控制预加载下个页面的时机。设置<code>&quot;handleWebviewPreload&quot;: &quot;auto&quot;</code></li>
-</ol>
-<hr>
-<h5 id="资源加载优化"><a href="#资源加载优化" class="headerlink" title="资源加载优化"></a>资源加载优化</h5><h5 id="1-控制图片资源的大小"><a href="#1-控制图片资源的大小" class="headerlink" title="1. 控制图片资源的大小"></a>1. 控制图片资源的大小</h5><p>开发者应根据功能需要和实际显示区域的大小，选择合适的图片尺寸、图片格式和压缩比。</p>
-<p><strong>图片体积太大，可能导致下列后果</strong></p>
-<ul>
-<li>增加图片下载时间，导致用户看到图片时机延迟；</li>
-<li>对用户造成非必要的流量消耗；</li>
-<li>影响图片解码和绘制的耗时，可能更容易造成掉帧、卡顿或白屏，甚至无法正常进行滚动和页面切换（低端设备上会尤为明显）；</li>
-<li>内存占用增长，尤其是大图片和长列表中的大量图片会导致内存占用急剧上升。</li>
-</ul>
-<h5 id="图片对内存的影响"><a href="#图片对内存的影响" class="headerlink" title="图片对内存的影响"></a><strong>图片对内存的影响</strong></h5><p>iOS 系统内存紧张时，会主动回收掉一部分 WebView。大图片和长列表中的大量图片很容易引起系统对 WebView 的回收，导致小程序白屏，严重时会触发微信强制关闭小程序。</p>
-<p>内存增长如果超过了限制，也会导致小程序出现白屏或黑屏，甚至整个小程序发生闪退。</p>
-<h5 id="2-避免滥用-image-组件的-widthFix-heightFix-模式"><a href="#2-避免滥用-image-组件的-widthFix-heightFix-模式" class="headerlink" title="2. 避免滥用 image 组件的 widthFix/heightFix 模式"></a>2. 避免滥用 image 组件的 widthFix/heightFix 模式</h5><p>widthFix/heightFix 模式会在图片加载完成后，动态改变图片的高度或宽度。图片高度或宽度的动态改变，可能会引起页面内大范围的布局重排，导致页面发生抖动，并造成卡顿。</p>
-<p>对于页面的背景图或 banner 图，应尽量预先指定图片的尺寸，避免图片加载完成后再进行二次的尺寸调整。</p>
-<hr>
-<h5 id="内存优化"><a href="#内存优化" class="headerlink" title="内存优化"></a>内存优化</h5><ol>
-<li>建议小程序在必要时使用 <a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/miniprogram/dev/api/device/memory/wx.onMemoryWarning.html">wx.onMemoryWarning</a> 监听内存告警事件，进行必要的内存清理。例如：释放一些暂时不用的组件或 JS 对象。</li>
-<li>页面 unload 之后，基础库会从页面栈中将页面实例清理，unload 中进行必要的清理。<ol>
-<li>事件监听器中持有了页面的 this</li>
-<li>函数闭包内持有了页面的 this</li>
-<li>异步回调中访问了页面的 this，如wx.request</li>
-<li>定时器等清理</li>
-</ol>
-</li>
-<li>按需加载图片，过大的图片渲染到过小的组件区域是一种内存浪费</li>
-<li>不要发送无用的网络请求，解析数据都是内存消耗。</li>
-</ol>
-<hr>
-<h2 id="自己沉淀优化"><a href="#自己沉淀优化" class="headerlink" title="自己沉淀优化"></a>自己沉淀优化</h2><h4 id="页面切换优化-1"><a href="#页面切换优化-1" class="headerlink" title="页面切换优化"></a>页面切换优化</h4><ol>
-<li>预加载图片，可以定义一个预加载图片组件，提前预加载图片，加载完记得释放组件</li>
-<li>列表进入详情，直接带上item项进入，在loading数据，配合骨架屏。</li>
-<li>优化网络请求耗时，接口缓存机制</li>
-</ol>
-<h4 id="内存优化-1"><a href="#内存优化-1" class="headerlink" title="内存优化"></a>内存优化</h4><ol>
-<li>图片使用合理的尺寸</li>
-<li>避免网络数据冗余</li>
-</ol>
-<h2 id="监控体系搭建"><a href="#监控体系搭建" class="headerlink" title="监控体系搭建"></a>监控体系搭建</h2><p>目的：提供优化指导，对比优化后的数据，数据呈现,TAM，小程序测速均ok</p>
-<h4 id="图片监控"><a href="#图片监控" class="headerlink" title="图片监控"></a>图片监控</h4><ol>
-<li>网络图片远远大于控件尺寸</li>
-<li>加载耗时严重</li>
-<li>预加载图片、命中效果</li>
-</ol>
-<h4 id="setData尺寸过大，频率过快"><a href="#setData尺寸过大，频率过快" class="headerlink" title="setData尺寸过大，频率过快"></a>setData尺寸过大，频率过快</h4><ol>
-<li>setData数据过大</li>
-<li>setData次数过于频繁</li>
-</ol>
-<h4 id="网络监控"><a href="#网络监控" class="headerlink" title="网络监控"></a>网络监控</h4><ol>
-<li>接口请求异常</li>
-<li>连接耗时过长</li>
-<li>接口数据包大</li>
-<li>接口http cache</li>
-</ol>
-<h4 id="内存监控"><a href="#内存监控" class="headerlink" title="内存监控"></a>内存监控</h4><ol>
-<li>内存触发告警</li>
-<li>dump 分析</li>
-</ol>
-<h4 id="卡顿监控"><a href="#卡顿监控" class="headerlink" title="卡顿监控"></a>卡顿监控</h4><ol>
-<li>首次渲染超过500ms</li>
-<li>路由卡顿？这个貌似波动很大</li>
-<li>点击卡顿</li>
-</ol>
-<p>方案通用话，最好是SDK接入，方便外部团队接入</p>
+<p>最终我们实现了日志加告警，目前已经正在投入使用中，并且对检查出来的大图进行逐一修复中。</p>
+<p>另外：在监控告警中，我们意外发现，<strong>有些图片居然没有设置固定宽高，通常出现的这种情况比较容易会造成页面的重绘</strong>，所以在监控中，我们也加入了图片没有设置尺寸的告警，进而进一步优化用户体验。</p>
 
       
     </div>
@@ -373,7 +296,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -438,7 +361,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-count">31</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -449,7 +372,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

@@ -161,7 +161,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/">
+    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -175,7 +175,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/" class="post-title-link" itemprop="url">在linux上玩一下AI拟声</a>
+            <a href="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/" class="post-title-link" itemprop="url">浅析Uni-App的加载过程</a>
         </h2>
 
         <div class="post-meta">
@@ -185,7 +185,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2022-02-22 12:02:04" itemprop="dateCreated datePublished" datetime="2022-02-22T12:02:04+08:00">2022-02-22</time>
+              <time title="创建时间：2022-03-07 18:43:04" itemprop="dateCreated datePublished" datetime="2022-03-07T18:43:04+08:00">2022-03-07</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
@@ -215,169 +215,407 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h3><p><a target="_blank" rel="noopener" href="https://github.com/babysor/MockingBird">https://github.com/babysor/MockingBird</a></p>
-<p>git clone项目到本地，然后安装环境，开始体验。</p>
-<h3 id="操作方式"><a href="#操作方式" class="headerlink" title="操作方式"></a>操作方式</h3><h4 id="1、环境安装"><a href="#1、环境安装" class="headerlink" title="1、环境安装"></a>1、环境安装</h4><h5 id="1、1安装python环境"><a href="#1、1安装python环境" class="headerlink" title="1、1安装python环境"></a>1、1安装python环境</h5><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">yum install python39<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h5 id="1、2指定系统默认python版本"><a href="#1、2指定系统默认python版本" class="headerlink" title="1、2指定系统默认python版本"></a>1、2指定系统默认python版本</h5><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@VM-80-70-centos alternatives]# update-alternatives --config python3
+          <p>因为项目使用的<a target="_blank" rel="noopener" href="https://github.com/dcloudio/uni-app">uni-app</a>来做小程序，所以，不得不去研究下uni-app对小程序打包的整个过程，众所周知，最简单的办法是去github官网去看看他的readme文件，介绍，无奈没发现什么有价值的介绍，只能自己单步调试一下打包的过程了。</p>
+<h3 id="step1、在vscode中配置调试启动配置"><a href="#step1、在vscode中配置调试启动配置" class="headerlink" title="step1、在vscode中配置调试启动配置"></a>step1、在vscode中配置调试启动配置</h3><p>在launch.json中添加这一项就ok，这样就可以已调试的方式启动  yarn 命令，我这里是start。</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token comment">// A launch configuration that compiles the extension and then opens it inside a new window</span>
+<span class="token comment">// Use IntelliSense to learn about possible attributes.</span>
+<span class="token comment">// Hover to view descriptions of existing attributes.</span>
+<span class="token comment">// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387</span>
+<span class="token punctuation">&#123;</span>
+	<span class="token property">"version"</span><span class="token operator">:</span> <span class="token string">"0.2.0"</span><span class="token punctuation">,</span>
+	<span class="token property">"configurations"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+		<span class="token punctuation">&#123;</span>
+      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"node"</span><span class="token punctuation">,</span>
+      <span class="token property">"request"</span><span class="token operator">:</span> <span class="token string">"launch"</span><span class="token punctuation">,</span>
+      <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"yarn"</span><span class="token punctuation">,</span>
+      <span class="token property">"runtimeExecutable"</span><span class="token operator">:</span> <span class="token string">"yarn"</span><span class="token punctuation">,</span>
+      <span class="token property">"runtimeArgs"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"start"</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">"port"</span><span class="token operator">:</span> <span class="token number">5858</span><span class="token punctuation">,</span>
+      <span class="token property">"cwd"</span><span class="token operator">:</span> <span class="token string">"$&#123;workspaceRoot&#125;"</span><span class="token punctuation">,</span>
+      <span class="token property">"timeout"</span><span class="token operator">:</span> <span class="token number">10000</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+		....
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>然后就是启动调试了，当然可以在适当的位置先配置一个断点，比如在这个文件中</p>
+<p><code>./node_modules/@dcloudio/vue-cli-plugin-uni/lib/env.js</code>增加一个断点</p>
+<p><img data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307185142192.png" alt="image-20220307185142192" src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307185142192.png"></p>
+<p>断掉断到之后，可以发现，栈底是在执行这个文件的代码<code>/internal/main/run_main_module.js</code></p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token string">'use strict'</span><span class="token punctuation">;</span>
 
-There are 3 programs which provide &#39;python3&#39;.
+<span class="token keyword">const</span> <span class="token punctuation">&#123;</span>
+  prepareMainThreadExecution
+<span class="token punctuation">&#125;</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'internal/bootstrap/pre_execution'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  Selection    Command
------------------------------------------------
-   1           &#x2F;usr&#x2F;bin&#x2F;python3.8
-*  2           &#x2F;usr&#x2F;bin&#x2F;python3.6
- + 3           &#x2F;usr&#x2F;bin&#x2F;python3.9
+<span class="token function">prepareMainThreadExecution</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-Enter to keep the current selection[+], or type selection number: 
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>这里默认是3.6，这个工程是不支持的，比如后续如果安装pytorch，就会报错</p>
-<p><img data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222120812006.png" alt="image-20220222120812006" src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222120812006.png"></p>
-<p>所以，这里输入3，选择3.9版本搞起，其实也可以系统python版本如果高于3.7也是可以不用安装python3.9，可直接进入安装pytorch。</p>
-<h5 id="1、3安装pytorch"><a href="#1、3安装pytorch" class="headerlink" title="1、3安装pytorch"></a>1、3安装pytorch</h5><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">pip3 install torch torchvision<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>验证一下是否安装成功</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> torch
-x <span class="token operator">=</span> torch<span class="token punctuation">.</span>rand<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span>
-<span class="token comment">#=============输出</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p><img data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222120729276.png" alt="image-20220222120729276" src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222120729276.png"></p>
-<h5 id="1、4安装ffmpeg，这个比较复杂，最好是使用源码编译安装的方式，yum找源大概率报错"><a href="#1、4安装ffmpeg，这个比较复杂，最好是使用源码编译安装的方式，yum找源大概率报错" class="headerlink" title="1、4安装ffmpeg，这个比较复杂，最好是使用源码编译安装的方式，yum找源大概率报错"></a>1、4安装ffmpeg，这个比较复杂，最好是使用源码编译安装的方式，yum找源大概率报错</h5><p>安装以及升级可以参考这里的步骤  <a target="_blank" rel="noopener" href="https://trac.ffmpeg.org/wiki/CompilationGuide/Centos，整个过程网络ok的情况下至少需要半小时。">https://trac.ffmpeg.org/wiki/CompilationGuide/Centos，整个过程网络ok的情况下至少需要半小时。</a></p>
-<p>我这里只展示安装的步骤，升级可以通过上面的链接查找。</p>
-<p>step1</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">yum install autoconf automake bzip2 bzip2-devel cmake freetype-devel gcc gcc-c++ git libtool make pkgconfig zlib-devel<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>step2</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">mkdir ~&#x2F;ffmpeg_sources<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>step3</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd ~&#x2F;ffmpeg_sources
-curl -O -L https:&#x2F;&#x2F;www.nasm.us&#x2F;pub&#x2F;nasm&#x2F;releasebuilds&#x2F;2.15.05&#x2F;nasm-2.15.05.tar.bz2
-tar xjvf nasm-2.15.05.tar.bz2
-cd nasm-2.15.05
-.&#x2F;autogen.sh
-.&#x2F;configure --prefix&#x3D;&quot;$HOME&#x2F;ffmpeg_build&quot; --bindir&#x3D;&quot;$HOME&#x2F;bin&quot;
-make
-make install<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>step4</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd ~&#x2F;ffmpeg_sources
-curl -O -L https:&#x2F;&#x2F;www.tortall.net&#x2F;projects&#x2F;yasm&#x2F;releases&#x2F;yasm-1.3.0.tar.gz
-tar xzvf yasm-1.3.0.tar.gz
-cd yasm-1.3.0
-.&#x2F;configure --prefix&#x3D;&quot;$HOME&#x2F;ffmpeg_build&quot; --bindir&#x3D;&quot;$HOME&#x2F;bin&quot;
-make
-make install<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>step5</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd ~&#x2F;ffmpeg_sources
-git clone --branch stable --depth 1 https:&#x2F;&#x2F;code.videolan.org&#x2F;videolan&#x2F;x264.git
-cd x264
-PKG_CONFIG_PATH&#x3D;&quot;$HOME&#x2F;ffmpeg_build&#x2F;lib&#x2F;pkgconfig&quot; .&#x2F;configure --prefix&#x3D;&quot;$HOME&#x2F;ffmpeg_build&quot; --bindir&#x3D;&quot;$HOME&#x2F;bin&quot; --enable-static
-make
-make install<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>step6</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd ~&#x2F;ffmpeg_sources
-git clone --branch stable --depth 2 https:&#x2F;&#x2F;bitbucket.org&#x2F;multicoreware&#x2F;x265_git
-cd ~&#x2F;ffmpeg_sources&#x2F;x265_git&#x2F;build&#x2F;linux
-cmake -G &quot;Unix Makefiles&quot; -DCMAKE_INSTALL_PREFIX&#x3D;&quot;$HOME&#x2F;ffmpeg_build&quot; -DENABLE_SHARED:bool&#x3D;off ..&#x2F;..&#x2F;source
-make
-make install<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>step7</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd ~&#x2F;ffmpeg_sources
-git clone --depth 1 https:&#x2F;&#x2F;github.com&#x2F;mstorsjo&#x2F;fdk-aac
-cd fdk-aac
-autoreconf -fiv
-.&#x2F;configure --prefix&#x3D;&quot;$HOME&#x2F;ffmpeg_build&quot; --disable-shared
-make
-make install<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>step8</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd ~&#x2F;ffmpeg_sources
-curl -O -L https:&#x2F;&#x2F;downloads.sourceforge.net&#x2F;project&#x2F;lame&#x2F;lame&#x2F;3.100&#x2F;lame-3.100.tar.gz
-tar xzvf lame-3.100.tar.gz
-cd lame-3.100
-.&#x2F;configure --prefix&#x3D;&quot;$HOME&#x2F;ffmpeg_build&quot; --bindir&#x3D;&quot;$HOME&#x2F;bin&quot; --disable-shared --enable-nasm
-make
-make install<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>step9</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd ~&#x2F;ffmpeg_sources
-curl -O -L https:&#x2F;&#x2F;archive.mozilla.org&#x2F;pub&#x2F;opus&#x2F;opus-1.3.1.tar.gz
-tar xzvf opus-1.3.1.tar.gz
-cd opus-1.3.1
-.&#x2F;configure --prefix&#x3D;&quot;$HOME&#x2F;ffmpeg_build&quot; --disable-shared
-make
-make install<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>step10</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd ~&#x2F;ffmpeg_sources
-git clone --depth 1 https:&#x2F;&#x2F;chromium.googlesource.com&#x2F;webm&#x2F;libvpx.git
-cd libvpx
-.&#x2F;configure --prefix&#x3D;&quot;$HOME&#x2F;ffmpeg_build&quot; --disable-examples --disable-unit-tests --enable-vp9-highbitdepth --as&#x3D;yasm
-make
-make install<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>step11</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd ~&#x2F;ffmpeg_sources
-curl -O -L https:&#x2F;&#x2F;ffmpeg.org&#x2F;releases&#x2F;ffmpeg-5.0.tar.bz2
-tar xjvf ffmpeg-5.0.tar.bz2
-cd ffmpeg-5.0
-PATH&#x3D;&quot;$HOME&#x2F;bin:$PATH&quot; PKG_CONFIG_PATH&#x3D;&quot;$HOME&#x2F;ffmpeg_build&#x2F;lib&#x2F;pkgconfig&quot; .&#x2F;configure \
-  --prefix&#x3D;&quot;$HOME&#x2F;ffmpeg_build&quot; \
-  --pkg-config-flags&#x3D;&quot;--static&quot; \
-  --extra-cflags&#x3D;&quot;-I$HOME&#x2F;ffmpeg_build&#x2F;include&quot; \
-  --extra-ldflags&#x3D;&quot;-L$HOME&#x2F;ffmpeg_build&#x2F;lib&quot; \
-  --extra-libs&#x3D;-lpthread \
-  --extra-libs&#x3D;-lm \
-  --bindir&#x3D;&quot;$HOME&#x2F;bin&quot; \
-  --enable-gpl \
-  --enable-libfdk_aac \
-  --enable-libfreetype \
-  --enable-libmp3lame \
-  --enable-libopus \
-  --enable-libvpx \
-  --enable-libx264 \
-  --enable-libx265 \
-  --enable-nonfree
-make
-make install
-hash -d ffmpeg<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h5 id="1、5安装python需要的包"><a href="#1、5安装python需要的包" class="headerlink" title="1、5安装python需要的包"></a>1、5安装python需要的包</h5><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">cd &#x2F;pathto&#x2F;MockingBird #到里本地项目克隆路径下
-pip3 install -r requirements.txt<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>什么鬼，安装直接报错</p>
-<p><img data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222130237710.png" alt="image-20220222130237710" src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222130237710.png"></p>
-<p>查了下资料，要解决这个问题，需要暗转下python39的devel，于是</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 安装EPEL源
-yum install epel-release -y
-# 安装python3开发包
-yum install python39-devel -y<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p><img data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222130400801.png" alt="image-20220222130400801" src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222130400801.png"></p>
-<p>这里大概就有我们需要的头文件了，然后在重试一次</p>
-<p><img data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222130524618.png" alt="image-20220222130524618" src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222130524618.png"></p>
-<p>这一次果断就成功了。</p>
-<h5 id="继续安装一个可选的依赖"><a href="#继续安装一个可选的依赖" class="headerlink" title="继续安装一个可选的依赖"></a>继续安装一个可选的依赖</h5><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">pip3 install webrtcvad-wheels<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>至此，整个环境的安装才算完毕，我初步估算了下，大概需要45分钟左右部署好环境。</p>
-<h4 id="2、准备模型"><a href="#2、准备模型" class="headerlink" title="2、准备模型"></a>2、准备模型</h4><p>这里我直接使用社区准备好的模型</p>
-<table>
-<thead>
-<tr>
-<th>作者</th>
-<th><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1iONvRxmkI-t1nHqxKytY3g">https://pan.baidu.com/s/1iONvRxmkI-t1nHqxKytY3g</a> <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1iONvRxmkI-t1nHqxKytY3g">百度盘链接</a> 4j5d</th>
-<th></th>
-<th>75k steps 用3个开源数据集混合训练</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<h4 id="3、打开web网页"><a href="#3、打开web网页" class="headerlink" title="3、打开web网页"></a>3、打开web网页</h4><pre class="line-numbers language-python" data-language="python"><code class="language-python">python web<span class="token punctuation">.</span>py <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>什么鬼，又一个报错</p>
-<p><img data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222131611301.png" alt="image-20220222131611301" src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222131611301.png"></p>
-<p>查了下，需要安装</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">yum install libsndfile<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p> 运行成功后在浏览器打开地址,默认为 <a target="_blank" rel="noopener" href="http://localhost:8080">http://localhost:8080</a></p>
-<p><img data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222142941022.png" alt="image-20220222142941022" src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222142941022.png"></p>
-<p>这就表示已经玩起来了。</p>
-<p>注意，开始synthesizer是没有模型的，需要自己把第二步下载好的模型复制到</p>
-<p><img data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222143111766.png" alt="image-20220222143111766" src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222143111766.png"></p>
-<p>这个目录下。</p>
-<h4 id="4、玩法"><a href="#4、玩法" class="headerlink" title="4、玩法"></a>4、玩法</h4><p><img data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222142829792.png" alt="image-20220222142829792" src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222142829792.png"></p>
+<span class="token keyword">const</span> CJSModule <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'internal/modules/cjs/loader'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token function">markBootstrapComplete</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// Note: this actually tries to run the module as a ESM first if</span>
+<span class="token comment">// --experimental-modules is on.</span>
+<span class="token comment">// TODO(joyeecheung): can we move that logic to here? Note that this</span>
+<span class="token comment">// is an undocumented method available via `require('module').runMain`</span>
+CJSModule<span class="token punctuation">.</span><span class="token function">runMain</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>所以，我们发现了一个点，整个构建的开始就是从CJSModule.runMain();这句话开始的。</p>
+<h3 id="step2、分析uni的打包过程中加载了哪些文件"><a href="#step2、分析uni的打包过程中加载了哪些文件" class="headerlink" title="step2、分析uni的打包过程中加载了哪些文件"></a>step2、分析uni的打包过程中加载了哪些文件</h3><p><img data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307190611229.png" alt="image-20220307190611229" src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307190611229.png"></p>
+<p>这里应该就是解析参数，准备开始执行yarn命令了，我们看一看我们的yarn命令，</p>
+<p><code>UNI_PLATFORM=mp-weixin vue-cli-service uni-build --watch</code>，所以，第一个加载的模块应该就是</p>
+<p>@vue/cli-service/bin/vue-cli-service.js</p>
+<p><img data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307190027189.png" alt="image-20220307190027189" src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307190027189.png"></p>
+<p>随后的过程记录粗粒度一点点，后面vue-cli-service会加载各种plugin，具体怎么判断是否是一个plugin，有一定的规则命名;</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> pluginRE <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^(@vue\/|vue-|@[\w-]+(\.)?[\w-]+\/vue-)cli-plugin-</span><span class="token regex-delimiter">/</span></span>
+<span class="token keyword">const</span> scopeRE <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^@[\w-]+(\.)?[\w-]+\/</span><span class="token regex-delimiter">/</span></span>
+<span class="token keyword">const</span> officialRE <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^@vue\/</span><span class="token regex-delimiter">/</span></span>
+
+<span class="token keyword">const</span> officialPlugins <span class="token operator">=</span> <span class="token punctuation">[</span>
+  <span class="token string">'babel'</span><span class="token punctuation">,</span>
+  <span class="token string">'e2e-cypress'</span><span class="token punctuation">,</span>
+  <span class="token string">'e2e-nightwatch'</span><span class="token punctuation">,</span>
+  <span class="token string">'e2e-webdriverio'</span><span class="token punctuation">,</span>
+  <span class="token string">'eslint'</span><span class="token punctuation">,</span>
+  <span class="token string">'pwa'</span><span class="token punctuation">,</span>
+  <span class="token string">'router'</span><span class="token punctuation">,</span>
+  <span class="token string">'typescript'</span><span class="token punctuation">,</span>
+  <span class="token string">'unit-jest'</span><span class="token punctuation">,</span>
+  <span class="token string">'unit-mocha'</span><span class="token punctuation">,</span>
+  <span class="token string">'vuex'</span>
+<span class="token punctuation">]</span>
+exports<span class="token punctuation">.</span><span class="token function-variable function">isPlugin</span> <span class="token operator">=</span> <span class="token parameter">id</span> <span class="token operator">=></span> pluginRE<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>id<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>然后从项目的package.json的依赖中解析出来了三个需要加载的插件</p>
+<p><img data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307193648564.png" alt="image-20220307193648564" src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307193648564.png"></p>
+<p>很显然第一个加载并执行的插件就是这个vue-cli-plugin-hbuilderx插件。接着依次去加载其他两个，我们先看第一个插件吧。</p>
+<h4 id="加载vue-cli-plugin-uni插件"><a href="#加载vue-cli-plugin-uni插件" class="headerlink" title="加载vue-cli-plugin-uni插件"></a>加载vue-cli-plugin-uni插件</h4><p>进入一看，他直接退出了，原因是只处理 app-plus相关的逻辑，而我们编译的是mp-weixin</p>
+<p><img data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307194446009.png" alt src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307194446009.png"></p>
+<p>所以，忽略，直接进入下面一个 vue-cli-plugin-uni的加载，这个文件先加载了一个.env.js</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 初始化全局插件对象</span>
+global<span class="token punctuation">.</span>uniPlugin <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'@dcloudio/uni-cli-shared/lib/plugin'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>这个里面就初始化了全局插件对象，然后它的init操作中去加载了对应平台的插件，也就是说，编译什么平台就加载什么平台的插件。</p>
+<p><img data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307213703832.png" alt="image-20220307213703832" src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307213703832.png"></p>
+<p>我们编译的是小程序的，所以加载的是@dcloudio/uni-mp-weixin。</p>
+<p>这里在外后走就是初始化预处理器，<strong>然后发现Plugin.platforms中居然有一个h5，暂时不知道为什么编译小程序平台需要h5，难道h5是必须的嘛</strong>？这个问题先放一放</p>
+<p><img data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307214847221.png" alt="image-20220307214847221" src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307214847221.png"></p>
+<p>知道env.js执行完，就可以知道，他做了一下几件事情：</p>
+<ol>
+<li>初始化了全局插件，读取了一些webpack配置，特别是copyWebpackOptions</li>
+<li>以及一些全局的options，如cssVars，extNames，subPackages等<ol>
+<li><img data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307220428348.png" alt="image-20220307220428348" src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307220428348.png"></li>
+</ol>
+</li>
+<li>设置了一堆的环境变量<ol>
+<li>process.env.UNI_PLATFORM</li>
+<li>process.env.VUE_APP_PLATFORM</li>
+<li>process.env.UNI_OUTPUT_DIR</li>
+</ol>
+</li>
+<li>确定了build后产物的路径process.env.UNI_OUTPUT_DIR</li>
+<li>对分包subPackages的处理</li>
+<li>process.env.VUE_APP_DEBUG 开关</li>
+<li>增加了一堆的hack操作，把vue相关的库指向了uni自己的包装过的<ol>
+<li><img data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307221717949.png" alt="image-20220307221717949" src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307221717949.png"></li>
+</ol>
+</li>
+</ol>
+<p>插件加载之后，下一步 就是要执行插件，执行操作设计到对vue代码转换为小程序语法的过程，这部分内容，我觉得还是单独开一篇比较合适。</p>
+<h4 id="加载vue-cli-plugin-uni-optimize插件"><a href="#加载vue-cli-plugin-uni-optimize插件" class="headerlink" title="加载vue-cli-plugin-uni-optimize插件"></a>加载vue-cli-plugin-uni-optimize插件</h4><p>这个插件主要是做了一些代码优化，代码也不是很多，很直观就可以看明白</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> webpack <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'webpack'</span><span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> WebpackOptimizePlugin <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./packages/webpack-optimize-plugin'</span><span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> <span class="token punctuation">&#123;</span>
+  src<span class="token punctuation">,</span>
+  lib
+<span class="token punctuation">&#125;</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'@dcloudio/uni-h5/path'</span><span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> <span class="token function-variable function">resolve</span> <span class="token operator">=</span> <span class="token parameter">dir</span> <span class="token operator">=></span> path<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">'./'</span><span class="token punctuation">,</span> dir<span class="token punctuation">)</span>
+
+module<span class="token punctuation">.</span><span class="token function-variable function">exports</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">api<span class="token punctuation">,</span> options</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">UNI_OPT_TREESHAKINGNG</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">NODE_ENV</span> <span class="token operator">!==</span> <span class="token string">'production'</span> <span class="token operator">||</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">UNI_PLATFORM</span> <span class="token operator">!==</span> <span class="token string">'h5'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token comment">// 组件</span>
+  <span class="token keyword">const</span> uniComponentsPath <span class="token operator">=</span> <span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">'.tmp/components.js'</span><span class="token punctuation">)</span>
+
+  <span class="token keyword">const</span> uniInvokeApiPath <span class="token operator">=</span> <span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">'.tmp/invoke-api.js'</span><span class="token punctuation">)</span>
+  <span class="token keyword">const</span> uniServiceApiPath <span class="token operator">=</span> <span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">'.tmp/api.js'</span><span class="token punctuation">)</span>
+  <span class="token keyword">const</span> uniApiProtocolPath <span class="token operator">=</span> <span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">'.tmp/protocol.js'</span><span class="token punctuation">)</span>
+  <span class="token keyword">const</span> uniApiSubscribePath <span class="token operator">=</span> <span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">'.tmp/subscribe.js'</span><span class="token punctuation">)</span>
+  <span class="token keyword">const</span> uniH5AppComponentsPath <span class="token operator">=</span> <span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">'.tmp/app-components.js'</span><span class="token punctuation">)</span>
+  <span class="token keyword">const</span> uniH5AppMixinsPath <span class="token operator">=</span> <span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">'.tmp/app-mixins.js'</span><span class="token punctuation">)</span>
+  <span class="token keyword">const</span> uniH5SystemRoutes <span class="token operator">=</span> <span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">'.tmp/system-routes.js'</span><span class="token punctuation">)</span>
+
+  options<span class="token punctuation">.</span>transpileDependencies<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">vue-cli-plugin-uni-optimize</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">)</span>
+  options<span class="token punctuation">.</span>transpileDependencies<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">uni-h5</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">)</span>
+
+  api<span class="token punctuation">.</span><span class="token function">configureWebpack</span><span class="token punctuation">(</span><span class="token parameter">webpackConfig</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">&#123;</span>
+      <span class="token literal-property property">watch</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">resolve</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token literal-property property">alias</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+          <span class="token punctuation">[</span><span class="token string">'uni-'</span> <span class="token operator">+</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">UNI_PLATFORM</span><span class="token punctuation">]</span><span class="token operator">:</span> path<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>lib<span class="token punctuation">,</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">UNI_PLATFORM</span><span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">/main.js</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+          <span class="token string-property property">'uni-core'</span><span class="token operator">:</span> path<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>src<span class="token punctuation">,</span> <span class="token string">'core'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+          <span class="token string-property property">'uni-view'</span><span class="token operator">:</span> path<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>src<span class="token punctuation">,</span> <span class="token string">'core/view'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+          <span class="token string-property property">'uni-service'</span><span class="token operator">:</span> path<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>src<span class="token punctuation">,</span> <span class="token string">'core/service'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+          <span class="token string-property property">'uni-shared'</span><span class="token operator">:</span> path<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>src<span class="token punctuation">,</span> <span class="token string">'shared'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+          <span class="token string-property property">'uni-mixins'</span><span class="token operator">:</span> path<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>src<span class="token punctuation">,</span> <span class="token string">'core/view/mixins'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+          <span class="token string-property property">'uni-helpers'</span><span class="token operator">:</span> path<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>src<span class="token punctuation">,</span> <span class="token string">'core/helpers'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+          <span class="token string-property property">'uni-platform'</span><span class="token operator">:</span> path<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>src<span class="token punctuation">,</span> <span class="token string">'platforms/'</span> <span class="token operator">+</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">UNI_PLATFORM</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+
+          <span class="token comment">// tree shaking</span>
+          <span class="token string-property property">'uni-components'</span><span class="token operator">:</span> uniComponentsPath<span class="token punctuation">,</span>
+          <span class="token string-property property">'uni-invoke-api'</span><span class="token operator">:</span> uniInvokeApiPath<span class="token punctuation">,</span>
+          <span class="token string-property property">'uni-service-api'</span><span class="token operator">:</span> uniServiceApiPath<span class="token punctuation">,</span>
+          <span class="token string-property property">'uni-api-protocol'</span><span class="token operator">:</span> uniApiProtocolPath<span class="token punctuation">,</span>
+          <span class="token string-property property">'uni-api-subscribe'</span><span class="token operator">:</span> uniApiSubscribePath<span class="token punctuation">,</span>
+          <span class="token comment">// h5 components</span>
+          <span class="token string-property property">'uni-h5-app-components'</span><span class="token operator">:</span> uniH5AppComponentsPath<span class="token punctuation">,</span>
+          <span class="token string-property property">'uni-h5-app-mixins'</span><span class="token operator">:</span> uniH5AppMixinsPath<span class="token punctuation">,</span>
+          <span class="token string-property property">'uni-h5-system-routes'</span><span class="token operator">:</span> uniH5SystemRoutes
+        <span class="token punctuation">&#125;</span>
+      <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">plugins</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token keyword">new</span> <span class="token class-name">WebpackOptimizePlugin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token keyword">new</span> <span class="token class-name">webpack<span class="token punctuation">.</span>DefinePlugin</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+          <span class="token literal-property property">__VERSION__</span><span class="token operator">:</span> <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">stringify</span><span class="token punctuation">(</span><span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'@dcloudio/uni-'</span> <span class="token operator">+</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">UNI_PLATFORM</span> <span class="token operator">+</span> <span class="token string">'/package.json'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>version<span class="token punctuation">)</span><span class="token punctuation">,</span>
+          <span class="token literal-property property">__PLATFORM__</span><span class="token operator">:</span> <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">stringify</span><span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">UNI_PLATFORM</span><span class="token punctuation">)</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token keyword">new</span> <span class="token class-name">webpack<span class="token punctuation">.</span>ProvidePlugin</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+          <span class="token literal-property property">console</span><span class="token operator">:</span> <span class="token punctuation">[</span>path<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>src<span class="token punctuation">,</span> <span class="token string">'core/helpers/console'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">'default'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+          <span class="token literal-property property">UniViewJSBridge</span><span class="token operator">:</span> <span class="token punctuation">[</span>path<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>src<span class="token punctuation">,</span> <span class="token string">'core/view/bridge/index'</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+          <span class="token literal-property property">UniServiceJSBridge</span><span class="token operator">:</span> <span class="token punctuation">[</span>path<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>src<span class="token punctuation">,</span> <span class="token string">'core/service/bridge/index'</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+  api<span class="token punctuation">.</span><span class="token function">chainWebpack</span><span class="token punctuation">(</span><span class="token parameter">webpackConfig</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// Vue</span>
+    webpackConfig<span class="token punctuation">.</span>module
+      <span class="token punctuation">.</span><span class="token function">rule</span><span class="token punctuation">(</span><span class="token string">'vue'</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token string">'vue-loader'</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">tap</span><span class="token punctuation">(</span><span class="token parameter">options</span> <span class="token operator">=></span> Object<span class="token punctuation">.</span><span class="token function">assign</span><span class="token punctuation">(</span>options<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>
+        <span class="token literal-property property">isH5TreeShaking</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">cacheDirectory</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">cacheIdentifier</span><span class="token operator">:</span> <span class="token boolean">false</span>
+      <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span>uses
+      <span class="token punctuation">.</span><span class="token function">delete</span><span class="token punctuation">(</span><span class="token string">'cache-loader'</span><span class="token punctuation">)</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>从这里也了解了，为啥编译一个小程序还需要h5的插件,然来是vue-cli-plugin-uni-optimize这个插件需要基于h5</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> <span class="token punctuation">&#123;</span>
+  src<span class="token punctuation">,</span>
+  lib
+<span class="token punctuation">&#125;</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'@dcloudio/uni-h5/path'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307225158705.png" alt="image-20220307225158705" src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307225158705.png"></p>
+<p>用到了他里面的一些核心能力，这也从侧面了解，uni编译各种版本，基本上都会最终依赖上这个h5的插件。这里也可以了解到，如果是开发模式，这个插件不会被执行，因为</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">UNI_OPT_TREESHAKINGNG</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h3 id="step3、执行插件"><a href="#step3、执行插件" class="headerlink" title="step3、执行插件"></a>step3、执行插件</h3><p>通常一个插件都会暴露出一个方法</p>
+<p><img data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307230528416.png" alt="image-20220307230528416" src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307230528416.png"></p>
+<p>这个方法，将会被vue-cli-service去挨个挨个执行</p>
+<p><img data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307230626272.png" alt="image-20220307230626272" src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307230626272.png"></p>
+<p>插件被执行完之后，最终就会进入到构建环节</p>
+<h3 id="step3、进入构建环节"><a href="#step3、进入构建环节" class="headerlink" title="step3、进入构建环节"></a>step3、进入构建环节</h3><p><img data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307232816427.png" alt="image-20220307232816427" src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307232816427.png"></p>
+<p>这里就不直接展开了，小程序产物构建完全可以单独搞一章了。</p>
+<p>这里我们了解整个过程之后，发现uni打开做了这么几件事</p>
+<ol>
+<li>使用yarn start命令，会直接出发vue-cli-service活动起来，然后开始加载vue-cli相关的插件</li>
+<li>其中uni的三个插件会被加载，并依次之心</li>
+<li>同时我们发现，在小程序模式下，hbuilderx插件是不会被执行的</li>
+<li>然后我们发现optimize插件在develop模式下是不会被执行的</li>
+<li>因此我们发现只有vue-cli-plugin-uni这个插件会被执行，这里面做了一些列的准备工作，目的就是为了uni能够有一个编译为小程序的环境，他在执行完插件体之后，最终cli-service会转而调用@dcloudio/vue-cli-plugin-uni/commands/build.js中的build方法，然后build方法在执行的过程中，会到@dcloudio/vue-cli-plugin-uni/lib/mp/index.js中执行去手机webpack的一些配置，汇总好继续build的构建。</li>
+</ol>
+<p><strong>下面附上这些个过程的堆栈信息，其调用过程一目了然。</strong></p>
+<blockquote>
+<p>webpackConfig (/Users/xxx/mp-project/node_modules/<strong>@dcloudio/vue-cli-plugin-uni/lib/mp/index.js</strong>:149)<br>….<strong>此处省略一些堆栈</strong><br>build (/Users/xxx/mp-project/node_modules/@dcloudio/vue-cli-plugin-uni/commands/build.js:137)</p>
+<p><anonymous> (/Users/xxx/mp-project/node_modules/<strong>@dcloudio/vue-cli-plugin-uni/commands/build.js:62</strong>)<br>run (/Users/xxx/mp-project/node_modules/@vue/cli-service/lib/<strong>Service.js:230</strong>)</anonymous></p>
+<p><anonymous> (/Users/xxx/mp-project/node_modules/@vue/cli-service/bin/<strong>vue-cli-service.js:36</strong>)<br>Module._compile (&lt;node_internals&gt;/internal/modules/cjs/loader.js:956)<br>Module._extensions..js (&lt;node_internals&gt;/internal/modules/cjs/loader.js:973)<br>Module.load (&lt;node_internals&gt;/internal/modules/cjs/loader.js:812)<br>Module._load (&lt;node_internals&gt;/internal/modules/cjs/loader.js:724)<br>Module.runMain (&lt;node_internals&gt;/internal/modules/cjs/<strong>loader.js:1025</strong>)</anonymous></p>
+<p><anonymous> (&lt;node_internals&gt;/internal/main/<strong>run_main_module.js:17</strong>)</anonymous></p>
+</blockquote>
+<p>这里也贴一下vue-cli-plugin-uni/lib/mp/index.js的核心代码，后续的文章就了解这个里面怎么把vue代码构建成小程序的。</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+  <span class="token literal-property property">vueConfig</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token literal-property property">parallel</span><span class="token operator">:</span> <span class="token boolean">false</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token function">webpackConfig</span> <span class="token punctuation">(</span><span class="token parameter">webpackConfig<span class="token punctuation">,</span> vueOptions<span class="token punctuation">,</span> api</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>webpackConfig<span class="token punctuation">.</span>optimization<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      webpackConfig<span class="token punctuation">.</span>optimization <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token comment">// disable noEmitOnErrors</span>
+    webpackConfig<span class="token punctuation">.</span>optimization<span class="token punctuation">.</span>noEmitOnErrors <span class="token operator">=</span> <span class="token boolean">false</span>
+
+    webpackConfig<span class="token punctuation">.</span>optimization<span class="token punctuation">.</span>runtimeChunk <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+      <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">'common/runtime'</span>
+    <span class="token punctuation">&#125;</span>
+
+    webpackConfig<span class="token punctuation">.</span>optimization<span class="token punctuation">.</span>splitChunks <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'../split-chunks'</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token function">parseEntry</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">const</span> statCode <span class="token operator">=</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">UNI_USING_STAT</span> <span class="token operator">?</span> <span class="token string">'import \'@dcloudio/uni-stat\';'</span> <span class="token operator">:</span> <span class="token string">''</span>
+
+    <span class="token keyword">let</span> beforeCode <span class="token operator">=</span> <span class="token string">'import \'uni-pages\';'</span>
+
+    <span class="token keyword">const</span> plugins <span class="token operator">=</span> <span class="token punctuation">[</span>
+      <span class="token keyword">new</span> <span class="token class-name">WebpackUniAppPlugin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      <span class="token function">createUniMPPlugin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      <span class="token keyword">new</span> <span class="token class-name">webpack<span class="token punctuation">.</span>ProvidePlugin</span><span class="token punctuation">(</span><span class="token function">getProvides</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">]</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">UNI_SUBPACKGE</span> <span class="token operator">||</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">UNI_MP_PLUGIN</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">UNI_SUBPACKGE</span> <span class="token operator">!==</span> <span class="token string">'main'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      plugins<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">PreprocessAssetsPlugin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">UNI_MP_PLUGIN</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token comment">// 小程序插件入口使用</span>
+      <span class="token comment">// packages\webpack-uni-mp-loader\lib\plugin\index-new.js -> addMPPluginRequire</span>
+      beforeCode <span class="token operator">+=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">wx.__webpack_require_</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">UNI_MP_PLUGIN</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token string">'-'</span><span class="token punctuation">,</span> <span class="token string">'_'</span><span class="token punctuation">)</span><span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">__ = __webpack_require__;</span><span class="token template-punctuation string">`</span></span>
+
+      <span class="token keyword">const</span> <span class="token constant">UNI_MP_PLUGIN_MAIN</span> <span class="token operator">=</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">UNI_MP_PLUGIN_MAIN</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token constant">UNI_MP_PLUGIN_MAIN</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        process<span class="token punctuation">.</span><span class="token constant">UNI_ENTRY</span><span class="token punctuation">[</span><span class="token constant">UNI_MP_PLUGIN_MAIN</span><span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">'.'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> path<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">UNI_INPUT_DIR</span><span class="token punctuation">,</span> <span class="token constant">UNI_MP_PLUGIN_MAIN</span><span class="token punctuation">)</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">return</span> <span class="token punctuation">&#123;</span>
+      <span class="token literal-property property">mode</span><span class="token operator">:</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">NODE_ENV</span> <span class="token operator">===</span> <span class="token string">'production'</span> <span class="token operator">?</span> <span class="token string">'production'</span> <span class="token operator">:</span> <span class="token string">'development'</span><span class="token punctuation">,</span>
+      <span class="token function">entry</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> process<span class="token punctuation">.</span><span class="token constant">UNI_ENTRY</span>
+      <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">output</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token literal-property property">filename</span><span class="token operator">:</span> <span class="token string">'[name].js'</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">chunkFilename</span><span class="token operator">:</span> <span class="token string">'[id].js'</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">globalObject</span><span class="token operator">:</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">UNI_PLATFORM</span> <span class="token operator">===</span> <span class="token string">'mp-alipay'</span> <span class="token operator">?</span> <span class="token string">'my'</span> <span class="token operator">:</span> <span class="token string">'global'</span>
+        <span class="token comment">// sourceMapFilename: '../.sourcemap/' + process.env.UNI_PLATFORM + '/[name].js.map'</span>
+      <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">performance</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token literal-property property">hints</span><span class="token operator">:</span> <span class="token boolean">false</span>
+      <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">resolve</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token literal-property property">extensions</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'.nvue'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">alias</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token comment">// 仅 mp-weixin</span>
+          <span class="token string-property property">'mpvue-page-factory'</span><span class="token operator">:</span> require<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>
+            <span class="token string">'@dcloudio/vue-cli-plugin-uni/packages/mpvue-page-factory'</span><span class="token punctuation">)</span>
+        <span class="token punctuation">&#125;</span>
+      <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">module</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token literal-property property">rules</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">&#123;</span>
+          <span class="token literal-property property">test</span><span class="token operator">:</span> path<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">UNI_INPUT_DIR</span><span class="token punctuation">,</span> <span class="token function">getMainEntry</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+          <span class="token literal-property property">use</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">&#123;</span>
+            <span class="token literal-property property">loader</span><span class="token operator">:</span> path<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">'../../packages/wrap-loader'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token literal-property property">options</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+              <span class="token literal-property property">before</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+                beforeCode <span class="token operator">+</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'../util'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getAutomatorCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> statCode
+              <span class="token punctuation">]</span>
+            <span class="token punctuation">&#125;</span>
+          <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>
+            <span class="token literal-property property">loader</span><span class="token operator">:</span> <span class="token string">'@dcloudio/webpack-uni-mp-loader/lib/main'</span>
+          <span class="token punctuation">&#125;</span><span class="token punctuation">]</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>
+          <span class="token literal-property property">resourceQuery</span><span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">vue&amp;type=script</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+          <span class="token literal-property property">use</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">&#123;</span>
+            <span class="token literal-property property">loader</span><span class="token operator">:</span> <span class="token string">'@dcloudio/webpack-uni-mp-loader/lib/script'</span>
+          <span class="token punctuation">&#125;</span><span class="token punctuation">]</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>
+          <span class="token literal-property property">resourceQuery</span><span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">vue&amp;type=template</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+          <span class="token literal-property property">use</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">&#123;</span>
+            <span class="token literal-property property">loader</span><span class="token operator">:</span> <span class="token string">'@dcloudio/webpack-uni-mp-loader/lib/template'</span>
+          <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>
+            <span class="token literal-property property">loader</span><span class="token operator">:</span> <span class="token string">'@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta'</span>
+          <span class="token punctuation">&#125;</span><span class="token punctuation">]</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token function">createTemplateCacheLoader</span><span class="token punctuation">(</span>api<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>
+          <span class="token literal-property property">resourceQuery</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+            <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">lang=wxs</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+            <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">lang=filter</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+            <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">lang=sjs</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+            <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">blockType=wxs</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+            <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">blockType=filter</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+            <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">blockType=sjs</span><span class="token regex-delimiter">/</span></span>
+          <span class="token punctuation">]</span><span class="token punctuation">,</span>
+          <span class="token literal-property property">use</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">&#123;</span>
+            <span class="token literal-property property">loader</span><span class="token operator">:</span> require<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>
+              <span class="token string">'@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-filter-loader'</span><span class="token punctuation">)</span>
+          <span class="token punctuation">&#125;</span><span class="token punctuation">]</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">]</span>
+      <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+      plugins
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token function">chainWebpack</span> <span class="token punctuation">(</span><span class="token parameter">webpackConfig<span class="token punctuation">,</span> vueOptions<span class="token punctuation">,</span> api</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">UNI_PLATFORM</span> <span class="token operator">===</span> <span class="token string">'mp-baidu'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      webpackConfig<span class="token punctuation">.</span>module
+        <span class="token punctuation">.</span><span class="token function">rule</span><span class="token punctuation">(</span><span class="token string">'js'</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span>exclude
+        <span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\.filter\.js$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">const</span> compilerOptions <span class="token operator">=</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">UNI_USING_COMPONENTS</span> <span class="token operator">?</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span> <span class="token operator">:</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'../mp-compiler-options'</span><span class="token punctuation">)</span>
+
+    <span class="token function">modifyVueLoader</span><span class="token punctuation">(</span>webpackConfig<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span> compilerOptions<span class="token punctuation">,</span> api<span class="token punctuation">)</span>
+
+    <span class="token keyword">const</span> styleExt <span class="token operator">=</span> <span class="token function">getPlatformExts</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>style
+
+    webpackConfig<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">'extract-css'</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">Plugin<span class="token punctuation">,</span> args</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token keyword">new</span> <span class="token class-name">Plugin</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+        <span class="token literal-property property">filename</span><span class="token operator">:</span> <span class="token string">'[name]'</span> <span class="token operator">+</span> styleExt
+      <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>
+      process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">NODE_ENV</span> <span class="token operator">===</span> <span class="token string">'production'</span> <span class="token operator">&amp;&amp;</span>
+      process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">UNI_PLATFORM</span> <span class="token operator">!==</span> <span class="token string">'app-plus'</span>
+    <span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">const</span> OptimizeCssnanoPlugin <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'../../packages/@intervolga/optimize-cssnano-plugin/index.js'</span><span class="token punctuation">)</span>
+      webpackConfig<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">'optimize-css'</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">Plugin<span class="token punctuation">,</span> args</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token keyword">new</span> <span class="token class-name">OptimizeCssnanoPlugin</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+          <span class="token literal-property property">sourceMap</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+          <span class="token function">filter</span> <span class="token punctuation">(</span><span class="token parameter">assetName</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">return</span> path<span class="token punctuation">.</span><span class="token function">extname</span><span class="token punctuation">(</span>assetName<span class="token punctuation">)</span> <span class="token operator">===</span> styleExt
+          <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+          <span class="token literal-property property">cssnanoOptions</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+            <span class="token literal-property property">preset</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+              <span class="token string">'default'</span><span class="token punctuation">,</span>
+              Object<span class="token punctuation">.</span><span class="token function">assign</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token function">getPlatformCssnano</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>
+                <span class="token literal-property property">discardComments</span><span class="token operator">:</span> <span class="token boolean">true</span>
+              <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+            <span class="token punctuation">]</span>
+          <span class="token punctuation">&#125;</span>
+
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">UNI_SUBPACKGE</span> <span class="token operator">||</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">UNI_MP_PLUGIN</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token function">initSubpackageConfig</span><span class="token punctuation">(</span>webpackConfig<span class="token punctuation">,</span> vueOptions<span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+
+    webpackConfig<span class="token punctuation">.</span>plugins<span class="token punctuation">.</span><span class="token function">delete</span><span class="token punctuation">(</span><span class="token string">'hmr'</span><span class="token punctuation">)</span>
+    webpackConfig<span class="token punctuation">.</span>plugins<span class="token punctuation">.</span><span class="token function">delete</span><span class="token punctuation">(</span><span class="token string">'html'</span><span class="token punctuation">)</span>
+    webpackConfig<span class="token punctuation">.</span>plugins<span class="token punctuation">.</span><span class="token function">delete</span><span class="token punctuation">(</span><span class="token string">'copy'</span><span class="token punctuation">)</span>
+    webpackConfig<span class="token punctuation">.</span>plugins<span class="token punctuation">.</span><span class="token function">delete</span><span class="token punctuation">(</span><span class="token string">'preload'</span><span class="token punctuation">)</span>
+    webpackConfig<span class="token punctuation">.</span>plugins<span class="token punctuation">.</span><span class="token function">delete</span><span class="token punctuation">(</span><span class="token string">'prefetch'</span><span class="token punctuation">)</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>最后配置汇总之后，还要验证下是否合法</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// check for common config errors</span>
+ <span class="token function">validateWebpackConfig</span><span class="token punctuation">(</span>webpackConfig<span class="token punctuation">,</span> api<span class="token punctuation">,</span> options<span class="token punctuation">,</span> args<span class="token punctuation">.</span>target<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>合法就开始使用webpack打包咯</p>
+<p><img data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220308000801898.png" alt="image-20220308000801898" src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220308000801898.png"></p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220308005120412.png" alt="image-20220308005120412" src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220308005120412.png"></p>
 
       
     </div>
@@ -396,7 +634,7 @@ yum install python39-devel -y<span aria-hidden="true" class="line-numbers-rows">
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/13/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><span class="page-number current">14</span><a class="page-number" href="/page/15/">15</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><a class="extend next" rel="next" href="/page/15/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/13/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><span class="page-number current">14</span><a class="page-number" href="/page/15/">15</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><a class="extend next" rel="next" href="/page/15/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -461,7 +699,7 @@ yum install python39-devel -y<span aria-hidden="true" class="line-numbers-rows">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-count">31</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -472,7 +710,7 @@ yum install python39-devel -y<span aria-hidden="true" class="line-numbers-rows">
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

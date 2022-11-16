@@ -161,7 +161,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2022/03/10/uni%E5%A6%82%E4%BD%95%E6%A1%A5%E6%8E%A5%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%9A%84/">
+    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2022/03/11/uni%E8%BD%AC%E6%8D%A2%E7%9A%84async-await/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -175,7 +175,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/03/10/uni%E5%A6%82%E4%BD%95%E6%A1%A5%E6%8E%A5%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%9A%84/" class="post-title-link" itemprop="url">Uni如何桥接小程序的</a>
+            <a href="/2022/03/11/uni%E8%BD%AC%E6%8D%A2%E7%9A%84async-await/" class="post-title-link" itemprop="url">Uni转换的async Await</a>
         </h2>
 
         <div class="post-meta">
@@ -185,7 +185,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2022-03-10 20:00:33" itemprop="dateCreated datePublished" datetime="2022-03-10T20:00:33+08:00">2022-03-10</time>
+              <time title="创建时间：2022-03-11 15:01:33" itemprop="dateCreated datePublished" datetime="2022-03-11T15:01:33+08:00">2022-03-11</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
@@ -215,220 +215,53 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>uni编译后的代码</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> getEmitter <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">let</span> Emitter<span class="token punctuation">;</span>
-  <span class="token keyword">return</span> <span class="token keyword">function</span> <span class="token function">getUniEmitter</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>Emitter<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-      Emitter <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-    <span class="token keyword">return</span> Emitter<span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">async</span> <span class="token function">onLaunch</span><span class="token punctuation">(</span><span class="token parameter">options</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'onLaunch options'</span><span class="token punctuation">,</span> options<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 设置冷启动参数</span>
+    <span class="token function">setAppLaunchOptions</span><span class="token punctuation">(</span>options<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 广告回传</span>
+    <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">query</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token punctuation">[</span><span class="token constant">GDT_TRACE_ID</span><span class="token punctuation">]</span><span class="token operator">:</span> clickId <span class="token punctuation">&#125;</span> <span class="token punctuation">&#125;</span> <span class="token operator">=</span> options<span class="token punctuation">;</span>
 
-<span class="token keyword">function</span> <span class="token function">apply</span><span class="token punctuation">(</span><span class="token parameter">ctx<span class="token punctuation">,</span> method<span class="token punctuation">,</span> args</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">return</span> ctx<span class="token punctuation">[</span>method<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
+    <span class="token comment">// 广告id</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setClickId</span><span class="token punctuation">(</span>clickId<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="token keyword">function</span> <span class="token function">$on</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">return</span> <span class="token function">apply</span><span class="token punctuation">(</span><span class="token function">getEmitter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"$on"</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token operator">...</span>arguments<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token keyword">function</span> <span class="token function">$off</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">return</span> <span class="token function">apply</span><span class="token punctuation">(</span><span class="token function">getEmitter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"$off"</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token operator">...</span>arguments<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token keyword">function</span> <span class="token function">$once</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">return</span> <span class="token function">apply</span><span class="token punctuation">(</span><span class="token function">getEmitter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"$once"</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token operator">...</span>arguments<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token keyword">function</span> <span class="token function">$emit</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">return</span> <span class="token function">apply</span><span class="token punctuation">(</span><span class="token function">getEmitter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"$emit"</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token operator">...</span>arguments<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h5 id="uni连接vue和小程序的桥梁"><a href="#uni连接vue和小程序的桥梁" class="headerlink" title="uni连接vue和小程序的桥梁"></a>uni连接vue和小程序的桥梁</h5><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">initProperties</span><span class="token punctuation">(</span>props<span class="token punctuation">,</span> isBehavior <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">,</span> file <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">const</span> properties <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>isBehavior<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    properties<span class="token punctuation">.</span>vueId <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-      <span class="token literal-property property">type</span><span class="token operator">:</span> String<span class="token punctuation">,</span>
-      <span class="token literal-property property">value</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-    <span class="token comment">// 用于字节跳动小程序模拟抽象节点</span>
-    properties<span class="token punctuation">.</span>generic <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-      <span class="token literal-property property">type</span><span class="token operator">:</span> Object<span class="token punctuation">,</span>
-      <span class="token literal-property property">value</span><span class="token operator">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-    properties<span class="token punctuation">.</span>vueSlots <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-      <span class="token comment">// 小程序不能直接定义 $slots 的 props，所以通过 vueSlots 转换到 $slots</span>
-      <span class="token literal-property property">type</span><span class="token operator">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
-      <span class="token literal-property property">value</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-      <span class="token function">observer</span><span class="token punctuation">(</span><span class="token parameter">newVal<span class="token punctuation">,</span> oldVal</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">const</span> $slots <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        newVal<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">slotName</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-          $slots<span class="token punctuation">[</span>slotName<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setData</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token comment">//调用小程序的setData</span>
-          $slots<span class="token punctuation">,</span>
-        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span>
-  <span class="token keyword">if</span> <span class="token punctuation">(</span>Array<span class="token punctuation">.</span><span class="token function">isArray</span><span class="token punctuation">(</span>props<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token comment">// ['title']</span>
-    props<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">key</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-      properties<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-        <span class="token literal-property property">type</span><span class="token operator">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
-        <span class="token literal-property property">observer</span><span class="token operator">:</span> <span class="token function">createObserver</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">,</span>
-      <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isPlainObject</span><span class="token punctuation">(</span>props<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token comment">// &#123;title:&#123;type:String,default:''&#125;,content:String&#125;</span>
-    Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span>props<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">key</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-      <span class="token keyword">const</span> opts <span class="token operator">=</span> props<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">;</span>
-      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isPlainObject</span><span class="token punctuation">(</span>opts<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token comment">// title:&#123;type:String,default:''&#125;</span>
-        <span class="token keyword">let</span> value <span class="token operator">=</span> opts<span class="token punctuation">.</span>default<span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isFn</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-          value <span class="token operator">=</span> <span class="token function">value</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span>
+    <span class="token comment">// 监听网络变化</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">checkNetwork</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">watchNetworkChange</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        opts<span class="token punctuation">.</span>type <span class="token operator">=</span> <span class="token function">parsePropType</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> opts<span class="token punctuation">.</span>type<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 无法日志上报统计</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">whetherHasNoLogger</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        properties<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-          <span class="token literal-property property">type</span><span class="token operator">:</span> <span class="token constant">PROP_TYPES</span><span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span>opts<span class="token punctuation">.</span>type<span class="token punctuation">)</span> <span class="token operator">!==</span> <span class="token operator">-</span><span class="token number">1</span> <span class="token operator">?</span> opts<span class="token punctuation">.</span>type <span class="token operator">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
-          value<span class="token punctuation">,</span>
-          <span class="token literal-property property">observer</span><span class="token operator">:</span> <span class="token function">createObserver</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">,</span>
-        <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-      <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
-        <span class="token comment">// content:String</span>
-        <span class="token keyword">const</span> type <span class="token operator">=</span> <span class="token function">parsePropType</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> opts<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        properties<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-          <span class="token literal-property property">type</span><span class="token operator">:</span> <span class="token constant">PROP_TYPES</span><span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span>type<span class="token punctuation">)</span> <span class="token operator">!==</span> <span class="token operator">-</span><span class="token number">1</span> <span class="token operator">?</span> type <span class="token operator">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
-          <span class="token literal-property property">observer</span><span class="token operator">:</span> <span class="token function">createObserver</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">,</span>
-        <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-      <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span>
-  <span class="token keyword">return</span> properties<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h5 id="uni创建页面和组件"><a href="#uni创建页面和组件" class="headerlink" title="uni创建页面和组件"></a>uni创建页面和组件</h5><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//小程序的component https://developers.weixin.qq.com/miniprogram/dev/reference/api/Component.html</span>
-<span class="token keyword">function</span> <span class="token function">createPage</span><span class="token punctuation">(</span><span class="token parameter">vuePageOptions</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> <span class="token function">Component</span><span class="token punctuation">(</span><span class="token function">parsePage</span><span class="token punctuation">(</span>vuePageOptions<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
+    <span class="token comment">// 路由变化监听</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">watchRouteChange</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="token keyword">function</span> <span class="token function">createComponent</span><span class="token punctuation">(</span><span class="token parameter">vueOptions</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> <span class="token function">Component</span><span class="token punctuation">(</span><span class="token function">parseComponent</span><span class="token punctuation">(</span>vueOptions<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h5 id="uni创建App"><a href="#uni创建App" class="headerlink" title="uni创建App"></a>uni创建App</h5><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">createApp</span><span class="token punctuation">(</span><span class="token parameter">vm</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token function">App</span><span class="token punctuation">(</span><span class="token function">parseApp</span><span class="token punctuation">(</span>vm<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//小程序的App方法https://developers.weixin.qq.com/miniprogram/dev/reference/api/App.html</span>
-  <span class="token keyword">return</span> vm<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
+    <span class="token comment">// 初始化启动的流程</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">reloadApp</span><span class="token punctuation">(</span>options<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 告警</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">warningPost</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="token keyword">function</span> <span class="token function">parseApp</span><span class="token punctuation">(</span><span class="token parameter">vm</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">return</span> <span class="token function">parseBaseApp</span><span class="token punctuation">(</span>vm<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>
-    mocks<span class="token punctuation">,</span>
-    initRefs<span class="token punctuation">,</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
+    <span class="token comment">// 调用字体</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">downloadFont</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="token keyword">const</span> hooks <span class="token operator">=</span> <span class="token punctuation">[</span>
-  <span class="token string">"onShow"</span><span class="token punctuation">,</span>
-  <span class="token string">"onHide"</span><span class="token punctuation">,</span>
-  <span class="token string">"onError"</span><span class="token punctuation">,</span>
-  <span class="token string">"onPageNotFound"</span><span class="token punctuation">,</span>
-  <span class="token string">"onThemeChange"</span><span class="token punctuation">,</span>
-  <span class="token string">"onUnhandledRejection"</span><span class="token punctuation">,</span>
-<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token comment">// 预加载缓存数据</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">preLoadCache</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="token keyword">function</span> <span class="token function">parseBaseApp</span><span class="token punctuation">(</span><span class="token parameter">vm<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span> mocks<span class="token punctuation">,</span> initRefs <span class="token punctuation">&#125;</span></span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token function">initEventChannel</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">&#123;</span>
-    <span class="token function">initScopedSlotsParams</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span>
-  <span class="token keyword">if</span> <span class="token punctuation">(</span>vm<span class="token punctuation">.</span>$options<span class="token punctuation">.</span>store<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token class-name">Vue</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>$store <span class="token operator">=</span> vm<span class="token punctuation">.</span>$options<span class="token punctuation">.</span>store<span class="token punctuation">;</span><span class="token comment">//挂在store</span>
-  <span class="token punctuation">&#125;</span>
+    <span class="token comment">// 查分享数据</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getShareConfig</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">invokeIntentionCleaner</span><span class="token punctuation">(</span>options<span class="token punctuation">,</span> <span class="token string">'launch'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 检查登录态</span>
+    <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">checkUserLogin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 设置 aegis uin</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">initAegisUin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="token class-name">Vue</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>mpHost <span class="token operator">=</span> <span class="token string">"mp-weixin"</span><span class="token punctuation">;</span>
-
-  Vue<span class="token punctuation">.</span><span class="token function">mixin</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
-    <span class="token function">beforeCreate</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token keyword">this</span><span class="token punctuation">.</span>$options<span class="token punctuation">.</span>mpType<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">return</span><span class="token punctuation">;</span>
-      <span class="token punctuation">&#125;</span>
-
-      <span class="token keyword">this</span><span class="token punctuation">.</span>mpType <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>$options<span class="token punctuation">.</span>mpType<span class="token punctuation">;</span>
-
-      <span class="token keyword">this</span><span class="token punctuation">.</span>$mp <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-        <span class="token literal-property property">data</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-        <span class="token punctuation">[</span><span class="token keyword">this</span><span class="token punctuation">.</span>mpType<span class="token punctuation">]</span><span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>$options<span class="token punctuation">.</span>mpInstance<span class="token punctuation">,</span>
-      <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-
-      <span class="token keyword">this</span><span class="token punctuation">.</span>$scope <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>$options<span class="token punctuation">.</span>mpInstance<span class="token punctuation">;</span>
-
-      <span class="token keyword">delete</span> <span class="token keyword">this</span><span class="token punctuation">.</span>$options<span class="token punctuation">.</span>mpType<span class="token punctuation">;</span>
-      <span class="token keyword">delete</span> <span class="token keyword">this</span><span class="token punctuation">.</span>$options<span class="token punctuation">.</span>mpInstance<span class="token punctuation">;</span>
-      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>mpType <span class="token operator">===</span> <span class="token string">"page"</span> <span class="token operator">&amp;&amp;</span> <span class="token keyword">typeof</span> getApp <span class="token operator">===</span> <span class="token string">"function"</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token comment">// hack vue-i18n</span>
-        <span class="token keyword">const</span> app <span class="token operator">=</span> <span class="token function">getApp</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>app<span class="token punctuation">.</span>$vm <span class="token operator">&amp;&amp;</span> app<span class="token punctuation">.</span>$vm<span class="token punctuation">.</span>$i18n<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-          <span class="token keyword">this</span><span class="token punctuation">.</span>_i18n <span class="token operator">=</span> app<span class="token punctuation">.</span>$vm<span class="token punctuation">.</span>$i18n<span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span>
-      <span class="token punctuation">&#125;</span>
-      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>mpType <span class="token operator">!==</span> <span class="token string">"app"</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token function">initRefs</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">initMocks</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> mocks<span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  <span class="token keyword">const</span> appOptions <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-    <span class="token function">onLaunch</span><span class="token punctuation">(</span><span class="token parameter">args</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span><span class="token comment">//这里定义了onLaunch，其他在hooks中</span>
-      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>$vm<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token comment">// 已经初始化过了，主要是为了百度，百度 onShow 在 onLaunch 之前</span>
-        <span class="token keyword">return</span><span class="token punctuation">;</span>
-      <span class="token punctuation">&#125;</span>
-      <span class="token punctuation">&#123;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>wx<span class="token punctuation">.</span>canIUse <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>wx<span class="token punctuation">.</span><span class="token function">canIUse</span><span class="token punctuation">(</span><span class="token string">"nextTick"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-          <span class="token comment">// 事实 上2.2.3 即可，简单使用 2.3.0 的 nextTick 判断</span>
-          console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>
-            <span class="token string">"当前微信基础库版本过低，请将 微信开发者工具-详情-项目设置-调试基础库版本 更换为`2.3.0`以上"</span>
-          <span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span>
-      <span class="token punctuation">&#125;</span>
-
-      <span class="token keyword">this</span><span class="token punctuation">.</span>$vm <span class="token operator">=</span> vm<span class="token punctuation">;</span>
-
-      <span class="token keyword">this</span><span class="token punctuation">.</span>$vm<span class="token punctuation">.</span>$mp <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-        <span class="token literal-property property">app</span><span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">,</span>
-      <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-
-      <span class="token keyword">this</span><span class="token punctuation">.</span>$vm<span class="token punctuation">.</span>$scope <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
-      <span class="token comment">// vm 上也挂载 globalData</span>
-      <span class="token keyword">this</span><span class="token punctuation">.</span>$vm<span class="token punctuation">.</span>globalData <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>globalData<span class="token punctuation">;</span>
-
-      <span class="token keyword">this</span><span class="token punctuation">.</span>$vm<span class="token punctuation">.</span>_isMounted <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-      <span class="token keyword">this</span><span class="token punctuation">.</span>$vm<span class="token punctuation">.</span><span class="token function">__call_hook</span><span class="token punctuation">(</span><span class="token string">"mounted"</span><span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-      <span class="token keyword">this</span><span class="token punctuation">.</span>$vm<span class="token punctuation">.</span><span class="token function">__call_hook</span><span class="token punctuation">(</span><span class="token string">"onLaunch"</span><span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-
-  <span class="token comment">// 兼容旧版本 globalData</span>
-  appOptions<span class="token punctuation">.</span>globalData <span class="token operator">=</span> vm<span class="token punctuation">.</span>$options<span class="token punctuation">.</span>globalData <span class="token operator">||</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-  <span class="token comment">// 将 methods 中的方法挂在 getApp() 中</span>
-  <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> methods <span class="token punctuation">&#125;</span> <span class="token operator">=</span> vm<span class="token punctuation">.</span>$options<span class="token punctuation">;</span>
-  <span class="token keyword">if</span> <span class="token punctuation">(</span>methods<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span>methods<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">name</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-      appOptions<span class="token punctuation">[</span>name<span class="token punctuation">]</span> <span class="token operator">=</span> methods<span class="token punctuation">[</span>name<span class="token punctuation">]</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span>
-
-  <span class="token function">initHooks</span><span class="token punctuation">(</span>appOptions<span class="token punctuation">,</span> hooks<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  <span class="token keyword">return</span> appOptions<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token comment">// 增加公参和冷启动埋点</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>$u<span class="token punctuation">.</span>beaconAction<span class="token punctuation">.</span><span class="token function">setAppLaunchBeacon</span><span class="token punctuation">(</span>options<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>转换之后的代码</p>
+<p><img data-src="/2022/03/11/uni%E8%BD%AC%E6%8D%A2%E7%9A%84async-await/image-20220311150139694.png" alt="image-20220311150139694" src="/2022/03/11/uni%E8%BD%AC%E6%8D%A2%E7%9A%84async-await/image-20220311150139694.png"></p>
+<p>可以看到 async await使用了while(true)的循环转换了代码，保证，await的方法执行完成之后在执行后续的方法。</p>
+<p>那如果是 await promise呢 ，那肯定是while到强制等到 resolve了。要么是 catch了。</p>
 
       
     </div>
@@ -447,7 +280,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><a class="extend next" rel="next" href="/page/11/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><a class="extend next" rel="next" href="/page/11/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -512,7 +345,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-count">31</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -523,7 +356,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
