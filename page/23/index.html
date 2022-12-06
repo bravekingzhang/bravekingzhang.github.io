@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.1.0">
+<meta name="generator" content="Hexo 6.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -161,7 +161,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2021/10/07/%E5%A6%82%E4%BD%95%E8%A6%81%E8%B5%84%E6%BA%90/">
+    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2021/09/21/%E4%B8%BA%E5%95%A5API%E8%AE%BE%E8%AE%A1%E5%A6%82%E6%AD%A4%E9%87%8D%E8%A6%81/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -175,7 +175,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/10/07/%E5%A6%82%E4%BD%95%E8%A6%81%E8%B5%84%E6%BA%90/" class="post-title-link" itemprop="url">如何要资源</a>
+            <a href="/2021/09/21/%E4%B8%BA%E5%95%A5API%E8%AE%BE%E8%AE%A1%E5%A6%82%E6%AD%A4%E9%87%8D%E8%A6%81/" class="post-title-link" itemprop="url">为啥API设计如此重要</a>
         </h2>
 
         <div class="post-meta">
@@ -185,7 +185,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-10-07 17:12:02" itemprop="dateCreated datePublished" datetime="2021-10-07T17:12:02+08:00">2021-10-07</time>
+              <time title="创建时间：2021-09-21 17:25:38" itemprop="dateCreated datePublished" datetime="2021-09-21T17:25:38+08:00">2021-09-21</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
@@ -200,7 +200,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%A1%E7%90%86/" itemprop="url" rel="index"><span itemprop="name">管理</span></a>
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
                 </span>
             </span>
 
@@ -215,14 +215,56 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h4 id="如何找上级领导要取资源"><a href="#如何找上级领导要取资源" class="headerlink" title="如何找上级领导要取资源"></a>如何找上级领导要取资源</h4><h5 id="反面案例"><a href="#反面案例" class="headerlink" title="反面案例"></a>反面案例</h5><h5 id="上来就说你要的资源是什么，接着是打消领导的顾虑。策略是"><a href="#上来就说你要的资源是什么，接着是打消领导的顾虑。策略是" class="headerlink" title="上来就说你要的资源是什么，接着是打消领导的顾虑。策略是"></a>上来就说你要的资源是什么，接着是打消领导的顾虑。策略是</h5><blockquote>
-<p>索取资源，打消顾虑，没有背景</p>
-</blockquote>
-<p><img data-src="/2021/10/07/%E5%A6%82%E4%BD%95%E8%A6%81%E8%B5%84%E6%BA%90/image-20211007171623555.png" alt="image-20211007171623555" src="/2021/10/07/%E5%A6%82%E4%BD%95%E8%A6%81%E8%B5%84%E6%BA%90/image-20211007171623555.png"></p>
-<h5 id="下面这个案例以另外一种方式要资源"><a href="#下面这个案例以另外一种方式要资源" class="headerlink" title="下面这个案例以另外一种方式要资源"></a>下面这个案例以另外一种方式要资源</h5><blockquote>
-<p> 讲述背景，提及冲突，解决方案(获取资源)，展望结果</p>
-</blockquote>
-<p><img data-src="/2021/10/07/%E5%A6%82%E4%BD%95%E8%A6%81%E8%B5%84%E6%BA%90/image-20211007171221596.png" alt="image-20211007171221596" src="/2021/10/07/%E5%A6%82%E4%BD%95%E8%A6%81%E8%B5%84%E6%BA%90/image-20211007171221596.png"></p>
+          <h4 id="为什么-API-设计很重要？"><a href="#为什么-API-设计很重要？" class="headerlink" title="为什么 API 设计很重要？"></a>为什么 API 设计很重要？</h4><ul>
+<li>API 可以是一个公司最重要的资产之一【<strong>客户投入大量资金：购买、编写、学习</strong><br><strong>停止使用 API 的成本可能很高，成功的公共 API 可以捕获客户</strong>】</li>
+<li>也可能是公司最大的负债之一 【<strong>不好的 API 会导致无休止的支持电话流</strong>】</li>
+<li>公共 API 是永久性的【<strong>只有一次机会可以做好它</strong>】</li>
+</ul>
+<h4 id="为什么-API-设计对你很重要？"><a href="#为什么-API-设计对你很重要？" class="headerlink" title="为什么 API 设计对你很重要？"></a>为什么 API 设计对你很重要？</h4><p>如果你编程，你就是一个 API 设计师，好的代码是模块化的–每个模块都有一个 API</p>
+<ul>
+<li>有用的模块往往会被重复使用<br>一旦模块有了用户，就不能随意改变 API _好的可重复使用的模块是企业资产</li>
+<li>从 API 的角度思考问题可以提高代码质量</li>
+</ul>
+<h4 id="好的-API-的特点"><a href="#好的-API-的特点" class="headerlink" title="好的 API 的特点"></a>好的 API 的特点</h4><ul>
+<li>易于学习</li>
+<li>易于使用，即使没有文档</li>
+<li>难以误用</li>
+<li>易于阅读和维护使用它的代码 - 足够强大以满足需求 - 易于扩展</li>
+<li>适合受众</li>
+</ul>
+<h4 id="好的API是如何设计出来的"><a href="#好的API是如何设计出来的" class="headerlink" title="好的API是如何设计出来的"></a>好的API是如何设计出来的</h4><p>一般来说，好的API需要遵循一下几大类设计</p>
+<p><img data-src="/2021/09/21/%E4%B8%BA%E5%95%A5API%E8%AE%BE%E8%AE%A1%E5%A6%82%E6%AD%A4%E9%87%8D%E8%A6%81/image-20210921194438582.png" alt="image-20210921194438582" loading="lazy" src="/2021/09/21/%E4%B8%BA%E5%95%A5API%E8%AE%BE%E8%AE%A1%E5%A6%82%E6%AD%A4%E9%87%8D%E8%A6%81/image-20210921194438582.png"></p>
+<h5 id="收集需求–带着一定程度的怀疑态度"><a href="#收集需求–带着一定程度的怀疑态度" class="headerlink" title="收集需求–带着一定程度的怀疑态度"></a>收集需求–带着一定程度的怀疑态度</h5><ul>
+<li>通常你会得到建议的解决方案 _ 可能存在更好的解决方案</li>
+<li>你的工作是提取真正的需求 _ 应该采取用例的形式</li>
+<li>建立一个更普遍的东西可能更容易，也更有意义。</li>
+</ul>
+<h5 id="一切从简"><a href="#一切从简" class="headerlink" title="一切从简"></a>一切从简</h5><ul>
+<li>在这个阶段，敏捷性胜过完整性</li>
+<li>尽可能让更多的人了解规格，听取他们的意见并认真对待</li>
+<li>如果你保持简短的规格，就很容易修改。</li>
+<li>当你获得信心时，就可以使其更加完善_这必然涉及到编码问题</li>
+</ul>
+<h5 id="API应该只做一件事，而且要做得极致"><a href="#API应该只做一件事，而且要做得极致" class="headerlink" title="API应该只做一件事，而且要做得极致"></a>API应该只做一件事，而且要做得极致</h5><ul>
+<li>功能应该容易解释<br>如果它很难被命名，这通常是个坏兆头 _ 好的名字能推动开发<br>_ 要便于拆分和合并模块</li>
+</ul>
+<h5 id="尽量自闭环"><a href="#尽量自闭环" class="headerlink" title="尽量自闭环"></a>尽量自闭环</h5><ul>
+<li>尽可能地使类和成员成为私有的</li>
+<li>公有类应该没有公有字段<br>(常量除外)</li>
+<li>这样可以最大限度地隐藏信息</li>
+<li>允许模块被独立使用、理解、构建、测试和调试</li>
+</ul>
+<h5 id="名字很重要–名称应该基本上是不言自明的-避免使用隐晦的缩略语"><a href="#名字很重要–名称应该基本上是不言自明的-避免使用隐晦的缩略语" class="headerlink" title="名字很重要–名称应该基本上是不言自明的 _ 避免使用隐晦的缩略语"></a>名字很重要–名称应该基本上是不言自明的 _ 避免使用隐晦的缩略语</h5><ul>
+<li><p>要一致–相同的词意味着相同的事情 _ 在整个API中，（在平台的各个API中）。</p>
+</li>
+<li><p>要有规律–力求对称–代码应该像散文一样阅读</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">if</span> <span class="token punctuation">(</span>car<span class="token punctuation">.</span><span class="token function">speed</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">2</span> <span class="token operator">*</span> <span class="token constant">SPEED_LIMIT</span><span class="token punctuation">)</span> 
+  <span class="token function">generateAlert</span><span class="token punctuation">(</span><span class="token string">"Watch out for cops!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
+</ul>
+<h5 id="总体来说，API设计是一项高尚而有意义的工作，它可以改善程序员、终端用户、公司的命运。"><a href="#总体来说，API设计是一项高尚而有意义的工作，它可以改善程序员、终端用户、公司的命运。" class="headerlink" title="总体来说，API设计是一项高尚而有意义的工作，它可以改善程序员、终端用户、公司的命运。"></a>总体来说，API设计是一项高尚而有意义的工作，它可以改善程序员、终端用户、公司的命运。</h5><ul>
+<li>这个讲座涵盖了这门手艺的一些启发式方法 _ 不要一味地遵守它们，但是……<br>不要在没有充分理由的情况下违反它们</li>
+<li>API设计是艰难的<br>-不是一个单独的活动<br>-完美是不可能的，但还是要努力。</li>
+</ul>
 
       
     </div>
@@ -241,7 +283,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/22/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><span class="page-number current">23</span><a class="page-number" href="/page/24/">24</a><span class="space">&hellip;</span><a class="page-number" href="/page/32/">32</a><a class="extend next" rel="next" href="/page/24/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/22/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><span class="page-number current">23</span><a class="page-number" href="/page/24/">24</a><a class="extend next" rel="next" href="/page/24/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -306,18 +348,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

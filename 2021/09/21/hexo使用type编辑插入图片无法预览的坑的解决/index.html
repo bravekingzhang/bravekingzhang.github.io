@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.1.0">
+<meta name="generator" content="Hexo 6.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -238,17 +238,21 @@
 <p><a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/asset-folders">https://hexo.io/zh-cn/docs/asset-folders</a> </p>
 <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">_config<span class="token punctuation">.</span>yml
 <span class="token literal-property property">post_asset_folder</span><span class="token operator">:</span> <span class="token boolean">true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+
+
 <p>据说，当资源文件管理功能打开后，Hexo将会在你每一次通过 <code>hexo new [layout] &lt;title&gt;</code> 命令创建新文章时自动创建一个文件夹。</p>
-<p><img data-src="/2021/09/21/hexo%E4%BD%BF%E7%94%A8type%E7%BC%96%E8%BE%91%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87%E6%97%A0%E6%B3%95%E9%A2%84%E8%A7%88%E7%9A%84%E5%9D%91%E7%9A%84%E8%A7%A3%E5%86%B3/image-20210921214156375.png" alt="image-20210921214156375" src="/2021/09/21/hexo%E4%BD%BF%E7%94%A8type%E7%BC%96%E8%BE%91%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87%E6%97%A0%E6%B3%95%E9%A2%84%E8%A7%88%E7%9A%84%E5%9D%91%E7%9A%84%E8%A7%A3%E5%86%B3/image-20210921214156375.png"></p>
+<p><img data-src="/2021/09/21/hexo%E4%BD%BF%E7%94%A8type%E7%BC%96%E8%BE%91%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87%E6%97%A0%E6%B3%95%E9%A2%84%E8%A7%88%E7%9A%84%E5%9D%91%E7%9A%84%E8%A7%A3%E5%86%B3/image-20210921214156375.png" alt="image-20210921214156375" loading="lazy" src="/2021/09/21/hexo%E4%BD%BF%E7%94%A8type%E7%BC%96%E8%BE%91%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87%E6%97%A0%E6%B3%95%E9%A2%84%E8%A7%88%E7%9A%84%E5%9D%91%E7%9A%84%E8%A7%A3%E5%86%B3/image-20210921214156375.png"></p>
 <p>对的，没错，老铁，就是上面这个样子，一顿操作猛如虎，结果</p>
 <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">hexo g
 hexo d <span class="token comment">//部署到github上显示不了</span>
 hexo server <span class="token comment">//本地预览显示不了</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
 <p>看了一下，图片压根就显示不出来，看了下，明显图片路径有问题。</p>
 <p>后面看到一个哥们的文章，<a target="_blank" rel="noopener" href="https://cxyzjd.com/article/huyun9666/104256799">hexo使用markdown图片无法显示问题_jhhuang-程序员宅基地</a>然后install他的插件之后，发现部署到github上确实可以显示，but，本地没法预览呀，这个有点上火，看了下源码，就自己果断撸了一个；</p>
-<p><img data-src="/2021/09/21/hexo%E4%BD%BF%E7%94%A8type%E7%BC%96%E8%BE%91%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87%E6%97%A0%E6%B3%95%E9%A2%84%E8%A7%88%E7%9A%84%E5%9D%91%E7%9A%84%E8%A7%A3%E5%86%B3/image-20210921214625183.png" alt="image-20210921214625183" src="/2021/09/21/hexo%E4%BD%BF%E7%94%A8type%E7%BC%96%E8%BE%91%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87%E6%97%A0%E6%B3%95%E9%A2%84%E8%A7%88%E7%9A%84%E5%9D%91%E7%9A%84%E8%A7%A3%E5%86%B3/image-20210921214625183.png"></p>
+<p><img data-src="/2021/09/21/hexo%E4%BD%BF%E7%94%A8type%E7%BC%96%E8%BE%91%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87%E6%97%A0%E6%B3%95%E9%A2%84%E8%A7%88%E7%9A%84%E5%9D%91%E7%9A%84%E8%A7%A3%E5%86%B3/image-20210921214625183.png" alt="image-20210921214625183" loading="lazy" src="/2021/09/21/hexo%E4%BD%BF%E7%94%A8type%E7%BC%96%E8%BE%91%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87%E6%97%A0%E6%B3%95%E9%A2%84%E8%A7%88%E7%9A%84%E5%9D%91%E7%9A%84%E8%A7%A3%E5%86%B3/image-20210921214625183.png"></p>
 <p>一通操作猛如虎，其实就改了这么几行，把作者之前的替换的路径</p>
-<p>//yousite/path/to/your/image.jgp  修改为了  /path/to/your/image.jgp</p>
+<p>&#x2F;&#x2F;yousite&#x2F;path&#x2F;to&#x2F;your&#x2F;image.jgp  修改为了  &#x2F;path&#x2F;to&#x2F;your&#x2F;image.jgp</p>
 <p>需要的老铁可以直接使用我<a target="_blank" rel="noopener" href="https://github.com/bravekingzhang/hexo-asset-image">这个补丁</a>就ok啦 ，用法已经在readme中有详细介绍了。</p>
 <h4 id="最后附上我的所有关键配置"><a href="#最后附上我的所有关键配置" class="headerlink" title="最后附上我的所有关键配置"></a>最后附上我的所有关键配置</h4><h5 id="hexo的配置"><a href="#hexo的配置" class="headerlink" title="hexo的配置"></a>hexo的配置</h5><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"># Hexo Configuration
 ## Docs<span class="token operator">:</span> https<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>hexo<span class="token punctuation">.</span>io<span class="token operator">/</span>docs<span class="token operator">/</span>configuration<span class="token punctuation">.</span>html
@@ -342,8 +346,9 @@ hexo server <span class="token comment">//本地预览显示不了</span><span a
   <span class="token literal-property property">repository</span><span class="token operator">:</span> https<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>github<span class="token punctuation">.</span>com<span class="token operator">/</span>bravekingzhang<span class="token operator">/</span>bravekingzhang<span class="token punctuation">.</span>github<span class="token punctuation">.</span>io<span class="token punctuation">.</span>git
   <span class="token literal-property property">brance</span><span class="token operator">:</span> master
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>typora的图片上传配置</p>
-<p><img data-src="/2021/09/21/hexo%E4%BD%BF%E7%94%A8type%E7%BC%96%E8%BE%91%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87%E6%97%A0%E6%B3%95%E9%A2%84%E8%A7%88%E7%9A%84%E5%9D%91%E7%9A%84%E8%A7%A3%E5%86%B3/image-20210921215142921.png" alt="image-20210921215142921" src="/2021/09/21/hexo%E4%BD%BF%E7%94%A8type%E7%BC%96%E8%BE%91%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87%E6%97%A0%E6%B3%95%E9%A2%84%E8%A7%88%E7%9A%84%E5%9D%91%E7%9A%84%E8%A7%A3%E5%86%B3/image-20210921215142921.png"></p>
+<p><img data-src="/2021/09/21/hexo%E4%BD%BF%E7%94%A8type%E7%BC%96%E8%BE%91%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87%E6%97%A0%E6%B3%95%E9%A2%84%E8%A7%88%E7%9A%84%E5%9D%91%E7%9A%84%E8%A7%A3%E5%86%B3/image-20210921215142921.png" alt="image-20210921215142921" loading="lazy" src="/2021/09/21/hexo%E4%BD%BF%E7%94%A8type%E7%BC%96%E8%BE%91%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87%E6%97%A0%E6%B3%95%E9%A2%84%E8%A7%88%E7%9A%84%E5%9D%91%E7%9A%84%E8%A7%A3%E5%86%B3/image-20210921215142921.png"></p>
 
     </div>
 
@@ -441,18 +446,18 @@ hexo server <span class="token comment">//本地预览显示不了</span><span a
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

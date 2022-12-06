@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.1.0">
+<meta name="generator" content="Hexo 6.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -35,9 +35,9 @@
 <meta property="og:image" content="https://blog.brzhang.club/2022/03/16/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%82%B9%E5%87%BB%E9%98%B2%E6%8A%96%E5%93%AA%E5%AE%B6%E5%BC%BA/image-20220316191301667.png">
 <meta property="og:image" content="https://blog.brzhang.club/2022/03/16/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%82%B9%E5%87%BB%E9%98%B2%E6%8A%96%E5%93%AA%E5%AE%B6%E5%BC%BA/image-20220316191949544.png">
 <meta property="article:published_time" content="2022-03-16T09:28:20.000Z">
-<meta property="article:modified_time" content="2022-09-29T07:18:14.130Z">
+<meta property="article:modified_time" content="2022-11-28T01:25:08.267Z">
 <meta property="article:author" content="hz">
-<meta property="article:tag" content="default">
+<meta property="article:tag" content="小程序">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://blog.brzhang.club/2022/03/16/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%82%B9%E5%87%BB%E9%98%B2%E6%8A%96%E5%93%AA%E5%AE%B6%E5%BC%BA/image-20220316185014558.png">
 
@@ -202,7 +202,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-09-29 15:18:14" itemprop="dateModified" datetime="2022-09-29T15:18:14+08:00">2022-09-29</time>
+                <time title="修改时间：2022-11-28 09:25:08" itemprop="dateModified" datetime="2022-11-28T09:25:08+08:00">2022-11-28</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -210,7 +210,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/default/" itemprop="url" rel="index"><span itemprop="name">default</span></a>
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
                 </span>
             </span>
 
@@ -253,6 +253,7 @@ export default &#123;
   &#125;,
 &#125;;
 &lt;&#x2F;script&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>那么，如何做好并消灭防重复点击就是本文要研究的点。拿上面的例子来说，大概有几个方式</p>
 <ol>
 <li><p>在 doSomeThing 中加一个变量，当做门卫，如果方法没处理完，再次进入直接返回，恩，每个方法都需要增加一段逻辑，去设置变量，比较繁琐。</p>
@@ -280,7 +281,7 @@ export default &#123;
 </ol>
 <p>很显然，对于代码规范检测，我们非常容易想到使用 eslint，但是现有的 eslint 有这么规则吗？自然是没有的，所以，我们遇到的问题在理论上转换为了：<strong>如何开发一款插件有效的检测 onClick 有没有使用防抖</strong>。</p>
 <h4 id="eslint-插件开搞"><a href="#eslint-插件开搞" class="headerlink" title="eslint 插件开搞"></a>eslint 插件开搞</h4><h5 id="基本开发准备"><a href="#基本开发准备" class="headerlink" title="基本开发准备"></a>基本开发准备</h5><p>插件开发的整体流程我就不在本文的介绍当中，本文只关心如何去实现检测的逻辑及基本的程序入口和调试技巧介绍。首先，我们要检测的文件是 .vue 文件，因此，我们需要在 eslint 大环境下解析 vue 语法，那么使用什么方式解析 vue 语法，我们需要自己开发吗，显然不是，vue 肯定是有的，比如<a target="_blank" rel="noopener" href="https://github.com/vuejs/vue-eslint-parser#readme">vue-eslint-parser</a>,想要更加直观的看解析效果，可以到<a target="_blank" rel="noopener" href="https://astexplorer.net/">astexplorer</a>贴上一段 vue 代码看看。</p>
-<p><img data-src="/2022/03/16/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%82%B9%E5%87%BB%E9%98%B2%E6%8A%96%E5%93%AA%E5%AE%B6%E5%BC%BA/image-20220316185014558.png" alt="image-20220316185014558" src="/2022/03/16/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%82%B9%E5%87%BB%E9%98%B2%E6%8A%96%E5%93%AA%E5%AE%B6%E5%BC%BA/image-20220316185014558.png"></p>
+<p><img data-src="/2022/03/16/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%82%B9%E5%87%BB%E9%98%B2%E6%8A%96%E5%93%AA%E5%AE%B6%E5%BC%BA/image-20220316185014558.png" alt="image-20220316185014558" loading="lazy" src="/2022/03/16/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%82%B9%E5%87%BB%E9%98%B2%E6%8A%96%E5%93%AA%E5%AE%B6%E5%BC%BA/image-20220316185014558.png"></p>
 <p>那么，我们就可以插件的开发框架下，模拟 vue 文件被这个插件解析，然后生成一个语法树抛给 eslint 插件入口，参见下面的代码块，解析好的语法数会已 node 参数传入到 Program 函数。</p>
 <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">/**
  * @fileoverview onClick should wrap with debounce in page
@@ -338,6 +339,7 @@ module<span class="token punctuation">.</span>exports <span class="token operato
   <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
 <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>插件开发框架为了便于我们开发调试插件，提供了这样一套模板方法</p>
 <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">/**
  * @fileoverview Import subPackage config in page
@@ -381,6 +383,7 @@ ruleTester<span class="token punctuation">.</span><span class="token function">r
     <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
   <span class="token punctuation">)</span><span class="token punctuation">,</span>
 <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>所以，我们可以使用这个验证我们研发的 eslint 插件是否符合预期，而且调试起来也比较方便，在 vscode 上开发的话，配置一个启动项即可，比如我配置了一个 launch.json;</p>
 <pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
   <span class="token comment">// 使用 IntelliSense 了解相关属性。</span>
@@ -397,13 +400,14 @@ ruleTester<span class="token punctuation">.</span><span class="token function">r
     <span class="token punctuation">&#125;</span>
   <span class="token punctuation">]</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>这样一来，我们就可以展开调试了。</p>
-<p><img data-src="/2022/03/16/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%82%B9%E5%87%BB%E9%98%B2%E6%8A%96%E5%93%AA%E5%AE%B6%E5%BC%BA/image-20220316190601141.png" alt="image-20220316190601141" src="/2022/03/16/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%82%B9%E5%87%BB%E9%98%B2%E6%8A%96%E5%93%AA%E5%AE%B6%E5%BC%BA/image-20220316190601141.png"></p>
+<p><img data-src="/2022/03/16/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%82%B9%E5%87%BB%E9%98%B2%E6%8A%96%E5%93%AA%E5%AE%B6%E5%BC%BA/image-20220316190601141.png" alt="image-20220316190601141" loading="lazy" src="/2022/03/16/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%82%B9%E5%87%BB%E9%98%B2%E6%8A%96%E5%93%AA%E5%AE%B6%E5%BC%BA/image-20220316190601141.png"></p>
 <h5 id="检测原理介绍"><a href="#检测原理介绍" class="headerlink" title="检测原理介绍"></a>检测原理介绍</h5><p>1、首先我们需要拿到所有&lt;template 中被 @click 引用到的方法，这个可以通过递归遍历 templateBody 这个树解决。</p>
-<p><img data-src="/2022/03/16/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%82%B9%E5%87%BB%E9%98%B2%E6%8A%96%E5%93%AA%E5%AE%B6%E5%BC%BA/image-20220316191301667.png" alt="image-20220316191301667" src="/2022/03/16/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%82%B9%E5%87%BB%E9%98%B2%E6%8A%96%E5%93%AA%E5%AE%B6%E5%BC%BA/image-20220316191301667.png"></p>
+<p><img data-src="/2022/03/16/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%82%B9%E5%87%BB%E9%98%B2%E6%8A%96%E5%93%AA%E5%AE%B6%E5%BC%BA/image-20220316191301667.png" alt="image-20220316191301667" loading="lazy" src="/2022/03/16/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%82%B9%E5%87%BB%E9%98%B2%E6%8A%96%E5%93%AA%E5%AE%B6%E5%BC%BA/image-20220316191301667.png"></p>
 <p>如上图，我们只需要找到这个 argument name 是 click 的这个结点中 value 里面的 expression 的 name，就是我们要检测的方法</p>
 <p>2、基于上面找到的方法，我们在去 methods 的结点中去找到对应的方法，看看这个方法的 body 有没有被 debounce 包裹即可，如果没有哦就告警处理。</p>
-<h5 id="实际效果"><a href="#实际效果" class="headerlink" title="实际效果"></a>实际效果</h5><p><img data-src="/2022/03/16/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%82%B9%E5%87%BB%E9%98%B2%E6%8A%96%E5%93%AA%E5%AE%B6%E5%BC%BA/image-20220316191949544.png" alt="image-20220316191949544" src="/2022/03/16/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%82%B9%E5%87%BB%E9%98%B2%E6%8A%96%E5%93%AA%E5%AE%B6%E5%BC%BA/image-20220316191949544.png"></p>
+<h5 id="实际效果"><a href="#实际效果" class="headerlink" title="实际效果"></a>实际效果</h5><p><img data-src="/2022/03/16/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%82%B9%E5%87%BB%E9%98%B2%E6%8A%96%E5%93%AA%E5%AE%B6%E5%BC%BA/image-20220316191949544.png" alt="image-20220316191949544" loading="lazy" src="/2022/03/16/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%82%B9%E5%87%BB%E9%98%B2%E6%8A%96%E5%93%AA%E5%AE%B6%E5%BC%BA/image-20220316191949544.png"></p>
 <!-- flag of hidden posts -->
     </div>
 
@@ -413,7 +417,7 @@ ruleTester<span class="token punctuation">.</span><span class="token function">r
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/default/" rel="tag"># default</a>
+              <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" rel="tag"># 小程序</a>
           </div>
 
         
@@ -491,18 +495,18 @@ ruleTester<span class="token punctuation">.</span><span class="token function">r
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

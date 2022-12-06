@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.1.0">
+<meta name="generator" content="Hexo 6.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -23,12 +23,12 @@
     var CONFIG = {"hostname":"blog.brzhang.club","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":true,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="背景首先，关于这篇文章为何取名为设计一个糅合系统的设计，所谓的糅合系统，是指这个系统的用户群体没有那么纯粹，比如，是一个既有c端用户，又有b端用户的使用场景的系统，起初在设计这样一个系统之初，我思考过这样的一个系统会有几个问题：  逻辑混杂，到时候会出现这个c端是这个样子的，b端为了兼容而妥协，折中出来的并不是一个好的方案，对两类用户来说都不够简洁。 if&#x2F;else糅合的代码可理解性比较差，随着迭">
+  <meta name="description" content="背景首先，关于这篇文章为何取名为设计一个糅合系统的设计，所谓的糅合系统，是指这个系统的用户群体没有那么纯粹，比如，是一个既有c端用户，又有b端用户的使用场景的系统，起初在设计这样一个系统之初，我思考过这样的一个系统会有几个问题：  逻辑混杂，到时候会出现这个c端是这个样子的，b端为了兼容而妥协，折中出来的并不是一个好的方案，对两类用户来说都不够简洁。 if&#x2F;else糅合的代码可理解性比较">
 <meta property="og:type" content="article">
 <meta property="og:title" content="如何设计一个糅合系统">
 <meta property="og:url" content="https://blog.brzhang.club/2021/10/12/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%B3%85%E5%90%88%E7%B3%BB%E7%BB%9F/index.html">
 <meta property="og:site_name" content="心随我动">
-<meta property="og:description" content="背景首先，关于这篇文章为何取名为设计一个糅合系统的设计，所谓的糅合系统，是指这个系统的用户群体没有那么纯粹，比如，是一个既有c端用户，又有b端用户的使用场景的系统，起初在设计这样一个系统之初，我思考过这样的一个系统会有几个问题：  逻辑混杂，到时候会出现这个c端是这个样子的，b端为了兼容而妥协，折中出来的并不是一个好的方案，对两类用户来说都不够简洁。 if&#x2F;else糅合的代码可理解性比较差，随着迭">
+<meta property="og:description" content="背景首先，关于这篇文章为何取名为设计一个糅合系统的设计，所谓的糅合系统，是指这个系统的用户群体没有那么纯粹，比如，是一个既有c端用户，又有b端用户的使用场景的系统，起初在设计这样一个系统之初，我思考过这样的一个系统会有几个问题：  逻辑混杂，到时候会出现这个c端是这个样子的，b端为了兼容而妥协，折中出来的并不是一个好的方案，对两类用户来说都不够简洁。 if&#x2F;else糅合的代码可理解性比较">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.brzhang.club/2021/10/12/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%B3%85%E5%90%88%E7%B3%BB%E7%BB%9F/wecom-temp-ae90559c80f2c549419e1bc9bcc34488.jpg">
 <meta property="og:image" content="https://blog.brzhang.club/2021/10/12/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%B3%85%E5%90%88%E7%B3%BB%E7%BB%9F/image-20211012150705417.png">
@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://blog.brzhang.club/2021/10/12/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%B3%85%E5%90%88%E7%B3%BB%E7%BB%9F/image-20211012171053961.png">
 <meta property="og:image" content="https://blog.brzhang.club/2021/10/12/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%B3%85%E5%90%88%E7%B3%BB%E7%BB%9F/image-20211012172537275.png">
 <meta property="article:published_time" content="2021-10-12T06:38:01.000Z">
-<meta property="article:modified_time" content="2022-09-29T07:18:14.116Z">
+<meta property="article:modified_time" content="2022-11-28T01:25:08.266Z">
 <meta property="article:author" content="hz">
 <meta property="article:tag" content="系统设计">
 <meta name="twitter:card" content="summary">
@@ -56,7 +56,7 @@
   };
 </script>
 
-  <title>如何设计一个糅合系统 | 心随我动</title>
+  <title>如何设计一个糅合系统 | 心随我动</title><meta name="robots" content="noindex">
   
 
 
@@ -204,7 +204,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-09-29 15:18:14" itemprop="dateModified" datetime="2022-09-29T15:18:14+08:00">2022-09-29</time>
+                <time title="修改时间：2022-11-28 09:25:08" itemprop="dateModified" datetime="2022-11-28T09:25:08+08:00">2022-11-28</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -237,14 +237,15 @@
         <h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><p>首先，关于这篇文章为何取名为设计一个<strong>糅合系统</strong>的设计，所谓的糅合系统，是指这个系统的用户群体没有那么纯粹，比如，是一个既有c端用户，又有b端用户的使用场景的系统，起初在设计这样一个系统之初，我思考过这样的一个系统会有几个问题：</p>
 <ul>
 <li>逻辑混杂，到时候会出现这个c端是这个样子的，b端为了兼容而妥协，折中出来的并不是一个好的方案，对两类用户来说都<strong>不够简洁</strong>。</li>
-<li>if/else糅合的代码可理解性比较差，随着迭代的推进，后续会越来越来维护。</li>
+<li>if&#x2F;else糅合的代码可理解性比较差，随着迭代的推进，后续会越来越来维护。</li>
 <li>b端更加注重功能体验，他们要的是功能能不能满足他日常运营，而且<strong>不同类的b其功能是不同的</strong>，用户端更加注重操作体验体验是否好，当然b端也注重操作体验，但相对没c端这么匠心。</li>
 <li>不同的b端可能需要的主体风格不同，是考虑一个b一套代码，还是一套代码配置不同的b，还是一套b的框架下组合不同的工具。</li>
-<li>分离/b-part/c-part之后，如何复用公共逻辑，减少重复开发工作，公共逻辑包括哪些，下层的规则是什么，该放在何处。</li>
+<li>分离&#x2F;b-part&#x2F;c-part之后，如何复用公共逻辑，减少重复开发工作，公共逻辑包括哪些，下层的规则是什么，该放在何处。</li>
 <li>假如让一个新手加入进来，他怎么快速找到相应的业务的代码逻辑在何处，如何新增，修改代码已实现需求。</li>
 </ul>
 <p>基于以上这些点的思考，我首先走出了一个设计的雏形。</p>
-<h4 id="孵化"><a href="#孵化" class="headerlink" title="孵化"></a>孵化</h4><p><img data-src="/2021/10/12/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%B3%85%E5%90%88%E7%B3%BB%E7%BB%9F/wecom-temp-ae90559c80f2c549419e1bc9bcc34488.jpg" alt="wecom-temp-ae90559c80f2c549419e1bc9bcc34488" style="zoom:60%;" src="/2021/10/12/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%B3%85%E5%90%88%E7%B3%BB%E7%BB%9F/wecom-temp-ae90559c80f2c549419e1bc9bcc34488.jpg"></p>
+<h4 id="孵化"><a href="#孵化" class="headerlink" title="孵化"></a>孵化</h4><img data-src="/2021/10/12/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%B3%85%E5%90%88%E7%B3%BB%E7%BB%9F/wecom-temp-ae90559c80f2c549419e1bc9bcc34488.jpg" alt="wecom-temp-ae90559c80f2c549419e1bc9bcc34488" style="zoom:60%;" src="/2021/10/12/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%B3%85%E5%90%88%E7%B3%BB%E7%BB%9F/wecom-temp-ae90559c80f2c549419e1bc9bcc34488.jpg">
+
 <p>首先，我们先站在上帝视角来看一看，一个用户是如何和我们的系统打交道的。第一个我们关心的是一个三要素：</p>
 <p><strong>是谁？来干什么？干什么后去哪里？</strong>我们可以用一个故事的方式来描述几个这样的案例。</p>
 <ol>
@@ -255,7 +256,8 @@
 <li>….</li>
 </ol>
 <p>以上的场景，我们均可以从里面抛出【是谁，干啥，去哪】，这其实就是我要说的<strong>意图2.0</strong>，。</p>
-<p><img data-src="/2021/10/12/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%B3%85%E5%90%88%E7%B3%BB%E7%BB%9F/image-20211012150705417.png" alt="image-20211012150705417" style="zoom:80%;" src="/2021/10/12/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%B3%85%E5%90%88%E7%B3%BB%E7%BB%9F/image-20211012150705417.png"></p>
+<img data-src="/2021/10/12/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%B3%85%E5%90%88%E7%B3%BB%E7%BB%9F/image-20211012150705417.png" alt="image-20211012150705417" style="zoom:80%;" src="/2021/10/12/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%B3%85%E5%90%88%E7%B3%BB%E7%BB%9F/image-20211012150705417.png">
+
 <p>故事2是一个特例，实际上，不知道什么干什么也是一种干什么，不知道去哪也是一种去哪，不知道是谁也是一种是谁。</p>
 <h5 id="是谁"><a href="#是谁" class="headerlink" title="是谁"></a>是谁</h5><p>就是要确定进入系统的用户身份，是b端的用户，还是c端的用户，一旦确定了身份，这个应该是<strong>全局可知</strong>的</p>
 <ul>
@@ -263,7 +265,8 @@
 <li>isB</li>
 </ul>
 <h5 id="干啥"><a href="#干啥" class="headerlink" title="干啥"></a>干啥</h5><p>就是要确定是谁之后的事了，就像大家去政府办事一样，人家首先明确你是谁，然后在问你来干啥，你干啥是不是得交出一些办事的凭据来，事情的id，<strong>通过这个事情的id就对应到了不同的功能</strong>。</p>
-<p><img data-src="/2021/10/12/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%B3%85%E5%90%88%E7%B3%BB%E7%BB%9F/image-20211012153451750.png" alt="image-20211012153451750" style="zoom:80%;" src="/2021/10/12/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%B3%85%E5%90%88%E7%B3%BB%E7%BB%9F/image-20211012153451750.png"></p>
+<img data-src="/2021/10/12/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%B3%85%E5%90%88%E7%B3%BB%E7%BB%9F/image-20211012153451750.png" alt="image-20211012153451750" style="zoom:80%;" src="/2021/10/12/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%B3%85%E5%90%88%E7%B3%BB%E7%BB%9F/image-20211012153451750.png">
+
 <h5 id="去哪"><a href="#去哪" class="headerlink" title="去哪"></a>去哪</h5><p>首先每个功能有其内部的流转流程，它自己知道哪一步该去哪？但是：</p>
 <ul>
 <li>他这个内部的流程结束了呢？</li>
@@ -286,10 +289,10 @@
 </ul>
 <p>我们去买什么东西会写一个清单，如是：</p>
 <ul>
-<li>xx:buy&amp;item1=”南瓜1斤”&amp;item2=”瓜子1公斤”</li>
+<li>xx:buy&amp;item1&#x3D;”南瓜1斤”&amp;item2&#x3D;”瓜子1公斤”</li>
 </ul>
 <p>所以，用户来干什么，都是一系列的动作，做这些动作需要一个清单才知道具体怎么做，<strong>交给谁做很容易，我们就想到了路由</strong>。</p>
-<p>路由器就是一个配置表，表述的事情是，xx:buy&amp;item1=”南瓜”&amp;item2=”瓜子1公斤”</p>
+<p>路由器就是一个配置表，表述的事情是，xx:buy&amp;item1&#x3D;”南瓜”&amp;item2&#x3D;”瓜子1公斤”</p>
 <table>
 <thead>
 <tr>
@@ -299,33 +302,34 @@
 <th>realPath</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>xx:c-buy</td>
 <td>c端买东西</td>
-<td>item1=”南瓜1斤”&amp;item2=”瓜子1公斤”</td>
-<td>pages/c-buy/index</td>
+<td>item1&#x3D;”南瓜1斤”&amp;item2&#x3D;”瓜子1公斤”</td>
+<td>pages&#x2F;c-buy&#x2F;index</td>
 </tr>
 <tr>
 <td>xx:b-buy</td>
 <td>b端买东西</td>
-<td>item3=”南瓜1斤”&amp;item4=”瓜子1公斤”</td>
-<td>pages/b-buy/index</td>
+<td>item3&#x3D;”南瓜1斤”&amp;item4&#x3D;”瓜子1公斤”</td>
+<td>pages&#x2F;b-buy&#x2F;index</td>
 </tr>
 <tr>
 <td></td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <h5 id="功能是什么？"><a href="#功能是什么？" class="headerlink" title="功能是什么？"></a>功能是什么？</h5><p><strong>功能需要是一个比较内聚的概念</strong>，他可以包含一系列的动作，有自己内部的流转流程，更具数据的状态及用户的操作来驱动页面UI 的展示，即：</p>
 <blockquote>
-<p>功能= 数据 + action + UI</p>
+<p>功能&#x3D; 数据 + action + UI</p>
 </blockquote>
-<p><img data-src="/2021/10/12/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%B3%85%E5%90%88%E7%B3%BB%E7%BB%9F/image-20211012170713165.png" alt="image-20211012170713165" style="zoom:80%;" src="/2021/10/12/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%B3%85%E5%90%88%E7%B3%BB%E7%BB%9F/image-20211012170713165.png"></p>
+<img data-src="/2021/10/12/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%B3%85%E5%90%88%E7%B3%BB%E7%BB%9F/image-20211012170713165.png" alt="image-20211012170713165" style="zoom:80%;" src="/2021/10/12/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%B3%85%E5%90%88%E7%B3%BB%E7%BB%9F/image-20211012170713165.png">
+
 <p>功能，他有依赖底层的一些服务，及一些公共的工具函数。</p>
-<p><img data-src="/2021/10/12/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%B3%85%E5%90%88%E7%B3%BB%E7%BB%9F/image-20211012171053961.png" alt="image-20211012171053961" style="zoom:70%;" src="/2021/10/12/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%B3%85%E5%90%88%E7%B3%BB%E7%BB%9F/image-20211012171053961.png"></p>
+<img data-src="/2021/10/12/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%B3%85%E5%90%88%E7%B3%BB%E7%BB%9F/image-20211012171053961.png" alt="image-20211012171053961" style="zoom:70%;" src="/2021/10/12/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%B3%85%E5%90%88%E7%B3%BB%E7%BB%9F/image-20211012171053961.png">
+
 <p>那么，基础服务包括哪些呢？</p>
 <ul>
 <li>网络服务</li>
@@ -339,7 +343,7 @@
 <li>功能层</li>
 <li>基础层</li>
 </ul>
-<p><img data-src="/2021/10/12/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%B3%85%E5%90%88%E7%B3%BB%E7%BB%9F/image-20211012172537275.png" alt="image-20211012172537275" src="/2021/10/12/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%B3%85%E5%90%88%E7%B3%BB%E7%BB%9F/image-20211012172537275.png"></p>
+<p><img data-src="/2021/10/12/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%B3%85%E5%90%88%E7%B3%BB%E7%BB%9F/image-20211012172537275.png" alt="image-20211012172537275" loading="lazy" src="/2021/10/12/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%B3%85%E5%90%88%E7%B3%BB%E7%BB%9F/image-20211012172537275.png"></p>
 <blockquote>
 <p>路由层的作用是找到三要素【是谁，干啥，完事之后去哪】</p>
 </blockquote>
@@ -362,7 +366,7 @@
 <li>做了哪些动作</li>
 <li>动作的前因，后果是啥</li>
 </ul>
-
+<!-- flag of hidden posts -->
     </div>
 
     
@@ -378,16 +382,6 @@
 
 
         
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2021/10/10/%E4%B8%80%E7%A7%8D%E6%8F%8F%E8%BF%B0%E7%94%A8%E6%88%B7%E9%9C%80%E6%B1%82%E7%9A%84%E6%96%B0%E6%96%B9%E6%B3%95/" rel="prev" title="一种描述用户需求的新方法">
-      <i class="fa fa-chevron-left"></i> 一种描述用户需求的新方法
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2022/02/01/%E6%88%91%E8%A7%A3%E5%86%B3%E4%BA%86vscode%E4%B8%ADvue%E6%96%B9%E6%B3%95%E8%B7%B3%E8%BD%AC%E7%9A%84%E9%9A%BE%E9%A2%98/" rel="next" title="我解决了Vscode中vue方法跳转的难题">
-      我解决了Vscode中vue方法跳转的难题 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
       </footer>
     
   </article>
@@ -459,18 +453,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

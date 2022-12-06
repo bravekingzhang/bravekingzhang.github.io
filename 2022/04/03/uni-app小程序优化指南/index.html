@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.1.0">
+<meta name="generator" content="Hexo 6.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -25,14 +25,14 @@
 
   <meta name="description" content="官方优化建议避免使用大图页面中若大量使用大图资源，会造成页面切换的卡顿，导致系统内存升高，甚至白屏崩溃。 尤其是不要把多张大图缩小后显示在一个屏幕内，比如上传图片前选了数张几M体积的照片，然后缩小在一个屏幕中展示多张几M的大图，非常容易白屏崩溃。对大体积的二进制文件进行base64，也非常耗费资源。 优化数据更新在 uni-app 中，定义在 data 里面的数据每次变化时都会通知视图层重新渲染页">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Uni-App小程序优化指南">
+<meta property="og:title" content="小程序优化指南">
 <meta property="og:url" content="https://blog.brzhang.club/2022/04/03/uni-app%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BC%98%E5%8C%96%E6%8C%87%E5%8D%97/index.html">
 <meta property="og:site_name" content="心随我动">
 <meta property="og:description" content="官方优化建议避免使用大图页面中若大量使用大图资源，会造成页面切换的卡顿，导致系统内存升高，甚至白屏崩溃。 尤其是不要把多张大图缩小后显示在一个屏幕内，比如上传图片前选了数张几M体积的照片，然后缩小在一个屏幕中展示多张几M的大图，非常容易白屏崩溃。对大体积的二进制文件进行base64，也非常耗费资源。 优化数据更新在 uni-app 中，定义在 data 里面的数据每次变化时都会通知视图层重新渲染页">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://res.wx.qq.com/wxdoc/dist/assets/img/route-1.2700b598.svg">
 <meta property="article:published_time" content="2022-04-03T09:43:19.000Z">
-<meta property="article:modified_time" content="2022-09-29T07:18:14.092Z">
+<meta property="article:modified_time" content="2022-11-28T01:25:08.252Z">
 <meta property="article:author" content="hz">
 <meta property="article:tag" content="小程序">
 <meta name="twitter:card" content="summary">
@@ -51,7 +51,7 @@
   };
 </script>
 
-  <title>Uni-App小程序优化指南 | 心随我动</title>
+  <title>小程序优化指南 | 心随我动</title>
   
 
 
@@ -182,7 +182,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Uni-App小程序优化指南
+          小程序优化指南
         </h1>
 
         <div class="post-meta">
@@ -199,7 +199,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-09-29 15:18:14" itemprop="dateModified" datetime="2022-09-29T15:18:14+08:00">2022-09-29</time>
+                <time title="修改时间：2022-11-28 09:25:08" itemprop="dateModified" datetime="2022-11-28T09:25:08+08:00">2022-11-28</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -242,7 +242,7 @@
 <h4 id="减少组件数量、减少节点嵌套层级"><a href="#减少组件数量、减少节点嵌套层级" class="headerlink" title="减少组件数量、减少节点嵌套层级"></a>减少组件数量、减少节点嵌套层级</h4><p>深层嵌套的节点在页面初始化构建时往往需要更多的内存占用，并且在遍历节点时也会更慢些，所以建议减少深层的节点嵌套，即页面结果更加扁平化。</p>
 <h4 id="避免视图层和逻辑层频繁进行通讯"><a href="#避免视图层和逻辑层频繁进行通讯" class="headerlink" title="避免视图层和逻辑层频繁进行通讯"></a>避免视图层和逻辑层频繁进行通讯</h4><ul>
 <li>减少 scroll-view 组件的 scroll 事件监听，当监听 scroll-view 的滚动事件时，视图层会频繁的向逻辑层发送数据；</li>
-<li>监听 scroll-view 组件的滚动事件时，不要实时的改变 scroll-top/scroll-left 属性，因为监听滚动时，视图层向逻辑层通讯，改变 scroll-top/scroll-left 时，逻辑层又向视图层通讯，这样就可能造成通讯卡顿。</li>
+<li>监听 scroll-view 组件的滚动事件时，不要实时的改变 scroll-top&#x2F;scroll-left 属性，因为监听滚动时，视图层向逻辑层通讯，改变 scroll-top&#x2F;scroll-left 时，逻辑层又向视图层通讯，这样就可能造成通讯卡顿。</li>
 <li>注意 onPageScroll 的使用，onPageScroll 进行监听时，视图层会频繁的向逻辑层发送数据；</li>
 <li>多使用css动画，而不是通过js的定时器操作界面做动画</li>
 <li>如需在canvas里做跟手操作，小程序端建议使用web-view组件。<strong>web-view里的页面没有逻辑层和视图层分离的概念</strong>，自然也不会有通信折损。</li>
@@ -264,7 +264,7 @@
 </li>
 <li><h5 id="解决uni-app编译后vendor-js文件过大"><a href="#解决uni-app编译后vendor-js文件过大" class="headerlink" title="解决uni-app编译后vendor.js文件过大"></a><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000022034729">解决uni-app编译后vendor.js文件过大</a></h5><ul>
 <li><strong>开启生产环境gzip</strong>，vendor.js从2.5M减少到440k</li>
-<li>使用 <a target="_blank" rel="noopener" href="https://link.segmentfault.com/?enc=55naxIfeVBleEhh0keJWfQ%3D%3D.ejew0C%2F77C%2Fi4a23Ple5Ws84RAXAcgN0bIPdNLEDaAfUIrhQ4rawtZSX8TpRQTpA7QAlJ%2BgGALw4OzlnkYU1pw%3D%3D">webpackBundleAnalyzer</a>，可以帮助分析文件大小。</li>
+<li>使用 <a target="_blank" rel="noopener" href="https://link.segmentfault.com/?enc=55naxIfeVBleEhh0keJWfQ==.ejew0C/77C/i4a23Ple5Ws84RAXAcgN0bIPdNLEDaAfUIrhQ4rawtZSX8TpRQTpA7QAlJ+gGALw4OzlnkYU1pw==">webpackBundleAnalyzer</a>，可以帮助分析文件大小。</li>
 </ul>
 </li>
 </ul>
@@ -284,7 +284,7 @@
 <li>逻辑层虚拟 DOM 树的遍历和更新，触发组件生命周期和 observer 等；</li>
 <li>将 data 从逻辑层传输到视图层；</li>
 <li>视图层虚拟 DOM 树的更新、真实 DOM 元素的更新并触发页面渲染更新。</li>
-<li>于小程序的逻辑层和视图层是两个独立的运行环境、分属不同的线程或进程，不能直接进行数据共享，需要进行数据的序列化、跨线程/进程的数据传输、数据的反序列化，因此数据传输过程是<strong>异步的、非实时的</strong></li>
+<li>于小程序的逻辑层和视图层是两个独立的运行环境、分属不同的线程或进程，不能直接进行数据共享，需要进行数据的序列化、跨线程&#x2F;进程的数据传输、数据的反序列化，因此数据传输过程是<strong>异步的、非实时的</strong></li>
 <li>数据传输的耗时与<strong>数据量的大小</strong>正相关，如果对端线程处于繁忙状态，数据会在<strong>消息队列中等待</strong>。</li>
 </ul>
 <h5 id="2、优化建议"><a href="#2、优化建议" class="headerlink" title="2、优化建议"></a>2、优化建议</h5><ul>
@@ -294,16 +294,15 @@
 <li><strong>setData应该只传变化的数据</strong>：<code>this.setData(&#123;&#39;array[2].message&#39;: &#39;newVal&#39;, &#39;a.b.c.d&#39;: &#39;newVal&#39;&#125;)</code>，而不是每次都更新整个对象或数组；</li>
 <li><strong>setData应该避免后台页面刷新</strong>：页面切后台后的更新操作，应尽量避免，或延迟到页面 <code>onShow</code> 后延迟进行</li>
 </ul>
-<p>## </p>
-<h5 id="渲染性能优化"><a href="#渲染性能优化" class="headerlink" title="渲染性能优化"></a>渲染性能优化</h5><ol>
+<h2 id><a href="#" class="headerlink" title></a></h2><h5 id="渲染性能优化"><a href="#渲染性能优化" class="headerlink" title="渲染性能优化"></a>渲染性能优化</h5><ol>
 <li>非必要不监听 scroll 事件；</li>
 <li>选择高性能动画实现方式，如优先使用 CSS 渐变、CSS 动画</li>
 <li>建议使用<a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/miniprogram/dev/api/wxml/wx.createIntersectionObserver.html">节点布局相交状态监听 IntersectionObserver</a> 推断某些节点是否可见、有多大比例可见，而不是监听scrollview</li>
 </ol>
 <hr>
-<h5 id="页面切换优化"><a href="#页面切换优化" class="headerlink" title="页面切换优化"></a>页面切换优化</h5><p><img data-src="https://res.wx.qq.com/wxdoc/dist/assets/img/route-1.2700b598.svg" alt="img"></p>
+<h5 id="页面切换优化"><a href="#页面切换优化" class="headerlink" title="页面切换优化"></a>页面切换优化</h5><p><img data-src="https://res.wx.qq.com/wxdoc/dist/assets/img/route-1.2700b598.svg" alt="img" loading="lazy"></p>
 <ol>
-<li>onHide/onUnload 中的逻辑应尽量简单，若必须要进行部分复杂逻辑，可以考虑用 setTimeout 延迟进行。</li>
+<li>onHide&#x2F;onUnload 中的逻辑应尽量简单，若必须要进行部分复杂逻辑，可以考虑用 setTimeout 延迟进行。</li>
 <li>跳转到分包页面时，从发起页面跳转到页面 onLoad 之间可能有较长的时间间隔，可以利用时间进行网络数据加载，提前准备分包页数据。</li>
 <li>避免预加载流程对页面加载过程的影响，开发者可以配置 <code>handleWebviewPreload</code> 选项，来控制预加载下个页面的时机。设置<code>&quot;handleWebviewPreload&quot;: &quot;auto&quot;</code></li>
 </ol>
@@ -318,7 +317,7 @@
 </ul>
 <h5 id="图片对内存的影响"><a href="#图片对内存的影响" class="headerlink" title="图片对内存的影响"></a><strong>图片对内存的影响</strong></h5><p>iOS 系统内存紧张时，会主动回收掉一部分 WebView。大图片和长列表中的大量图片很容易引起系统对 WebView 的回收，导致小程序白屏，严重时会触发微信强制关闭小程序。</p>
 <p>内存增长如果超过了限制，也会导致小程序出现白屏或黑屏，甚至整个小程序发生闪退。</p>
-<h5 id="2-避免滥用-image-组件的-widthFix-heightFix-模式"><a href="#2-避免滥用-image-组件的-widthFix-heightFix-模式" class="headerlink" title="2. 避免滥用 image 组件的 widthFix/heightFix 模式"></a>2. 避免滥用 image 组件的 widthFix/heightFix 模式</h5><p>widthFix/heightFix 模式会在图片加载完成后，动态改变图片的高度或宽度。图片高度或宽度的动态改变，可能会引起页面内大范围的布局重排，导致页面发生抖动，并造成卡顿。</p>
+<h5 id="2-避免滥用-image-组件的-widthFix-x2F-heightFix-模式"><a href="#2-避免滥用-image-组件的-widthFix-x2F-heightFix-模式" class="headerlink" title="2. 避免滥用 image 组件的 widthFix&#x2F;heightFix 模式"></a>2. 避免滥用 image 组件的 widthFix&#x2F;heightFix 模式</h5><p>widthFix&#x2F;heightFix 模式会在图片加载完成后，动态改变图片的高度或宽度。图片高度或宽度的动态改变，可能会引起页面内大范围的布局重排，导致页面发生抖动，并造成卡顿。</p>
 <p>对于页面的背景图或 banner 图，应尽量预先指定图片的尺寸，避免图片加载完成后再进行二次的尺寸调整。</p>
 <hr>
 <h5 id="内存优化"><a href="#内存优化" class="headerlink" title="内存优化"></a>内存优化</h5><ol>
@@ -453,7 +452,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%98%E6%96%B9%E4%BC%98%E5%8C%96%E5%BB%BA%E8%AE%AE"><span class="nav-number">1.</span> <span class="nav-text">官方优化建议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%81%BF%E5%85%8D%E4%BD%BF%E7%94%A8%E5%A4%A7%E5%9B%BE"><span class="nav-number">1.0.1.</span> <span class="nav-text">避免使用大图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E6%95%B0%E6%8D%AE%E6%9B%B4%E6%96%B0"><span class="nav-number">1.0.2.</span> <span class="nav-text">优化数据更新</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%95%BF%E5%88%97%E8%A1%A8"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">长列表</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%8F%E5%B0%91%E4%B8%80%E6%AC%A1%E6%80%A7%E6%B8%B2%E6%9F%93%E7%9A%84%E8%8A%82%E7%82%B9%E6%95%B0%E9%87%8F"><span class="nav-number">1.0.3.</span> <span class="nav-text">减少一次性渲染的节点数量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%8F%E5%B0%91%E7%BB%84%E4%BB%B6%E6%95%B0%E9%87%8F%E3%80%81%E5%87%8F%E5%B0%91%E8%8A%82%E7%82%B9%E5%B5%8C%E5%A5%97%E5%B1%82%E7%BA%A7"><span class="nav-number">1.0.4.</span> <span class="nav-text">减少组件数量、减少节点嵌套层级</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%81%BF%E5%85%8D%E8%A7%86%E5%9B%BE%E5%B1%82%E5%92%8C%E9%80%BB%E8%BE%91%E5%B1%82%E9%A2%91%E7%B9%81%E8%BF%9B%E8%A1%8C%E9%80%9A%E8%AE%AF"><span class="nav-number">1.0.5.</span> <span class="nav-text">避免视图层和逻辑层频繁进行通讯</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E9%A1%B5%E9%9D%A2%E5%88%87%E6%8D%A2%E5%8A%A8%E7%94%BB"><span class="nav-number">1.0.6.</span> <span class="nav-text">优化页面切换动画</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E8%83%8C%E6%99%AF%E8%89%B2%E9%97%AA%E7%99%BD"><span class="nav-number">1.0.7.</span> <span class="nav-text">优化背景色闪白</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E5%90%AF%E5%8A%A8%E9%80%9F%E5%BA%A6"><span class="nav-number">1.0.8.</span> <span class="nav-text">优化启动速度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E5%8C%85%E4%BD%93%E7%A7%AF"><span class="nav-number">1.0.9.</span> <span class="nav-text">优化包体积</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3uni-app%E7%BC%96%E8%AF%91%E5%90%8Evendor-js%E6%96%87%E4%BB%B6%E8%BF%87%E5%A4%A7"><span class="nav-number">1.0.9.1.</span> <span class="nav-text">解决uni-app编译后vendor.js文件过大</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%AE%E4%BF%A1%E5%AE%98%E6%96%B9%E4%BC%98%E5%8C%96%E5%BB%BA%E8%AE%AE"><span class="nav-number">2.</span> <span class="nav-text">微信官方优化建议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%90%AF%E5%8A%A8%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="nav-number">2.0.1.</span> <span class="nav-text">小程序启动性能优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%8F%E7%A8%8B%E5%BA%8F%E8%BF%90%E8%A1%8C%E6%97%B6%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="nav-number">2.0.2.</span> <span class="nav-text">小程序运行时性能优化</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%88%E7%90%86%E4%BD%BF%E7%94%A8-setData"><span class="nav-number">2.0.2.1.</span> <span class="nav-text">合理使用 setData</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-setData-%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="nav-number">2.0.2.2.</span> <span class="nav-text">1. setData 的流程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2%E3%80%81%E4%BC%98%E5%8C%96%E5%BB%BA%E8%AE%AE"><span class="nav-number">2.0.2.3.</span> <span class="nav-text">2、优化建议</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%B2%E6%9F%93%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="nav-number">2.0.2.4.</span> <span class="nav-text">渲染性能优化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%A1%B5%E9%9D%A2%E5%88%87%E6%8D%A2%E4%BC%98%E5%8C%96"><span class="nav-number">2.0.2.5.</span> <span class="nav-text">页面切换优化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96"><span class="nav-number">2.0.2.6.</span> <span class="nav-text">资源加载优化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E6%8E%A7%E5%88%B6%E5%9B%BE%E7%89%87%E8%B5%84%E6%BA%90%E7%9A%84%E5%A4%A7%E5%B0%8F"><span class="nav-number">2.0.2.7.</span> <span class="nav-text">1. 控制图片资源的大小</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9B%BE%E7%89%87%E5%AF%B9%E5%86%85%E5%AD%98%E7%9A%84%E5%BD%B1%E5%93%8D"><span class="nav-number">2.0.2.8.</span> <span class="nav-text">图片对内存的影响</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E9%81%BF%E5%85%8D%E6%BB%A5%E7%94%A8-image-%E7%BB%84%E4%BB%B6%E7%9A%84-widthFix-heightFix-%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.0.2.9.</span> <span class="nav-text">2. 避免滥用 image 组件的 widthFix&#x2F;heightFix 模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E4%BC%98%E5%8C%96"><span class="nav-number">2.0.2.10.</span> <span class="nav-text">内存优化</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%B7%B1%E6%B2%89%E6%B7%80%E4%BC%98%E5%8C%96"><span class="nav-number">3.</span> <span class="nav-text">自己沉淀优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A1%B5%E9%9D%A2%E5%88%87%E6%8D%A2%E4%BC%98%E5%8C%96-1"><span class="nav-number">3.0.1.</span> <span class="nav-text">页面切换优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E4%BC%98%E5%8C%96-1"><span class="nav-number">3.0.2.</span> <span class="nav-text">内存优化</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%91%E6%8E%A7%E4%BD%93%E7%B3%BB%E6%90%AD%E5%BB%BA"><span class="nav-number">4.</span> <span class="nav-text">监控体系搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%BE%E7%89%87%E7%9B%91%E6%8E%A7"><span class="nav-number">4.0.1.</span> <span class="nav-text">图片监控</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#setData%E5%B0%BA%E5%AF%B8%E8%BF%87%E5%A4%A7%EF%BC%8C%E9%A2%91%E7%8E%87%E8%BF%87%E5%BF%AB"><span class="nav-number">4.0.2.</span> <span class="nav-text">setData尺寸过大，频率过快</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E7%9B%91%E6%8E%A7"><span class="nav-number">4.0.3.</span> <span class="nav-text">网络监控</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E7%9B%91%E6%8E%A7"><span class="nav-number">4.0.4.</span> <span class="nav-text">内存监控</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%A1%E9%A1%BF%E7%9B%91%E6%8E%A7"><span class="nav-number">4.0.5.</span> <span class="nav-text">卡顿监控</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%98%E6%96%B9%E4%BC%98%E5%8C%96%E5%BB%BA%E8%AE%AE"><span class="nav-number">1.</span> <span class="nav-text">官方优化建议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%81%BF%E5%85%8D%E4%BD%BF%E7%94%A8%E5%A4%A7%E5%9B%BE"><span class="nav-number">1.0.1.</span> <span class="nav-text">避免使用大图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E6%95%B0%E6%8D%AE%E6%9B%B4%E6%96%B0"><span class="nav-number">1.0.2.</span> <span class="nav-text">优化数据更新</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%95%BF%E5%88%97%E8%A1%A8"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">长列表</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%8F%E5%B0%91%E4%B8%80%E6%AC%A1%E6%80%A7%E6%B8%B2%E6%9F%93%E7%9A%84%E8%8A%82%E7%82%B9%E6%95%B0%E9%87%8F"><span class="nav-number">1.0.3.</span> <span class="nav-text">减少一次性渲染的节点数量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%8F%E5%B0%91%E7%BB%84%E4%BB%B6%E6%95%B0%E9%87%8F%E3%80%81%E5%87%8F%E5%B0%91%E8%8A%82%E7%82%B9%E5%B5%8C%E5%A5%97%E5%B1%82%E7%BA%A7"><span class="nav-number">1.0.4.</span> <span class="nav-text">减少组件数量、减少节点嵌套层级</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%81%BF%E5%85%8D%E8%A7%86%E5%9B%BE%E5%B1%82%E5%92%8C%E9%80%BB%E8%BE%91%E5%B1%82%E9%A2%91%E7%B9%81%E8%BF%9B%E8%A1%8C%E9%80%9A%E8%AE%AF"><span class="nav-number">1.0.5.</span> <span class="nav-text">避免视图层和逻辑层频繁进行通讯</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E9%A1%B5%E9%9D%A2%E5%88%87%E6%8D%A2%E5%8A%A8%E7%94%BB"><span class="nav-number">1.0.6.</span> <span class="nav-text">优化页面切换动画</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E8%83%8C%E6%99%AF%E8%89%B2%E9%97%AA%E7%99%BD"><span class="nav-number">1.0.7.</span> <span class="nav-text">优化背景色闪白</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E5%90%AF%E5%8A%A8%E9%80%9F%E5%BA%A6"><span class="nav-number">1.0.8.</span> <span class="nav-text">优化启动速度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E5%8C%85%E4%BD%93%E7%A7%AF"><span class="nav-number">1.0.9.</span> <span class="nav-text">优化包体积</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3uni-app%E7%BC%96%E8%AF%91%E5%90%8Evendor-js%E6%96%87%E4%BB%B6%E8%BF%87%E5%A4%A7"><span class="nav-number">1.0.9.1.</span> <span class="nav-text">解决uni-app编译后vendor.js文件过大</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%AE%E4%BF%A1%E5%AE%98%E6%96%B9%E4%BC%98%E5%8C%96%E5%BB%BA%E8%AE%AE"><span class="nav-number">2.</span> <span class="nav-text">微信官方优化建议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%90%AF%E5%8A%A8%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="nav-number">2.0.1.</span> <span class="nav-text">小程序启动性能优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%8F%E7%A8%8B%E5%BA%8F%E8%BF%90%E8%A1%8C%E6%97%B6%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="nav-number">2.0.2.</span> <span class="nav-text">小程序运行时性能优化</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%88%E7%90%86%E4%BD%BF%E7%94%A8-setData"><span class="nav-number">2.0.2.1.</span> <span class="nav-text">合理使用 setData</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-setData-%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="nav-number">2.0.2.2.</span> <span class="nav-text">1. setData 的流程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2%E3%80%81%E4%BC%98%E5%8C%96%E5%BB%BA%E8%AE%AE"><span class="nav-number">2.0.2.3.</span> <span class="nav-text">2、优化建议</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text"></span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%B2%E6%9F%93%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="nav-number">3.0.0.1.</span> <span class="nav-text">渲染性能优化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%A1%B5%E9%9D%A2%E5%88%87%E6%8D%A2%E4%BC%98%E5%8C%96"><span class="nav-number">3.0.0.2.</span> <span class="nav-text">页面切换优化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96"><span class="nav-number">3.0.0.3.</span> <span class="nav-text">资源加载优化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E6%8E%A7%E5%88%B6%E5%9B%BE%E7%89%87%E8%B5%84%E6%BA%90%E7%9A%84%E5%A4%A7%E5%B0%8F"><span class="nav-number">3.0.0.4.</span> <span class="nav-text">1. 控制图片资源的大小</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9B%BE%E7%89%87%E5%AF%B9%E5%86%85%E5%AD%98%E7%9A%84%E5%BD%B1%E5%93%8D"><span class="nav-number">3.0.0.5.</span> <span class="nav-text">图片对内存的影响</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E9%81%BF%E5%85%8D%E6%BB%A5%E7%94%A8-image-%E7%BB%84%E4%BB%B6%E7%9A%84-widthFix-x2F-heightFix-%E6%A8%A1%E5%BC%8F"><span class="nav-number">3.0.0.6.</span> <span class="nav-text">2. 避免滥用 image 组件的 widthFix&#x2F;heightFix 模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E4%BC%98%E5%8C%96"><span class="nav-number">3.0.0.7.</span> <span class="nav-text">内存优化</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%B7%B1%E6%B2%89%E6%B7%80%E4%BC%98%E5%8C%96"><span class="nav-number">4.</span> <span class="nav-text">自己沉淀优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A1%B5%E9%9D%A2%E5%88%87%E6%8D%A2%E4%BC%98%E5%8C%96-1"><span class="nav-number">4.0.1.</span> <span class="nav-text">页面切换优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E4%BC%98%E5%8C%96-1"><span class="nav-number">4.0.2.</span> <span class="nav-text">内存优化</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%91%E6%8E%A7%E4%BD%93%E7%B3%BB%E6%90%AD%E5%BB%BA"><span class="nav-number">5.</span> <span class="nav-text">监控体系搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%BE%E7%89%87%E7%9B%91%E6%8E%A7"><span class="nav-number">5.0.1.</span> <span class="nav-text">图片监控</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#setData%E5%B0%BA%E5%AF%B8%E8%BF%87%E5%A4%A7%EF%BC%8C%E9%A2%91%E7%8E%87%E8%BF%87%E5%BF%AB"><span class="nav-number">5.0.2.</span> <span class="nav-text">setData尺寸过大，频率过快</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E7%9B%91%E6%8E%A7"><span class="nav-number">5.0.3.</span> <span class="nav-text">网络监控</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E7%9B%91%E6%8E%A7"><span class="nav-number">5.0.4.</span> <span class="nav-text">内存监控</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%A1%E9%A1%BF%E7%9B%91%E6%8E%A7"><span class="nav-number">5.0.5.</span> <span class="nav-text">卡顿监控</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -466,18 +465,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

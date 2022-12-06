@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.1.0">
+<meta name="generator" content="Hexo 6.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -31,9 +31,9 @@
 <meta property="og:description" content="uni编译后的代码 const getEmitter &#x3D; (function () &amp;#123;   let Emitter;   return function getUniEmitter() &amp;#123;     if (!Emitter) &amp;#123;       Emitter &#x3D; new Vue();     &amp;#125;     return Emitter;   &amp;#125;; &amp;#">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-10T12:00:33.000Z">
-<meta property="article:modified_time" content="2022-09-29T07:18:14.100Z">
+<meta property="article:modified_time" content="2022-11-28T01:25:08.253Z">
 <meta property="article:author" content="hz">
-<meta property="article:tag" content="default">
+<meta property="article:tag" content="小程序">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://blog.brzhang.club/2022/03/10/uni%E5%A6%82%E4%BD%95%E6%A1%A5%E6%8E%A5%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%9A%84/">
@@ -49,7 +49,7 @@
   };
 </script>
 
-  <title>Uni如何桥接小程序的 | 心随我动</title>
+  <title>Uni如何桥接小程序的 | 心随我动</title><meta name="robots" content="noindex">
   
 
 
@@ -197,7 +197,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-09-29 15:18:14" itemprop="dateModified" datetime="2022-09-29T15:18:14+08:00">2022-09-29</time>
+                <time title="修改时间：2022-11-28 09:25:08" itemprop="dateModified" datetime="2022-11-28T09:25:08+08:00">2022-11-28</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -205,7 +205,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/default/" itemprop="url" rel="index"><span itemprop="name">default</span></a>
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
                 </span>
             </span>
 
@@ -254,6 +254,9 @@
 <span class="token keyword">function</span> <span class="token function">$emit</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
   <span class="token keyword">return</span> <span class="token function">apply</span><span class="token punctuation">(</span><span class="token function">getEmitter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"$emit"</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token operator">...</span>arguments<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
 <h5 id="uni连接vue和小程序的桥梁"><a href="#uni连接vue和小程序的桥梁" class="headerlink" title="uni连接vue和小程序的桥梁"></a>uni连接vue和小程序的桥梁</h5><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">initProperties</span><span class="token punctuation">(</span>props<span class="token punctuation">,</span> isBehavior <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">,</span> file <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
   <span class="token keyword">const</span> properties <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
   <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>isBehavior<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
@@ -320,6 +323,9 @@
   <span class="token keyword">return</span> properties<span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
 <h5 id="uni创建页面和组件"><a href="#uni创建页面和组件" class="headerlink" title="uni创建页面和组件"></a>uni创建页面和组件</h5><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//小程序的component https://developers.weixin.qq.com/miniprogram/dev/reference/api/Component.html</span>
 <span class="token keyword">function</span> <span class="token function">createPage</span><span class="token punctuation">(</span><span class="token parameter">vuePageOptions</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
   <span class="token punctuation">&#123;</span>
@@ -332,6 +338,9 @@
     <span class="token keyword">return</span> <span class="token function">Component</span><span class="token punctuation">(</span><span class="token function">parseComponent</span><span class="token punctuation">(</span>vueOptions<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
 <h5 id="uni创建App"><a href="#uni创建App" class="headerlink" title="uni创建App"></a>uni创建App</h5><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">createApp</span><span class="token punctuation">(</span><span class="token parameter">vm</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
   <span class="token function">App</span><span class="token punctuation">(</span><span class="token function">parseApp</span><span class="token punctuation">(</span>vm<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//小程序的App方法https://developers.weixin.qq.com/miniprogram/dev/reference/api/App.html</span>
   <span class="token keyword">return</span> vm<span class="token punctuation">;</span>
@@ -442,6 +451,7 @@
   <span class="token keyword">return</span> appOptions<span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<!-- flag of hidden posts -->
     </div>
 
     
@@ -450,23 +460,13 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/default/" rel="tag"># default</a>
+              <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" rel="tag"># 小程序</a>
           </div>
 
         
 
 
         
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2022/03/10/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7/" rel="prev" title="小程序调试技巧">
-      <i class="fa fa-chevron-left"></i> 小程序调试技巧
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2022/03/11/uni%E8%BD%AC%E6%8D%A2%E7%9A%84async-await/" rel="next" title="Uni转换的async Await">
-      Uni转换的async Await <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
       </footer>
     
   </article>
@@ -538,18 +538,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

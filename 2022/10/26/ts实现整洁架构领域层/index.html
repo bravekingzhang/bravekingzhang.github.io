@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.1.0">
+<meta name="generator" content="Hexo 6.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -33,9 +33,9 @@
 <meta property="og:image" content="https://blog.brzhang.club/2022/10/26/ts%E5%AE%9E%E7%8E%B0%E6%95%B4%E6%B4%81%E6%9E%B6%E6%9E%84%E9%A2%86%E5%9F%9F%E5%B1%82/clean-architecture.png">
 <meta property="og:image" content="https://blog.brzhang.club/2022/10/26/ts%E5%AE%9E%E7%8E%B0%E6%95%B4%E6%B4%81%E6%9E%B6%E6%9E%84%E9%A2%86%E5%9F%9F%E5%B1%82/clean-arch-flow.png">
 <meta property="article:published_time" content="2022-10-26T04:31:53.000Z">
-<meta property="article:modified_time" content="2022-10-26T04:43:07.795Z">
+<meta property="article:modified_time" content="2022-11-28T01:24:16.195Z">
 <meta property="article:author" content="hz">
-<meta property="article:tag" content="default">
+<meta property="article:tag" content="架构">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://blog.brzhang.club/2022/10/26/ts%E5%AE%9E%E7%8E%B0%E6%95%B4%E6%B4%81%E6%9E%B6%E6%9E%84%E9%A2%86%E5%9F%9F%E5%B1%82/clean-architecture.png">
 
@@ -192,17 +192,23 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2022-10-26 12:31:53 / 修改时间：12:43:07" itemprop="dateCreated datePublished" datetime="2022-10-26T12:31:53+08:00">2022-10-26</time>
+              <time title="创建时间：2022-10-26 12:31:53" itemprop="dateCreated datePublished" datetime="2022-10-26T12:31:53+08:00">2022-10-26</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-11-28 09:24:16" itemprop="dateModified" datetime="2022-11-28T09:24:16+08:00">2022-11-28</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/default/" itemprop="url" rel="index"><span itemprop="name">default</span></a>
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
                 </span>
             </span>
 
@@ -226,8 +232,8 @@
       
         <h3 id="Typescript中实现清洁架构的模块化应用领域层"><a href="#Typescript中实现清洁架构的模块化应用领域层" class="headerlink" title="Typescript中实现清洁架构的模块化应用领域层"></a>Typescript中实现清洁架构的模块化应用领域层</h3><p>为什么使用Typescript，只是因为它越来越流行，但这是有原因的。据说，<strong>Typescript可以帮助开发中减少15%的错误</strong>。它对与其他开发者合作也很有用，因为每个组件属性、类属性和函数参数都可以在代码中定义其类型；</p>
 <p>Clean arhcitecture是一种设计模式，旨在将应用逻辑与用户界面或外部服务分开。它通过在一个圆圈中定义层，其中每一层只能与圆圈中心的其他层进行交互。用Vue的话来说，这些层是（从外到内） <strong>Components + Store -&gt; Use cases -&gt; Entities</strong>，如下图所示。</p>
-<p><img data-src="/2022/10/26/ts%E5%AE%9E%E7%8E%B0%E6%95%B4%E6%B4%81%E6%9E%B6%E6%9E%84%E9%A2%86%E5%9F%9F%E5%B1%82/clean-architecture.png" alt="clean-architecture.png" src="/2022/10/26/ts%E5%AE%9E%E7%8E%B0%E6%95%B4%E6%B4%81%E6%9E%B6%E6%9E%84%E9%A2%86%E5%9F%9F%E5%B1%82/clean-architecture.png"></p>
-<h4 id="领域层"><a href="#领域层" class="headerlink" title="领域层"></a>领域层</h4><p>领域层包含定义我们的应用程序将使用的基本数据的实体。应用层包含所有应用于实体的逻辑和操作。UI/Store层包含用户界面、控制器和演示器，这主要是应用程序的Vue/Nuxt部分。有一些元素组成了每个层，我们需要定义这些元素来构建这样的应用程序。</p>
+<p><img data-src="/2022/10/26/ts%E5%AE%9E%E7%8E%B0%E6%95%B4%E6%B4%81%E6%9E%B6%E6%9E%84%E9%A2%86%E5%9F%9F%E5%B1%82/clean-architecture.png" alt="clean-architecture.png" loading="lazy" src="/2022/10/26/ts%E5%AE%9E%E7%8E%B0%E6%95%B4%E6%B4%81%E6%9E%B6%E6%9E%84%E9%A2%86%E5%9F%9F%E5%B1%82/clean-architecture.png"></p>
+<h4 id="领域层"><a href="#领域层" class="headerlink" title="领域层"></a>领域层</h4><p>领域层包含定义我们的应用程序将使用的基本数据的实体。应用层包含所有应用于实体的逻辑和操作。UI&#x2F;Store层包含用户界面、控制器和演示器，这主要是应用程序的Vue&#x2F;Nuxt部分。有一些元素组成了每个层，我们需要定义这些元素来构建这样的应用程序。</p>
 <h4 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h4><p>这就是我们所知道的vue组件。因为它包含了一些逻辑，也包含了用户界面，所以它既是视图也是展示者。这意味着它负责将商店中的任何数据转化为界面（按钮、下拉菜单、表格等）能够理解的数据结构。</p>
 <h4 id="Vuex-store"><a href="#Vuex-store" class="headerlink" title="Vuex store"></a>Vuex store</h4><p>我们将使用存储模块。你应该对此很熟悉，但这次我们将使用有一些限制的存储。由于store将是我们的 “控制器”，它负责接收来自用户的输入（来自组件的数据）并对这些数据进行操作。为了执行这个操作，它应该调用一个Interactor，而不是自己执行这个逻辑。商店应该只被组件调用（vuex actions），并相应地更新其状态（vuex mutations），把所有的逻辑留给内层。</p>
 <h4 id="Interactor"><a href="#Interactor" class="headerlink" title="Interactor"></a>Interactor</h4><p>交互器是一个被控制器调用的元素，通过服务执行任务并将结果返回给控制器。每个用例都应该有一个交互器。</p>
@@ -236,7 +242,7 @@
 <h4 id="Repository"><a href="#Repository" class="headerlink" title="Repository"></a>Repository</h4><p>这是一个接口（interface），定义了一个实体的所有用例和操作。</p>
 <h4 id="Entity"><a href="#Entity" class="headerlink" title="Entity"></a>Entity</h4><p>这是一个类或类型定义，定义了我们应用程序中对象的数据和领域限制（domain restrictions ）。验证逻辑也应该由实体来涵盖。即使实体仅仅描述了数据结构和验证逻辑，我们也不会通过层传递实体。组件永远不会看到一个实体对象，只有实体的序列化表示。</p>
 <p>下图显示了所有这些元素之间的相互作用。</p>
-<p><img data-src="/2022/10/26/ts%E5%AE%9E%E7%8E%B0%E6%95%B4%E6%B4%81%E6%9E%B6%E6%9E%84%E9%A2%86%E5%9F%9F%E5%B1%82/clean-arch-flow.png" alt="clean-arch-flow.png" src="/2022/10/26/ts%E5%AE%9E%E7%8E%B0%E6%95%B4%E6%B4%81%E6%9E%B6%E6%9E%84%E9%A2%86%E5%9F%9F%E5%B1%82/clean-arch-flow.png"></p>
+<p><img data-src="/2022/10/26/ts%E5%AE%9E%E7%8E%B0%E6%95%B4%E6%B4%81%E6%9E%B6%E6%9E%84%E9%A2%86%E5%9F%9F%E5%B1%82/clean-arch-flow.png" alt="clean-arch-flow.png" loading="lazy" src="/2022/10/26/ts%E5%AE%9E%E7%8E%B0%E6%95%B4%E6%B4%81%E6%9E%B6%E6%9E%84%E9%A2%86%E5%9F%9F%E5%B1%82/clean-arch-flow.png"></p>
 
     </div>
 
@@ -246,7 +252,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/default/" rel="tag"># default</a>
+              <a href="/tags/%E6%9E%B6%E6%9E%84/" rel="tag"># 架构</a>
           </div>
 
         
@@ -255,8 +261,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/09/29/yew%E5%88%9D%E6%8E%A2/" rel="prev" title="Yew初探">
-      <i class="fa fa-chevron-left"></i> Yew初探
+    <a href="/2022/10/08/lex%E5%AD%A6%E4%B9%A0/" rel="prev" title="Lex&yacc学习">
+      <i class="fa fa-chevron-left"></i> Lex&yacc学习
     </a></div>
       <div class="post-nav-item">
     <a href="/2022/11/16/%E5%B8%82%E5%9C%BA%E8%90%A5%E9%94%80/" rel="next" title="市场营销">
@@ -334,18 +340,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.1.0">
+<meta name="generator" content="Hexo 6.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -161,7 +161,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/">
+    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2021/10/10/%E4%B8%80%E7%A7%8D%E6%8F%8F%E8%BF%B0%E7%94%A8%E6%88%B7%E9%9C%80%E6%B1%82%E7%9A%84%E6%96%B0%E6%96%B9%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -175,7 +175,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/" class="post-title-link" itemprop="url">在linux上玩一下AI拟声</a>
+            <a href="/2021/10/10/%E4%B8%80%E7%A7%8D%E6%8F%8F%E8%BF%B0%E7%94%A8%E6%88%B7%E9%9C%80%E6%B1%82%E7%9A%84%E6%96%B0%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">一种描述用户需求的新方法</a>
         </h2>
 
         <div class="post-meta">
@@ -185,7 +185,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2022-02-22 12:02:04" itemprop="dateCreated datePublished" datetime="2022-02-22T12:02:04+08:00">2022-02-22</time>
+              <time title="创建时间：2021-10-10 17:37:56" itemprop="dateCreated datePublished" datetime="2021-10-10T17:37:56+08:00">2021-10-10</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
@@ -200,7 +200,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/default/" itemprop="url" rel="index"><span itemprop="name">default</span></a>
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
                 </span>
             </span>
 
@@ -215,169 +215,33 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h3><p><a target="_blank" rel="noopener" href="https://github.com/babysor/MockingBird">https://github.com/babysor/MockingBird</a></p>
-<p>git clone项目到本地，然后安装环境，开始体验。</p>
-<h3 id="操作方式"><a href="#操作方式" class="headerlink" title="操作方式"></a>操作方式</h3><h4 id="1、环境安装"><a href="#1、环境安装" class="headerlink" title="1、环境安装"></a>1、环境安装</h4><h5 id="1、1安装python环境"><a href="#1、1安装python环境" class="headerlink" title="1、1安装python环境"></a>1、1安装python环境</h5><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">yum install python39<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h5 id="1、2指定系统默认python版本"><a href="#1、2指定系统默认python版本" class="headerlink" title="1、2指定系统默认python版本"></a>1、2指定系统默认python版本</h5><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@VM-80-70-centos alternatives]# update-alternatives --config python3
-
-There are 3 programs which provide &#39;python3&#39;.
-
-  Selection    Command
------------------------------------------------
-   1           &#x2F;usr&#x2F;bin&#x2F;python3.8
-*  2           &#x2F;usr&#x2F;bin&#x2F;python3.6
- + 3           &#x2F;usr&#x2F;bin&#x2F;python3.9
-
-Enter to keep the current selection[+], or type selection number: 
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>这里默认是3.6，这个工程是不支持的，比如后续如果安装pytorch，就会报错</p>
-<p><img data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222120812006.png" alt="image-20220222120812006" src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222120812006.png"></p>
-<p>所以，这里输入3，选择3.9版本搞起，其实也可以系统python版本如果高于3.7也是可以不用安装python3.9，可直接进入安装pytorch。</p>
-<h5 id="1、3安装pytorch"><a href="#1、3安装pytorch" class="headerlink" title="1、3安装pytorch"></a>1、3安装pytorch</h5><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">pip3 install torch torchvision<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>验证一下是否安装成功</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> torch
-x <span class="token operator">=</span> torch<span class="token punctuation">.</span>rand<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span>
-<span class="token comment">#=============输出</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p><img data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222120729276.png" alt="image-20220222120729276" src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222120729276.png"></p>
-<h5 id="1、4安装ffmpeg，这个比较复杂，最好是使用源码编译安装的方式，yum找源大概率报错"><a href="#1、4安装ffmpeg，这个比较复杂，最好是使用源码编译安装的方式，yum找源大概率报错" class="headerlink" title="1、4安装ffmpeg，这个比较复杂，最好是使用源码编译安装的方式，yum找源大概率报错"></a>1、4安装ffmpeg，这个比较复杂，最好是使用源码编译安装的方式，yum找源大概率报错</h5><p>安装以及升级可以参考这里的步骤  <a target="_blank" rel="noopener" href="https://trac.ffmpeg.org/wiki/CompilationGuide/Centos，整个过程网络ok的情况下至少需要半小时。">https://trac.ffmpeg.org/wiki/CompilationGuide/Centos，整个过程网络ok的情况下至少需要半小时。</a></p>
-<p>我这里只展示安装的步骤，升级可以通过上面的链接查找。</p>
-<p>step1</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">yum install autoconf automake bzip2 bzip2-devel cmake freetype-devel gcc gcc-c++ git libtool make pkgconfig zlib-devel<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>step2</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">mkdir ~&#x2F;ffmpeg_sources<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>step3</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd ~&#x2F;ffmpeg_sources
-curl -O -L https:&#x2F;&#x2F;www.nasm.us&#x2F;pub&#x2F;nasm&#x2F;releasebuilds&#x2F;2.15.05&#x2F;nasm-2.15.05.tar.bz2
-tar xjvf nasm-2.15.05.tar.bz2
-cd nasm-2.15.05
-.&#x2F;autogen.sh
-.&#x2F;configure --prefix&#x3D;&quot;$HOME&#x2F;ffmpeg_build&quot; --bindir&#x3D;&quot;$HOME&#x2F;bin&quot;
-make
-make install<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>step4</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd ~&#x2F;ffmpeg_sources
-curl -O -L https:&#x2F;&#x2F;www.tortall.net&#x2F;projects&#x2F;yasm&#x2F;releases&#x2F;yasm-1.3.0.tar.gz
-tar xzvf yasm-1.3.0.tar.gz
-cd yasm-1.3.0
-.&#x2F;configure --prefix&#x3D;&quot;$HOME&#x2F;ffmpeg_build&quot; --bindir&#x3D;&quot;$HOME&#x2F;bin&quot;
-make
-make install<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>step5</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd ~&#x2F;ffmpeg_sources
-git clone --branch stable --depth 1 https:&#x2F;&#x2F;code.videolan.org&#x2F;videolan&#x2F;x264.git
-cd x264
-PKG_CONFIG_PATH&#x3D;&quot;$HOME&#x2F;ffmpeg_build&#x2F;lib&#x2F;pkgconfig&quot; .&#x2F;configure --prefix&#x3D;&quot;$HOME&#x2F;ffmpeg_build&quot; --bindir&#x3D;&quot;$HOME&#x2F;bin&quot; --enable-static
-make
-make install<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>step6</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd ~&#x2F;ffmpeg_sources
-git clone --branch stable --depth 2 https:&#x2F;&#x2F;bitbucket.org&#x2F;multicoreware&#x2F;x265_git
-cd ~&#x2F;ffmpeg_sources&#x2F;x265_git&#x2F;build&#x2F;linux
-cmake -G &quot;Unix Makefiles&quot; -DCMAKE_INSTALL_PREFIX&#x3D;&quot;$HOME&#x2F;ffmpeg_build&quot; -DENABLE_SHARED:bool&#x3D;off ..&#x2F;..&#x2F;source
-make
-make install<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>step7</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd ~&#x2F;ffmpeg_sources
-git clone --depth 1 https:&#x2F;&#x2F;github.com&#x2F;mstorsjo&#x2F;fdk-aac
-cd fdk-aac
-autoreconf -fiv
-.&#x2F;configure --prefix&#x3D;&quot;$HOME&#x2F;ffmpeg_build&quot; --disable-shared
-make
-make install<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>step8</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd ~&#x2F;ffmpeg_sources
-curl -O -L https:&#x2F;&#x2F;downloads.sourceforge.net&#x2F;project&#x2F;lame&#x2F;lame&#x2F;3.100&#x2F;lame-3.100.tar.gz
-tar xzvf lame-3.100.tar.gz
-cd lame-3.100
-.&#x2F;configure --prefix&#x3D;&quot;$HOME&#x2F;ffmpeg_build&quot; --bindir&#x3D;&quot;$HOME&#x2F;bin&quot; --disable-shared --enable-nasm
-make
-make install<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>step9</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd ~&#x2F;ffmpeg_sources
-curl -O -L https:&#x2F;&#x2F;archive.mozilla.org&#x2F;pub&#x2F;opus&#x2F;opus-1.3.1.tar.gz
-tar xzvf opus-1.3.1.tar.gz
-cd opus-1.3.1
-.&#x2F;configure --prefix&#x3D;&quot;$HOME&#x2F;ffmpeg_build&quot; --disable-shared
-make
-make install<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>step10</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd ~&#x2F;ffmpeg_sources
-git clone --depth 1 https:&#x2F;&#x2F;chromium.googlesource.com&#x2F;webm&#x2F;libvpx.git
-cd libvpx
-.&#x2F;configure --prefix&#x3D;&quot;$HOME&#x2F;ffmpeg_build&quot; --disable-examples --disable-unit-tests --enable-vp9-highbitdepth --as&#x3D;yasm
-make
-make install<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>step11</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">cd ~&#x2F;ffmpeg_sources
-curl -O -L https:&#x2F;&#x2F;ffmpeg.org&#x2F;releases&#x2F;ffmpeg-5.0.tar.bz2
-tar xjvf ffmpeg-5.0.tar.bz2
-cd ffmpeg-5.0
-PATH&#x3D;&quot;$HOME&#x2F;bin:$PATH&quot; PKG_CONFIG_PATH&#x3D;&quot;$HOME&#x2F;ffmpeg_build&#x2F;lib&#x2F;pkgconfig&quot; .&#x2F;configure \
-  --prefix&#x3D;&quot;$HOME&#x2F;ffmpeg_build&quot; \
-  --pkg-config-flags&#x3D;&quot;--static&quot; \
-  --extra-cflags&#x3D;&quot;-I$HOME&#x2F;ffmpeg_build&#x2F;include&quot; \
-  --extra-ldflags&#x3D;&quot;-L$HOME&#x2F;ffmpeg_build&#x2F;lib&quot; \
-  --extra-libs&#x3D;-lpthread \
-  --extra-libs&#x3D;-lm \
-  --bindir&#x3D;&quot;$HOME&#x2F;bin&quot; \
-  --enable-gpl \
-  --enable-libfdk_aac \
-  --enable-libfreetype \
-  --enable-libmp3lame \
-  --enable-libopus \
-  --enable-libvpx \
-  --enable-libx264 \
-  --enable-libx265 \
-  --enable-nonfree
-make
-make install
-hash -d ffmpeg<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h5 id="1、5安装python需要的包"><a href="#1、5安装python需要的包" class="headerlink" title="1、5安装python需要的包"></a>1、5安装python需要的包</h5><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">cd &#x2F;pathto&#x2F;MockingBird #到里本地项目克隆路径下
-pip3 install -r requirements.txt<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>什么鬼，安装直接报错</p>
-<p><img data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222130237710.png" alt="image-20220222130237710" src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222130237710.png"></p>
-<p>查了下资料，要解决这个问题，需要暗转下python39的devel，于是</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 安装EPEL源
-yum install epel-release -y
-# 安装python3开发包
-yum install python39-devel -y<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p><img data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222130400801.png" alt="image-20220222130400801" src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222130400801.png"></p>
-<p>这里大概就有我们需要的头文件了，然后在重试一次</p>
-<p><img data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222130524618.png" alt="image-20220222130524618" src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222130524618.png"></p>
-<p>这一次果断就成功了。</p>
-<h5 id="继续安装一个可选的依赖"><a href="#继续安装一个可选的依赖" class="headerlink" title="继续安装一个可选的依赖"></a>继续安装一个可选的依赖</h5><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">pip3 install webrtcvad-wheels<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>至此，整个环境的安装才算完毕，我初步估算了下，大概需要45分钟左右部署好环境。</p>
-<h4 id="2、准备模型"><a href="#2、准备模型" class="headerlink" title="2、准备模型"></a>2、准备模型</h4><p>这里我直接使用社区准备好的模型</p>
-<table>
-<thead>
-<tr>
-<th>作者</th>
-<th><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1iONvRxmkI-t1nHqxKytY3g">https://pan.baidu.com/s/1iONvRxmkI-t1nHqxKytY3g</a> <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1iONvRxmkI-t1nHqxKytY3g">百度盘链接</a> 4j5d</th>
-<th></th>
-<th>75k steps 用3个开源数据集混合训练</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<h4 id="3、打开web网页"><a href="#3、打开web网页" class="headerlink" title="3、打开web网页"></a>3、打开web网页</h4><pre class="line-numbers language-python" data-language="python"><code class="language-python">python web<span class="token punctuation">.</span>py <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>什么鬼，又一个报错</p>
-<p><img data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222131611301.png" alt="image-20220222131611301" src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222131611301.png"></p>
-<p>查了下，需要安装</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">yum install libsndfile<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p> 运行成功后在浏览器打开地址,默认为 <a target="_blank" rel="noopener" href="http://localhost:8080">http://localhost:8080</a></p>
-<p><img data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222142941022.png" alt="image-20220222142941022" src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222142941022.png"></p>
-<p>这就表示已经玩起来了。</p>
-<p>注意，开始synthesizer是没有模型的，需要自己把第二步下载好的模型复制到</p>
-<p><img data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222143111766.png" alt="image-20220222143111766" src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222143111766.png"></p>
-<p>这个目录下。</p>
-<h4 id="4、玩法"><a href="#4、玩法" class="headerlink" title="4、玩法"></a>4、玩法</h4><p><img data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222142829792.png" alt="image-20220222142829792" src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222142829792.png"></p>
+          <p>在研究某个问题的时候，你需要把它转换成一种认识。<strong>故事是描述认识的一种好方式。与一大堆需求描述相比，故事可以让读者更容易明白什么重要和为什么重要</strong>。</p>
+<blockquote>
+<p>什么，你觉得故事不是非常有条理或者不具备技术性？错了。管理人员无时无刻不在使用故事（想一想公司的使命），技术团队也都在讲故事（流程图和用户案例）。用户体验团队同样也写故事写了很多年了。</p>
+</blockquote>
+<h5 id="故事应该用三言两语把核心体验表达出来。"><a href="#故事应该用三言两语把核心体验表达出来。" class="headerlink" title="故事应该用三言两语把核心体验表达出来。"></a>故事应该用三言两语把核心体验表达出来。</h5><p>对于像Flip这样的数码摄像机，可以这样写：</p>
+<blockquote>
+<p>你站在香港城市街头，忽然一阵骚乱：发哥（周润发）正向你走来。</p>
+<p>你迅速从口袋里掏出你的Flip摄像机，把它交给一位路人，请他帮忙拍了一段视频，发哥就在你的身后。</p>
+<p>之后，你赶紧敲开附近朋友家的门，不需要任何安装配置，就通过他的电脑把这段视频分享到了网上。</p>
+</blockquote>
+<p>如果你正在设计一款数码摄像机，这个故事会告诉你如下重要事项。</p>
+<ul>
+<li>这个摄像机很小，可以方便地带到任何地方。也许是像一个小挂件一样，能够随身携带的那种。肯定不是只有在某些特殊场合才会用到的大摄像机。</li>
+<li>开机速度快（因为发哥不会等着你），而且拍摄简单，即使是第一次见到它的人都能够拿在手里就拍。</li>
+<li>要上传视频不需要特殊的软件或者数据线。</li>
+<li>最后，拍摄视频的目的是为了与朋友分享。</li>
+</ul>
+<p><strong>故事可以把大量信息浓缩到寥寥数语之中，效率极高。而且，故事很容易记住，很方便与人分享。</strong></p>
+<p>也就是说，在你们讨论设计决定时很可能需要准备几个故事。</p>
+<p><strong>事实上，人人都喜欢故事，即使你不讲，别人也会编出来</strong></p>
+<p>（“如果我使用这个摄像机，我就……”），让你不由得跟着他们的叙述展开想象——因此，要确保他们在使用你的故事。有必要多花点儿时间把故事的每一个细节都想清楚。如果你想让自己的设计简单，每一个细节都至关重要。</p>
+<h5 id="故事的情节要短"><a href="#故事的情节要短" class="headerlink" title="故事的情节要短"></a>故事的情节要短</h5><p>千万不要长篇大论地详细描述重大活动。要通过一个小故事展示出每一个需求点，并确定满足该需求的功能（核心功能）。这样做有3个原因。</p>
+<ul>
+<li>首先，简单的故事容易记也容易复述，因而容易被别人传播。</li>
+<li>其次，容易让别人把这个故事的情景套用到其他环境中（你可以想象在一个孩子的生日会上把你的Flip摄像机递给孩子的父母）。</li>
+<li>最后，为故事增加细节就像是拉近相机的焦距：人们会认为你要展示一些重要的信息。乐观估计，你的细节会吸引人；最差的情况，人们也会自己找到细节重要的理由。因此，务必只添加要紧的细节，这样你的故事才会真实丰满。</li>
+</ul>
 
       
     </div>
@@ -396,7 +260,7 @@ yum install python39-devel -y<span aria-hidden="true" class="line-numbers-rows">
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/15/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><span class="space">&hellip;</span><a class="page-number" href="/page/32/">32</a><a class="extend next" rel="next" href="/page/17/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/15/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/">24</a><a class="extend next" rel="next" href="/page/17/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -461,18 +325,18 @@ yum install python39-devel -y<span aria-hidden="true" class="line-numbers-rows">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

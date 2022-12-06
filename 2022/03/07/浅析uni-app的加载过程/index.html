@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.1.0">
+<meta name="generator" content="Hexo 6.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -46,9 +46,9 @@
 <meta property="og:image" content="https://blog.brzhang.club/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220308000801898.png">
 <meta property="og:image" content="https://blog.brzhang.club/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220308005120412.png">
 <meta property="article:published_time" content="2022-03-07T10:43:04.000Z">
-<meta property="article:modified_time" content="2022-09-29T07:18:14.181Z">
+<meta property="article:modified_time" content="2022-11-28T01:25:08.269Z">
 <meta property="article:author" content="hz">
-<meta property="article:tag" content="default">
+<meta property="article:tag" content="小程序">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://blog.brzhang.club/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307185142192.png">
 
@@ -65,7 +65,7 @@
   };
 </script>
 
-  <title>浅析Uni-App的加载过程 | 心随我动</title>
+  <title>浅析Uni-App的加载过程 | 心随我动</title><meta name="robots" content="noindex">
   
 
 
@@ -213,7 +213,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-09-29 15:18:14" itemprop="dateModified" datetime="2022-09-29T15:18:14+08:00">2022-09-29</time>
+                <time title="修改时间：2022-11-28 09:25:08" itemprop="dateModified" datetime="2022-11-28T09:25:08+08:00">2022-11-28</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -221,7 +221,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/default/" itemprop="url" rel="index"><span itemprop="name">default</span></a>
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
                 </span>
             </span>
 
@@ -267,9 +267,10 @@
 		....
 <span class="token punctuation">&#125;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>然后就是启动调试了，当然可以在适当的位置先配置一个断点，比如在这个文件中</p>
 <p><code>./node_modules/@dcloudio/vue-cli-plugin-uni/lib/env.js</code>增加一个断点</p>
-<p><img data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307185142192.png" alt="image-20220307185142192" src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307185142192.png"></p>
+<p><img data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307185142192.png" alt="image-20220307185142192" loading="lazy" src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307185142192.png"></p>
 <p>断掉断到之后，可以发现，栈底是在执行这个文件的代码<code>/internal/main/run_main_module.js</code></p>
 <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token string">'use strict'</span><span class="token punctuation">;</span>
 
@@ -288,12 +289,13 @@
 <span class="token comment">// TODO(joyeecheung): can we move that logic to here? Note that this</span>
 <span class="token comment">// is an undocumented method available via `require('module').runMain`</span>
 CJSModule<span class="token punctuation">.</span><span class="token function">runMain</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>所以，我们发现了一个点，整个构建的开始就是从CJSModule.runMain();这句话开始的。</p>
-<h3 id="step2、分析uni的打包过程中加载了哪些文件"><a href="#step2、分析uni的打包过程中加载了哪些文件" class="headerlink" title="step2、分析uni的打包过程中加载了哪些文件"></a>step2、分析uni的打包过程中加载了哪些文件</h3><p><img data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307190611229.png" alt="image-20220307190611229" src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307190611229.png"></p>
+<h3 id="step2、分析uni的打包过程中加载了哪些文件"><a href="#step2、分析uni的打包过程中加载了哪些文件" class="headerlink" title="step2、分析uni的打包过程中加载了哪些文件"></a>step2、分析uni的打包过程中加载了哪些文件</h3><p><img data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307190611229.png" alt="image-20220307190611229" loading="lazy" src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307190611229.png"></p>
 <p>这里应该就是解析参数，准备开始执行yarn命令了，我们看一看我们的yarn命令，</p>
 <p><code>UNI_PLATFORM=mp-weixin vue-cli-service uni-build --watch</code>，所以，第一个加载的模块应该就是</p>
-<p>@vue/cli-service/bin/vue-cli-service.js</p>
-<p><img data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307190027189.png" alt="image-20220307190027189" src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307190027189.png"></p>
+<p>@vue&#x2F;cli-service&#x2F;bin&#x2F;vue-cli-service.js</p>
+<p><img data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307190027189.png" alt="image-20220307190027189" loading="lazy" src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307190027189.png"></p>
 <p>随后的过程记录粗粒度一点点，后面vue-cli-service会加载各种plugin，具体怎么判断是否是一个plugin，有一定的规则命名;</p>
 <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> pluginRE <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^(@vue\/|vue-|@[\w-]+(\.)?[\w-]+\/vue-)cli-plugin-</span><span class="token regex-delimiter">/</span></span>
 <span class="token keyword">const</span> scopeRE <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^@[\w-]+(\.)?[\w-]+\/</span><span class="token regex-delimiter">/</span></span>
@@ -313,24 +315,26 @@ CJSModule<span class="token punctuation">.</span><span class="token function">ru
   <span class="token string">'vuex'</span>
 <span class="token punctuation">]</span>
 exports<span class="token punctuation">.</span><span class="token function-variable function">isPlugin</span> <span class="token operator">=</span> <span class="token parameter">id</span> <span class="token operator">=></span> pluginRE<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>id<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>然后从项目的package.json的依赖中解析出来了三个需要加载的插件</p>
-<p><img data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307193648564.png" alt="image-20220307193648564" src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307193648564.png"></p>
+<p><img data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307193648564.png" alt="image-20220307193648564" loading="lazy" src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307193648564.png"></p>
 <p>很显然第一个加载并执行的插件就是这个vue-cli-plugin-hbuilderx插件。接着依次去加载其他两个，我们先看第一个插件吧。</p>
 <h4 id="加载vue-cli-plugin-uni插件"><a href="#加载vue-cli-plugin-uni插件" class="headerlink" title="加载vue-cli-plugin-uni插件"></a>加载vue-cli-plugin-uni插件</h4><p>进入一看，他直接退出了，原因是只处理 app-plus相关的逻辑，而我们编译的是mp-weixin</p>
-<p><img data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307194446009.png" alt src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307194446009.png"></p>
+<p><img data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307194446009.png" loading="lazy" src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307194446009.png"></p>
 <p>所以，忽略，直接进入下面一个 vue-cli-plugin-uni的加载，这个文件先加载了一个.env.js</p>
 <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 初始化全局插件对象</span>
 global<span class="token punctuation">.</span>uniPlugin <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'@dcloudio/uni-cli-shared/lib/plugin'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
 <p>这个里面就初始化了全局插件对象，然后它的init操作中去加载了对应平台的插件，也就是说，编译什么平台就加载什么平台的插件。</p>
-<p><img data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307213703832.png" alt="image-20220307213703832" src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307213703832.png"></p>
-<p>我们编译的是小程序的，所以加载的是@dcloudio/uni-mp-weixin。</p>
+<p><img data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307213703832.png" alt="image-20220307213703832" loading="lazy" src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307213703832.png"></p>
+<p>我们编译的是小程序的，所以加载的是@dcloudio&#x2F;uni-mp-weixin。</p>
 <p>这里在外后走就是初始化预处理器，<strong>然后发现Plugin.platforms中居然有一个h5，暂时不知道为什么编译小程序平台需要h5，难道h5是必须的嘛</strong>？这个问题先放一放</p>
-<p><img data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307214847221.png" alt="image-20220307214847221" src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307214847221.png"></p>
+<p><img data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307214847221.png" alt="image-20220307214847221" loading="lazy" src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307214847221.png"></p>
 <p>知道env.js执行完，就可以知道，他做了一下几件事情：</p>
 <ol>
 <li>初始化了全局插件，读取了一些webpack配置，特别是copyWebpackOptions</li>
 <li>以及一些全局的options，如cssVars，extNames，subPackages等<ol>
-<li><img data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307220428348.png" alt="image-20220307220428348" src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307220428348.png"></li>
+<li><img data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307220428348.png" alt="image-20220307220428348" loading="lazy" src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307220428348.png"></li>
 </ol>
 </li>
 <li>设置了一堆的环境变量<ol>
@@ -343,7 +347,7 @@ global<span class="token punctuation">.</span>uniPlugin <span class="token opera
 <li>对分包subPackages的处理</li>
 <li>process.env.VUE_APP_DEBUG 开关</li>
 <li>增加了一堆的hack操作，把vue相关的库指向了uni自己的包装过的<ol>
-<li><img data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307221717949.png" alt="image-20220307221717949" src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307221717949.png"></li>
+<li><img data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307221717949.png" alt="image-20220307221717949" loading="lazy" src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307221717949.png"></li>
 </ol>
 </li>
 </ol>
@@ -442,22 +446,27 @@ module<span class="token punctuation">.</span><span class="token function-variab
   <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
 <span class="token punctuation">&#125;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>从这里也了解了，为啥编译一个小程序还需要h5的插件,然来是vue-cli-plugin-uni-optimize这个插件需要基于h5</p>
 <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> <span class="token punctuation">&#123;</span>
   src<span class="token punctuation">,</span>
   lib
 <span class="token punctuation">&#125;</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'@dcloudio/uni-h5/path'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p><img data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307225158705.png" alt="image-20220307225158705" src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307225158705.png"></p>
+
+<p><img data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307225158705.png" alt="image-20220307225158705" loading="lazy" src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307225158705.png"></p>
 <p>用到了他里面的一些核心能力，这也从侧面了解，uni编译各种版本，基本上都会最终依赖上这个h5的插件。这里也可以了解到，如果是开发模式，这个插件不会被执行，因为</p>
 <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">UNI_OPT_TREESHAKINGNG</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">return</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+
+
 <h3 id="step3、执行插件"><a href="#step3、执行插件" class="headerlink" title="step3、执行插件"></a>step3、执行插件</h3><p>通常一个插件都会暴露出一个方法</p>
-<p><img data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307230528416.png" alt="image-20220307230528416" src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307230528416.png"></p>
+<p><img data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307230528416.png" alt="image-20220307230528416" loading="lazy" src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307230528416.png"></p>
 <p>这个方法，将会被vue-cli-service去挨个挨个执行</p>
-<p><img data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307230626272.png" alt="image-20220307230626272" src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307230626272.png"></p>
+<p><img data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307230626272.png" alt="image-20220307230626272" loading="lazy" src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307230626272.png"></p>
 <p>插件被执行完之后，最终就会进入到构建环节</p>
-<h3 id="step3、进入构建环节"><a href="#step3、进入构建环节" class="headerlink" title="step3、进入构建环节"></a>step3、进入构建环节</h3><p><img data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307232816427.png" alt="image-20220307232816427" src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307232816427.png"></p>
+<h3 id="step3、进入构建环节"><a href="#step3、进入构建环节" class="headerlink" title="step3、进入构建环节"></a>step3、进入构建环节</h3><p><img data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307232816427.png" alt="image-20220307232816427" loading="lazy" src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307232816427.png"></p>
 <p>这里就不直接展开了，小程序产物构建完全可以单独搞一章了。</p>
 <p>这里我们了解整个过程之后，发现uni打开做了这么几件事</p>
 <ol>
@@ -465,16 +474,13 @@ module<span class="token punctuation">.</span><span class="token function-variab
 <li>其中uni的三个插件会被加载，并依次之心</li>
 <li>同时我们发现，在小程序模式下，hbuilderx插件是不会被执行的</li>
 <li>然后我们发现optimize插件在develop模式下是不会被执行的</li>
-<li>因此我们发现只有vue-cli-plugin-uni这个插件会被执行，这里面做了一些列的准备工作，目的就是为了uni能够有一个编译为小程序的环境，他在执行完插件体之后，最终cli-service会转而调用@dcloudio/vue-cli-plugin-uni/commands/build.js中的build方法，然后build方法在执行的过程中，会到@dcloudio/vue-cli-plugin-uni/lib/mp/index.js中执行去手机webpack的一些配置，汇总好继续build的构建。</li>
+<li>因此我们发现只有vue-cli-plugin-uni这个插件会被执行，这里面做了一些列的准备工作，目的就是为了uni能够有一个编译为小程序的环境，他在执行完插件体之后，最终cli-service会转而调用@dcloudio&#x2F;vue-cli-plugin-uni&#x2F;commands&#x2F;build.js中的build方法，然后build方法在执行的过程中，会到@dcloudio&#x2F;vue-cli-plugin-uni&#x2F;lib&#x2F;mp&#x2F;index.js中执行去手机webpack的一些配置，汇总好继续build的构建。</li>
 </ol>
 <p><strong>下面附上这些个过程的堆栈信息，其调用过程一目了然。</strong></p>
 <blockquote>
-<p>webpackConfig (/Users/xxx/mp-project/node_modules/<strong>@dcloudio/vue-cli-plugin-uni/lib/mp/index.js</strong>:149)<br>….<strong>此处省略一些堆栈</strong><br>build (/Users/xxx/mp-project/node_modules/@dcloudio/vue-cli-plugin-uni/commands/build.js:137)</p>
-<p><anonymous> (/Users/xxx/mp-project/node_modules/<strong>@dcloudio/vue-cli-plugin-uni/commands/build.js:62</strong>)<br>run (/Users/xxx/mp-project/node_modules/@vue/cli-service/lib/<strong>Service.js:230</strong>)</anonymous></p>
-<p><anonymous> (/Users/xxx/mp-project/node_modules/@vue/cli-service/bin/<strong>vue-cli-service.js:36</strong>)<br>Module._compile (&lt;node_internals&gt;/internal/modules/cjs/loader.js:956)<br>Module._extensions..js (&lt;node_internals&gt;/internal/modules/cjs/loader.js:973)<br>Module.load (&lt;node_internals&gt;/internal/modules/cjs/loader.js:812)<br>Module._load (&lt;node_internals&gt;/internal/modules/cjs/loader.js:724)<br>Module.runMain (&lt;node_internals&gt;/internal/modules/cjs/<strong>loader.js:1025</strong>)</anonymous></p>
-<p><anonymous> (&lt;node_internals&gt;/internal/main/<strong>run_main_module.js:17</strong>)</anonymous></p>
+<p>webpackConfig (&#x2F;Users&#x2F;xxx&#x2F;mp-project&#x2F;node_modules&#x2F;<strong>@dcloudio&#x2F;vue-cli-plugin-uni&#x2F;lib&#x2F;mp&#x2F;index.js</strong>:149)<br>….<strong>此处省略一些堆栈</strong><br>build (&#x2F;Users&#x2F;xxx&#x2F;mp-project&#x2F;node_modules&#x2F;@dcloudio&#x2F;vue-cli-plugin-uni&#x2F;commands&#x2F;build.js:137)<br><anonymous> (&#x2F;Users&#x2F;xxx&#x2F;mp-project&#x2F;node_modules&#x2F;<strong>@dcloudio&#x2F;vue-cli-plugin-uni&#x2F;commands&#x2F;build.js:62</strong>)<br>run (&#x2F;Users&#x2F;xxx&#x2F;mp-project&#x2F;node_modules&#x2F;@vue&#x2F;cli-service&#x2F;lib&#x2F;<strong>Service.js:230</strong>)<br><anonymous> (&#x2F;Users&#x2F;xxx&#x2F;mp-project&#x2F;node_modules&#x2F;@vue&#x2F;cli-service&#x2F;bin&#x2F;<strong>vue-cli-service.js:36</strong>)<br>Module._compile (<node_internals>&#x2F;internal&#x2F;modules&#x2F;cjs&#x2F;loader.js:956)<br>Module._extensions..js (<node_internals>&#x2F;internal&#x2F;modules&#x2F;cjs&#x2F;loader.js:973)<br>Module.load (<node_internals>&#x2F;internal&#x2F;modules&#x2F;cjs&#x2F;loader.js:812)<br>Module._load (<node_internals>&#x2F;internal&#x2F;modules&#x2F;cjs&#x2F;loader.js:724)<br>Module.runMain (<node_internals>&#x2F;internal&#x2F;modules&#x2F;cjs&#x2F;<strong>loader.js:1025</strong>)<br><anonymous> (<node_internals>&#x2F;internal&#x2F;main&#x2F;<strong>run_main_module.js:17</strong>)</node_internals></anonymous></node_internals></node_internals></node_internals></node_internals></node_internals></anonymous></anonymous></p>
 </blockquote>
-<p>这里也贴一下vue-cli-plugin-uni/lib/mp/index.js的核心代码，后续的文章就了解这个里面怎么把vue代码构建成小程序的。</p>
+<p>这里也贴一下vue-cli-plugin-uni&#x2F;lib&#x2F;mp&#x2F;index.js的核心代码，后续的文章就了解这个里面怎么把vue代码构建成小程序的。</p>
 <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
   <span class="token literal-property property">vueConfig</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
     <span class="token literal-property property">parallel</span><span class="token operator">:</span> <span class="token boolean">false</span>
@@ -637,14 +643,17 @@ module<span class="token punctuation">.</span><span class="token function-variab
   <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>最后配置汇总之后，还要验证下是否合法</p>
 <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// check for common config errors</span>
  <span class="token function">validateWebpackConfig</span><span class="token punctuation">(</span>webpackConfig<span class="token punctuation">,</span> api<span class="token punctuation">,</span> options<span class="token punctuation">,</span> args<span class="token punctuation">.</span>target<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>合法就开始使用webpack打包咯</p>
-<p><img data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220308000801898.png" alt="image-20220308000801898" src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220308000801898.png"></p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p><img data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220308005120412.png" alt="image-20220308005120412" src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220308005120412.png"></p>
 
+<p>合法就开始使用webpack打包咯</p>
+<p><img data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220308000801898.png" alt="image-20220308000801898" loading="lazy" src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220308000801898.png"></p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><img data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220308005120412.png" alt="image-20220308005120412" loading="lazy" src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220308005120412.png"></p>
+<!-- flag of hidden posts -->
     </div>
 
     
@@ -653,23 +662,13 @@ module<span class="token punctuation">.</span><span class="token function-variab
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/default/" rel="tag"># default</a>
+              <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" rel="tag"># 小程序</a>
           </div>
 
         
 
 
         
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/" rel="prev" title="在linux上玩一下AI拟声">
-      <i class="fa fa-chevron-left"></i> 在linux上玩一下AI拟声
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2022/03/08/uni-app%E7%9A%84%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90/" rel="next" title="Uni-App的代码生成">
-      Uni-App的代码生成 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
       </footer>
     
   </article>
@@ -741,18 +740,18 @@ module<span class="token punctuation">.</span><span class="token function-variab
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

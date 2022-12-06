@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.1.0">
+<meta name="generator" content="Hexo 6.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -161,7 +161,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2021/10/12/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%B3%85%E5%90%88%E7%B3%BB%E7%BB%9F/">
+    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2021/09/24/%E4%BD%BF%E7%94%A8vue%E5%BC%80%E5%8F%91%E6%A1%8C%E9%9D%A2%E5%BA%94%E7%94%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -175,7 +175,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/10/12/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%B3%85%E5%90%88%E7%B3%BB%E7%BB%9F/" class="post-title-link" itemprop="url">如何设计一个糅合系统</a>
+            <a href="/2021/09/24/%E4%BD%BF%E7%94%A8vue%E5%BC%80%E5%8F%91%E6%A1%8C%E9%9D%A2%E5%BA%94%E7%94%A8/" class="post-title-link" itemprop="url">使用Vue开发桌面应用</a>
         </h2>
 
         <div class="post-meta">
@@ -185,7 +185,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-10-12 14:38:01" itemprop="dateCreated datePublished" datetime="2021-10-12T14:38:01+08:00">2021-10-12</time>
+              <time title="创建时间：2021-09-24 09:11:07" itemprop="dateCreated datePublished" datetime="2021-09-24T09:11:07+08:00">2021-09-24</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
@@ -215,134 +215,128 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><p>首先，关于这篇文章为何取名为设计一个<strong>糅合系统</strong>的设计，所谓的糅合系统，是指这个系统的用户群体没有那么纯粹，比如，是一个既有c端用户，又有b端用户的使用场景的系统，起初在设计这样一个系统之初，我思考过这样的一个系统会有几个问题：</p>
+          <p>Vue 不仅限于开发 Web 和<a target="_blank" rel="noopener" href="https://vue-community.org/guide/ecosystem/mobile-apps.html">原生移动</a>应用程序，它还允许构建桌面应用程序。以下是人们选择 Vue 而不是本地语言解决方案的一些重要原因：</p>
 <ul>
-<li>逻辑混杂，到时候会出现这个c端是这个样子的，b端为了兼容而妥协，折中出来的并不是一个好的方案，对两类用户来说都<strong>不够简洁</strong>。</li>
-<li>if/else糅合的代码可理解性比较差，随着迭代的推进，后续会越来越来维护。</li>
-<li>b端更加注重功能体验，他们要的是功能能不能满足他日常运营，而且<strong>不同类的b其功能是不同的</strong>，用户端更加注重操作体验体验是否好，当然b端也注重操作体验，但相对没c端这么匠心。</li>
-<li>不同的b端可能需要的主体风格不同，是考虑一个b一套代码，还是一套代码配置不同的b，还是一套b的框架下组合不同的工具。</li>
-<li>分离/b-part/c-part之后，如何复用公共逻辑，减少重复开发工作，公共逻辑包括哪些，下层的规则是什么，该放在何处。</li>
-<li>假如让一个新手加入进来，他怎么快速找到相应的业务的代码逻辑在何处，如何新增，修改代码已实现需求。</li>
+<li><strong>跨平台</strong>：所有应用程序均采用JavaScript开发，可打包为Windows&#x2F;MacOS&#x2F;Linux；</li>
+<li><strong>易于构建</strong>：框架允许您简单地开发 Web 应用程序，然后使用打包程序将其“转换”为桌面应用程序；</li>
+<li><strong>社区</strong>：如果您维护一个开源桌面项目，您将更有可能为它找到贡献者。</li>
 </ul>
-<p>基于以上这些点的思考，我首先走出了一个设计的雏形。</p>
-<h4 id="孵化"><a href="#孵化" class="headerlink" title="孵化"></a>孵化</h4><p><img data-src="/2021/10/12/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%B3%85%E5%90%88%E7%B3%BB%E7%BB%9F/wecom-temp-ae90559c80f2c549419e1bc9bcc34488.jpg" alt="wecom-temp-ae90559c80f2c549419e1bc9bcc34488" style="zoom:60%;" src="/2021/10/12/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%B3%85%E5%90%88%E7%B3%BB%E7%BB%9F/wecom-temp-ae90559c80f2c549419e1bc9bcc34488.jpg"></p>
-<p>首先，我们先站在上帝视角来看一看，一个用户是如何和我们的系统打交道的。第一个我们关心的是一个三要素：</p>
-<p><strong>是谁？来干什么？干什么后去哪里？</strong>我们可以用一个故事的方式来描述几个这样的案例。</p>
-<ol>
-<li>我是巴乐兔的合同管理员，我来这里给张三发起一份合同，完事之后我要回公司报备下。</li>
-<li>我是李子柒，朋友说这个挺好用的我就来了，我也不知道干什么，我更不知道我要去哪。</li>
-<li>我是黎明，是一个学生，我来签一份摩尔公司发给我的暑期实习劳务合同，完事之后我就没事啦。</li>
-<li>我是韩梅梅，是旺旺兴趣培训班的店员，我来签一份佳佳食品发给我们培训班的采购服务合同。</li>
-<li>….</li>
-</ol>
-<p>以上的场景，我们均可以从里面抛出【是谁，干啥，去哪】，这其实就是我要说的<strong>意图2.0</strong>，。</p>
-<p><img data-src="/2021/10/12/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%B3%85%E5%90%88%E7%B3%BB%E7%BB%9F/image-20211012150705417.png" alt="image-20211012150705417" style="zoom:80%;" src="/2021/10/12/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%B3%85%E5%90%88%E7%B3%BB%E7%BB%9F/image-20211012150705417.png"></p>
-<p>故事2是一个特例，实际上，不知道什么干什么也是一种干什么，不知道去哪也是一种去哪，不知道是谁也是一种是谁。</p>
-<h5 id="是谁"><a href="#是谁" class="headerlink" title="是谁"></a>是谁</h5><p>就是要确定进入系统的用户身份，是b端的用户，还是c端的用户，一旦确定了身份，这个应该是<strong>全局可知</strong>的</p>
-<ul>
-<li>isC</li>
-<li>isB</li>
-</ul>
-<h5 id="干啥"><a href="#干啥" class="headerlink" title="干啥"></a>干啥</h5><p>就是要确定是谁之后的事了，就像大家去政府办事一样，人家首先明确你是谁，然后在问你来干啥，你干啥是不是得交出一些办事的凭据来，事情的id，<strong>通过这个事情的id就对应到了不同的功能</strong>。</p>
-<p><img data-src="/2021/10/12/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%B3%85%E5%90%88%E7%B3%BB%E7%BB%9F/image-20211012153451750.png" alt="image-20211012153451750" style="zoom:80%;" src="/2021/10/12/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%B3%85%E5%90%88%E7%B3%BB%E7%BB%9F/image-20211012153451750.png"></p>
-<h5 id="去哪"><a href="#去哪" class="headerlink" title="去哪"></a>去哪</h5><p>首先每个功能有其内部的流转流程，它自己知道哪一步该去哪？但是：</p>
-<ul>
-<li>他这个内部的流程结束了呢？</li>
-<li>遇到异常了呢？</li>
-</ul>
-<p>那么他下一步将走到哪里呢？这个是这个故事里的人的是，应该把选择的权利交给他。</p>
-<h4 id="实施"><a href="#实施" class="headerlink" title="实施"></a>实施</h4><h5 id="如何确定用户身份"><a href="#如何确定用户身份" class="headerlink" title="如何确定用户身份"></a>如何确定用户身份</h5><p>要确定用户身份，我设计需要一个<strong>用户管理</strong>模块，它具备的能力有：</p>
-<ul>
-<li>切换身份，满足一部分用户既是b端用户也是c端用户的场景。</li>
-<li>申请身份</li>
-<li>登录角色</li>
-</ul>
-<p>最终是为了确定用户身份。</p>
-<h5 id="如何确定用户来干什么"><a href="#如何确定用户来干什么" class="headerlink" title="如何确定用户来干什么"></a>如何确定用户来干什么</h5><p>我们去银行我们会带上银行卡，我们去买菜会带上菜篮子，我们去做火车会带着车票，我们去考试会带上准考证….我们都会遵守一些既定的事情的协议。</p>
-<ul>
-<li>xx:bank</li>
-<li>xx:buy</li>
-<li>xx:train</li>
-<li>xx:exam</li>
-</ul>
-<p>我们去买什么东西会写一个清单，如是：</p>
-<ul>
-<li>xx:buy&amp;item1=”南瓜1斤”&amp;item2=”瓜子1公斤”</li>
-</ul>
-<p>所以，用户来干什么，都是一系列的动作，做这些动作需要一个清单才知道具体怎么做，<strong>交给谁做很容易，我们就想到了路由</strong>。</p>
-<p>路由器就是一个配置表，表述的事情是，xx:buy&amp;item1=”南瓜”&amp;item2=”瓜子1公斤”</p>
+<p>然而，有一些缺点，所有 JavaScript 驱动的桌面应用程序都很常见。它们往往具有较大的包大小（至少 30 MB），并且已知内存使用量很大。</p>
+<p>使用 Vue 构建桌面应用程序主要有两种方式：基于 HTML+CSS 的解决方案或原生 GUI。第一个是 Electron 和 NW.js，第二个是 Vuido。</p>
+<h4 id="Electron"><a href="#Electron" class="headerlink" title="Electron"></a><a target="_blank" rel="noopener" href="https://electronjs.org/">Electron</a></h4><p><a target="_blank" rel="noopener" href="https://electronjs.org/">Electron</a>是由 GitHub 开发的开源库，用于使用 HTML、CSS 和 JavaScript 构建跨平台桌面应用程序。Electron 通过将<a target="_blank" rel="noopener" href="http://www.chromium.org/">Chromium</a>和<a target="_blank" rel="noopener" href="https://nodejs.org/en/">Node.js</a>组合成一个运行时来实现这一点，并且可以为 Mac、Windows 和 Linux 打包应用程序</p>
+<p>Electron 是目前最流行的用于编写 JavaScript 桌面应用程序的库。一些比较知名的应用程序是<a target="_blank" rel="noopener" href="https://slack.com/">Slack</a>和<a target="_blank" rel="noopener" href="https://discordapp.com/">Discord</a> messengers、<a target="_blank" rel="noopener" href="https://atom.io/">Atom</a>代码编辑器和<a target="_blank" rel="noopener" href="https://code.visualstudio.com/">Visual Studio Code</a> IDE。</p>
 <table>
 <thead>
 <tr>
+<th>优点</th>
+<th>缺点</th>
 <th></th>
-<th>功能</th>
-<th>参数</th>
-<th>realPath</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td>xx:c-buy</td>
-<td>c端买东西</td>
-<td>item1=”南瓜1斤”&amp;item2=”瓜子1公斤”</td>
-<td>pages/c-buy/index</td>
-</tr>
-<tr>
-<td>xx:b-buy</td>
-<td>b端买东西</td>
-<td>item3=”南瓜1斤”&amp;item4=”瓜子1公斤”</td>
-<td>pages/b-buy/index</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
+<tbody><tr>
+<td>容易上手</td>
+<td>打包比较大</td>
 <td></td>
 </tr>
-</tbody>
-</table>
-<h5 id="功能是什么？"><a href="#功能是什么？" class="headerlink" title="功能是什么？"></a>功能是什么？</h5><p><strong>功能需要是一个比较内聚的概念</strong>，他可以包含一系列的动作，有自己内部的流转流程，更具数据的状态及用户的操作来驱动页面UI 的展示，即：</p>
-<blockquote>
-<p>功能= 数据 + action + UI</p>
-</blockquote>
-<p><img data-src="/2021/10/12/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%B3%85%E5%90%88%E7%B3%BB%E7%BB%9F/image-20211012170713165.png" alt="image-20211012170713165" style="zoom:80%;" src="/2021/10/12/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%B3%85%E5%90%88%E7%B3%BB%E7%BB%9F/image-20211012170713165.png"></p>
-<p>功能，他有依赖底层的一些服务，及一些公共的工具函数。</p>
-<p><img data-src="/2021/10/12/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%B3%85%E5%90%88%E7%B3%BB%E7%BB%9F/image-20211012171053961.png" alt="image-20211012171053961" style="zoom:70%;" src="/2021/10/12/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%B3%85%E5%90%88%E7%B3%BB%E7%BB%9F/image-20211012171053961.png"></p>
-<p>那么，基础服务包括哪些呢？</p>
-<ul>
-<li>网络服务</li>
-<li>邮件服务</li>
-<li>短信服务</li>
-<li>甚至是三方服务，如人脸核身</li>
-</ul>
-<h5 id="整体的三层架构"><a href="#整体的三层架构" class="headerlink" title="整体的三层架构"></a>整体的三层架构</h5><p>经过上面的分析，我们不能达成一个从上倒下依赖的三层架构模式：</p>
-<ul>
-<li>路由层</li>
-<li>功能层</li>
-<li>基础层</li>
-</ul>
-<p><img data-src="/2021/10/12/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%B3%85%E5%90%88%E7%B3%BB%E7%BB%9F/image-20211012172537275.png" alt="image-20211012172537275" src="/2021/10/12/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%B3%85%E5%90%88%E7%B3%BB%E7%BB%9F/image-20211012172537275.png"></p>
-<blockquote>
-<p>路由层的作用是找到三要素【是谁，干啥，完事之后去哪】</p>
-</blockquote>
-<p><strong>拦截器</strong>是干啥的，上面已经提到，是找出三要素，找到之后如果发现非法入侵，就会把他路由到非法页。</p>
-<blockquote>
-<p>功能层是解决干啥的。</p>
-</blockquote>
-<p>功能才的Action是干啥的，是处理用户的的各种动作的，包含：</p>
-<ul>
-<li>网络请求</li>
-<li>本地请求</li>
-</ul>
-<p>这样的一些操作都的会引起数据变化，进而导致UI发生改变。UI的实现可以原生，可以web，</p>
-<blockquote>
-<p>基础层是帮助功能层很好的完成干啥的。</p>
-</blockquote>
-<h4 id="还缺点啥？"><a href="#还缺点啥？" class="headerlink" title="还缺点啥？"></a>还缺点啥？</h4><p>一个好的系统肯定是需要可观测性的，需要trace用户的行为，包含</p>
-<ul>
-<li>进入哪个页面</li>
-<li>做了哪些动作</li>
-<li>动作的前因，后果是啥</li>
-</ul>
+<tr>
+<td>良好的开发文档</td>
+<td>内存占用高</td>
+<td></td>
+</tr>
+<tr>
+<td>无需更改现有源代码</td>
+<td>包中未受保护的源代码</td>
+<td></td>
+</tr>
+<tr>
+<td>有<a target="_blank" rel="noopener" href="https://github.com/nklayman/vue-cli-plugin-electron-builder">Vue CLI 插件</a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>成熟的开发者社区</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h4 id="NW-js"><a href="#NW-js" class="headerlink" title="NW.js"></a><a target="_blank" rel="noopener" href="https://nwjs.io/">NW.js</a></h4><p><a target="_blank" rel="noopener" href="https://nwjs.io/">NW.js</a>（以前称为 node-webkit）是一个使用 HTML、CSS 和 JavaScript 构建桌面应用程序的框架。与<a target="_blank" rel="noopener" href="https://vue-community.org/guide/ecosystem/desktop-apps.html#electron">Electron</a>类似，它基于 Chromium 和 Node.js。NW.js 允许您直接从浏览器调用 Node.js 代码和模块，并在您的应用程序中使用 Web 技术。此外，您可以轻松地将 Web 应用程序打包为本机应用程序。</p>
+<table>
+<thead>
+<tr>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>容易上手</td>
+<td>打包比较大</td>
+</tr>
+<tr>
+<td>无需更改现有源代码</td>
+<td>内存占用高</td>
+</tr>
+<tr>
+<td>编译为受保护的二进制文件</td>
+<td>使用率明显低于 Electron</td>
+</tr>
+<tr>
+<td>有<a target="_blank" rel="noopener" href="https://github.com/NataliaTepluhina/vue-cli-plugin-nwjs">Vue CLI 插件</a></td>
+<td></td>
+</tr>
+</tbody></table>
+<h4 id="Quasar-Framework"><a href="#Quasar-Framework" class="headerlink" title="Quasar Framework"></a><a target="_blank" rel="noopener" href="https://quasar.dev/">Quasar Framework</a></h4><p><a target="_blank" rel="noopener" href="https://quasar.dev/">Quasar Framework</a>是一个允许跨平台应用程序开发的框架。使用大型 VueJS 组件库设计您的应用程序，然后使用 Quasar 强大而简单易用的 CLI 通过 Electron 为桌面自动构建您的应用程序。如果您希望对您的代码做更多的事情而不仅仅是 Electron 应用程序，那么 Quasar 是您跨平台应用程序想法的绝佳解决方案。</p>
+<table>
+<thead>
+<tr>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>容易上手</td>
+<td>桌面也比较大</td>
+</tr>
+<tr>
+<td>无需更改现有源代码</td>
+<td>内存占用高</td>
+</tr>
+<tr>
+<td>可以打包到各种平台，Android，iOS，以及桌面，网页等</td>
+<td></td>
+</tr>
+</tbody></table>
+<h4 id="Vuido"><a href="#Vuido" class="headerlink" title="Vuido"></a><a target="_blank" rel="noopener" href="https://vuido.mimec.org/">Vuido</a></h4><p><a target="_blank" rel="noopener" href="https://vuido.mimec.org/">Vuido</a>是一个基于 Vue.js 创建原生桌面应用程序的框架。使用 Vuido 的应用程序可以使用原生 GUI 组件在 Windows、OS X 和 Linux 上运行。</p>
+<p>在幕后，Vuido 使用<a target="_blank" rel="noopener" href="https://github.com/andlabs/libui">libui</a>库为每个桌面平台提供原生 GUI 组件，以及用于 Node.js的<a target="_blank" rel="noopener" href="https://github.com/parro-it/libui-node">libui-node</a>绑定。</p>
+<p>Vuido 和 Electron 或 NW.js 之间的核心区别在于，您不会在 Vuido 中使用 HTML 标签或 CSS 样式，您只能使用操作系统平台提供的一组预定义的 UI 组件。</p>
+<table>
+<thead>
+<tr>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>容易上手</td>
+<td>外观仅限于操作系统本机 GUI 组件</td>
+</tr>
+<tr>
+<td>无需更改现有源代码</td>
+<td>没有 Vue CLI 插件，只有 Vue CLI 2 样板</td>
+</tr>
+<tr>
+<td>可以打包到各种桌面版本</td>
+<td></td>
+</tr>
+<tr>
+<td>与 Electron 或 NW.js 应用程序相比，提供更小的封装尺寸</td>
+<td></td>
+</tr>
+<tr>
+<td>有据可查</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>总结，如果你想使用vue来构建全平台应用，而且还要颜值OK的话，选择<a target="_blank" rel="noopener" href="https://quasar.dev/">Quasar Framework</a> 是正确的</p>
 
       
     </div>
@@ -361,7 +355,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/19/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><span class="page-number current">20</span><a class="page-number" href="/page/21/">21</a><span class="space">&hellip;</span><a class="page-number" href="/page/32/">32</a><a class="extend next" rel="next" href="/page/21/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/19/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><span class="page-number current">20</span><a class="page-number" href="/page/21/">21</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/">24</a><a class="extend next" rel="next" href="/page/21/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -426,18 +420,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
