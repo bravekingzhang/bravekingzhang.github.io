@@ -161,7 +161,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2022/10/26/ts%E5%AE%9E%E7%8E%B0%E6%95%B4%E6%B4%81%E6%9E%B6%E6%9E%84%E9%A2%86%E5%9F%9F%E5%B1%82/">
+    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2022/11/16/%E8%B4%A2%E5%8A%A1%E4%B8%89%E5%BC%A0%E8%A1%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -175,7 +175,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/10/26/ts%E5%AE%9E%E7%8E%B0%E6%95%B4%E6%B4%81%E6%9E%B6%E6%9E%84%E9%A2%86%E5%9F%9F%E5%B1%82/" class="post-title-link" itemprop="url">Ts实现整洁架构领域层</a>
+            <a href="/2022/11/16/%E8%B4%A2%E5%8A%A1%E4%B8%89%E5%BC%A0%E8%A1%A8/" class="post-title-link" itemprop="url">财务三张表</a>
         </h2>
 
         <div class="post-meta">
@@ -185,14 +185,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2022-10-26 12:31:53" itemprop="dateCreated datePublished" datetime="2022-10-26T12:31:53+08:00">2022-10-26</time>
+              <time title="创建时间：2022-11-16 19:04:05" itemprop="dateCreated datePublished" datetime="2022-11-16T19:04:05+08:00">2022-11-16</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-28 09:24:16" itemprop="dateModified" datetime="2022-11-28T09:24:16+08:00">2022-11-28</time>
+                <time title="修改时间：2022-11-28 09:24:30" itemprop="dateModified" datetime="2022-11-28T09:24:30+08:00">2022-11-28</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -200,7 +200,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                  <a href="/categories/%E8%B4%A2%E5%8A%A1/" itemprop="url" rel="index"><span itemprop="name">财务</span></a>
                 </span>
             </span>
 
@@ -215,19 +215,55 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="Typescript中实现清洁架构的模块化应用领域层"><a href="#Typescript中实现清洁架构的模块化应用领域层" class="headerlink" title="Typescript中实现清洁架构的模块化应用领域层"></a>Typescript中实现清洁架构的模块化应用领域层</h3><p>为什么使用Typescript，只是因为它越来越流行，但这是有原因的。据说，<strong>Typescript可以帮助开发中减少15%的错误</strong>。它对与其他开发者合作也很有用，因为每个组件属性、类属性和函数参数都可以在代码中定义其类型；</p>
-<p>Clean arhcitecture是一种设计模式，旨在将应用逻辑与用户界面或外部服务分开。它通过在一个圆圈中定义层，其中每一层只能与圆圈中心的其他层进行交互。用Vue的话来说，这些层是（从外到内） <strong>Components + Store -&gt; Use cases -&gt; Entities</strong>，如下图所示。</p>
-<p><img data-src="/2022/10/26/ts%E5%AE%9E%E7%8E%B0%E6%95%B4%E6%B4%81%E6%9E%B6%E6%9E%84%E9%A2%86%E5%9F%9F%E5%B1%82/clean-architecture.png" alt="clean-architecture.png" loading="lazy" src="/2022/10/26/ts%E5%AE%9E%E7%8E%B0%E6%95%B4%E6%B4%81%E6%9E%B6%E6%9E%84%E9%A2%86%E5%9F%9F%E5%B1%82/clean-architecture.png"></p>
-<h4 id="领域层"><a href="#领域层" class="headerlink" title="领域层"></a>领域层</h4><p>领域层包含定义我们的应用程序将使用的基本数据的实体。应用层包含所有应用于实体的逻辑和操作。UI&#x2F;Store层包含用户界面、控制器和演示器，这主要是应用程序的Vue&#x2F;Nuxt部分。有一些元素组成了每个层，我们需要定义这些元素来构建这样的应用程序。</p>
-<h4 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h4><p>这就是我们所知道的vue组件。因为它包含了一些逻辑，也包含了用户界面，所以它既是视图也是展示者。这意味着它负责将商店中的任何数据转化为界面（按钮、下拉菜单、表格等）能够理解的数据结构。</p>
-<h4 id="Vuex-store"><a href="#Vuex-store" class="headerlink" title="Vuex store"></a>Vuex store</h4><p>我们将使用存储模块。你应该对此很熟悉，但这次我们将使用有一些限制的存储。由于store将是我们的 “控制器”，它负责接收来自用户的输入（来自组件的数据）并对这些数据进行操作。为了执行这个操作，它应该调用一个Interactor，而不是自己执行这个逻辑。商店应该只被组件调用（vuex actions），并相应地更新其状态（vuex mutations），把所有的逻辑留给内层。</p>
-<h4 id="Interactor"><a href="#Interactor" class="headerlink" title="Interactor"></a>Interactor</h4><p>交互器是一个被控制器调用的元素，通过服务执行任务并将结果返回给控制器。每个用例都应该有一个交互器。</p>
-<h4 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h4><p>在我们的例子中，服务是一个作为交互器的查找表的对象。所有的操作都应该在服务中可用。每个实体可以有一个服务，例如，TodoService将拥有与Todo实体交互的所有逻辑，如获取、创建、编辑、删除。事实上，该服务应该实现一个属于领域层的接口，它定义了所有可能的用例。它也可以有外部服务，比如从API中获取数据的HTTP服务。</p>
-<p>请注意，我们通常在Vuex商店做的事情，现在被委托（delegated）给一个调用服务的用例Interactor。</p>
-<h4 id="Repository"><a href="#Repository" class="headerlink" title="Repository"></a>Repository</h4><p>这是一个接口（interface），定义了一个实体的所有用例和操作。</p>
-<h4 id="Entity"><a href="#Entity" class="headerlink" title="Entity"></a>Entity</h4><p>这是一个类或类型定义，定义了我们应用程序中对象的数据和领域限制（domain restrictions ）。验证逻辑也应该由实体来涵盖。即使实体仅仅描述了数据结构和验证逻辑，我们也不会通过层传递实体。组件永远不会看到一个实体对象，只有实体的序列化表示。</p>
-<p>下图显示了所有这些元素之间的相互作用。</p>
-<p><img data-src="/2022/10/26/ts%E5%AE%9E%E7%8E%B0%E6%95%B4%E6%B4%81%E6%9E%B6%E6%9E%84%E9%A2%86%E5%9F%9F%E5%B1%82/clean-arch-flow.png" alt="clean-arch-flow.png" loading="lazy" src="/2022/10/26/ts%E5%AE%9E%E7%8E%B0%E6%95%B4%E6%B4%81%E6%9E%B6%E6%9E%84%E9%A2%86%E5%9F%9F%E5%B1%82/clean-arch-flow.png"></p>
+          <p>公司财务最重要的三张表：</p>
+<p>一、资产负债表：钱从哪里来？</p>
+<p>二、利润表：钱都干嘛用了？</p>
+<p>三、现金流量表：钱够不够花？</p>
+<h2 id="一、资产负债表：钱从哪里来？"><a href="#一、资产负债表：钱从哪里来？" class="headerlink" title="一、资产负债表：钱从哪里来？"></a>一、资产负债表：钱从哪里来？</h2><p>主要反映资产、负债和所有者权益三方面的内容，并满足“资产&#x3D;负债+所有者权益”平衡式。</p>
+<h3 id="1-资产负债表作用"><a href="#1-资产负债表作用" class="headerlink" title="1. 资产负债表作用"></a>1. 资产负债表作用</h3><ul>
+<li>可以提供某一日期资产的总额及其结构，表明企业拥有或控制的资源及其分布情况；</li>
+<li>可以提供某一日期的负债总额及其结构，表明企业未来需要用多少资产或劳务清偿债务以及清偿时间；</li>
+<li>可以反映所有者所拥有的权益，据以判断资本保值、增值的情况以及对负债的保障程度。</li>
+</ul>
+<h3 id="2-资产负债表构成"><a href="#2-资产负债表构成" class="headerlink" title="2. 资产负债表构成"></a>2. 资产负债表构成</h3><p><img data-src="https://pic1.zhimg.com/80/v2-05dd1196995fbfb2c1867e98de1da010_1440w.webp" alt="img" loading="lazy"></p>
+<h3 id="3-资产负债表解读"><a href="#3-资产负债表解读" class="headerlink" title="3. 资产负债表解读"></a>3. 资产负债表解读</h3><ul>
+<li>资产负债表是一个时间点的公司经营状况的记录，一般有年初和年末两个数字就会得出公司更多的信息；</li>
+<li>资产是公司的资金运用的结果，是预期可以给公司带来利润的；</li>
+<li>负债是公司的对外借的资金，所有者权益是公司的实有资本金和公司的未分配利润的和；</li>
+<li>公司的资金来源主要有三项：负债、实有资本金和未分配利润；公司资产就是这些资金的运用结果，所以：<br>资产&#x3D;负债+所有者权益；</li>
+<li>报表形成的原则是每增加一笔资金来源，就要增加一笔资产；每增加一笔资产，就要有一笔的资金来源；</li>
+</ul>
+<h2 id="二、利润表：钱都干嘛用了？"><a href="#二、利润表：钱都干嘛用了？" class="headerlink" title="二、利润表：钱都干嘛用了？"></a>二、利润表：钱都干嘛用了？</h2><p>利润表是反映企业在一定会计期间的经营成果的财务报表。</p>
+<h3 id="1-利润表的作用"><a href="#1-利润表的作用" class="headerlink" title="1. 利润表的作用"></a>1. 利润表的作用</h3><ul>
+<li>反映一定会计期间收入的实现情况；</li>
+<li>反映一定会计期间的费用耗费情况；</li>
+<li>反映企业经济活动成果的实现情况，据以判断资本保值增值等情况。</li>
+</ul>
+<h3 id="2-利润表的构成"><a href="#2-利润表的构成" class="headerlink" title="2. 利润表的构成"></a>2. 利润表的构成</h3><p>如下图所示：</p>
+<p><img data-src="https://pic2.zhimg.com/80/v2-1d0586a5628bf2e4051e119426fe0f41_1440w.webp" alt="img" loading="lazy"></p>
+<h3 id="3-利润表解读"><a href="#3-利润表解读" class="headerlink" title="3. 利润表解读"></a>3. 利润表解读</h3><ul>
+<li>利润表是一个时间段的公司经营结果的反映；</li>
+<li>利润表是一个公司与对外利益相关方（供应商、客户及银行等第三方）的利润分配的反映，也是一个公司对内利益相关方（员工、投资人等）利润分配的反映；</li>
+<li>利润表和资产负债表的关系：资产负债表的未分配利润就是利润表每年未分配的总和。</li>
+</ul>
+<h2 id="三、现金流量表：钱够不够用？"><a href="#三、现金流量表：钱够不够用？" class="headerlink" title="三、现金流量表：钱够不够用？"></a>三、现金流量表：钱够不够用？</h2><p>现金流量表是反映企业在一定会计期间现金和现金等价物流入和流出的报表。</p>
+<h3 id="1-现金流量表的作用"><a href="#1-现金流量表的作用" class="headerlink" title="1. 现金流量表的作用"></a>1. 现金流量表的作用</h3><ul>
+<li>现金流量表能够说明企业一定期间内现金流入和流出的原因。</li>
+<li>现金流量表能够说明企业的偿债能力和支付股利的能力。</li>
+<li>现金流量表可以用来分析企业未来获取现金的能力。</li>
+<li>现金流量表可以用来分析企业投资和理财活动对经营成果和财务状况的影响。</li>
+<li>现金流量表能够提供不涉及现金的投资和筹资活动的信息。</li>
+</ul>
+<h3 id="2-现金流量表的构成"><a href="#2-现金流量表的构成" class="headerlink" title="2. 现金流量表的构成"></a>2. 现金流量表的构成</h3><p>如下图所示：</p>
+<p><img data-src="https://pic4.zhimg.com/80/v2-05ded7cb7334ce740dba59a5b0d5b8a7_1440w.webp" alt="img" loading="lazy"></p>
+<h3 id="3-现金流量表的解读"><a href="#3-现金流量表的解读" class="headerlink" title="3. 现金流量表的解读"></a>3. 现金流量表的解读</h3><ul>
+<li>现金就是企业的血液，所有企业的破产最终都表现在现金流的不够，不是因为资产、不是因为盈利、不是因为核心竞争力；</li>
+<li>现金流管理是企业生命线的管理，所以，一个完整的销售包括了销售的现金回款。</li>
+<li>最好的企业是经营中产生现金流，包括现金利润和营运现金盈余，并且是现金越多越好；</li>
+<li>其次的企业是有能力将股权变现；</li>
+<li>如果有通过投资企业股权转让或分红带来现金流也还不错，最后的企业是凭借着公司的资产和挣钱能力能借到现金；</li>
+<li>最后的企业借钱其实是双面刃，因为借了钱不仅要还本金，还要还利息。但如果连最后一点也做不到，企业只会在时间中等待死亡了！</li>
+</ul>
 
       
     </div>
@@ -246,7 +282,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/">24</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -311,7 +347,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-count">26</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -322,7 +358,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -354,7 +390,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

@@ -161,7 +161,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2022/10/08/lex%E5%AD%A6%E4%B9%A0/">
+    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2022/11/16/%E5%B8%82%E5%9C%BA%E8%90%A5%E9%94%80/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -175,7 +175,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/10/08/lex%E5%AD%A6%E4%B9%A0/" class="post-title-link" itemprop="url">Lex&yacc学习</a>
+            <a href="/2022/11/16/%E5%B8%82%E5%9C%BA%E8%90%A5%E9%94%80/" class="post-title-link" itemprop="url">市场营销</a>
         </h2>
 
         <div class="post-meta">
@@ -184,23 +184,17 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2022-10-08 10:45:58" itemprop="dateCreated datePublished" datetime="2022-10-08T10:45:58+08:00">2022-10-08</time>
+              <time title="创建时间：2022-11-16 18:22:17 / 修改时间：18:29:55" itemprop="dateCreated datePublished" datetime="2022-11-16T18:22:17+08:00">2022-11-16</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-28 09:25:08" itemprop="dateModified" datetime="2022-11-28T09:25:08+08:00">2022-11-28</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                  <a href="/categories/%E5%B8%82%E5%9C%BA%E8%90%A5%E9%94%80/" itemprop="url" rel="index"><span itemprop="name">市场营销</span></a>
                 </span>
             </span>
 
@@ -215,114 +209,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p><img data-src="/2022/10/08/lex%E5%AD%A6%E4%B9%A0/image-20221008114332001.png" alt="image-20221008114332001" loading="lazy" src="/2022/10/08/lex%E5%AD%A6%E4%B9%A0/image-20221008114332001.png"></p>
-<h4 id="lex"><a href="#lex" class="headerlink" title="lex"></a>lex</h4><p>lex是做词法分析的，可以把文本解析为token</p>
-<h4 id="yacc"><a href="#yacc" class="headerlink" title="yacc"></a>yacc</h4><p>yacc 可以把lex解析出来的token搞成语法树</p>
-<h4 id="bison"><a href="#bison" class="headerlink" title="bison"></a>bison</h4><p>其实就是GNU标准yacc，完全兼容yacc，但是功能更加强大。</p>
-<p>一个 Lex 程序分为三个段：第一段是 C 和 Lex 的全局声明，第二段包括模式（C 代码），第三段是补充的 C 函数，这些段以%%来分界。</p>
-<h3 id="先来看看lex解析一个配置的示例"><a href="#先来看看lex解析一个配置的示例" class="headerlink" title="先来看看lex解析一个配置的示例"></a>先来看看lex解析一个配置的示例</h3><p>假设，我们有一个配置文件 config.s，接下来我们利用lex来解析它。</p>
-<pre class="line-numbers language-none"><code class="language-none">db_type: mysql
-db_name: student
-db_table_prefix: test_
-db_port:3306<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>所以，我们来写我们的lex文件</p>
-<pre class="line-numbers language-none"><code class="language-none">
-%&#123;
-    #include &quot;myscaner.h&quot;
-%&#125;
-
-
-%%
-:                 		return COLON;
-&quot;db_type&quot;         		return TYPE;
-&quot;db_name&quot;         		return NAME;
-&quot;db_table_prefix&quot; 		return TABLE_PREFIX;
-&quot;db_port&quot;           	return PORT;
-
-[a-zA-Z][_a-zA-Z0-9]* return IDENTIFIER;
-[1-9][0-9]*           return INTEGER;
-[ \t\n]               ;
-.                     printf(&quot;unexpected character\n&quot;);
-
-
-
-%%
-
-int yywrap(void) &#123;
-    return 1;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>可以很明显的看出来，我们的lex文件分为3部分，第一部分，我们引入了一个头文件，这个文件的内容是：</p>
-<pre class="line-numbers language-none"><code class="language-none">#define TYPE 1
-#define NAME 2
-#define TABLE_PREFIX 3
-#define PORT 4
-#define COLON 5
-#define IDENTIFIER 6
-#define INTEGER 7<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>就是定义了一些常量，可以看到lex文件的第二部分就是使用正则匹配好文本之后，返回token所使用的标识。</p>
-<p>有了这样一个 lex文件之后，我们使用lex进行编译，就会输出一个.c文件</p>
-<pre class="line-numbers language-none"><code class="language-none">lex myscanner.l<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p><img data-src="/2022/10/08/lex%E5%AD%A6%E4%B9%A0/image-20221008124503677.png" alt="image-20221008124503677" loading="lazy" src="/2022/10/08/lex%E5%AD%A6%E4%B9%A0/image-20221008124503677.png"></p>
-<p>生成的这个文件1千多行，不干别的就是为了把我们输入的文本解析为一堆token，为啥这么说等会你就明白了。</p>
-<p>有了这个lex.yy.c这个文件之后呢，我们就可以利用他来做配置文件解析了。我们可以写一个C程序。</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"myscaner.h"</span></span>
-
-<span class="token keyword">extern</span> <span class="token keyword">int</span> <span class="token function">yylex</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 链接 lex.yy.c中的方法，这个就是获取下token</span>
-<span class="token keyword">extern</span> <span class="token keyword">int</span> yylineno<span class="token punctuation">;</span> <span class="token comment">// 链接lex.yy.c中的 变量，指示这当前解析的行数</span>
-<span class="token keyword">extern</span> <span class="token keyword">char</span> <span class="token operator">*</span>yytext<span class="token punctuation">;</span> <span class="token comment">// 链接lex.yy.c中的 变量,只是当前token的 值。</span>
-
-<span class="token keyword">char</span> <span class="token operator">*</span>names<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token constant">NULL</span><span class="token punctuation">,</span> <span class="token string">"db_type"</span><span class="token punctuation">,</span> <span class="token string">"db_name"</span><span class="token punctuation">,</span> <span class="token string">"db_table_prefix"</span><span class="token punctuation">,</span> <span class="token string">"db_port"</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-
-    <span class="token keyword">int</span> ntoken<span class="token punctuation">,</span> vtoken<span class="token punctuation">;</span><span class="token comment">//定义 ”:“ 两边的token</span>
-    ntoken <span class="token operator">=</span> <span class="token function">yylex</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">while</span> <span class="token punctuation">(</span>ntoken<span class="token punctuation">)</span>
-    <span class="token punctuation">&#123;</span>
-        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> ntoken<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">yylex</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> COLON<span class="token punctuation">)</span>
-        <span class="token punctuation">&#123;</span>
-            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Syntax error in line %d, Expected a : but fount %s\n"</span><span class="token punctuation">,</span> yylineno<span class="token punctuation">,</span> yytext<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token keyword">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span>
-        <span class="token keyword">switch</span> <span class="token punctuation">(</span>ntoken<span class="token punctuation">)</span>
-        <span class="token punctuation">&#123;</span>
-        <span class="token keyword">case</span> TYPE<span class="token operator">:</span>
-        <span class="token keyword">case</span> NAME<span class="token operator">:</span>
-        <span class="token keyword">case</span> TABLE_PREFIX<span class="token operator">:</span>
-        <span class="token keyword">case</span> PORT<span class="token operator">:</span>
-            vtoken <span class="token operator">=</span> <span class="token function">yylex</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>ntoken <span class="token operator">==</span> PORT <span class="token operator">&amp;&amp;</span> vtoken <span class="token operator">!=</span> INTEGER<span class="token punctuation">)</span><span class="token comment">//如果是port的话，那么他的值需要时整数</span>
-            <span class="token punctuation">&#123;</span>
-                <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"port expected to be a integer,but %s got\n"</span><span class="token punctuation">,</span> yytext<span class="token punctuation">)</span><span class="token punctuation">;</span>
-                <span class="token keyword">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
-            <span class="token punctuation">&#125;</span>
-            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%s has set to %s\n"</span><span class="token punctuation">,</span> names<span class="token punctuation">[</span>ntoken<span class="token punctuation">]</span><span class="token punctuation">,</span> yytext<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token keyword">break</span><span class="token punctuation">;</span>
-        <span class="token keyword">default</span><span class="token operator">:</span>
-            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"unexpected token"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span>
-        ntoken <span class="token operator">=</span> <span class="token function">yylex</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-    <span class="token keyword">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>我们跑一下程序看看</p>
-<p><img data-src="/2022/10/08/lex%E5%AD%A6%E4%B9%A0/image-20221008130140375.png" alt="image-20221008130140375" loading="lazy" src="/2022/10/08/lex%E5%AD%A6%E4%B9%A0/image-20221008130140375.png"></p>
-<p>可以看到，配置文件解析成功。</p>
-<p>那么实际上，我们如果没有lex的帮忙解析这个配置文件应该也不是啥难事，就是读一行文本，解析一行，就比如使用js处理一行</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">line<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">":"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">reduce</span><span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token punctuation">)</span> <span class="token comment">//不是照样可以很容易输出每行配置，要做什么数字检查也相信客观不是啥难事。</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-
-
-<p>但是回过头来想一想，真的有lex这么直接么，lex其实就是一个正则表达式匹配token的描述文件，解析的事情根本不需要我们动手，我们只需要告诉他规则，他就可以帮我们完成文本解析这个过程，利用yylex,yytext，我们就可以把token等等这些东西都方便的找出来为我所用。</p>
-<p>yacc呢</p>
-<p><img data-src="/2022/10/08/lex%E5%AD%A6%E4%B9%A0/image-20221008131539697.png" alt="image-20221008131539697" loading="lazy" src="/2022/10/08/lex%E5%AD%A6%E4%B9%A0/image-20221008131539697.png"></p>
+          <h3 id="市场营销的阶段"><a href="#市场营销的阶段" class="headerlink" title="市场营销的阶段"></a>市场营销的阶段</h3><p><img data-src="/2022/11/16/%E5%B8%82%E5%9C%BA%E8%90%A5%E9%94%80/image-20221116182330539.png" alt="image-20221116182330539" loading="lazy" src="/2022/11/16/%E5%B8%82%E5%9C%BA%E8%90%A5%E9%94%80/image-20221116182330539.png"></p>
+<h4 id="市场营销1-0"><a href="#市场营销1-0" class="headerlink" title="市场营销1.0"></a>市场营销1.0</h4><p>首先在世界还未形成一体的时代，市场营销并不是必要的。在那种状 况下，当产品推出，并且它是必需品的话，就不难销售。只要处于尚未产 生竞争的状态中，那么埋头生产，再将产品卖出就可以了。</p>
+<h4 id="市场营销2-0"><a href="#市场营销2-0" class="headerlink" title="市场营销2.0"></a>市场营销2.0</h4><p>在商品过于充足的现在，任何产品都不可能生产出来就不愁销售。 总会有类似产品或是替代品出现，在竞争中拉低价格，并且顾客需求也开 始多样化。商人将面对各种障碍，因此之前的市场营销1.0，也就是只负责 生产的思维模式很快就被市场淘汰了。</p>
+<p>于是许多情况下，商品在推出市场之前会进行调查。也就是所谓的3C 分析(市场·顾客分析、内部环境分析、竞争分析)。并且会反复思考 S(segmentation细分)、T(targeting目标)、P(positioning定位)和4P(Marketing mix市场营销组合)这四点针对销售的策略后再投入市场。</p>
+<p>当产品投入市场后，还会进行严密管理，让商品进入有空缺的市场。 </p>
+<h4 id="市场营销3-0"><a href="#市场营销3-0" class="headerlink" title="市场营销3.0"></a>市场营销3.0</h4><p>从无竞争的世界中以体力决定胜负的市场营销进化为以头脑决定胜负 的市场营销。市场营销2.0就是科特勒从1970到1980年代的著作中所提出的 理论。</p>
+<p>而后，市场营销逐渐介入品牌认知和个人意识，从而发展到认知科学 领域。这是市场营销2.0之后的世界</p>
+<h3 id="产品分析-价值大致可分为两种"><a href="#产品分析-价值大致可分为两种" class="headerlink" title="产品分析:价值大致可分为两种"></a>产品分析:价值大致可分为两种</h3><ol>
+<li>其一是“将不平稳的状态恢复正常状态(由负到零)”，也就是解决问 题型。比如受伤时所使用的创可贴，以及牙签、卫生纸等日用品(质量水 准基本持平的可代替商品)这一类产品。</li>
+<li>其二则是“将正常状态进一步提升为高昂状态(从零到正)”，也就是 提高心灵满足感。比如以奢侈品为代表的产品，拥有它就能提高心灵的满足感。<strong>这方面也可以称作情绪性消费</strong></li>
+</ol>
 
       
     </div>
@@ -341,7 +238,7 @@ int yywrap(void) &#123;
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/">24</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -406,7 +303,7 @@ int yywrap(void) &#123;
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-count">26</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -417,7 +314,7 @@ int yywrap(void) &#123;
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -449,7 +346,7 @@ int yywrap(void) &#123;
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

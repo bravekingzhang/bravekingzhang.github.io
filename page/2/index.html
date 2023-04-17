@@ -161,7 +161,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2022/11/16/%E9%80%BB%E8%BE%91%E6%80%9D%E8%80%83/">
+    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2022/12/08/cryptomator-Android%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -175,7 +175,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/11/16/%E9%80%BB%E8%BE%91%E6%80%9D%E8%80%83/" class="post-title-link" itemprop="url">逻辑思考</a>
+            <a href="/2022/12/08/cryptomator-Android%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" class="post-title-link" itemprop="url">Cryptomator-Android源码分析</a>
         </h2>
 
         <div class="post-meta">
@@ -185,14 +185,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2022-11-16 19:09:36" itemprop="dateCreated datePublished" datetime="2022-11-16T19:09:36+08:00">2022-11-16</time>
+              <time title="创建时间：2022-12-08 16:13:15" itemprop="dateCreated datePublished" datetime="2022-12-08T16:13:15+08:00">2022-12-08</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-28 09:24:06" itemprop="dateModified" datetime="2022-11-28T09:24:06+08:00">2022-11-28</time>
+                <time title="修改时间：2022-12-13 20:05:36" itemprop="dateModified" datetime="2022-12-13T20:05:36+08:00">2022-12-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -200,7 +200,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%B4%A2%E5%8A%A1/" itemprop="url" rel="index"><span itemprop="name">财务</span></a>
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
                 </span>
             </span>
 
@@ -215,11 +215,412 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h5 id="逻辑思维最基本的原则，被归纳为以下四条。"><a href="#逻辑思维最基本的原则，被归纳为以下四条。" class="headerlink" title="逻辑思维最基本的原则，被归纳为以下四条。"></a>逻辑思维最基本的原则，被归纳为以下四条。</h5><p><strong>1</strong>、将结论明确为<strong>“</strong>是&#x2F;否<strong>”</strong></p>
-<p><strong>2</strong>、通过<strong>“</strong>因为<strong>”“</strong>所以<strong>”</strong>来思考</p>
-<p><strong>3</strong>、结合事实</p>
-<p><strong>4、</strong>切中论点，顾及整体平衡</p>
-<h4 id="技巧"><a href="#技巧" class="headerlink" title="技巧"></a>技巧</h4><p>平时遇到灰色的概念不要把它扔在一边，试着去明确地判断它是黑是白，养成这样的思考习惯就行了。这样大脑就能逐渐形成事事区分、对下达判断的依据刨根问底的思考方式。而这样的习惯，对培养主动关注世间动向、确立自己的判断轴也是很有帮助的</p>
+          <h4 id="App的启动过程"><a href="#App的启动过程" class="headerlink" title="App的启动过程"></a>App的启动过程</h4><p>1、设置日志记录器，比较简单，不展开</p>
+<p>2、根据BuildConfig.FLAVOR来输出不同的打印不同的版本信息</p>
+<p>3、初始化dagger注入依赖</p>
+<p>4、启动两个service，一个是加密服务，一个是自动上传服务，目测是为了后续的云盘、s3等上传</p>
+<p>5、注册registerActivityLifecycleCallbacks，目的是为了激活机密服务，目测是为了放在App不在前台的时候锁住保险库。</p>
+<p>6、设置主题颜色，三种，跟随系统，暗系，白系。</p>
+<p>7、清理缓存，这是一个AsyncTask，因此不会卡UI线程，具体是做了 <code>cleanupDir(context.cacheDir)</code>。</p>
+<p>8、给RxJava添加一个统一的错误处理，啥都没干，只打印了日志。</p>
+<p>至此，cryptomator-Android的启动过程就完成了，这里难点在于dagger注入各种依赖，大可不必细看，只知道，需要使用到各种module的时候，dagger会自动帮注入好就可以。</p>
+<p>需要稍微了解一下kotlin的一些语法，如:</p>
+<pre class="line-numbers language-kotlin" data-language="kotlin"><code class="language-kotlin"><span class="token comment">//回调lambda简化</span>
+mView<span class="token punctuation">.</span><span class="token function">setEventListener</span><span class="token punctuation">(</span><span class="token keyword">object</span><span class="token operator">:</span>Listenser<span class="token punctuation">&#123;</span>
+	<span class="token keyword">public</span> void <span class="token function">onSuccess</span><span class="token punctuation">(</span>Data <span class="token keyword">data</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token comment">//todo</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token comment">////可简化为</span>
+mView<span class="token punctuation">.</span><span class="token function">setEventListener</span><span class="token punctuation">&#123;</span>
+  <span class="token comment">//todo</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">//内联扩展函数,最重要的事可以简化多次判空操作。</span>
+a<span class="token operator">?</span>let<span class="token punctuation">&#123;</span>
+  it<span class="token punctuation">.</span><span class="token function">do1</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  it<span class="token punctuation">.</span><span class="token function">do2</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  it<span class="token punctuation">.</span><span class="token function">do3</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+<span class="token comment">/// 类似的内联还有 with操作，和js的with有点类似，可以避免频繁的写多次context</span>
+
+<span class="token comment">// use 操作，自带try catch ，fanlly 中 自带close操作，简直是流操作的福音</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h4 id="主activity的启动"><a href="#主activity的启动" class="headerlink" title="主activity的启动"></a>主activity的启动</h4><p>App启动之后，更具Android规则，打开的第一个activity应该是AndroidManifest中定义的启动的那个</p>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>activity</span>
+			<span class="token attr-name"><span class="token namespace">android:</span>name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>.ui.activity.VaultListActivity<span class="token punctuation">"</span></span>
+			<span class="token attr-name"><span class="token namespace">android:</span>exported</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span>
+			<span class="token attr-name"><span class="token namespace">android:</span>theme</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>@style/AppTheme.Starting<span class="token punctuation">"</span></span>
+			<span class="token attr-name"><span class="token namespace">android:</span>windowSoftInputMode</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>adjustPan<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+			<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>intent-filter</span><span class="token punctuation">></span></span>
+				<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>action</span> <span class="token attr-name"><span class="token namespace">android:</span>name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>android.intent.action.MAIN<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+
+				<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>category</span> <span class="token attr-name"><span class="token namespace">android:</span>name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>android.intent.category.LAUNCHER<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+			<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>intent-filter</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>activity</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>因此，毫无疑问，应该跑到这个入口页里面瞅瞅做了啥。</p>
+<p>VaultListActivity继承自BaseActivity，因此，一般来讲一些公共的逻辑讲都会放在基类中来处理，直接看onCreate方法：</p>
+<p>1、埋个日志，表示进入onCreate，简单不介绍</p>
+<p>2、initializeDagger，使用dagger进行依赖注入,</p>
+<p>3、初始化界面，可以看到布局是一个空壳子，界面的渲染全靠fragment。</p>
+<pre class="line-numbers language-kotlin" data-language="kotlin"><code class="language-kotlin"><span class="token keyword">override</span> <span class="token keyword">fun</span> <span class="token function">onCreate</span><span class="token punctuation">(</span>savedInstanceState<span class="token operator">:</span> Bundle<span class="token operator">?</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		<span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onCreate</span><span class="token punctuation">(</span>savedInstanceState<span class="token punctuation">)</span>
+		<span class="token function">logLifecycle</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">"onCreate"</span></span><span class="token punctuation">)</span>
+
+		<span class="token keyword">this</span><span class="token punctuation">.</span>activityComponent <span class="token operator">=</span> <span class="token function">initializeDagger</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+		javaClass<span class="token punctuation">.</span><span class="token function">getAnnotation</span><span class="token punctuation">(</span>Activity<span class="token operator">::</span><span class="token keyword">class</span><span class="token punctuation">.</span>java<span class="token punctuation">)</span><span class="token operator">?</span><span class="token punctuation">.</span><span class="token function">let</span> <span class="token punctuation">&#123;</span>
+			<span class="token function">setContentView</span><span class="token punctuation">(</span><span class="token function">getContentLayout</span><span class="token punctuation">(</span>it<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+			Activities<span class="token punctuation">.</span><span class="token function">setIntent</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span>
+			<span class="token keyword">this</span><span class="token punctuation">.</span>presenter <span class="token operator">=</span> Activities<span class="token punctuation">.</span><span class="token function">initializePresenter</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span>
+			<span class="token function">afterIntentInjected</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+			<span class="token keyword">if</span> <span class="token punctuation">(</span>savedInstanceState <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+				<span class="token function">restoreState</span><span class="token punctuation">(</span>savedInstanceState<span class="token punctuation">)</span>
+			<span class="token punctuation">&#125;</span>
+			<span class="token comment">//</span>
+			<span class="token function">setupView</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+			<span class="token function">setupPresenter</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+			<span class="token keyword">if</span> <span class="token punctuation">(</span>savedInstanceState <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+				<span class="token function">createAndAddFragment</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+			<span class="token punctuation">&#125;</span>
+
+			currentDialog <span class="token operator">=</span> supportFragmentManager<span class="token punctuation">.</span><span class="token function">findFragmentByTag</span><span class="token punctuation">(</span>ACTIVE_DIALOG<span class="token punctuation">)</span> <span class="token keyword">as</span><span class="token operator">?</span> DialogFragment
+			closeDialogOnResume <span class="token operator">=</span> currentDialog <span class="token operator">!=</span> <span class="token keyword">null</span>
+		<span class="token punctuation">&#125;</span> <span class="token operator">?:</span> Timber<span class="token punctuation">.</span><span class="token function">tag</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">"BaseActivity"</span></span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">e</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">"Failed to initialize Activity because config is null"</span></span><span class="token punctuation">)</span>
+	<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>setupView中使用</p>
+<pre class="line-numbers language-kotlin" data-language="kotlin"><code class="language-kotlin"><span class="token keyword">override</span> <span class="token keyword">fun</span> <span class="token function">setupView</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		<span class="token function">setupToolbar</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+		vaultListPresenter<span class="token punctuation">.</span><span class="token function">prepareView</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+		activityRootView<span class="token punctuation">.</span><span class="token function">setOnFilteredTouchEventForSecurityListener</span><span class="token punctuation">(</span><span class="token keyword">object</span> <span class="token operator">:</span> Listener <span class="token punctuation">&#123;</span>
+			<span class="token keyword">override</span> <span class="token keyword">fun</span> <span class="token function">onFilteredTouchEventForSecurity</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+				vaultListPresenter<span class="token punctuation">.</span><span class="token function">onFilteredTouchEventForSecurity</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+			<span class="token punctuation">&#125;</span>
+		<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+		<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">stopEditFilePressed</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> sharedPreferencesHandler<span class="token punctuation">.</span><span class="token function">keepUnlockedWhileEditing</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+			<span class="token function">hideNotification</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+			<span class="token function">unSuspendLock</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+		<span class="token punctuation">&#125;</span>
+	<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>vaultListPresenter.prepareView() 去准备view，这个时候，会触发checkLicense()。如果没有License，会告诉你去填license。这里绕过license的检测比较简单，直接注释去检测就好，下面一小节讲解一下license的检查策略。</p>
+<pre class="line-numbers language-kotlin" data-language="kotlin"><code class="language-kotlin"><span class="token keyword">fun</span> <span class="token function">prepareView</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>sharedPreferencesHandler<span class="token punctuation">.</span>isScreenLockDialogAlreadyShown<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+			<span class="token keyword">val</span> keyguardManager <span class="token operator">=</span> <span class="token function">context</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getSystemService</span><span class="token punctuation">(</span>Context<span class="token punctuation">.</span>KEYGUARD_SERVICE<span class="token punctuation">)</span> <span class="token keyword">as</span> KeyguardManager
+			<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>keyguardManager<span class="token punctuation">.</span>isKeyguardSecure<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+				view<span class="token operator">?</span><span class="token punctuation">.</span><span class="token function">showDialog</span><span class="token punctuation">(</span>AskForLockScreenDialog<span class="token punctuation">.</span><span class="token function">newInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+			<span class="token punctuation">&#125;</span>
+			sharedPreferencesHandler<span class="token punctuation">.</span><span class="token function">setScreenLockDialogAlreadyShown</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+		<span class="token punctuation">&#125;</span>
+
+		sharedPreferencesHandler<span class="token punctuation">.</span><span class="token function">vaultsRemovedDuringMigration</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">?</span><span class="token punctuation">.</span><span class="token function">let</span> <span class="token punctuation">&#123;</span>
+			<span class="token keyword">val</span> cloudNameString <span class="token operator">=</span> <span class="token function">getString</span><span class="token punctuation">(</span>CloudTypeModel<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>CloudType<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>it<span class="token punctuation">.</span>first<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>displayNameResource<span class="token punctuation">)</span>
+			view<span class="token operator">?</span><span class="token punctuation">.</span><span class="token function">showDialog</span><span class="token punctuation">(</span>VaultsRemovedDuringMigrationDialog<span class="token punctuation">.</span><span class="token function">newInstance</span><span class="token punctuation">(</span><span class="token function">Pair</span><span class="token punctuation">(</span>cloudNameString<span class="token punctuation">,</span> it<span class="token punctuation">.</span>second<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+			sharedPreferencesHandler<span class="token punctuation">.</span><span class="token function">vaultsRemovedDuringMigration</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span>
+		<span class="token punctuation">&#125;</span>
+
+  	<span class="token comment">// 注释，别去检查了</span>
+		<span class="token comment">//checkLicense()</span>
+
+		<span class="token keyword">if</span> <span class="token punctuation">(</span>sharedPreferencesHandler<span class="token punctuation">.</span><span class="token function">usePhotoUpload</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+			<span class="token function">checkLocalStoragePermissionRegardingAutoUpload</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+		<span class="token punctuation">&#125;</span>
+	<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p>有的话就要开始走渲染界面了。</p>
+<p>接下来走到onResume逻辑中看看</p>
+<p>1、埋点日志，表示进入onResume，简单也不在介绍</p>
+<p>2、设置被覆盖时不响应touches事件</p>
+<p>3、设置安全策略，禁止录屏</p>
+<p>4、判断是否没有打开的保险库，如果没有，就关闭当前打开的图片呀，文本文件之类的资源，一种保护。<strong>主要就是防止锁屏了，锁屏之前在浏览文件，打开还会看到文件</strong>。</p>
+<p>所以第一个启动的activity的视图展示任务就落到了VaultListFragment上了。</p>
+<p>整个布局就是一个RecyclerView展示的列表，然后在onResume的时候，调用presenter去load保险库列表</p>
+<pre class="line-numbers language-kotlin" data-language="kotlin"><code class="language-kotlin"><span class="token keyword">override</span> <span class="token keyword">fun</span> <span class="token function">onResume</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		<span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onResume</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+		vaultListPresenter<span class="token punctuation">.</span><span class="token function">loadVaultList</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>至此其实进入保险库的整个流程就完毕了。</p>
+<h4 id="license检查"><a href="#license检查" class="headerlink" title="license检查"></a>license检查</h4><p>前面提到应用主界面会触发license的检查，其检查逻辑是除了Google player安装的版本，就会进入license检查环境，因此，这里可以看到版本的打包是使用了<code>BuildConfig.FLAVOR </code>特性。检查的逻辑是</p>
+<pre class="line-numbers language-kotlin" data-language="kotlin"><code class="language-kotlin"><span class="token keyword">private</span> <span class="token keyword">fun</span> <span class="token function">checkLicense</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		<span class="token keyword">if</span> <span class="token punctuation">(</span>BuildConfig<span class="token punctuation">.</span>FLAVOR <span class="token operator">==</span> <span class="token string-literal singleline"><span class="token string">"apkstore"</span></span> <span class="token operator">||</span> BuildConfig<span class="token punctuation">.</span>FLAVOR <span class="token operator">==</span> <span class="token string-literal singleline"><span class="token string">"fdroid"</span></span> <span class="token operator">||</span> BuildConfig<span class="token punctuation">.</span>FLAVOR <span class="token operator">==</span> <span class="token string-literal singleline"><span class="token string">"lite"</span></span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+			licenseCheckUseCase <span class="token comment">//</span>
+				<span class="token punctuation">.</span><span class="token function">withLicense</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">""</span></span><span class="token punctuation">)</span> <span class="token comment">//</span>
+				<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token keyword">object</span> <span class="token operator">:</span> NoOpResultHandler<span class="token operator">&lt;</span>LicenseCheck<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+					<span class="token keyword">override</span> <span class="token keyword">fun</span> <span class="token function">onSuccess</span><span class="token punctuation">(</span>licenseCheck<span class="token operator">:</span> LicenseCheck<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+						<span class="token keyword">if</span> <span class="token punctuation">(</span>BuildConfig<span class="token punctuation">.</span>FLAVOR <span class="token operator">==</span> <span class="token string-literal singleline"><span class="token string">"apkstore"</span></span> <span class="token operator">&amp;&amp;</span> sharedPreferencesHandler<span class="token punctuation">.</span><span class="token function">doUpdate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+							<span class="token function">checkForAppUpdates</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+						<span class="token punctuation">&#125;</span>
+					<span class="token punctuation">&#125;</span>
+
+					<span class="token keyword">override</span> <span class="token keyword">fun</span> <span class="token function">onError</span><span class="token punctuation">(</span>e<span class="token operator">:</span> Throwable<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+						<span class="token keyword">val</span> license <span class="token operator">=</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>e <span class="token keyword">is</span> LicenseNotValidException<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+							e<span class="token punctuation">.</span>license
+						<span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+							<span class="token string-literal singleline"><span class="token string">""</span></span>
+						<span class="token punctuation">&#125;</span>
+						<span class="token keyword">val</span> intent <span class="token operator">=</span> <span class="token function">Intent</span><span class="token punctuation">(</span><span class="token function">context</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> LicenseCheckActivity<span class="token operator">::</span><span class="token keyword">class</span><span class="token punctuation">.</span>java<span class="token punctuation">)</span>
+						intent<span class="token punctuation">.</span>flags <span class="token operator">=</span> Intent<span class="token punctuation">.</span>FLAG_ACTIVITY_NEW_TASK <span class="token operator">or</span> Intent<span class="token punctuation">.</span>FLAG_ACTIVITY_CLEAR_TASK
+						intent<span class="token punctuation">.</span>data <span class="token operator">=</span> Uri<span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>String<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">"app://cryptomator/%s"</span></span><span class="token punctuation">,</span> license<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+						<span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+							<span class="token function">context</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">startActivity</span><span class="token punctuation">(</span>intent<span class="token punctuation">)</span>
+						<span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span>e<span class="token operator">:</span> ActivityNotFoundException<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+							Toast<span class="token punctuation">.</span><span class="token function">makeText</span><span class="token punctuation">(</span><span class="token function">context</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string-literal singleline"><span class="token string">"Please contact the support."</span></span><span class="token punctuation">,</span> Toast<span class="token punctuation">.</span>LENGTH_LONG<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">show</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+							<span class="token function">finish</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+						<span class="token punctuation">&#125;</span>
+					<span class="token punctuation">&#125;</span>
+				<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+		<span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>1、如果没有传入license，就会使用本地存储（SQLlite）中的license来进行验证。</p>
+<p>2、验证的主要逻辑就是使用公钥来解密license，看看是否可以解密出来，如果可以，就证明license是人家私钥加密的合法license，否则就是伪造的。</p>
+<pre class="line-numbers language-kotlin" data-language="kotlin"><code class="language-kotlin"><span class="token keyword">private</span> static <span class="token keyword">final</span> String ANDROID_PUB_KEY <span class="token operator">=</span> <span class="token string-literal singleline"><span class="token string">"MIGbMBAGByqGSM49AgEGBSuBBAAjA4GGAAQBcnb81CfNeL3qBVFMx/yRfm1Y1yib"</span></span> <span class="token operator">+</span> <span class="token comment">//</span>
+			<span class="token string-literal singleline"><span class="token string">"ajIJkV1s82AQt+mOl4+Kub64wq1OCgBVwWUlKwqgnyF39nmkoXEjakRPFngBzg2J"</span></span> <span class="token operator">+</span> <span class="token comment">//</span>
+			<span class="token string-literal singleline"><span class="token string">"zo4UR0B7OYmn0uGf3K+zQfxKnNMxGVPtlzE8j9Nqz/dm2YvYLLVwvTSDQX/GaxoP"</span></span> <span class="token operator">+</span> <span class="token comment">//</span>
+			<span class="token string-literal singleline"><span class="token string">"/EH84Hupw2wuU7qAaFU="</span></span><span class="token punctuation">;</span>
+<span class="token keyword">final</span> Claims claims <span class="token operator">=</span> 
+Jwts<span class="token punctuation">.</span><span class="token function">parserBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">setSigningKey</span><span class="token punctuation">(</span><span class="token function">getPublicKey</span><span class="token punctuation">(</span>ANDROID_PUB_KEY<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">parseClaimsJws</span><span class="token punctuation">(</span>license<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getBody</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token keyword">return</span> claims<span class="token operator">::</span>getSubject<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>原理很简单，就是利用了<strong>非对称加解密</strong>。</p>
+<h4 id="添加一个保险库"><a href="#添加一个保险库" class="headerlink" title="添加一个保险库"></a>添加一个保险库</h4><p>进入系统之后，就是看怎么添加一个保险库，保险库的添加有两种方式；1、从0创建一个。2、继承至一个已有的。</p>
+<pre class="line-numbers language-kotlin" data-language="kotlin"><code class="language-kotlin"><span class="token keyword">fun</span> <span class="token function">onAddExistingVault</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		addExistingVaultWorkflow<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">fun</span> <span class="token function">onCreateVault</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  	createNewVaultWorkflow<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>直接看从0开始创建的流程：</p>
+<p>1、点击新建一个vault的话，会进入一个选择CloudType的界面，有[Dropbox，Google Drive，OneDrive等等]，当然还包括本地。</p>
+<p>2、选择一个本地的玩一玩</p>
+<p>3、进去是一个recycleView，如果之前添加过本地文件目录，那么是会有location列表的，初次创建是没有</p>
+<p>4、点击底部的➕，会进入创建，创建会根据不同的CloudType进入不同的界面</p>
+<pre class="line-numbers language-kotlin" data-language="kotlin"><code class="language-kotlin"><span class="token keyword">fun</span> <span class="token function">onAddConnectionClicked</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		<span class="token keyword">when</span> <span class="token punctuation">(</span>selectedCloudType<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+			CloudTypeModel<span class="token punctuation">.</span>ONEDRIVE <span class="token operator">-></span> <span class="token function">addOnedriveCloud</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+			CloudTypeModel<span class="token punctuation">.</span>WEBDAV <span class="token operator">-></span> <span class="token function">requestActivityResult</span><span class="token punctuation">(</span>ActivityResultCallbacks<span class="token punctuation">.</span><span class="token function">addChangeMultiCloud</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> Intents<span class="token punctuation">.</span><span class="token function">webDavAddOrChangeIntent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+			CloudTypeModel<span class="token punctuation">.</span>PCLOUD <span class="token operator">-></span> <span class="token function">requestActivityResult</span><span class="token punctuation">(</span>ActivityResultCallbacks<span class="token punctuation">.</span><span class="token function">pCloudAuthenticationFinished</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> Intents<span class="token punctuation">.</span><span class="token function">authenticatePCloudIntent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+			CloudTypeModel<span class="token punctuation">.</span>S3 <span class="token operator">-></span> <span class="token function">requestActivityResult</span><span class="token punctuation">(</span>ActivityResultCallbacks<span class="token punctuation">.</span><span class="token function">addChangeMultiCloud</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> Intents<span class="token punctuation">.</span><span class="token function">s3AddOrChangeIntent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+			CloudTypeModel<span class="token punctuation">.</span>LOCAL <span class="token operator">-></span> <span class="token function">openDocumentTree</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+		<span class="token punctuation">&#125;</span>
+	<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>5、openDocumentTree就是拿到一个通过一个intent打开文件管理，然后返回一个contentProvider的uri，长这样<code>content://com.android.externalstorage.documents/tree/primary%3A11111</code>，随后保存到书库中</p>
+<pre class="line-numbers language-kotlin" data-language="kotlin"><code class="language-kotlin"><span class="token keyword">public</span> void <span class="token function">execute</span><span class="token punctuation">(</span><span class="token punctuation">)</span> throws BackendException <span class="token punctuation">&#123;</span>
+		<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">cloudExists</span><span class="token punctuation">(</span>cloud<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+			<span class="token keyword">throw</span> new <span class="token function">CloudAlreadyExistsException</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token punctuation">&#125;</span>
+
+		<span class="token keyword">if</span> <span class="token punctuation">(</span>cloud<span class="token punctuation">.</span><span class="token function">persistent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+			cloudRepository<span class="token punctuation">.</span><span class="token function">store</span><span class="token punctuation">(</span>cloud<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+			<span class="token keyword">throw</span> new <span class="token function">FatalBackendException</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">"Can't change cloud because it's not persistent"</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token punctuation">&#125;</span>
+	<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>6、点击一个location之后，会进入CreateVaultActivity中。</p>
+<pre class="line-numbers language-kotlin" data-language="kotlin"><code class="language-kotlin">void <span class="token function">onCloudServiceChosen</span><span class="token punctuation">(</span>SerializableResult<span class="token operator">&lt;</span>CloudModel<span class="token operator">></span> result<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		<span class="token function">onCloudServiceChosen</span><span class="token punctuation">(</span>result<span class="token punctuation">.</span><span class="token function">getResult</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+
+	<span class="token keyword">private</span> void <span class="token function">onCloudServiceChosen</span><span class="token punctuation">(</span>CloudModel cloud<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		<span class="token function">presenter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getView</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">showProgress</span><span class="token punctuation">(</span>ProgressModel<span class="token punctuation">.</span>GENERIC<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		getRootFolderUseCase <span class="token comment">//</span>
+				<span class="token punctuation">.</span><span class="token function">withCloud</span><span class="token punctuation">(</span>cloud<span class="token punctuation">.</span><span class="token function">toCloud</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">//</span>
+				<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">(</span>ChooseCloudServicePresenter<span class="token punctuation">)</span> <span class="token function">presenter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>new ProgressCompletingResultHandler<span class="token operator">&lt;</span>CloudFolder<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+					<span class="token annotation builtin">@Override</span>
+					<span class="token keyword">public</span> void <span class="token function">onSuccess</span><span class="token punctuation">(</span>CloudFolder cloudFolder<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+						<span class="token function">state</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>cloudRoot <span class="token operator">=</span> cloudFolder<span class="token punctuation">;</span>
+						<span class="token function">chain</span><span class="token punctuation">(</span><span class="token function">createVaultIntent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> SerializableResultCallbacks<span class="token punctuation">.</span><span class="token function">nameEntered</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+					<span class="token punctuation">&#125;</span>
+
+					<span class="token annotation builtin">@Override</span>
+					<span class="token keyword">public</span> void <span class="token function">onError</span><span class="token punctuation">(</span>Throwable e<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+						<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>authenticationExceptionHandler<span class="token punctuation">.</span><span class="token function">handleAuthenticationException</span><span class="token punctuation">(</span> <span class="token comment">//</span>
+								<span class="token function">presenter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token comment">//</span>
+								e<span class="token punctuation">,</span> <span class="token comment">//</span>
+								ActivityResultCallbacks<span class="token punctuation">.</span><span class="token function">onCloudServiceAuthenticated</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+							<span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onError</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">;</span>
+						<span class="token punctuation">&#125;</span>
+					<span class="token punctuation">&#125;</span>
+				<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>7、一进入，vaultNameEditText.requestFocus()就开始让你输入vaultName，确认之后，进入密码输入界面，密码是有强度的，使用了一个开源库zxvcbn来验证密码强度，而且排除了一些关键字作为密码</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">RxTextView</span><span class="token punctuation">.</span><span class="token function">textChanges</span><span class="token punctuation">(</span>passwordInput<span class="token punctuation">)</span> <span class="token comment">//</span>
+				<span class="token punctuation">.</span><span class="token function">observeOn</span><span class="token punctuation">(</span><span class="token class-name">Schedulers</span><span class="token punctuation">.</span><span class="token function">computation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">//</span>
+				<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>password <span class="token operator">-></span> <span class="token class-name">PasswordStrength<span class="token punctuation">.</span>Companion</span><span class="token punctuation">.</span><span class="token function">forPassword</span><span class="token punctuation">(</span>password<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token constant">SANITIZED_INPUTS</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">//</span>
+				<span class="token punctuation">.</span><span class="token function">observeOn</span><span class="token punctuation">(</span><span class="token class-name">AndroidSchedulers</span><span class="token punctuation">.</span><span class="token function">mainThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">//</span>
+				<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span>strength <span class="token operator">-></span> <span class="token punctuation">&#123;</span>
+					strengthMeter<span class="token punctuation">.</span><span class="token function">getProgressDrawable</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">setColorFilter</span><span class="token punctuation">(</span><span class="token class-name">ResourceHelper<span class="token punctuation">.</span>Companion</span><span class="token punctuation">.</span><span class="token function">getColor</span><span class="token punctuation">(</span>strength<span class="token punctuation">.</span><span class="token function">getColor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token class-name">PorterDuff<span class="token punctuation">.</span>Mode</span><span class="token punctuation">.</span><span class="token constant">SRC_IN</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+					strengthLabel<span class="token punctuation">.</span><span class="token function">setText</span><span class="token punctuation">(</span>strength<span class="token punctuation">.</span><span class="token function">getDescription</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+					strengthMeter<span class="token punctuation">.</span><span class="token function">setProgress</span><span class="token punctuation">(</span>strength<span class="token punctuation">.</span><span class="token function">getScore</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+					button<span class="token punctuation">.</span><span class="token function">setEnabled</span><span class="token punctuation">(</span>strength<span class="token punctuation">.</span><span class="token function">getScore</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token class-name">PasswordStrength</span><span class="token punctuation">.</span><span class="token constant">EXTREMELY_WEAK</span><span class="token punctuation">.</span><span class="token function">getScore</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+				<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>输入强度比较OK的密码之后，就到了创建vault的最后环节了</p>
+<pre class="line-numbers language-kotlin" data-language="kotlin"><code class="language-kotlin"><span class="token keyword">public</span> Vault <span class="token function">execute</span><span class="token punctuation">(</span><span class="token punctuation">)</span> throws BackendException <span class="token punctuation">&#123;</span>
+		CloudFolder vaultFolder <span class="token operator">=</span> cloudContentRepository<span class="token punctuation">.</span><span class="token function">folder</span><span class="token punctuation">(</span>folder<span class="token punctuation">,</span> vaultName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		vaultFolder <span class="token operator">=</span> cloudContentRepository<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span>vaultFolder<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token comment">// 带着输入的密码过来创建vaultFolder</span>
+		cloudRepository<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span>vaultFolder<span class="token punctuation">,</span> password<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">return</span> vaultRepository<span class="token punctuation">.</span><span class="token function">store</span><span class="token punctuation">(</span><span class="token function">aVault</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">//</span>
+				<span class="token punctuation">.</span><span class="token function">thatIsNew</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">//</span>
+				<span class="token punctuation">.</span><span class="token function">withNamePathAndCloudFrom</span><span class="token punctuation">(</span>vaultFolder<span class="token punctuation">)</span> <span class="token comment">//</span>
+				<span class="token punctuation">.</span><span class="token function">withPosition</span><span class="token punctuation">(</span>vaultRepository<span class="token punctuation">.</span><span class="token function">vaults</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">//</span>
+				<span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>create的真正实现在于</p>
+<pre class="line-numbers language-kotlin" data-language="kotlin"><code class="language-kotlin"><span class="token keyword">fun</span> <span class="token function">create</span><span class="token punctuation">(</span>location<span class="token operator">:</span> CloudFolder<span class="token punctuation">,</span> password<span class="token operator">:</span> CharSequence<span class="token operator">?</span><span class="token punctuation">,</span> vaultConfigBuilder<span class="token operator">:</span> VaultConfigBuilder<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		<span class="token comment">// 1. write masterkey:</span>
+		<span class="token keyword">val</span> masterkey <span class="token operator">=</span> Masterkey<span class="token punctuation">.</span><span class="token function">generate</span><span class="token punctuation">(</span>secureRandom<span class="token punctuation">)</span>
+		<span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+			<span class="token function">ByteArrayOutputStream</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">use</span> <span class="token punctuation">&#123;</span> <span class="token keyword">data</span> <span class="token operator">-></span>
+				<span class="token function">MasterkeyFileAccess</span><span class="token punctuation">(</span>CryptoConstants<span class="token punctuation">.</span>PEPPER<span class="token punctuation">,</span> secureRandom<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">persist</span><span class="token punctuation">(</span>masterkey<span class="token punctuation">,</span> <span class="token keyword">data</span><span class="token punctuation">,</span> password<span class="token punctuation">,</span> CryptoConstants<span class="token punctuation">.</span>DEFAULT_MASTERKEY_FILE_VERSION<span class="token punctuation">)</span>
+				cloudContentRepository<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token function">legacyMasterkeyFile</span><span class="token punctuation">(</span>location<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">from</span><span class="token punctuation">(</span><span class="token keyword">data</span><span class="token punctuation">.</span><span class="token function">toByteArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> ProgressAware<span class="token punctuation">.</span>NO_OP_PROGRESS_AWARE_UPLOAD<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token keyword">data</span><span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toLong</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+			<span class="token punctuation">&#125;</span>
+		<span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span>e<span class="token operator">:</span> IOException<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+			<span class="token keyword">throw</span> <span class="token function">FatalBackendException</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">"Failed to write masterkey"</span></span><span class="token punctuation">,</span> e<span class="token punctuation">)</span>
+		<span class="token punctuation">&#125;</span>
+
+		<span class="token comment">// 2. initialize vault:</span>
+		<span class="token keyword">val</span> vaultConfig <span class="token operator">=</span> vaultConfigBuilder <span class="token comment">//</span>
+			<span class="token punctuation">.</span><span class="token function">vaultFormat</span><span class="token punctuation">(</span>CryptoConstants<span class="token punctuation">.</span>MAX_VAULT_VERSION<span class="token punctuation">)</span> <span class="token comment">//</span>
+			<span class="token punctuation">.</span><span class="token function">cipherCombo</span><span class="token punctuation">(</span>CryptoConstants<span class="token punctuation">.</span>DEFAULT_CIPHER_COMBO<span class="token punctuation">)</span> <span class="token comment">//</span>
+			<span class="token punctuation">.</span><span class="token function">keyId</span><span class="token punctuation">(</span>URI<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span>String<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">"%s:%s"</span></span><span class="token punctuation">,</span> CryptoConstants<span class="token punctuation">.</span>MASTERKEY_SCHEME<span class="token punctuation">,</span> CryptoConstants<span class="token punctuation">.</span>MASTERKEY_FILE_NAME<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">//</span>
+			<span class="token punctuation">.</span><span class="token function">shorteningThreshold</span><span class="token punctuation">(</span>CryptoConstants<span class="token punctuation">.</span>DEFAULT_MAX_FILE_NAME<span class="token punctuation">)</span> <span class="token comment">//</span>
+			<span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+		<span class="token keyword">val</span> encodedVaultConfig <span class="token operator">=</span> vaultConfig<span class="token punctuation">.</span><span class="token function">toToken</span><span class="token punctuation">(</span>masterkey<span class="token punctuation">.</span>encoded<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toByteArray</span><span class="token punctuation">(</span>StandardCharsets<span class="token punctuation">.</span>UTF_8<span class="token punctuation">)</span>
+		<span class="token keyword">val</span> vaultFile <span class="token operator">=</span> cloudContentRepository<span class="token punctuation">.</span><span class="token function">file</span><span class="token punctuation">(</span>location<span class="token punctuation">,</span> CryptoConstants<span class="token punctuation">.</span>VAULT_FILE_NAME<span class="token punctuation">)</span>
+		cloudContentRepository<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>vaultFile<span class="token punctuation">,</span> <span class="token function">from</span><span class="token punctuation">(</span>encodedVaultConfig<span class="token punctuation">)</span><span class="token punctuation">,</span> ProgressAware<span class="token punctuation">.</span>NO_OP_PROGRESS_AWARE_UPLOAD<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">,</span> encodedVaultConfig<span class="token punctuation">.</span>size<span class="token punctuation">.</span><span class="token function">toLong</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+		<span class="token comment">// 3. create root folder:</span>
+		<span class="token function">createRootFolder</span><span class="token punctuation">(</span>location<span class="token punctuation">,</span> <span class="token function">cryptorFor</span><span class="token punctuation">(</span>masterkey<span class="token punctuation">,</span> vaultConfig<span class="token punctuation">.</span>cipherCombo<span class="token punctuation">)</span><span class="token punctuation">)</span>
+	<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>1、写了一个Masterkey，写一个masterkey.cryptomator</p>
+<p>2、初始化一个vault，写一个vault.cryptomator</p>
+<p>3、初始化根目录，支持一个保险库初始化完毕。</p>
+<h4 id="文件加密机制"><a href="#文件加密机制" class="headerlink" title="文件加密机制"></a>文件加密机制</h4><p>要添加文件，就需要先打开保险库，然后在保险库中添加文件。</p>
+<p>1、因为我们打开的是本地保险库，因此会根据这个保险库的找到目录下的vault.cryptomator，然后从里面读出，内容，用来匹配用户输入的密码，其原理就是重放生成masterkey.cryptomator的过程，匹配看是否一致。</p>
+<pre class="line-numbers language-kotlin" data-language="kotlin"><code class="language-kotlin"><span class="token keyword">private</span> <span class="token keyword">fun</span> <span class="token function">unlockVault</span><span class="token punctuation">(</span>vaultModel<span class="token operator">:</span> VaultModel<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">canUseBiometricOn</span><span class="token punctuation">(</span>vaultModel<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+			<span class="token keyword">if</span> <span class="token punctuation">(</span>startedUsingPrepareUnlock<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+				<span class="token function">startPrepareUnlockUseCase</span><span class="token punctuation">(</span>vaultModel<span class="token punctuation">.</span><span class="token function">toVault</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+			<span class="token punctuation">&#125;</span>
+			view<span class="token operator">?</span><span class="token punctuation">.</span><span class="token function">showBiometricDialog</span><span class="token punctuation">(</span>vaultModel<span class="token punctuation">)</span>
+		<span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+			view<span class="token operator">?</span><span class="token punctuation">.</span><span class="token function">showEnterPasswordDialog</span><span class="token punctuation">(</span>vaultModel<span class="token punctuation">)</span>
+			<span class="token function">startPrepareUnlockUseCase</span><span class="token punctuation">(</span>vaultModel<span class="token punctuation">.</span><span class="token function">toVault</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+		<span class="token punctuation">&#125;</span>
+	<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/*******************************************************************************
+ * Copyright (c) 2016 Sebastian Stenzel and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the accompanying LICENSE.txt.
+ *
+ * Contributors:
+ *     Sebastian Stenzel - initial API and implementation
+ *******************************************************************************/</span>
+<span class="token keyword">package</span> <span class="token namespace">org<span class="token punctuation">.</span>cryptomator<span class="token punctuation">.</span>cryptolib<span class="token punctuation">.</span>common</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>io<span class="token punctuation">.</span></span><span class="token class-name">IOException</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>nio<span class="token punctuation">.</span></span><span class="token class-name">ByteBuffer</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>nio<span class="token punctuation">.</span>channels<span class="token punctuation">.</span></span><span class="token class-name">WritableByteChannel</span></span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>cryptomator<span class="token punctuation">.</span>cryptolib<span class="token punctuation">.</span>api<span class="token punctuation">.</span></span><span class="token class-name">Cryptor</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>cryptomator<span class="token punctuation">.</span>cryptolib<span class="token punctuation">.</span>api<span class="token punctuation">.</span></span><span class="token class-name">FileHeader</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>cryptomator<span class="token punctuation">.</span>cryptolib<span class="token punctuation">.</span>common<span class="token punctuation">.</span></span><span class="token class-name">ByteBuffers</span></span><span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">EncryptingWritableByteChannel</span> <span class="token keyword">implements</span> <span class="token class-name">WritableByteChannel</span> <span class="token punctuation">&#123;</span>
+
+	<span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">WritableByteChannel</span> delegate<span class="token punctuation">;</span>
+	<span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">Cryptor</span> cryptor<span class="token punctuation">;</span>
+	<span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">FileHeader</span> header<span class="token punctuation">;</span>
+	<span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">ByteBuffer</span> cleartextBuffer<span class="token punctuation">;</span>
+
+	<span class="token keyword">private</span> <span class="token keyword">boolean</span> firstWrite <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+	<span class="token keyword">private</span> <span class="token keyword">long</span> chunkNumber <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+	<span class="token keyword">public</span> <span class="token class-name">EncryptingWritableByteChannel</span><span class="token punctuation">(</span><span class="token class-name">WritableByteChannel</span> destination<span class="token punctuation">,</span> <span class="token class-name">Cryptor</span> cryptor<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		<span class="token keyword">this</span><span class="token punctuation">.</span>delegate <span class="token operator">=</span> destination<span class="token punctuation">;</span>
+		<span class="token keyword">this</span><span class="token punctuation">.</span>cryptor <span class="token operator">=</span> cryptor<span class="token punctuation">;</span>
+		<span class="token keyword">this</span><span class="token punctuation">.</span>header <span class="token operator">=</span> cryptor<span class="token punctuation">.</span><span class="token function">fileHeaderCryptor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">this</span><span class="token punctuation">.</span>cleartextBuffer <span class="token operator">=</span> <span class="token class-name">ByteBuffer</span><span class="token punctuation">.</span><span class="token function">allocate</span><span class="token punctuation">(</span>cryptor<span class="token punctuation">.</span><span class="token function">fileContentCryptor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">cleartextChunkSize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+
+	<span class="token annotation punctuation">@Override</span>
+	<span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isOpen</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		<span class="token keyword">return</span> delegate<span class="token punctuation">.</span><span class="token function">isOpen</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+
+	<span class="token annotation punctuation">@Override</span>
+	<span class="token keyword">public</span> <span class="token keyword">synchronized</span> <span class="token keyword">void</span> <span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">IOException</span> <span class="token punctuation">&#123;</span>
+		<span class="token function">writeHeaderOnFirstWrite</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token function">encryptAndFlushBuffer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		delegate<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+
+	<span class="token annotation punctuation">@Override</span>
+	<span class="token keyword">public</span> <span class="token keyword">synchronized</span> <span class="token keyword">int</span> <span class="token function">write</span><span class="token punctuation">(</span><span class="token class-name">ByteBuffer</span> src<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">IOException</span> <span class="token punctuation">&#123;</span>
+		<span class="token function">writeHeaderOnFirstWrite</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">int</span> result <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+		<span class="token keyword">while</span> <span class="token punctuation">(</span>src<span class="token punctuation">.</span><span class="token function">hasRemaining</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+			result <span class="token operator">+=</span> <span class="token class-name">ByteBuffers</span><span class="token punctuation">.</span><span class="token function">copy</span><span class="token punctuation">(</span>src<span class="token punctuation">,</span> cleartextBuffer<span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>cleartextBuffer<span class="token punctuation">.</span><span class="token function">hasRemaining</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+				<span class="token function">encryptAndFlushBuffer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token punctuation">&#125;</span>
+		<span class="token punctuation">&#125;</span>
+		<span class="token keyword">return</span> result<span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+
+  <span class="token comment">/// 文件头加密</span>
+	<span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">writeHeaderOnFirstWrite</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">IOException</span> <span class="token punctuation">&#123;</span>
+		<span class="token keyword">if</span> <span class="token punctuation">(</span>firstWrite<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+			delegate<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>cryptor<span class="token punctuation">.</span><span class="token function">fileHeaderCryptor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">encryptHeader</span><span class="token punctuation">(</span>header<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token punctuation">&#125;</span>
+		firstWrite <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+
+  <span class="token comment">// 文件块加密</span>
+	<span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">encryptAndFlushBuffer</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">IOException</span> <span class="token punctuation">&#123;</span>
+		cleartextBuffer<span class="token punctuation">.</span><span class="token function">flip</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">if</span> <span class="token punctuation">(</span>cleartextBuffer<span class="token punctuation">.</span><span class="token function">hasRemaining</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+			<span class="token class-name">ByteBuffer</span> ciphertextBuffer <span class="token operator">=</span> cryptor<span class="token punctuation">.</span><span class="token function">fileContentCryptor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">encryptChunk</span><span class="token punctuation">(</span>cleartextBuffer<span class="token punctuation">,</span> chunkNumber<span class="token operator">++</span><span class="token punctuation">,</span> header<span class="token punctuation">)</span><span class="token punctuation">;</span>
+			delegate<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>ciphertextBuffer<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token punctuation">&#125;</span>
+		cleartextBuffer<span class="token punctuation">.</span><span class="token function">clear</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h4 id="各种云盘的添加"><a href="#各种云盘的添加" class="headerlink" title="各种云盘的添加"></a>各种云盘的添加</h4><h4 id="自动上锁机制"><a href="#自动上锁机制" class="headerlink" title="自动上锁机制"></a>自动上锁机制</h4><ol>
+<li>前端使用sessionStorage换成虚拟切换的企业子id，保持tab下子企业id隔离。</li>
+<li>所有站内以target&#x3D;”<em>blank</em>“新开页面逻辑检查下，已url参数的方式把子企业传过去，需要<strong>初始化切换的来源的</strong>子企业。</li>
+<li>纯新开的新页面没有子企业信息，可以独立切换。</li>
+<li>切换子企业的交互一致，封装组件，session状态维护。</li>
+<li>接口通过全部传子企业id，后端做过滤，个别接口需要其他<strong>传通用参数</strong>，单独处理。</li>
+</ol>
 
       
     </div>
@@ -238,7 +639,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/">24</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -303,7 +704,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-count">26</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -314,7 +715,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -346,7 +747,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

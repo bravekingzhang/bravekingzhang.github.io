@@ -161,7 +161,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2022/04/03/uni-app%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BC%98%E5%8C%96%E6%8C%87%E5%8D%97/">
+    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2022/09/29/yew%E5%88%9D%E6%8E%A2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -175,7 +175,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/04/03/uni-app%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BC%98%E5%8C%96%E6%8C%87%E5%8D%97/" class="post-title-link" itemprop="url">小程序优化指南</a>
+            <a href="/2022/09/29/yew%E5%88%9D%E6%8E%A2/" class="post-title-link" itemprop="url">Yew初探</a>
         </h2>
 
         <div class="post-meta">
@@ -185,7 +185,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2022-04-03 17:43:19" itemprop="dateCreated datePublished" datetime="2022-04-03T17:43:19+08:00">2022-04-03</time>
+              <time title="创建时间：2022-09-29 15:19:56" itemprop="dateCreated datePublished" datetime="2022-09-29T15:19:56+08:00">2022-09-29</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
@@ -215,145 +215,99 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="官方优化建议"><a href="#官方优化建议" class="headerlink" title="官方优化建议"></a>官方优化建议</h2><h4 id="避免使用大图"><a href="#避免使用大图" class="headerlink" title="避免使用大图"></a>避免使用大图</h4><p>页面中若大量使用大图资源，会造成页面切换的卡顿，导致系统内存升高，甚至白屏崩溃。</p>
-<p>尤其是不要把多张大图缩小后显示在一个屏幕内，比如上传图片前选了数张几M体积的照片，然后缩小在一个屏幕中展示多张几M的大图，非常容易白屏崩溃。对大体积的二进制文件进行base64，也非常耗费资源。</p>
-<h4 id="优化数据更新"><a href="#优化数据更新" class="headerlink" title="优化数据更新"></a>优化数据更新</h4><p>在 <code>uni-app</code> 中，定义在 data 里面的数据每次变化时都会通知视图层重新渲染页面。<strong>所以如果不是视图所需要的变量，可以不定义在 data 中，可在外部定义变量或直接挂载在vue实例上，以避免造成资源浪费</strong>。</p>
-<h5 id="长列表"><a href="#长列表" class="headerlink" title="长列表"></a>长列表</h5><ul>
-<li>长列表中如果每个item有一个点赞按钮，点击后点赞数字+1，此时点赞组件必须是一个<strong>单独引用的组件，才能做到差量数据更新</strong>。否则会造成整个列表数据重载。</li>
-<li>长列表中每个item并不一定需要做成组件，取决于你的业务中是否需要差量更新某一行item的数据，如没有此类需求则不应该引入大量组件。（点击item后背景变色，属于css调整，没有更新data数据和渲染，不涉及这个问题）</li>
-<li>单个组件中存在大量数据时（比如长列表），在App和小程序端数据更新时会消耗较多时间，建议使用组件对数据进行分页，将变更限制更小范围。可以参考：<a target="_blank" rel="noopener" href="https://ext.dcloud.net.cn/plugin?id=2863#detail">长列表优化示例(opens new window)</a></li>
-<li>如需要左右滑动的长列表，请在HBuilderX新建uni-app项目选新闻模板，那是一个标杆实现。自己用swiper和scroll-view做很容易引发性能问题。</li>
-</ul>
-<h4 id="减少一次性渲染的节点数量"><a href="#减少一次性渲染的节点数量" class="headerlink" title="减少一次性渲染的节点数量"></a>减少一次性渲染的节点数量</h4><p><strong>页面初始化时，逻辑层如果一次性向视图层传递很大的数据，使视图层一次性渲染大量节点，可能造成通讯变慢、页面切换卡顿</strong>，所以建议以局部更新页面的方式渲染页面。如：服务端返回100条数据，可进行分批加载，一次加载50条，500ms 后进行下一次加载。</p>
-<h4 id="减少组件数量、减少节点嵌套层级"><a href="#减少组件数量、减少节点嵌套层级" class="headerlink" title="减少组件数量、减少节点嵌套层级"></a>减少组件数量、减少节点嵌套层级</h4><p>深层嵌套的节点在页面初始化构建时往往需要更多的内存占用，并且在遍历节点时也会更慢些，所以建议减少深层的节点嵌套，即页面结果更加扁平化。</p>
-<h4 id="避免视图层和逻辑层频繁进行通讯"><a href="#避免视图层和逻辑层频繁进行通讯" class="headerlink" title="避免视图层和逻辑层频繁进行通讯"></a>避免视图层和逻辑层频繁进行通讯</h4><ul>
-<li>减少 scroll-view 组件的 scroll 事件监听，当监听 scroll-view 的滚动事件时，视图层会频繁的向逻辑层发送数据；</li>
-<li>监听 scroll-view 组件的滚动事件时，不要实时的改变 scroll-top&#x2F;scroll-left 属性，因为监听滚动时，视图层向逻辑层通讯，改变 scroll-top&#x2F;scroll-left 时，逻辑层又向视图层通讯，这样就可能造成通讯卡顿。</li>
-<li>注意 onPageScroll 的使用，onPageScroll 进行监听时，视图层会频繁的向逻辑层发送数据；</li>
-<li>多使用css动画，而不是通过js的定时器操作界面做动画</li>
-<li>如需在canvas里做跟手操作，小程序端建议使用web-view组件。<strong>web-view里的页面没有逻辑层和视图层分离的概念</strong>，自然也不会有通信折损。</li>
-</ul>
-<h4 id="优化页面切换动画"><a href="#优化页面切换动画" class="headerlink" title="优化页面切换动画"></a>优化页面切换动画</h4><ul>
-<li>页面初始化时若存在大量图片或<strong>原生组件渲染和大量数据通讯，会发生新页面渲染和窗体进入动画抢资源，造成页面切换卡顿、掉帧</strong>。建议延时100ms~300ms渲染图片或复杂原生组件，分批进行数据通讯，以减少一次性渲染的节点数量。</li>
-</ul>
-<h4 id="优化背景色闪白"><a href="#优化背景色闪白" class="headerlink" title="优化背景色闪白"></a>优化背景色闪白</h4><ol>
-<li>如果是新页面进入时背景闪白</li>
-</ol>
-<ul>
-<li>如果页面背景是深色，在vue页面中可能会发生新窗体刚开始动画时是灰白色背景，动画结束时才变为深色背景，造成闪屏。这是因为webview的背景生效太慢的问题。此时需将样式写在 <code>App.vue</code> 里，可以加速页面样式渲染速度。<code>App.vue</code> 里面的样式是全局样式，每次新开页面会优先加载 <code>App.vue</code> 里面的样式，然后加载普通 vue 页面的样式。</li>
-</ul>
-<h4 id="优化启动速度"><a href="#优化启动速度" class="headerlink" title="优化启动速度"></a>优化启动速度</h4><ul>
-<li>工程代码越多，包括背景图和本地字体文件越大，对小程序启动速度有影响，应注意控制体积。组件引用的前景图不影响性能。</li>
-</ul>
-<h4 id="优化包体积"><a href="#优化包体积" class="headerlink" title="优化包体积"></a>优化包体积</h4><ul>
-<li><p>uni-app发行到小程序时，自带引擎只有几十K，主要是一个定制过的vue.js核心库。如果使用了es6转es5、css对齐的功能，可能会增大代码体积，可以配置这些编译功能是否开启。</p>
-</li>
-<li><h5 id="解决uni-app编译后vendor-js文件过大"><a href="#解决uni-app编译后vendor-js文件过大" class="headerlink" title="解决uni-app编译后vendor.js文件过大"></a><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000022034729">解决uni-app编译后vendor.js文件过大</a></h5><ul>
-<li><strong>开启生产环境gzip</strong>，vendor.js从2.5M减少到440k</li>
-<li>使用 <a target="_blank" rel="noopener" href="https://link.segmentfault.com/?enc=55naxIfeVBleEhh0keJWfQ==.ejew0C/77C/i4a23Ple5Ws84RAXAcgN0bIPdNLEDaAfUIrhQ4rawtZSX8TpRQTpA7QAlJ+gGALw4OzlnkYU1pw==">webpackBundleAnalyzer</a>，可以帮助分析文件大小。</li>
-</ul>
-</li>
-</ul>
-<h2 id="微信官方优化建议"><a href="#微信官方优化建议" class="headerlink" title="微信官方优化建议"></a>微信官方优化建议</h2><h4 id="小程序启动性能优化"><a href="#小程序启动性能优化" class="headerlink" title="小程序启动性能优化"></a>小程序启动性能优化</h4><p>这部分主要是冷加载首屏渲染优化</p>
-<ol>
-<li>按需注入组件</li>
-<li>小程序支持启用<strong>初始渲染缓存</strong>。开启后，可以在<strong>非首次</strong>启动时，使视图层不需要等待逻辑层初始化完毕，而直接提前将页面渲染结果展示给用户，这可以使「首页渲染完成」和页面对用户可见的时间大大提前</li>
-<li>当组件不被使用时，应及时从 <code>usingComponents</code> 中移除。</li>
-<li>与视图层渲染无关的数据应尽量不要放在 data 中，避免影响页面渲染时间。</li>
-<li>读写本地缓存的能力，数据存储在本地，返回的会比网络请求快</li>
-<li>骨架屏，分模块加载</li>
-</ol>
-<h4 id="小程序运行时性能优化"><a href="#小程序运行时性能优化" class="headerlink" title="小程序运行时性能优化"></a>小程序运行时性能优化</h4><hr>
-<h5 id="合理使用-setData"><a href="#合理使用-setData" class="headerlink" title="合理使用 setData"></a>合理使用 setData</h5><p><code>setData</code> 是小程序开发中使用最频繁、也是最容易引发性能问题的接口。</p>
-<h5 id="1-setData-的流程"><a href="#1-setData-的流程" class="headerlink" title="1. setData 的流程"></a>1. setData 的流程</h5><p><code>setData</code> 的过程，大致可以分成几个阶段：</p>
-<ul>
-<li>逻辑层虚拟 DOM 树的遍历和更新，触发组件生命周期和 observer 等；</li>
-<li>将 data 从逻辑层传输到视图层；</li>
-<li>视图层虚拟 DOM 树的更新、真实 DOM 元素的更新并触发页面渲染更新。</li>
-<li>于小程序的逻辑层和视图层是两个独立的运行环境、分属不同的线程或进程，不能直接进行数据共享，需要进行数据的序列化、跨线程&#x2F;进程的数据传输、数据的反序列化，因此数据传输过程是<strong>异步的、非实时的</strong></li>
-<li>数据传输的耗时与<strong>数据量的大小</strong>正相关，如果对端线程处于繁忙状态，数据会在<strong>消息队列中等待</strong>。</li>
-</ul>
-<h5 id="2、优化建议"><a href="#2、优化建议" class="headerlink" title="2、优化建议"></a>2、优化建议</h5><ul>
-<li><strong>data 应只包括渲染相关的数据setData</strong> ：用 setData 的方式更新渲染无关的字段，会触发额外的渲染流程，或者增加传输的数据量，影响渲染耗时。</li>
-<li><strong>控制 setData 的频率</strong>：仅在需要进行页面内容更新时调用 setData、对连续的 setData 调用尽可能的进行<strong>合并</strong></li>
-<li><strong>选择合适的 setData 范围</strong>：对于需要频繁更新的页面元素，可以封装为独立的组件，在组件内进行 setData 操作。</li>
-<li><strong>setData应该只传变化的数据</strong>：<code>this.setData(&#123;&#39;array[2].message&#39;: &#39;newVal&#39;, &#39;a.b.c.d&#39;: &#39;newVal&#39;&#125;)</code>，而不是每次都更新整个对象或数组；</li>
-<li><strong>setData应该避免后台页面刷新</strong>：页面切后台后的更新操作，应尽量避免，或延迟到页面 <code>onShow</code> 后延迟进行</li>
-</ul>
-<h2 id><a href="#" class="headerlink" title></a></h2><h5 id="渲染性能优化"><a href="#渲染性能优化" class="headerlink" title="渲染性能优化"></a>渲染性能优化</h5><ol>
-<li>非必要不监听 scroll 事件；</li>
-<li>选择高性能动画实现方式，如优先使用 CSS 渐变、CSS 动画</li>
-<li>建议使用<a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/miniprogram/dev/api/wxml/wx.createIntersectionObserver.html">节点布局相交状态监听 IntersectionObserver</a> 推断某些节点是否可见、有多大比例可见，而不是监听scrollview</li>
-</ol>
-<hr>
-<h5 id="页面切换优化"><a href="#页面切换优化" class="headerlink" title="页面切换优化"></a>页面切换优化</h5><p><img data-src="https://res.wx.qq.com/wxdoc/dist/assets/img/route-1.2700b598.svg" alt="img" loading="lazy"></p>
-<ol>
-<li>onHide&#x2F;onUnload 中的逻辑应尽量简单，若必须要进行部分复杂逻辑，可以考虑用 setTimeout 延迟进行。</li>
-<li>跳转到分包页面时，从发起页面跳转到页面 onLoad 之间可能有较长的时间间隔，可以利用时间进行网络数据加载，提前准备分包页数据。</li>
-<li>避免预加载流程对页面加载过程的影响，开发者可以配置 <code>handleWebviewPreload</code> 选项，来控制预加载下个页面的时机。设置<code>&quot;handleWebviewPreload&quot;: &quot;auto&quot;</code></li>
-</ol>
-<hr>
-<h5 id="资源加载优化"><a href="#资源加载优化" class="headerlink" title="资源加载优化"></a>资源加载优化</h5><h5 id="1-控制图片资源的大小"><a href="#1-控制图片资源的大小" class="headerlink" title="1. 控制图片资源的大小"></a>1. 控制图片资源的大小</h5><p>开发者应根据功能需要和实际显示区域的大小，选择合适的图片尺寸、图片格式和压缩比。</p>
-<p><strong>图片体积太大，可能导致下列后果</strong></p>
-<ul>
-<li>增加图片下载时间，导致用户看到图片时机延迟；</li>
-<li>对用户造成非必要的流量消耗；</li>
-<li>影响图片解码和绘制的耗时，可能更容易造成掉帧、卡顿或白屏，甚至无法正常进行滚动和页面切换（低端设备上会尤为明显）；</li>
-<li>内存占用增长，尤其是大图片和长列表中的大量图片会导致内存占用急剧上升。</li>
-</ul>
-<h5 id="图片对内存的影响"><a href="#图片对内存的影响" class="headerlink" title="图片对内存的影响"></a><strong>图片对内存的影响</strong></h5><p>iOS 系统内存紧张时，会主动回收掉一部分 WebView。大图片和长列表中的大量图片很容易引起系统对 WebView 的回收，导致小程序白屏，严重时会触发微信强制关闭小程序。</p>
-<p>内存增长如果超过了限制，也会导致小程序出现白屏或黑屏，甚至整个小程序发生闪退。</p>
-<h5 id="2-避免滥用-image-组件的-widthFix-x2F-heightFix-模式"><a href="#2-避免滥用-image-组件的-widthFix-x2F-heightFix-模式" class="headerlink" title="2. 避免滥用 image 组件的 widthFix&#x2F;heightFix 模式"></a>2. 避免滥用 image 组件的 widthFix&#x2F;heightFix 模式</h5><p>widthFix&#x2F;heightFix 模式会在图片加载完成后，动态改变图片的高度或宽度。图片高度或宽度的动态改变，可能会引起页面内大范围的布局重排，导致页面发生抖动，并造成卡顿。</p>
-<p>对于页面的背景图或 banner 图，应尽量预先指定图片的尺寸，避免图片加载完成后再进行二次的尺寸调整。</p>
-<hr>
-<h5 id="内存优化"><a href="#内存优化" class="headerlink" title="内存优化"></a>内存优化</h5><ol>
-<li>建议小程序在必要时使用 <a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/miniprogram/dev/api/device/memory/wx.onMemoryWarning.html">wx.onMemoryWarning</a> 监听内存告警事件，进行必要的内存清理。例如：释放一些暂时不用的组件或 JS 对象。</li>
-<li>页面 unload 之后，基础库会从页面栈中将页面实例清理，unload 中进行必要的清理。<ol>
-<li>事件监听器中持有了页面的 this</li>
-<li>函数闭包内持有了页面的 this</li>
-<li>异步回调中访问了页面的 this，如wx.request</li>
-<li>定时器等清理</li>
-</ol>
-</li>
-<li>按需加载图片，过大的图片渲染到过小的组件区域是一种内存浪费</li>
-<li>不要发送无用的网络请求，解析数据都是内存消耗。</li>
-</ol>
-<hr>
-<h2 id="自己沉淀优化"><a href="#自己沉淀优化" class="headerlink" title="自己沉淀优化"></a>自己沉淀优化</h2><h4 id="页面切换优化-1"><a href="#页面切换优化-1" class="headerlink" title="页面切换优化"></a>页面切换优化</h4><ol>
-<li>预加载图片，可以定义一个预加载图片组件，提前预加载图片，加载完记得释放组件</li>
-<li>列表进入详情，直接带上item项进入，在loading数据，配合骨架屏。</li>
-<li>优化网络请求耗时，接口缓存机制</li>
-</ol>
-<h4 id="内存优化-1"><a href="#内存优化-1" class="headerlink" title="内存优化"></a>内存优化</h4><ol>
-<li>图片使用合理的尺寸</li>
-<li>避免网络数据冗余</li>
-</ol>
-<h2 id="监控体系搭建"><a href="#监控体系搭建" class="headerlink" title="监控体系搭建"></a>监控体系搭建</h2><p>目的：提供优化指导，对比优化后的数据，数据呈现,TAM，小程序测速均ok</p>
-<h4 id="图片监控"><a href="#图片监控" class="headerlink" title="图片监控"></a>图片监控</h4><ol>
-<li>网络图片远远大于控件尺寸</li>
-<li>加载耗时严重</li>
-<li>预加载图片、命中效果</li>
-</ol>
-<h4 id="setData尺寸过大，频率过快"><a href="#setData尺寸过大，频率过快" class="headerlink" title="setData尺寸过大，频率过快"></a>setData尺寸过大，频率过快</h4><ol>
-<li>setData数据过大</li>
-<li>setData次数过于频繁</li>
-</ol>
-<h4 id="网络监控"><a href="#网络监控" class="headerlink" title="网络监控"></a>网络监控</h4><ol>
-<li>接口请求异常</li>
-<li>连接耗时过长</li>
-<li>接口数据包大</li>
-<li>接口http cache</li>
-</ol>
-<h4 id="内存监控"><a href="#内存监控" class="headerlink" title="内存监控"></a>内存监控</h4><ol>
-<li>内存触发告警</li>
-<li>dump 分析</li>
-</ol>
-<h4 id="卡顿监控"><a href="#卡顿监控" class="headerlink" title="卡顿监控"></a>卡顿监控</h4><ol>
-<li>首次渲染超过500ms</li>
-<li>路由卡顿？这个貌似波动很大</li>
-<li>点击卡顿</li>
-</ol>
-<p>方案通用话，最好是SDK接入，方便外部团队接入</p>
+          <h2 id="yew是啥"><a href="#yew是啥" class="headerlink" title="yew是啥"></a>yew是啥</h2><p><strong>Yew</strong> 是一个设计先进的 <a target="_blank" rel="noopener" href="https://www.rust-lang.org/">Rust</a> 框架，目的是使用 <a target="_blank" rel="noopener" href="https://webassembly.org/">WebAssembly</a> 来创建多线程的前端 web 应用，众所周知，webAssembly是前端的未来，比如设计软件之神figma就是使用rust写的一个webAssembly，其打败sketch的直接原因就是由于其性能秒杀了它，因此毫无疑问，后面越来越多的web应用将会拥抱webAssembly。实现webAssembly很多种方式，为什么选用rust，其实业界有很多种对比，我觉得figma就是很好的例子，因为它用的是rust，而yew是一个这样的框架，这里是<a target="_blank" rel="noopener" href="https://yew.rs/zh-Hans">yew</a>的介绍。</p>
+<h2 id="yew入门"><a href="#yew入门" class="headerlink" title="yew入门"></a>yew入门</h2><h3 id="安装yew环境"><a href="#安装yew环境" class="headerlink" title="安装yew环境"></a>安装yew环境</h3><h4 id="安装rust环境"><a href="#安装rust环境" class="headerlink" title="安装rust环境"></a>安装rust环境</h4><p>要使用yew，需要先安装rust环境，命令简单的不得了</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">curl</span> <span class="token parameter variable">--proto</span> <span class="token string">'=https'</span> <span class="token parameter variable">--tlsv1.2</span> <span class="token parameter variable">-sSf</span> https://sh.rustup.rs <span class="token operator">|</span> <span class="token function">sh</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>执行完之后记得</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">source</span> <span class="token string">"<span class="token environment constant">$HOME</span>/.cargo/env"</span>
+<span class="token function">cargo</span> <span class="token parameter variable">--version</span>
+-<span class="token operator">></span>cargo <span class="token number">1.64</span>.0 <span class="token punctuation">(</span>387270bc7 <span class="token number">2022</span>-09-16<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>来验证下rust环境是否安装成功。</p>
+<h4 id="安装WebAssembly目标"><a href="#安装WebAssembly目标" class="headerlink" title="安装WebAssembly目标"></a>安装WebAssembly目标</h4><p>Rust 可以编译成不同的 “目标”。浏览器上支持的目标是 “wasm32-unknown-unknown”，安装的办法是：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">rustup target <span class="token function">add</span> wasm32-unknown-unknown<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="安装trunk这个包管理工具"><a href="#安装trunk这个包管理工具" class="headerlink" title="安装trunk这个包管理工具"></a>安装trunk这个包管理工具</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">cargo</span> <span class="token function">install</span> trunk<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="开始体验一个yew的简单项目"><a href="#开始体验一个yew的简单项目" class="headerlink" title="开始体验一个yew的简单项目"></a>开始体验一个yew的简单项目</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">cargo</span> new yew-app
+<span class="token builtin class-name">cd</span> yew-app
+<span class="token function">cargo</span> run<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>跑起来之后，你会发现只是在控制台打印了一个开门红，此时也许你也不了解rust，也别着急，我们先把项目转换为web应用。</p>
+<h5 id="使用vscode打开项目，编辑cargo-toml"><a href="#使用vscode打开项目，编辑cargo-toml" class="headerlink" title="使用vscode打开项目，编辑cargo.toml"></a>使用vscode打开项目，编辑cargo.toml</h5><pre class="line-numbers language-toml" data-language="toml"><code class="language-toml"><span class="token punctuation">[</span><span class="token table class-name">package</span><span class="token punctuation">]</span>
+<span class="token key property">name</span> <span class="token punctuation">=</span> <span class="token string">"yew-app"</span>
+<span class="token key property">version</span> <span class="token punctuation">=</span> <span class="token string">"0.1.0"</span>
+<span class="token key property">edition</span> <span class="token punctuation">=</span> <span class="token string">"2021"</span>
+
+<span class="token comment"># See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html</span>
+
+<span class="token punctuation">[</span><span class="token table class-name">dependencies</span><span class="token punctuation">]</span>
+<span class="token comment"># 因为我操作时最新的是0.19.3，如果你验证是已经有更加新的版本，可以尝试更新的版本。</span>
+<span class="token key property">yew</span> <span class="token punctuation">=</span> <span class="token string">"0.19.3"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h5 id="编辑一下main-rs"><a href="#编辑一下main-rs" class="headerlink" title="编辑一下main.rs"></a>编辑一下main.rs</h5><pre class="line-numbers language-rust" data-language="rust"><code class="language-rust"><span class="token keyword">use</span> <span class="token namespace">yew<span class="token punctuation">::</span>prelude<span class="token punctuation">::</span></span><span class="token operator">*</span><span class="token punctuation">;</span>
+
+<span class="token keyword">enum</span> <span class="token type-definition class-name">Msg</span> <span class="token punctuation">&#123;</span>
+    <span class="token class-name">AddOne</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">struct</span> <span class="token type-definition class-name">Model</span> <span class="token punctuation">&#123;</span>
+    value<span class="token punctuation">:</span> <span class="token keyword">i64</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">impl</span> <span class="token class-name">Component</span> <span class="token keyword">for</span> <span class="token class-name">Model</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">type</span> <span class="token type-definition class-name">Message</span> <span class="token operator">=</span> <span class="token class-name">Msg</span><span class="token punctuation">;</span>
+    <span class="token keyword">type</span> <span class="token type-definition class-name">Properties</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">fn</span> <span class="token function-definition function">create</span><span class="token punctuation">(</span>_ctx<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token class-name">Context</span><span class="token operator">&lt;</span><span class="token keyword">Self</span><span class="token operator">></span><span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token keyword">Self</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">Self</span> <span class="token punctuation">&#123;</span>
+            value<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">fn</span> <span class="token function-definition function">update</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">mut</span> <span class="token keyword">self</span><span class="token punctuation">,</span> _ctx<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token class-name">Context</span><span class="token operator">&lt;</span><span class="token keyword">Self</span><span class="token operator">></span><span class="token punctuation">,</span> msg<span class="token punctuation">:</span> <span class="token keyword">Self</span><span class="token punctuation">::</span><span class="token class-name">Message</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token keyword">bool</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">match</span> msg <span class="token punctuation">&#123;</span>
+            <span class="token class-name">Msg</span><span class="token punctuation">::</span><span class="token class-name">AddOne</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+                <span class="token keyword">self</span><span class="token punctuation">.</span>value <span class="token operator">+=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+                <span class="token comment">// the value has changed so we need to</span>
+                <span class="token comment">// re-render for it to appear on the page</span>
+                <span class="token boolean">true</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">fn</span> <span class="token function-definition function">view</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">,</span> ctx<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token class-name">Context</span><span class="token operator">&lt;</span><span class="token keyword">Self</span><span class="token operator">></span><span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token class-name">Html</span> <span class="token punctuation">&#123;</span>
+        <span class="token comment">// This gives us a component's "`Scope`" which allows us to send messages, etc to the component.</span>
+        <span class="token keyword">let</span> link <span class="token operator">=</span> ctx<span class="token punctuation">.</span><span class="token function">link</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token macro property">html!</span> <span class="token punctuation">&#123;</span>
+            <span class="token operator">&lt;</span>div<span class="token operator">></span>
+                <span class="token operator">&lt;</span>button onclick<span class="token operator">=</span><span class="token punctuation">&#123;</span>link<span class="token punctuation">.</span><span class="token function">callback</span><span class="token punctuation">(</span><span class="token closure-params"><span class="token closure-punctuation punctuation">|</span>_<span class="token closure-punctuation punctuation">|</span></span> <span class="token class-name">Msg</span><span class="token punctuation">::</span><span class="token class-name">AddOne</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span><span class="token operator">></span><span class="token punctuation">&#123;</span> <span class="token string">"+1"</span> <span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">></span>
+                <span class="token operator">&lt;</span>p<span class="token operator">></span><span class="token punctuation">&#123;</span> <span class="token keyword">self</span><span class="token punctuation">.</span>value <span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>
+            <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">fn</span> <span class="token function-definition function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token namespace">yew<span class="token punctuation">::</span></span><span class="token function">start_app</span><span class="token punctuation">::</span><span class="token operator">&lt;</span><span class="token class-name">Model</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h5 id="创建一个index-html"><a href="#创建一个index-html" class="headerlink" title="创建一个index.html"></a>创建一个index.html</h5><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">html</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>utf-8<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>Yew App<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h5 id="好了，编译出你的web应用吧"><a href="#好了，编译出你的web应用吧" class="headerlink" title="好了，编译出你的web应用吧"></a>好了，编译出你的web应用吧</h5><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">trunk serve<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h5 id="打开浏览器卡看"><a href="#打开浏览器卡看" class="headerlink" title="打开浏览器卡看"></a>打开浏览器卡看</h5><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">http://127.0.0.1:8080<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h5 id="打包生成的文件是"><a href="#打包生成的文件是" class="headerlink" title="打包生成的文件是"></a>打包生成的文件是</h5><p><img data-src="/2022/09/29/yew%E5%88%9D%E6%8E%A2/image-20220929165528190.png" alt="image-20220929165528190" loading="lazy" src="/2022/09/29/yew%E5%88%9D%E6%8E%A2/image-20220929165528190.png"></p>
+<p>这个框架也算是比较人性化，对rs文件的变更，保存之后，也会马上热更新。</p>
+<p>至此，yew的初探就完成了，下期，尝试写一个比较复杂的应用吧。</p>
 
       
     </div>
@@ -372,7 +326,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/">24</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -437,7 +391,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-count">26</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -448,7 +402,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -480,7 +434,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

@@ -161,7 +161,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2022/02/01/%E6%88%91%E8%A7%A3%E5%86%B3%E4%BA%86vscode%E4%B8%ADvue%E6%96%B9%E6%B3%95%E8%B7%B3%E8%BD%AC%E7%9A%84%E9%9A%BE%E9%A2%98/">
+    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -175,7 +175,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/02/01/%E6%88%91%E8%A7%A3%E5%86%B3%E4%BA%86vscode%E4%B8%ADvue%E6%96%B9%E6%B3%95%E8%B7%B3%E8%BD%AC%E7%9A%84%E9%9A%BE%E9%A2%98/" class="post-title-link" itemprop="url">我解决了Vscode中vue方法跳转的难题</a>
+            <a href="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/" class="post-title-link" itemprop="url">在linux上玩一下AI拟声</a>
         </h2>
 
         <div class="post-meta">
@@ -185,7 +185,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2022-02-01 13:31:25" itemprop="dateCreated datePublished" datetime="2022-02-01T13:31:25+08:00">2022-02-01</time>
+              <time title="创建时间：2022-02-22 12:02:04" itemprop="dateCreated datePublished" datetime="2022-02-22T12:02:04+08:00">2022-02-22</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
@@ -215,76 +215,192 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h4 id="第一步-创建项目"><a href="#第一步-创建项目" class="headerlink" title="第一步 创建项目"></a>第一步 创建项目</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">yo code mp-sign-vscode-extension<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+          <h3 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h3><p><a target="_blank" rel="noopener" href="https://github.com/babysor/MockingBird">https://github.com/babysor/MockingBird</a></p>
+<p>git clone项目到本地，然后安装环境，开始体验。</p>
+<h3 id="操作方式"><a href="#操作方式" class="headerlink" title="操作方式"></a>操作方式</h3><h4 id="1、环境安装"><a href="#1、环境安装" class="headerlink" title="1、环境安装"></a>1、环境安装</h4><h5 id="1、1安装python环境"><a href="#1、1安装python环境" class="headerlink" title="1、1安装python环境"></a>1、1安装python环境</h5><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">yum <span class="token function">install</span> python39<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>根据<a target="_blank" rel="noopener" href="https://code.visualstudio.com/api/language-extensions/programmatic-language-features">vscode官网</a>描述 ，要实现一个GoDefinition的插件，需要做以下两个步骤；</p>
-<p><img data-src="/2022/02/01/%E6%88%91%E8%A7%A3%E5%86%B3%E4%BA%86vscode%E4%B8%ADvue%E6%96%B9%E6%B3%95%E8%B7%B3%E8%BD%AC%E7%9A%84%E9%9A%BE%E9%A2%98/image-20220131104418874.png" loading="lazy" src="/2022/02/01/%E6%88%91%E8%A7%A3%E5%86%B3%E4%BA%86vscode%E4%B8%ADvue%E6%96%B9%E6%B3%95%E8%B7%B3%E8%BD%AC%E7%9A%84%E9%9A%BE%E9%A2%98/image-20220131104418874.png"></p>
-<h4 id="第一步，我们要在语言服务中申明支持-defintionProvider"><a href="#第一步，我们要在语言服务中申明支持-defintionProvider" class="headerlink" title="第一步，我们要在语言服务中申明支持 defintionProvider"></a>第一步，我们要在语言服务中申明支持 defintionProvider</h4><p>这样才可以在在插件加载之后出现</p>
-<p><img data-src="/2022/02/01/%E6%88%91%E8%A7%A3%E5%86%B3%E4%BA%86vscode%E4%B8%ADvue%E6%96%B9%E6%B3%95%E8%B7%B3%E8%BD%AC%E7%9A%84%E9%9A%BE%E9%A2%98/image-20220131104623771.png" loading="lazy" src="/2022/02/01/%E6%88%91%E8%A7%A3%E5%86%B3%E4%BA%86vscode%E4%B8%ADvue%E6%96%B9%E6%B3%95%E8%B7%B3%E8%BD%AC%E7%9A%84%E9%9A%BE%E9%A2%98/image-20220131104623771.png"></p>
-<p>转到定义之类的菜单，但我们这里不这么做，因为，根据官网描述，这个只需要被任何一个插件申明一次即可，因为我们的项目mp-sign是一个vue项目，然后大家肯定是安装了<a target="_blank" rel="noopener" href="https://github.com/vuejs/vetur">vetur</a>这个大名鼎鼎的插件的，可以在源码中看到，</p>
-<p><img data-src="/2022/02/01/%E6%88%91%E8%A7%A3%E5%86%B3%E4%BA%86vscode%E4%B8%ADvue%E6%96%B9%E6%B3%95%E8%B7%B3%E8%BD%AC%E7%9A%84%E9%9A%BE%E9%A2%98/image-20220131105203998.png" alt="image-20220131105203998" loading="lazy" src="/2022/02/01/%E6%88%91%E8%A7%A3%E5%86%B3%E4%BA%86vscode%E4%B8%ADvue%E6%96%B9%E6%B3%95%E8%B7%B3%E8%BD%AC%E7%9A%84%E9%9A%BE%E9%A2%98/image-20220131105203998.png"></p>
-<p>上述申明这个插件做过，因此我们可以直接略过这一步；所以我们进入第二步，实现一个<code>vscode.DefinitionProvider</code>。</p>
-<h4 id="第二步-实现vscode-DefinitionProvider"><a href="#第二步-实现vscode-DefinitionProvider" class="headerlink" title="第二步 实现vscode.DefinitionProvider"></a>第二步 实现<code>vscode.DefinitionProvider</code></h4><p>根据官网描述，我们要定义个自定义跳转的插件，需要实现一个  vscode.DefinitionProvider，其原理就是写一个方法实现，定位到源码位置vscode.Location;其原理就是，当我们按住【mac上是command建|windows上是CTRL键】+ 鼠标左键，vscode语言服务就会将当前鼠标位置捕捉到的相关信息传递到给我们这个插件，这些信息丢给vscode.DefinitionProvider 具体实现的 <code>provideDefinition</code>这个回调处理。</p>
-<p>然后根据我们mp-sign项目的特点，我们主要是解决 mixin和vuex方法定位比较难的问题。同时在实践中发现vue methods块中的方法调用也无法自动跳转，定位代码也挺烦的，因此，直接把三种方式跳转定义全部实现了；</p>
-<p>我们要实现的大体框架如下所示。</p>
-<pre class="line-numbers language-typescript" data-language="typescript"><code class="language-typescript"><span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> vscode <span class="token keyword">from</span> <span class="token string">"vscode"</span><span class="token punctuation">;</span>
-<span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> path <span class="token keyword">from</span> <span class="token string">"path"</span><span class="token punctuation">;</span>
+<h5 id="1、2指定系统默认python版本"><a href="#1、2指定系统默认python版本" class="headerlink" title="1、2指定系统默认python版本"></a>1、2指定系统默认python版本</h5><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@VM-80-70-centos alternatives<span class="token punctuation">]</span><span class="token comment"># update-alternatives --config python3</span>
 
-<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">class</span> <span class="token class-name">MpDefinitionProvider</span> <span class="token keyword">implements</span> <span class="token class-name">vscode</span><span class="token punctuation">.</span>DefinitionProvider <span class="token punctuation">&#123;</span>
-  <span class="token function">provideDefinition</span><span class="token punctuation">(</span>
-    document<span class="token operator">:</span> vscode<span class="token punctuation">.</span>TextDocument<span class="token punctuation">,</span>
-    position<span class="token operator">:</span> vscode<span class="token punctuation">.</span>Position<span class="token punctuation">,</span>
-    token<span class="token operator">:</span> vscode<span class="token punctuation">.</span>CancellationToken
-  <span class="token punctuation">)</span><span class="token operator">:</span> vscode<span class="token punctuation">.</span>ProviderResult<span class="token operator">&lt;</span>vscode<span class="token punctuation">.</span>Definition <span class="token operator">|</span> vscode<span class="token punctuation">.</span>LocationLink<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">></span> <span class="token punctuation">&#123;</span>
+There are <span class="token number">3</span> programs <span class="token function">which</span> provide <span class="token string">'python3'</span><span class="token builtin class-name">.</span>
 
-    <span class="token keyword">const</span> location<span class="token operator">:</span>vscode<span class="token punctuation">.</span>Location <span class="token operator">=</span> <span class="token function">vueMethods</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">||</span><span class="token function">mixinMethod</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">||</span><span class="token function">vuexActionOrMutations</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">||</span><span class="token keyword">null</span>
+  Selection    Command
+-----------------------------------------------
+   <span class="token number">1</span>           /usr/bin/python3.8
+*  <span class="token number">2</span>           /usr/bin/python3.6
+ + <span class="token number">3</span>           /usr/bin/python3.9
 
-    <span class="token keyword">return</span> <span class="token builtin">Promise</span><span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>
-      location
-    <span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
+Enter to keep the current selection<span class="token punctuation">[</span>+<span class="token punctuation">]</span>, or <span class="token builtin class-name">type</span> selection number:
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<span class="token comment">// 是vue的内联方法</span>
-<span class="token keyword">function</span> <span class="token function">vueMethods</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token comment">//TODO</span>
-  <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Location</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">||</span><span class="token keyword">null</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token comment">// 是 mixin 方法</span>
-<span class="token keyword">function</span> <span class="token function">mixinMethod</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-   <span class="token comment">//TODO</span>
-  <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">location</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">||</span><span class="token keyword">null</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token comment">// 是 Vuex 的action</span>
-<span class="token keyword">function</span> <span class="token function">vuexActionOrMutations</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-   <span class="token comment">//TODO</span>
-  <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">location</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">||</span><span class="token keyword">null</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这里默认是3.6，这个工程是不支持的，比如后续如果安装pytorch，就会报错</p>
+<p><img data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222120812006.png" alt="image-20220222120812006" loading="lazy" src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222120812006.png"></p>
+<p>所以，这里输入3，选择3.9版本搞起，其实也可以系统python版本如果高于3.7也是可以不用安装python3.9，可直接进入安装pytorch。</p>
+<h5 id="1、3安装pytorch"><a href="#1、3安装pytorch" class="headerlink" title="1、3安装pytorch"></a>1、3安装pytorch</h5><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pip3 <span class="token function">install</span> torch torchvision<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>注意看看provideDefinition这个方法，他入参有2个比较重要<code>document vs position</code>，document有一个属性是uri，这个可以方便我们拿到当前文件的path，position，顾名思义，就是当前鼠标悬停的位置，可以方便我们拿到鼠标悬停的字符串是个啥。</p>
-<p>第一个是来处理vueMethods，那么确定目前想要跳转的方法是否是本文件中的methods中的方法，我们需要解析这个vue文件，并且把里面的方法都遍历出来，然后来匹配一下，如果可以匹配到，那说明，改方法就在本文件中对吧。说干就干，解析vue文件搞起，使用 @vue&#x2F;compiler-dom  的 <code>parse</code>方法。</p>
-<p><img data-src="/2022/02/01/%E6%88%91%E8%A7%A3%E5%86%B3%E4%BA%86vscode%E4%B8%ADvue%E6%96%B9%E6%B3%95%E8%B7%B3%E8%BD%AC%E7%9A%84%E9%9A%BE%E9%A2%98/image-20220131142018464.png" alt="image-20220131142018464" loading="lazy" src="/2022/02/01/%E6%88%91%E8%A7%A3%E5%86%B3%E4%BA%86vscode%E4%B8%ADvue%E6%96%B9%E6%B3%95%E8%B7%B3%E8%BD%AC%E7%9A%84%E9%9A%BE%E9%A2%98/image-20220131142018464.png"></p>
-<p>可以看到拿到的结构中children中有三块，template&#x2F;script&#x2F;styles，这块内容你可以去<a target="_blank" rel="noopener" href="https://astexplorer.net/">这个网站</a>上看，选择vue就 可以看到，注意一下这里。<strong>每个块中都有一个 loc属性，他的起始位置都有明确的告知，我们这里需要记住一下template文件的end行数</strong>，后面返回vscode.Location时我们需要用到这个偏移量。</p>
-<p>通过script模块中的source字段，我们拿到该vue文件中的script块的内容，通过babel 的parse 就可以拿到语法树 AST（一点都不神秘），就可以很方便的找到里面的methods模块中的各个方法了，拿到这些模块，一一匹配，就可以确定方法是否在改文件内的，如果确定在文件内，就可以通过AST返回的loc信息明确这个定义方法在<code>&lt;script&gt;</code>块中位置了，主要是行数和列偏移。</p>
-<p><img data-src="/2022/02/01/%E6%88%91%E8%A7%A3%E5%86%B3%E4%BA%86vscode%E4%B8%ADvue%E6%96%B9%E6%B3%95%E8%B7%B3%E8%BD%AC%E7%9A%84%E9%9A%BE%E9%A2%98/image-20220131124523710.png" alt="image-20220131124523710" loading="lazy" src="/2022/02/01/%E6%88%91%E8%A7%A3%E5%86%B3%E4%BA%86vscode%E4%B8%ADvue%E6%96%B9%E6%B3%95%E8%B7%B3%E8%BD%AC%E7%9A%84%E9%9A%BE%E9%A2%98/image-20220131124523710.png"></p>
-<p>上面这幅图可以拿到methods块，即name为methods的ObjectProperty结点，一个find方法轻松找到，同样的道理去找这个结点下面的value中的具体的我们要找的method，所以，第一个实现 vue methods的跳转定位就和么被实现了。</p>
-<p>我们先看看实现效果</p>
-<p><img data-src="/2022/02/01/%E6%88%91%E8%A7%A3%E5%86%B3%E4%BA%86vscode%E4%B8%ADvue%E6%96%B9%E6%B3%95%E8%B7%B3%E8%BD%AC%E7%9A%84%E9%9A%BE%E9%A2%98/gotoMethod.gif" alt="gotoMethod" loading="lazy" src="/2022/02/01/%E6%88%91%E8%A7%A3%E5%86%B3%E4%BA%86vscode%E4%B8%ADvue%E6%96%B9%E6%B3%95%E8%B7%B3%E8%BD%AC%E7%9A%84%E9%9A%BE%E9%A2%98/gotoMethod.gif"></p>
-<h4 id="第三步-继续实现-mixin方法跳转-和-vuex-action-跳转"><a href="#第三步-继续实现-mixin方法跳转-和-vuex-action-跳转" class="headerlink" title="第三步 继续实现 mixin方法跳转 和 vuex action 跳转"></a>第三步 继续实现 mixin方法跳转 和 vuex action 跳转</h4><p>大家都知道在vue中引入mixin之后，代码定位复杂度就加大了，一个主要原因是这个方法不在这个vue文件里面，所以，如何实现呢？</p>
-<p>1、经过前面的methods环节的判断，没有找到，就进入了mixin处理块中，这里的逻辑是，找到vue中import的所有的 mixin文件，然后通过babel parse出语法树，按照上面的套路，解析出method的位置，然后生成  vscode.Location返回。</p>
-<p>2、同样的道理，vuex action的方式类似，我们这里之定位  this.$u.vuex(‘Module&#x2F;action’)这类的调用 ，首先通过 document和position两个参数拿到 Module&#x2F;action ，然后分别解析出 module和action ，module方便我们找到import的是按个文件，action可以通过上述ast解析的方式帮我们定位到具体方法，最后同样返回 vscode.Location。</p>
-<p>让我们来看看mixin文件跳转效果以及vuex 之 action 跳转的效果</p>
-<p><img data-src="/2022/02/01/%E6%88%91%E8%A7%A3%E5%86%B3%E4%BA%86vscode%E4%B8%ADvue%E6%96%B9%E6%B3%95%E8%B7%B3%E8%BD%AC%E7%9A%84%E9%9A%BE%E9%A2%98/mixin.gif" alt="mixin" loading="lazy" src="/2022/02/01/%E6%88%91%E8%A7%A3%E5%86%B3%E4%BA%86vscode%E4%B8%ADvue%E6%96%B9%E6%B3%95%E8%B7%B3%E8%BD%AC%E7%9A%84%E9%9A%BE%E9%A2%98/mixin.gif"></p>
-<h4 id="第四步-打包"><a href="#第四步-打包" class="headerlink" title="第四步 打包"></a>第四步 打包</h4><p><code>vsce package</code></p>
-<p>即可，注意node版本要在14以上，不然这个命令会执行失败，另外，如何打包之后发现插件加载失败，可以在这里看日志定位问题</p>
-<p><img data-src="/2022/02/01/%E6%88%91%E8%A7%A3%E5%86%B3%E4%BA%86vscode%E4%B8%ADvue%E6%96%B9%E6%B3%95%E8%B7%B3%E8%BD%AC%E7%9A%84%E9%9A%BE%E9%A2%98/image-20220201135331741.png" alt="image-20220201135331741" loading="lazy" src="/2022/02/01/%E6%88%91%E8%A7%A3%E5%86%B3%E4%BA%86vscode%E4%B8%ADvue%E6%96%B9%E6%B3%95%E8%B7%B3%E8%BD%AC%E7%9A%84%E9%9A%BE%E9%A2%98/image-20220201135331741.png"></p>
-<p>我就碰到过，发现是以为自己安装的npm包babel以及vue解析是放在 devDependencies下的，实际上是需要放到dependencies下面，移动下重新yarn解决。</p>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>研发这个插件的目的就是为了解决自己项目中遇到的方法无法跳转到定义的问题，在有这个思路到具体实现出来总共话了2天时间，其中大部分的时间都放在了研究怎么实现一款自定义插件上，主要还是参考官网，期间了解到了不少概念，比如lsp，还被这个坑过，以为实现一个gotoDefinition插件需要做一个服务端，其实后面发现不需要的，官网上其实说的不怎么详细，还是自己从github上参考了别人写的一个gotoDefinition中得出的结论，我这里不下看到8个github上关于插件的实现。</p>
-<p>document和position的用法也是从一个项目那里了解到的，具体那个忘记记录了，总之这个不重要了，重要的是，你的目标是什么，要达到这个目标你需要准备些什么知识or工具，做这个插件最大的收获是：</p>
-<p>1、学习到了github上几个优秀的插件的实现，顺带也关注了一下几个大佬的博客。</p>
-<p>2、知道了vscode gotoDefinition 的原理，后面碰到不能跳转至少知道背后的原因是啥。</p>
-<p>3、Google不一定可以帮你解决所有问题，当解决不了的时候，记得github搜索，我就是通过搜索某些api了解到其他人怎么实现的，关于插件研发Google确实能你的有限，学会使用其他渠道。</p>
+<p>验证一下是否安装成功</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> torch
+x <span class="token operator">=</span> torch<span class="token punctuation">.</span>rand<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+<span class="token comment">#=============输出</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><img data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222120729276.png" alt="image-20220222120729276" loading="lazy" src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222120729276.png"></p>
+<h5 id="1、4安装ffmpeg，这个比较复杂，最好是使用源码编译安装的方式，yum找源大概率报错"><a href="#1、4安装ffmpeg，这个比较复杂，最好是使用源码编译安装的方式，yum找源大概率报错" class="headerlink" title="1、4安装ffmpeg，这个比较复杂，最好是使用源码编译安装的方式，yum找源大概率报错"></a>1、4安装ffmpeg，这个比较复杂，最好是使用源码编译安装的方式，yum找源大概率报错</h5><p>安装以及升级可以参考这里的步骤  <a target="_blank" rel="noopener" href="https://trac.ffmpeg.org/wiki/CompilationGuide/Centos%EF%BC%8C%E6%95%B4%E4%B8%AA%E8%BF%87%E7%A8%8B%E7%BD%91%E7%BB%9Cok%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E8%87%B3%E5%B0%91%E9%9C%80%E8%A6%81%E5%8D%8A%E5%B0%8F%E6%97%B6%E3%80%82">https://trac.ffmpeg.org/wiki/CompilationGuide/Centos，整个过程网络ok的情况下至少需要半小时。</a></p>
+<p>我这里只展示安装的步骤，升级可以通过上面的链接查找。</p>
+<p>step1</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">yum <span class="token function">install</span> autoconf automake <span class="token function">bzip2</span> bzip2-devel cmake freetype-devel gcc gcc-c++ <span class="token function">git</span> libtool <span class="token function">make</span> pkgconfig zlib-devel<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>step2</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">mkdir</span> ~/ffmpeg_sources<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>step3</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> ~/ffmpeg_sources
+<span class="token function">curl</span> <span class="token parameter variable">-O</span> <span class="token parameter variable">-L</span> https://www.nasm.us/pub/nasm/releasebuilds/2.15.05/nasm-2.15.05.tar.bz2
+<span class="token function">tar</span> xjvf nasm-2.15.05.tar.bz2
+<span class="token builtin class-name">cd</span> nasm-2.15.05
+./autogen.sh
+./configure <span class="token parameter variable">--prefix</span><span class="token operator">=</span><span class="token string">"<span class="token environment constant">$HOME</span>/ffmpeg_build"</span> <span class="token parameter variable">--bindir</span><span class="token operator">=</span><span class="token string">"<span class="token environment constant">$HOME</span>/bin"</span>
+<span class="token function">make</span>
+<span class="token function">make</span> <span class="token function">install</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>step4</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> ~/ffmpeg_sources
+<span class="token function">curl</span> <span class="token parameter variable">-O</span> <span class="token parameter variable">-L</span> https://www.tortall.net/projects/yasm/releases/yasm-1.3.0.tar.gz
+<span class="token function">tar</span> xzvf yasm-1.3.0.tar.gz
+<span class="token builtin class-name">cd</span> yasm-1.3.0
+./configure <span class="token parameter variable">--prefix</span><span class="token operator">=</span><span class="token string">"<span class="token environment constant">$HOME</span>/ffmpeg_build"</span> <span class="token parameter variable">--bindir</span><span class="token operator">=</span><span class="token string">"<span class="token environment constant">$HOME</span>/bin"</span>
+<span class="token function">make</span>
+<span class="token function">make</span> <span class="token function">install</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>step5</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> ~/ffmpeg_sources
+<span class="token function">git</span> clone <span class="token parameter variable">--branch</span> stable <span class="token parameter variable">--depth</span> <span class="token number">1</span> https://code.videolan.org/videolan/x264.git
+<span class="token builtin class-name">cd</span> x264
+<span class="token assign-left variable">PKG_CONFIG_PATH</span><span class="token operator">=</span><span class="token string">"<span class="token environment constant">$HOME</span>/ffmpeg_build/lib/pkgconfig"</span> ./configure <span class="token parameter variable">--prefix</span><span class="token operator">=</span><span class="token string">"<span class="token environment constant">$HOME</span>/ffmpeg_build"</span> <span class="token parameter variable">--bindir</span><span class="token operator">=</span><span class="token string">"<span class="token environment constant">$HOME</span>/bin"</span> --enable-static
+<span class="token function">make</span>
+<span class="token function">make</span> <span class="token function">install</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>step6</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> ~/ffmpeg_sources
+<span class="token function">git</span> clone <span class="token parameter variable">--branch</span> stable <span class="token parameter variable">--depth</span> <span class="token number">2</span> https://bitbucket.org/multicoreware/x265_git
+<span class="token builtin class-name">cd</span> ~/ffmpeg_sources/x265_git/build/linux
+cmake <span class="token parameter variable">-G</span> <span class="token string">"Unix Makefiles"</span> <span class="token parameter variable">-DCMAKE_INSTALL_PREFIX</span><span class="token operator">=</span><span class="token string">"<span class="token environment constant">$HOME</span>/ffmpeg_build"</span> <span class="token parameter variable">-DENABLE_SHARED:bool</span><span class="token operator">=</span>off <span class="token punctuation">..</span>/<span class="token punctuation">..</span>/source
+<span class="token function">make</span>
+<span class="token function">make</span> <span class="token function">install</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>step7</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> ~/ffmpeg_sources
+<span class="token function">git</span> clone <span class="token parameter variable">--depth</span> <span class="token number">1</span> https://github.com/mstorsjo/fdk-aac
+<span class="token builtin class-name">cd</span> fdk-aac
+autoreconf <span class="token parameter variable">-fiv</span>
+./configure <span class="token parameter variable">--prefix</span><span class="token operator">=</span><span class="token string">"<span class="token environment constant">$HOME</span>/ffmpeg_build"</span> --disable-shared
+<span class="token function">make</span>
+<span class="token function">make</span> <span class="token function">install</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>step8</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> ~/ffmpeg_sources
+<span class="token function">curl</span> <span class="token parameter variable">-O</span> <span class="token parameter variable">-L</span> https://downloads.sourceforge.net/project/lame/lame/3.100/lame-3.100.tar.gz
+<span class="token function">tar</span> xzvf lame-3.100.tar.gz
+<span class="token builtin class-name">cd</span> lame-3.100
+./configure <span class="token parameter variable">--prefix</span><span class="token operator">=</span><span class="token string">"<span class="token environment constant">$HOME</span>/ffmpeg_build"</span> <span class="token parameter variable">--bindir</span><span class="token operator">=</span><span class="token string">"<span class="token environment constant">$HOME</span>/bin"</span> --disable-shared --enable-nasm
+<span class="token function">make</span>
+<span class="token function">make</span> <span class="token function">install</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>step9</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> ~/ffmpeg_sources
+<span class="token function">curl</span> <span class="token parameter variable">-O</span> <span class="token parameter variable">-L</span> https://archive.mozilla.org/pub/opus/opus-1.3.1.tar.gz
+<span class="token function">tar</span> xzvf opus-1.3.1.tar.gz
+<span class="token builtin class-name">cd</span> opus-1.3.1
+./configure <span class="token parameter variable">--prefix</span><span class="token operator">=</span><span class="token string">"<span class="token environment constant">$HOME</span>/ffmpeg_build"</span> --disable-shared
+<span class="token function">make</span>
+<span class="token function">make</span> <span class="token function">install</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>step10</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> ~/ffmpeg_sources
+<span class="token function">git</span> clone <span class="token parameter variable">--depth</span> <span class="token number">1</span> https://chromium.googlesource.com/webm/libvpx.git
+<span class="token builtin class-name">cd</span> libvpx
+./configure <span class="token parameter variable">--prefix</span><span class="token operator">=</span><span class="token string">"<span class="token environment constant">$HOME</span>/ffmpeg_build"</span> --disable-examples --disable-unit-tests --enable-vp9-highbitdepth <span class="token parameter variable">--as</span><span class="token operator">=</span>yasm
+<span class="token function">make</span>
+<span class="token function">make</span> <span class="token function">install</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>step11</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> ~/ffmpeg_sources
+<span class="token function">curl</span> <span class="token parameter variable">-O</span> <span class="token parameter variable">-L</span> https://ffmpeg.org/releases/ffmpeg-5.0.tar.bz2
+<span class="token function">tar</span> xjvf ffmpeg-5.0.tar.bz2
+<span class="token builtin class-name">cd</span> ffmpeg-5.0
+<span class="token assign-left variable"><span class="token environment constant">PATH</span></span><span class="token operator">=</span><span class="token string">"<span class="token environment constant">$HOME</span>/bin:<span class="token environment constant">$PATH</span>"</span> <span class="token assign-left variable">PKG_CONFIG_PATH</span><span class="token operator">=</span><span class="token string">"<span class="token environment constant">$HOME</span>/ffmpeg_build/lib/pkgconfig"</span> ./configure <span class="token punctuation">\</span>
+  <span class="token parameter variable">--prefix</span><span class="token operator">=</span><span class="token string">"<span class="token environment constant">$HOME</span>/ffmpeg_build"</span> <span class="token punctuation">\</span>
+  --pkg-config-flags<span class="token operator">=</span><span class="token string">"--static"</span> <span class="token punctuation">\</span>
+  --extra-cflags<span class="token operator">=</span><span class="token string">"-I<span class="token environment constant">$HOME</span>/ffmpeg_build/include"</span> <span class="token punctuation">\</span>
+  --extra-ldflags<span class="token operator">=</span><span class="token string">"-L<span class="token environment constant">$HOME</span>/ffmpeg_build/lib"</span> <span class="token punctuation">\</span>
+  --extra-libs<span class="token operator">=</span>-lpthread <span class="token punctuation">\</span>
+  --extra-libs<span class="token operator">=</span>-lm <span class="token punctuation">\</span>
+  <span class="token parameter variable">--bindir</span><span class="token operator">=</span><span class="token string">"<span class="token environment constant">$HOME</span>/bin"</span> <span class="token punctuation">\</span>
+  --enable-gpl <span class="token punctuation">\</span>
+  --enable-libfdk_aac <span class="token punctuation">\</span>
+  --enable-libfreetype <span class="token punctuation">\</span>
+  --enable-libmp3lame <span class="token punctuation">\</span>
+  --enable-libopus <span class="token punctuation">\</span>
+  --enable-libvpx <span class="token punctuation">\</span>
+  --enable-libx264 <span class="token punctuation">\</span>
+  --enable-libx265 <span class="token punctuation">\</span>
+  --enable-nonfree
+<span class="token function">make</span>
+<span class="token function">make</span> <span class="token function">install</span>
+<span class="token builtin class-name">hash</span> <span class="token parameter variable">-d</span> ffmpeg<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h5 id="1、5安装python需要的包"><a href="#1、5安装python需要的包" class="headerlink" title="1、5安装python需要的包"></a>1、5安装python需要的包</h5><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> /pathto/MockingBird <span class="token comment">#到里本地项目克隆路径下</span>
+pip3 <span class="token function">install</span> <span class="token parameter variable">-r</span> requirements.txt<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>什么鬼，安装直接报错</p>
+<p><img data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222130237710.png" alt="image-20220222130237710" loading="lazy" src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222130237710.png"></p>
+<p>查了下资料，要解决这个问题，需要暗转下python39的devel，于是</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 安装EPEL源</span>
+yum <span class="token function">install</span> epel-release <span class="token parameter variable">-y</span>
+<span class="token comment"># 安装python3开发包</span>
+yum <span class="token function">install</span> python39-devel <span class="token parameter variable">-y</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><img data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222130400801.png" alt="image-20220222130400801" loading="lazy" src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222130400801.png"></p>
+<p>这里大概就有我们需要的头文件了，然后在重试一次</p>
+<p><img data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222130524618.png" alt="image-20220222130524618" loading="lazy" src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222130524618.png"></p>
+<p>这一次果断就成功了。</p>
+<h5 id="继续安装一个可选的依赖"><a href="#继续安装一个可选的依赖" class="headerlink" title="继续安装一个可选的依赖"></a>继续安装一个可选的依赖</h5><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pip3 <span class="token function">install</span> webrtcvad-wheels<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+
+<p>至此，整个环境的安装才算完毕，我初步估算了下，大概需要45分钟左右部署好环境。</p>
+<h4 id="2、准备模型"><a href="#2、准备模型" class="headerlink" title="2、准备模型"></a>2、准备模型</h4><p>这里我直接使用社区准备好的模型</p>
+<table>
+<thead>
+<tr>
+<th>作者</th>
+<th><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1iONvRxmkI-t1nHqxKytY3g">https://pan.baidu.com/s/1iONvRxmkI-t1nHqxKytY3g</a> <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1iONvRxmkI-t1nHqxKytY3g">百度盘链接</a> 4j5d</th>
+<th></th>
+<th>75k steps 用3个开源数据集混合训练</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h4 id="3、打开web网页"><a href="#3、打开web网页" class="headerlink" title="3、打开web网页"></a>3、打开web网页</h4><pre class="line-numbers language-python" data-language="python"><code class="language-python">python web<span class="token punctuation">.</span>py<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>什么鬼，又一个报错</p>
+<p><img data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222131611301.png" alt="image-20220222131611301" loading="lazy" src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222131611301.png"></p>
+<p>查了下，需要安装</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">yum <span class="token function">install</span> libsndfile<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+
+<p> 运行成功后在浏览器打开地址,默认为 <a target="_blank" rel="noopener" href="http://localhost:8080/">http://localhost:8080</a></p>
+<p><img data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222142941022.png" alt="image-20220222142941022" loading="lazy" src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222142941022.png"></p>
+<p>这就表示已经玩起来了。</p>
+<p>注意，开始synthesizer是没有模型的，需要自己把第二步下载好的模型复制到</p>
+<p><img data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222143111766.png" alt="image-20220222143111766" loading="lazy" src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222143111766.png"></p>
+<p>这个目录下。</p>
+<h4 id="4、玩法"><a href="#4、玩法" class="headerlink" title="4、玩法"></a>4、玩法</h4><p><img data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222142829792.png" alt="image-20220222142829792" loading="lazy" src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222142829792.png"></p>
 
       
     </div>
@@ -303,7 +419,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/14/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/">24</a><a class="extend next" rel="next" href="/page/16/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/14/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="extend next" rel="next" href="/page/16/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -368,7 +484,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-count">26</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -379,7 +495,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -411,7 +527,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

@@ -161,7 +161,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2021/10/10/%E4%B8%80%E7%A7%8D%E6%8F%8F%E8%BF%B0%E7%94%A8%E6%88%B7%E9%9C%80%E6%B1%82%E7%9A%84%E6%96%B0%E6%96%B9%E6%B3%95/">
+    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2022/02/20/go%E5%86%99%E4%B8%80%E4%B8%AA%E4%BA%91%E5%87%BD%E6%95%B0-%E6%94%AF%E6%8C%81%E9%95%BF%E8%BF%9E%E6%8E%A5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -175,7 +175,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/10/10/%E4%B8%80%E7%A7%8D%E6%8F%8F%E8%BF%B0%E7%94%A8%E6%88%B7%E9%9C%80%E6%B1%82%E7%9A%84%E6%96%B0%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">一种描述用户需求的新方法</a>
+            <a href="/2022/02/20/go%E5%86%99%E4%B8%80%E4%B8%AA%E4%BA%91%E5%87%BD%E6%95%B0-%E6%94%AF%E6%8C%81%E9%95%BF%E8%BF%9E%E6%8E%A5/" class="post-title-link" itemprop="url">Go写一个云函数,支持长连接</a>
         </h2>
 
         <div class="post-meta">
@@ -185,14 +185,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-10-10 17:37:56" itemprop="dateCreated datePublished" datetime="2021-10-10T17:37:56+08:00">2021-10-10</time>
+              <time title="创建时间：2022-02-20 22:32:46" itemprop="dateCreated datePublished" datetime="2022-02-20T22:32:46+08:00">2022-02-20</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-09-29 15:18:14" itemprop="dateModified" datetime="2022-09-29T15:18:14+08:00">2022-09-29</time>
+                <time title="修改时间：2022-11-28 09:25:08" itemprop="dateModified" datetime="2022-11-28T09:25:08+08:00">2022-11-28</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -200,7 +200,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                  <a href="/categories/%E6%9E%81%E9%80%9F/" itemprop="url" rel="index"><span itemprop="name">极速</span></a>
                 </span>
             </span>
 
@@ -215,33 +215,157 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>在研究某个问题的时候，你需要把它转换成一种认识。<strong>故事是描述认识的一种好方式。与一大堆需求描述相比，故事可以让读者更容易明白什么重要和为什么重要</strong>。</p>
-<blockquote>
-<p>什么，你觉得故事不是非常有条理或者不具备技术性？错了。管理人员无时无刻不在使用故事（想一想公司的使命），技术团队也都在讲故事（流程图和用户案例）。用户体验团队同样也写故事写了很多年了。</p>
-</blockquote>
-<h5 id="故事应该用三言两语把核心体验表达出来。"><a href="#故事应该用三言两语把核心体验表达出来。" class="headerlink" title="故事应该用三言两语把核心体验表达出来。"></a>故事应该用三言两语把核心体验表达出来。</h5><p>对于像Flip这样的数码摄像机，可以这样写：</p>
-<blockquote>
-<p>你站在香港城市街头，忽然一阵骚乱：发哥（周润发）正向你走来。</p>
-<p>你迅速从口袋里掏出你的Flip摄像机，把它交给一位路人，请他帮忙拍了一段视频，发哥就在你的身后。</p>
-<p>之后，你赶紧敲开附近朋友家的门，不需要任何安装配置，就通过他的电脑把这段视频分享到了网上。</p>
-</blockquote>
-<p>如果你正在设计一款数码摄像机，这个故事会告诉你如下重要事项。</p>
-<ul>
-<li>这个摄像机很小，可以方便地带到任何地方。也许是像一个小挂件一样，能够随身携带的那种。肯定不是只有在某些特殊场合才会用到的大摄像机。</li>
-<li>开机速度快（因为发哥不会等着你），而且拍摄简单，即使是第一次见到它的人都能够拿在手里就拍。</li>
-<li>要上传视频不需要特殊的软件或者数据线。</li>
-<li>最后，拍摄视频的目的是为了与朋友分享。</li>
-</ul>
-<p><strong>故事可以把大量信息浓缩到寥寥数语之中，效率极高。而且，故事很容易记住，很方便与人分享。</strong></p>
-<p>也就是说，在你们讨论设计决定时很可能需要准备几个故事。</p>
-<p><strong>事实上，人人都喜欢故事，即使你不讲，别人也会编出来</strong></p>
-<p>（“如果我使用这个摄像机，我就……”），让你不由得跟着他们的叙述展开想象——因此，要确保他们在使用你的故事。有必要多花点儿时间把故事的每一个细节都想清楚。如果你想让自己的设计简单，每一个细节都至关重要。</p>
-<h5 id="故事的情节要短"><a href="#故事的情节要短" class="headerlink" title="故事的情节要短"></a>故事的情节要短</h5><p>千万不要长篇大论地详细描述重大活动。要通过一个小故事展示出每一个需求点，并确定满足该需求的功能（核心功能）。这样做有3个原因。</p>
-<ul>
-<li>首先，简单的故事容易记也容易复述，因而容易被别人传播。</li>
-<li>其次，容易让别人把这个故事的情景套用到其他环境中（你可以想象在一个孩子的生日会上把你的Flip摄像机递给孩子的父母）。</li>
-<li>最后，为故事增加细节就像是拉近相机的焦距：人们会认为你要展示一些重要的信息。乐观估计，你的细节会吸引人；最差的情况，人们也会自己找到细节重要的理由。因此，务必只添加要紧的细节，这样你的故事才会真实丰满。</li>
-</ul>
+          <h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="https://github.com/tencentyun/scf-go-lib">https://github.com/tencentyun/scf-go-lib</a></p>
+<h4 id="开发说明"><a href="#开发说明" class="headerlink" title="开发说明"></a>开发说明</h4><p>推荐安装Tencent CloudBase Toolkit</p>
+<p><img data-src="/2022/02/20/go%E5%86%99%E4%B8%80%E4%B8%AA%E4%BA%91%E5%87%BD%E6%95%B0-%E6%94%AF%E6%8C%81%E9%95%BF%E8%BF%9E%E6%8E%A5/image-20220220223836051.png" alt="image-20220220223836051" loading="lazy" src="/2022/02/20/go%E5%86%99%E4%B8%80%E4%B8%AA%E4%BA%91%E5%87%BD%E6%95%B0-%E6%94%AF%E6%8C%81%E9%95%BF%E8%BF%9E%E6%8E%A5/image-20220220223836051.png"></p>
+<h4 id="打包说明"><a href="#打包说明" class="headerlink" title="打包说明"></a>打包说明</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">
+<span class="token assign-left variable">GOOS</span><span class="token operator">=</span>linux <span class="token assign-left variable">GOARCH</span><span class="token operator">=</span>amd64 go build <span class="token parameter variable">-o</span> main main.go
+
+<span class="token function">zip</span> main.zip main<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>需要注意，go版本的云函数只能本地编译成可执行文件后在上传zip，而且看起来必须要指定GOARCH以及GOOS。否则云函数是跑步起来的。</p>
+<h4 id="部署说明"><a href="#部署说明" class="headerlink" title="部署说明"></a>部署说明</h4><p><img data-src="/2022/02/20/go%E5%86%99%E4%B8%80%E4%B8%AA%E4%BA%91%E5%87%BD%E6%95%B0-%E6%94%AF%E6%8C%81%E9%95%BF%E8%BF%9E%E6%8E%A5/image-20220220223706956.png" alt="image-20220220223706956" loading="lazy" src="/2022/02/20/go%E5%86%99%E4%B8%80%E4%B8%AA%E4%BA%91%E5%87%BD%E6%95%B0-%E6%94%AF%E6%8C%81%E9%95%BF%E8%BF%9E%E6%8E%A5/image-20220220223706956.png"></p>
+<p>选择上传</p>
+<p><img data-src="/2022/02/20/go%E5%86%99%E4%B8%80%E4%B8%AA%E4%BA%91%E5%87%BD%E6%95%B0-%E6%94%AF%E6%8C%81%E9%95%BF%E8%BF%9E%E6%8E%A5/image-20220220223745138.png" alt="image-20220220223745138" loading="lazy" src="/2022/02/20/go%E5%86%99%E4%B8%80%E4%B8%AA%E4%BA%91%E5%87%BD%E6%95%B0-%E6%94%AF%E6%8C%81%E9%95%BF%E8%BF%9E%E6%8E%A5/image-20220220223745138.png"></p>
+<p><img data-src="/2022/02/20/go%E5%86%99%E4%B8%80%E4%B8%AA%E4%BA%91%E5%87%BD%E6%95%B0-%E6%94%AF%E6%8C%81%E9%95%BF%E8%BF%9E%E6%8E%A5/image-20220220230620404.png" alt="image-20220220230620404" loading="lazy" src="/2022/02/20/go%E5%86%99%E4%B8%80%E4%B8%AA%E4%BA%91%E5%87%BD%E6%95%B0-%E6%94%AF%E6%8C%81%E9%95%BF%E8%BF%9E%E6%8E%A5/image-20220220230620404.png"></p>
+<p>点击保存，就可以测试了；</p>
+<p><img data-src="/2022/02/20/go%E5%86%99%E4%B8%80%E4%B8%AA%E4%BA%91%E5%87%BD%E6%95%B0-%E6%94%AF%E6%8C%81%E9%95%BF%E8%BF%9E%E6%8E%A5/image-20220220230730819.png" alt="image-20220220230730819" loading="lazy" src="/2022/02/20/go%E5%86%99%E4%B8%80%E4%B8%AA%E4%BA%91%E5%87%BD%E6%95%B0-%E6%94%AF%E6%8C%81%E9%95%BF%E8%BF%9E%E6%8E%A5/image-20220220230730819.png"></p>
+<p>注意，千万别直接在线上IDE编辑上改代码测试！</p>
+<p>就算你试一千遍都不会生效的，很奇怪，既然不支持go在线编辑，那为何不把这个入口干掉呢。</p>
+<h4 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h4><pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+	<span class="token string">"context"</span>
+	<span class="token string">"encoding/json"</span>
+	<span class="token string">"fmt"</span>
+	<span class="token string">"io/ioutil"</span>
+	<span class="token string">"net/http"</span>
+
+	<span class="token string">"github.com/tencentyun/scf-go-lib/cloudfunction"</span>
+	<span class="token string">"github.com/tencentyun/scf-go-lib/functioncontext"</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">func</span> <span class="token function">hello</span><span class="token punctuation">(</span>ctx context<span class="token punctuation">.</span>Context<span class="token punctuation">,</span> event <span class="token keyword">interface</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token keyword">interface</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+	lc<span class="token punctuation">,</span> <span class="token boolean">_</span> <span class="token operator">:=</span> functioncontext<span class="token punctuation">.</span><span class="token function">FromContext</span><span class="token punctuation">(</span>ctx<span class="token punctuation">)</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"function ClientContext.Env: %s\n"</span><span class="token punctuation">,</span> lc<span class="token punctuation">.</span>ClientContext<span class="token punctuation">.</span>Env<span class="token punctuation">)</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"function ClientContext.Custom: %s\n"</span><span class="token punctuation">,</span> lc<span class="token punctuation">.</span>ClientContext<span class="token punctuation">.</span>Custom<span class="token punctuation">)</span>
+	<span class="token comment">// fmt.Printf("function Environment: %s\n", lc.Environment)</span>
+	requestUrl <span class="token operator">:=</span> lc<span class="token punctuation">.</span>Environment<span class="token punctuation">[</span><span class="token string">"APIGateWay_Url"</span><span class="token punctuation">]</span> <span class="token comment">//这里可以拿到自己设置的环境变量</span>
+	secretId <span class="token operator">:=</span> lc<span class="token punctuation">.</span>Environment<span class="token punctuation">[</span><span class="token string">"APIGateWay_SecretId"</span><span class="token punctuation">]</span>
+	secretKey <span class="token operator">:=</span> lc<span class="token punctuation">.</span>Environment<span class="token punctuation">[</span><span class="token string">"APIGateWay_SecretKey"</span><span class="token punctuation">]</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"requestUrl %s\n,secretId %s\n,secretKey %s\n"</span><span class="token punctuation">,</span> requestUrl<span class="token punctuation">,</span> secretId<span class="token punctuation">,</span> secretKey<span class="token punctuation">)</span>
+	resp<span class="token punctuation">,</span> err <span class="token operator">:=</span> http<span class="token punctuation">.</span><span class="token function">Get</span><span class="token punctuation">(</span><span class="token string">"http://httpbin.org/get"</span><span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+		<span class="token keyword">return</span> err<span class="token punctuation">,</span> <span class="token boolean">nil</span>
+	<span class="token punctuation">&#125;</span>
+	<span class="token keyword">defer</span> resp<span class="token punctuation">.</span>Body<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	body<span class="token punctuation">,</span> <span class="token boolean">_</span> <span class="token operator">:=</span> ioutil<span class="token punctuation">.</span><span class="token function">ReadAll</span><span class="token punctuation">(</span>resp<span class="token punctuation">.</span>Body<span class="token punctuation">)</span>
+	<span class="token keyword">var</span> res <span class="token keyword">interface</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+	json<span class="token punctuation">.</span><span class="token function">Unmarshal</span><span class="token punctuation">(</span>body<span class="token punctuation">,</span> <span class="token operator">&amp;</span>res<span class="token punctuation">)</span>
+	<span class="token keyword">return</span> res<span class="token punctuation">,</span> <span class="token boolean">nil</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+	<span class="token comment">// Make the handler available for Remote Procedure Call by Cloud Function</span>
+	cloudfunction<span class="token punctuation">.</span><span class="token function">Start</span><span class="token punctuation">(</span>hello<span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这里在微信小程序云函数环境中，有点坑，是拿不到请求客户端的clientip的。ClientContext里面打印出来，发现是没有该项的，已经在<a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/community/develop/doc/00024e867d86e036d4971353f56400">开发者社区</a>中提问了。</p>
+<h3 id="长连接优化"><a href="#长连接优化" class="headerlink" title="长连接优化"></a>长连接优化</h3><pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+	<span class="token string">"fmt"</span>
+	<span class="token string">"io/ioutil"</span>
+	<span class="token string">"net"</span>
+	<span class="token string">"net/http"</span>
+	<span class="token string">"time"</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">var</span> httpTransportCloseOnComplete <span class="token operator">=</span> <span class="token operator">&amp;</span>http<span class="token punctuation">.</span>Transport<span class="token punctuation">&#123;</span>
+	DisableKeepAlives<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token comment">//禁用长连接</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">var</span> httpTransportKeepAlive <span class="token operator">=</span> <span class="token operator">&amp;</span>http<span class="token punctuation">.</span>Transport<span class="token punctuation">&#123;</span>
+	DialContext<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token operator">&amp;</span>net<span class="token punctuation">.</span>Dialer<span class="token punctuation">&#123;</span>
+		Timeout<span class="token punctuation">:</span>   <span class="token number">3</span> <span class="token operator">*</span> time<span class="token punctuation">.</span>Second<span class="token punctuation">,</span> <span class="token comment">// 连接超时时间</span>
+		KeepAlive<span class="token punctuation">:</span> <span class="token number">7</span> <span class="token operator">*</span> time<span class="token punctuation">.</span>Second<span class="token punctuation">,</span> <span class="token comment">// 保持长连接的时间</span>
+	<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">.</span>DialContext<span class="token punctuation">,</span> <span class="token comment">// 设置连接的参数</span>
+	MaxIdleConns<span class="token punctuation">:</span>          <span class="token number">500</span><span class="token punctuation">,</span>              <span class="token comment">// 最大空闲连接</span>
+	IdleConnTimeout<span class="token punctuation">:</span>       <span class="token number">60</span> <span class="token operator">*</span> time<span class="token punctuation">.</span>Second<span class="token punctuation">,</span> <span class="token comment">// 空闲连接的超时时间</span>
+	ExpectContinueTimeout<span class="token punctuation">:</span> <span class="token number">30</span> <span class="token operator">*</span> time<span class="token punctuation">.</span>Second<span class="token punctuation">,</span> <span class="token comment">// 等待服务第一个响应的超时时间</span>
+	MaxIdleConnsPerHost<span class="token punctuation">:</span>   <span class="token number">100</span><span class="token punctuation">,</span>              <span class="token comment">// 每个host保持的空闲连接数</span>
+	DisableKeepAlives<span class="token punctuation">:</span>     <span class="token boolean">false</span><span class="token punctuation">,</span>            <span class="token comment">//长连接生效</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+	times <span class="token operator">:=</span> <span class="token number">20</span>
+	uri <span class="token operator">:=</span> <span class="token string">"https://github.com/request/request/blob/master/request.js"</span>
+	<span class="token comment">// 短连接的情况</span>
+
+	start <span class="token operator">:=</span> time<span class="token punctuation">.</span><span class="token function">Now</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	client <span class="token operator">:=</span> http<span class="token punctuation">.</span>Client<span class="token punctuation">&#123;</span>Transport<span class="token punctuation">:</span> httpTransportCloseOnComplete<span class="token punctuation">&#125;</span> <span class="token comment">// 初始化http的client</span>
+	<span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> times<span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">&#123;</span>
+		req<span class="token punctuation">,</span> err <span class="token operator">:=</span> http<span class="token punctuation">.</span><span class="token function">NewRequest</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>MethodGet<span class="token punctuation">,</span> uri<span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">)</span>
+		<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+			<span class="token function">panic</span><span class="token punctuation">(</span><span class="token string">"Http Req Failed "</span> <span class="token operator">+</span> err<span class="token punctuation">.</span><span class="token function">Error</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+		<span class="token punctuation">&#125;</span>
+		resp<span class="token punctuation">,</span> err <span class="token operator">:=</span> client<span class="token punctuation">.</span><span class="token function">Do</span><span class="token punctuation">(</span>req<span class="token punctuation">)</span> <span class="token comment">// 发起请求</span>
+		<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+			<span class="token function">panic</span><span class="token punctuation">(</span><span class="token string">"Http Request Failed "</span> <span class="token operator">+</span> err<span class="token punctuation">.</span><span class="token function">Error</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+		<span class="token punctuation">&#125;</span>
+		<span class="token keyword">defer</span> resp<span class="token punctuation">.</span>Body<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+		ioutil<span class="token punctuation">.</span><span class="token function">ReadAll</span><span class="token punctuation">(</span>resp<span class="token punctuation">.</span>Body<span class="token punctuation">)</span>
+	<span class="token punctuation">&#125;</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"Orig GoNet Short Link"</span><span class="token punctuation">,</span> time<span class="token punctuation">.</span><span class="token function">Since</span><span class="token punctuation">(</span>start<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+	<span class="token comment">// 长连接的情况</span>
+
+	start2 <span class="token operator">:=</span> time<span class="token punctuation">.</span><span class="token function">Now</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	client2 <span class="token operator">:=</span> http<span class="token punctuation">.</span>Client<span class="token punctuation">&#123;</span>Transport<span class="token punctuation">:</span> httpTransportKeepAlive<span class="token punctuation">&#125;</span> <span class="token comment">// 初始化一个带有transport的http的client</span>
+	<span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> times<span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">&#123;</span>
+		req<span class="token punctuation">,</span> err <span class="token operator">:=</span> http<span class="token punctuation">.</span><span class="token function">NewRequest</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span>MethodGet<span class="token punctuation">,</span> uri<span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">)</span>
+		<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+			<span class="token function">panic</span><span class="token punctuation">(</span><span class="token string">"Http Req Failed "</span> <span class="token operator">+</span> err<span class="token punctuation">.</span><span class="token function">Error</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+		<span class="token punctuation">&#125;</span>
+		resp<span class="token punctuation">,</span> err <span class="token operator">:=</span> client2<span class="token punctuation">.</span><span class="token function">Do</span><span class="token punctuation">(</span>req<span class="token punctuation">)</span>
+		<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+			<span class="token function">panic</span><span class="token punctuation">(</span><span class="token string">"Http Request Failed "</span> <span class="token operator">+</span> err<span class="token punctuation">.</span><span class="token function">Error</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+		<span class="token punctuation">&#125;</span>
+		<span class="token keyword">defer</span> resp<span class="token punctuation">.</span>Body<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+		ioutil<span class="token punctuation">.</span><span class="token function">ReadAll</span><span class="token punctuation">(</span>resp<span class="token punctuation">.</span>Body<span class="token punctuation">)</span> <span class="token comment">// 如果不及时从请求中获取结果，此连接会占用，其他请求服务复用连接</span>
+	<span class="token punctuation">&#125;</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"Orig GoNet Long Link"</span><span class="token punctuation">,</span> time<span class="token punctuation">.</span><span class="token function">Since</span><span class="token punctuation">(</span>start2<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><img data-src="/2022/02/20/go%E5%86%99%E4%B8%80%E4%B8%AA%E4%BA%91%E5%87%BD%E6%95%B0-%E6%94%AF%E6%8C%81%E9%95%BF%E8%BF%9E%E6%8E%A5/image-20220220225436507.png" alt="image-20220220225436507" loading="lazy" src="/2022/02/20/go%E5%86%99%E4%B8%80%E4%B8%AA%E4%BA%91%E5%87%BD%E6%95%B0-%E6%94%AF%E6%8C%81%E9%95%BF%E8%BF%9E%E6%8E%A5/image-20220220225436507.png"></p>
+<p>这里使用<a target="_blank" rel="noopener" href="https://github.com/request/request/blob/master/request.js">https://github.com/request/request/blob/master/request.js</a> 测试，使用长连接明显要好过不适用长连接。</p>
+<p>这里有一点需要注意，这种特性还需要服务端支持，比如，你遇到这种服务端，那基本上你客户端在怎么努力也行不通</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+	<span class="token string">"log"</span>
+	<span class="token string">"net/http"</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">func</span> <span class="token function">Index</span><span class="token punctuation">(</span>w http<span class="token punctuation">.</span>ResponseWriter<span class="token punctuation">,</span> r <span class="token operator">*</span>http<span class="token punctuation">.</span>Request<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+	log<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"receive a request from:"</span><span class="token punctuation">,</span> r<span class="token punctuation">.</span>RemoteAddr<span class="token punctuation">,</span> r<span class="token punctuation">.</span>Header<span class="token punctuation">)</span>
+	w<span class="token punctuation">.</span><span class="token function">Write</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">"ok"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+	<span class="token keyword">var</span> s <span class="token operator">=</span> http<span class="token punctuation">.</span>Server<span class="token punctuation">&#123;</span>
+		Addr<span class="token punctuation">:</span>    <span class="token string">":8080"</span><span class="token punctuation">,</span>
+		Handler<span class="token punctuation">:</span> http<span class="token punctuation">.</span><span class="token function">HandlerFunc</span><span class="token punctuation">(</span>Index<span class="token punctuation">)</span><span class="token punctuation">,</span>
+	<span class="token punctuation">&#125;</span>
+	s<span class="token punctuation">.</span><span class="token function">SetKeepAlivesEnabled</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token comment">//服务度直接给你关闭</span>
+	s<span class="token punctuation">.</span><span class="token function">ListenAndServe</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p>各种测试长连接的参考链接在<a target="_blank" rel="noopener" href="https://github.com/bigwhite/experiments/tree/master/http-keep-alive">这里</a></p>
 
       
     </div>
@@ -260,7 +384,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/15/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/">24</a><a class="extend next" rel="next" href="/page/17/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/15/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="extend next" rel="next" href="/page/17/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -325,7 +449,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-count">26</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -336,7 +460,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -368,7 +492,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

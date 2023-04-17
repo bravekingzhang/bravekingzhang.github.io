@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.brzhang.club","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":true,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="众所周知，flutter是比较流行的跨平台方案，目前可以构建出Android，iOS，macOS，Windows，web等产物，这里只想介绍一下Android和iOS的构建产物方式，理解了这两种产物的构建，自动动手实现其他产物，应该并不是什么难事。  首先，要构建出release包，也就是用户可以安装的包，无论是在Android，还是iOS上，都是需要”证书“来签名的。两个平台对比了解如下：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flutter蓝盾构建指南">
+<meta property="og:url" content="https://blog.brzhang.club/2022/12/07/flutter%E8%93%9D%E7%9B%BE%E6%9E%84%E5%BB%BA%E6%8C%87%E5%8D%97/index.html">
+<meta property="og:site_name" content="心随我动">
+<meta property="og:description" content="众所周知，flutter是比较流行的跨平台方案，目前可以构建出Android，iOS，macOS，Windows，web等产物，这里只想介绍一下Android和iOS的构建产物方式，理解了这两种产物的构建，自动动手实现其他产物，应该并不是什么难事。  首先，要构建出release包，也就是用户可以安装的包，无论是在Android，还是iOS上，都是需要”证书“来签名的。两个平台对比了解如下：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.brzhang.club/2022/12/07/flutter%E8%93%9D%E7%9B%BE%E6%9E%84%E5%BB%BA%E6%8C%87%E5%8D%97/image-20221207190937458.png">
+<meta property="og:image" content="https://blog.brzhang.club/2022/12/07/flutter%E8%93%9D%E7%9B%BE%E6%9E%84%E5%BB%BA%E6%8C%87%E5%8D%97/image-20221207191509340.png">
+<meta property="og:image" content="https://blog.brzhang.club/2022/12/07/flutter%E8%93%9D%E7%9B%BE%E6%9E%84%E5%BB%BA%E6%8C%87%E5%8D%97/image-20221207192201361-0412125.png">
+<meta property="og:image" content="https://blog.brzhang.club/2022/12/07/flutter%E8%93%9D%E7%9B%BE%E6%9E%84%E5%BB%BA%E6%8C%87%E5%8D%97/image-20221207200414439.png">
+<meta property="og:image" content="https://blog.brzhang.club/2022/12/07/flutter%E8%93%9D%E7%9B%BE%E6%9E%84%E5%BB%BA%E6%8C%87%E5%8D%97/image-20221207200948090.png">
+<meta property="article:published_time" content="2022-12-07T10:55:14.000Z">
+<meta property="article:modified_time" content="2022-12-16T03:43:24.578Z">
+<meta property="article:author" content="hz">
+<meta property="article:tag" content="Flutter">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.brzhang.club/2022/12/07/flutter%E8%93%9D%E7%9B%BE%E6%9E%84%E5%BB%BA%E6%8C%87%E5%8D%97/image-20221207190937458.png">
+
+<link rel="canonical" href="https://blog.brzhang.club/2022/12/07/flutter%E8%93%9D%E7%9B%BE%E6%9E%84%E5%BB%BA%E6%8C%87%E5%8D%97/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Flutter蓝盾构建指南 | 心随我动</title><meta name="robots" content="noindex">
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">心随我动</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-主页">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>主页</a>
+
+  </li>
+        <li class="menu-item menu-item-关于">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-标签">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-归档">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/bravekingzhang" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2022/12/07/flutter%E8%93%9D%E7%9B%BE%E6%9E%84%E5%BB%BA%E6%8C%87%E5%8D%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hz">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心随我动">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Flutter蓝盾构建指南
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-12-07 18:55:14" itemprop="dateCreated datePublished" datetime="2022-12-07T18:55:14+08:00">2022-12-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-12-16 11:43:24" itemprop="dateModified" datetime="2022-12-16T11:43:24+08:00">2022-12-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>众所周知，flutter是比较流行的跨平台方案，目前可以构建出Android，iOS，macOS，Windows，web等产物，这里只想介绍一下Android和iOS的构建产物方式，理解了这两种产物的构建，自动动手实现其他产物，应该并不是什么难事。</p>
+</blockquote>
+<p>首先，要构建出release包，也就是用户可以安装的包，无论是在Android，还是iOS上，都是需要”<strong>证书</strong>“来签名的。两个平台对比了解如下：</p>
+<table>
+<thead>
+<tr>
+<th>平台</th>
+<th>证书</th>
+<th>最直接的生成方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Android</td>
+<td>.jks</td>
+<td><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/b9b4b3461ae7">keytool</a>，免费的，谁都可以任意申请</td>
+</tr>
+<tr>
+<td>iOS</td>
+<td>.p12 &amp; .mobileprovision</td>
+<td>只能去苹果开发者官网申请，or公司有提供的话，比如<a target="_blank" rel="noopener" href="https://keystore.woa.com/dashboard">keystore</a> 申请，本质上都是苹果开发者中心申请，一句话，要钱的</td>
+</tr>
+</tbody></table>
+<p>说个题外话，为啥要签名，一句话，证明这个产物是你生成的。</p>
+<p>为了不花多少代价，这里，iOS我们在keystore上申请证书，申请的过程比较简单，其步骤不懂可以找keystore助手，但我们最终需要拿到下图这些证书，尤其是发布环境。因为flutter 构建需要。</p>
+<p><img data-src="/2022/12/07/flutter%E8%93%9D%E7%9B%BE%E6%9E%84%E5%BB%BA%E6%8C%87%E5%8D%97/image-20221207190937458.png" alt="image-20221207190937458" loading="lazy" src="/2022/12/07/flutter%E8%93%9D%E7%9B%BE%E6%9E%84%E5%BB%BA%E6%8C%87%E5%8D%97/image-20221207190937458.png"></p>
+<h4 id="iOS配置篇"><a href="#iOS配置篇" class="headerlink" title="iOS配置篇"></a>iOS配置篇</h4><p>在证书申请成功的前提下，我们需要对iOS工程进行一定的配置，首先，需要下载发布环境的<strong>签名证书</strong>和<strong>描述文件</strong>，然后双击添加到系统keychain里面，相信我过程很简单。然后接下来就是需要对iOS工程进行一定的配置了，使用xcode打开iOS目录。按照红框从左到右的顺序，就可以进入<strong>描述文件</strong>配置的界面，记住，<strong>因为我们是使用公司的证书，而不是自己登录的accont来获取描述文件，因此，我们一定要记住把Automatically mange signing 给反勾选掉</strong>。</p>
+<p><img data-src="/2022/12/07/flutter%E8%93%9D%E7%9B%BE%E6%9E%84%E5%BB%BA%E6%8C%87%E5%8D%97/image-20221207191509340.png" alt="image-20221207191509340" loading="lazy" src="/2022/12/07/flutter%E8%93%9D%E7%9B%BE%E6%9E%84%E5%BB%BA%E6%8C%87%E5%8D%97/image-20221207191509340.png"></p>
+<p>很简单，配置其实就已经OK了，但别急着打包，还要补一个文件到ios工程下面，随便命名都可以，这里为了规范，取名为<code>ExportOptions.plist</code></p>
+<pre class="line-numbers language-shel" data-language="shel"><code class="language-shel">cd ios
+touch ExportOptions.plist<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>在里面补充内容</p>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?></span>
+<span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">plist</span> <span class="token name">PUBLIC</span> <span class="token string">"-//Apple//DTD PLIST 1.0//EN"</span> <span class="token string">"http://www.apple.com/DTDs/PropertyList-1.0.dtd"</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>plist</span> <span class="token attr-name">version</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>1.0<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dict</span><span class="token punctuation">></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>key</span><span class="token punctuation">></span></span>generateAppStoreInformation<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>key</span><span class="token punctuation">></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>false</span><span class="token punctuation">/></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>key</span><span class="token punctuation">></span></span>manageAppVersionAndBuildNumber<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>key</span><span class="token punctuation">></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>true</span><span class="token punctuation">/></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>key</span><span class="token punctuation">></span></span>method<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>key</span><span class="token punctuation">></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">></span></span>app-store<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>key</span><span class="token punctuation">></span></span>provisioningProfiles<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>key</span><span class="token punctuation">></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dict</span><span class="token punctuation">></span></span>
+		<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>key</span><span class="token punctuation">></span></span>com.xxx.xxx<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>key</span><span class="token punctuation">></span></span>
+		<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">></span></span>com.xxx.xxx_Production_SignProvision<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dict</span><span class="token punctuation">></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>key</span><span class="token punctuation">></span></span>signingCertificate<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>key</span><span class="token punctuation">></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">></span></span>Apple Distribution<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>key</span><span class="token punctuation">></span></span>signingStyle<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>key</span><span class="token punctuation">></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">></span></span>manual<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>key</span><span class="token punctuation">></span></span>stripSwiftSymbols<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>key</span><span class="token punctuation">></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>true</span><span class="token punctuation">/></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>key</span><span class="token punctuation">></span></span>uploadSymbols<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>key</span><span class="token punctuation">></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>false</span><span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dict</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>plist</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>别忘记把里面的xxx调换为你自己的BundleID，这个很重要，搞错肯定是打不出包的。好了，接下来验证一下。</p>
+<p><strong>在flutter工程根目录下执行：</strong></p>
+<pre class="line-numbers language-shel" data-language="shel"><code class="language-shel">flutter build ipa --export-options-plist $PWD&#x2F;ios&#x2F;ExportOptions.plist<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>不出意外，应该是可以看到</p>
+<p><img data-src="/2022/12/07/flutter%E8%93%9D%E7%9B%BE%E6%9E%84%E5%BB%BA%E6%8C%87%E5%8D%97/image-20221207192201361-0412125.png" alt="image-20221207192201361" loading="lazy" src="/2022/12/07/flutter%E8%93%9D%E7%9B%BE%E6%9E%84%E5%BB%BA%E6%8C%87%E5%8D%97/image-20221207192201361-0412125.png"></p>
+<p>本地的准备工作也就基本上告一段落了，接下来就是去蓝盾上整流水线了。</p>
+<p><img data-src="/2022/12/07/flutter%E8%93%9D%E7%9B%BE%E6%9E%84%E5%BB%BA%E6%8C%87%E5%8D%97/image-20221207200414439.png" loading="lazy" src="/2022/12/07/flutter%E8%93%9D%E7%9B%BE%E6%9E%84%E5%BB%BA%E6%8C%87%E5%8D%97/image-20221207200414439.png"></p>
+<p>流水线步骤比较清晰，第一个是选macOS环境，我这里选择的最新的系统，xcode14.0.1</p>
+<p><img data-src="/2022/12/07/flutter%E8%93%9D%E7%9B%BE%E6%9E%84%E5%BB%BA%E6%8C%87%E5%8D%97/image-20221207200948090.png" alt="image-20221207200948090" loading="lazy" src="/2022/12/07/flutter%E8%93%9D%E7%9B%BE%E6%9E%84%E5%BB%BA%E6%8C%87%E5%8D%97/image-20221207200948090.png"></p>
+<p>git拉取就不必多说，原理就是把项目git clone 到工作空间下；</p>
+<p>打包产物这里就有必要详细聊一下了</p>
+<p>1、需要准备flutter环境，这里直接在公司的镜像上托下来，思路是直接装到工作空间下，用这个flutter来跑，避免构建机上版本冲突。脚本内容如下:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">
+<span class="token builtin class-name">cd</span> <span class="token variable">$WORKSPACE</span>
+<span class="token assign-left variable">ARG_FLUTTER_VERSION</span><span class="token operator">=</span><span class="token number">3.3</span>.6
+<span class="token comment"># 这里就是git拉取代码保存flutter代码的目录，随便写</span>
+<span class="token assign-left variable">BUILD_ROOT</span><span class="token operator">=</span>code/
+<span class="token builtin class-name">echo</span> <span class="token string">"执行清理缓存"</span>
+<span class="token function">rm</span> <span class="token parameter variable">-rf</span> flutter
+<span class="token function">rm</span> <span class="token parameter variable">-rf</span> /tmp/flutter_output_path.log
+<span class="token assign-left variable">FLUTTER_DOWNLOAD_URL</span><span class="token operator">=</span><span class="token string">"https://mirrors.tencent.com/flutter/flutter_infra_release/releases/stable/macos/flutter_macos_<span class="token variable">$&#123;ARG_FLUTTER_VERSION&#125;</span>-stable.zip"</span>
+<span class="token function">wget</span> <span class="token variable">$&#123;FLUTTER_DOWNLOAD_URL&#125;</span> --no-check-certificate <span class="token parameter variable">-O</span> flutter.zip
+<span class="token function">unzip</span> flutter.zip
+<span class="token builtin class-name">export</span> <span class="token assign-left variable"><span class="token environment constant">PATH</span></span><span class="token operator">=</span><span class="token string">"<span class="token variable"><span class="token variable">$(</span><span class="token builtin class-name">pwd</span><span class="token variable">)</span></span>/flutter/bin:<span class="token environment constant">$PATH</span>"</span>
+<span class="token builtin class-name">echo</span> <span class="token environment constant">$PATH</span>
+<span class="token assign-left variable">FLUTTER_PATH</span><span class="token operator">=</span><span class="token string">"<span class="token variable"><span class="token variable">$(</span><span class="token builtin class-name">pwd</span><span class="token variable">)</span></span>/flutter/"</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">PUB_HOSTED_URL</span><span class="token operator">=</span>https://pub.flutter-io.cn
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">FLUTTER_STORAGE_BASE_URL</span><span class="token operator">=</span>https://storage.flutter-io.cn
+<span class="token builtin class-name">echo</span> <span class="token string">"PUB_HOSTED_URL=<span class="token variable">$PUB_HOSTED_URL</span>"</span>
+<span class="token builtin class-name">echo</span> <span class="token string">"FLUTTER_STORAGE_BASE_URL=<span class="token variable">$FLUTTER_STORAGE_BASE_URL</span>"</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">PUB_CACHE</span><span class="token operator">=~</span>/.pub-cache/
+<span class="token function">rm</span> <span class="token parameter variable">-rf</span> ~/.pub-cache/*
+<span class="token function">rm</span> <span class="token parameter variable">-rf</span> <span class="token variable">$FLUTTER_PATH</span>/.pub-cache/*
+<span class="token comment"># 进入flutter项目根目录</span>
+<span class="token builtin class-name">cd</span> <span class="token variable">$BUILD_ROOT</span>
+flutter packages get
+<span class="token comment"># 执行本地尝试成功的那个构建产物命令</span>
+flutter build ipa --export-options-plist ./ios/ExportOptions.plist
+
+<span class="token comment"># 构建Android产物</span>
+flutter build apk
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p>可以看到我们大部分工作在准备和本地一致的环境，就是为了执行 <code>flutter build ipa --export-options-plist ./ios/ExportOptions.plist</code>。</p>
+<p>2、然后就是开始构建 ipa了。</p>
+<p>3、ipa构建好之后，将产物归档，是为了扫二维码可以安装，但我们不安装这个。</p>
+<p>4、使用企业微信重新签名。</p>
+<p>保存！执行起来，不出意外，可以看到构建产物中有两个ipa了，一个是使用企业证书签名过的，是可以直接在蓝盾上安装了。</p>
+<h4 id="Android配置篇"><a href="#Android配置篇" class="headerlink" title="Android配置篇"></a>Android配置篇</h4><p>Android的实现过程其实比较类似，深圳还更加简单些，直接使用keystore上蓝盾的证书，<strong>思路是flutter构建出一个不签名的包</strong>。</p>
+<p>然后使用蓝盾插件签名。</p>
+<p>因此，我们对android下面的app目录下的build.gradle进行更改，直接把buildTypes配置成这样</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">buildTypes <span class="token punctuation">&#123;</span>
+       release <span class="token punctuation">&#123;</span>
+           signingConfig <span class="token keyword">null</span>
+       <span class="token punctuation">&#125;</span>
+   <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>本地执行 ，默认注意需要jdk8</p>
+<pre class="line-numbers language-she" data-language="she"><code class="language-she">flutter build apk<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>可以看到apk可以构建成功，只不过是一个未签名的，然后由蓝盾上的签名流程的处理就好了，简单的办法是，直接在构建产物环节增加一下 Android产物的构建，过程复用，免得重新搞一个shell，又得安装一下flutter环境等。</p>
+<p>至此，整个蓝盾构建flutter工程的Android和ios包均完毕。如果比较幸运，是可以看到产物的。</p>
+<!-- flag of hidden posts -->
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Flutter/" rel="tag"># Flutter</a>
+          </div>
+
+        
+
+
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#iOS%E9%85%8D%E7%BD%AE%E7%AF%87"><span class="nav-number">1.</span> <span class="nav-text">iOS配置篇</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Android%E9%85%8D%E7%BD%AE%E7%AF%87"><span class="nav-number">2.</span> <span class="nav-text">Android配置篇</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hz</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/bravekingzhang" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;bravekingzhang" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hz</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.1.0/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/lozad.js/1.14.0/lozad.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'ba71a05708000167b907',
+      clientSecret: '32c7f2b320469e3c90e930e7548a397773f36bd0',
+      repo        : 'bravekingzhang.github.io',
+      owner       : 'bravekingzhang',
+      admin       : ['bravekingzhang'],
+      id          : '75f6490f0aea5908ad470a36d9f9d056',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>
