@@ -16,12 +16,12 @@
   <meta name="author" content="hz">
   <meta name="keywords" content="">
   
-    <meta name="description" content="因为项目使用的uni-app来做小程序，所以，不得不去研究下uni-app对小程序打包的整个过程，众所周知，最简单的办法是去github官网去看看他的readme文件，介绍，无奈没发现什么有价值的介绍，只能自己单步调试一下打包的过程了。 step1、在vscode中配置调试启动配置在launch.json中添加这一项就ok，这样就可以已调试的方式启动  yarn 命令，我这里是start。 &#x2F;&#x2F;">
+    <meta name="description" content="因为项目使用的uni-app来做小程序，所以，不得不去研究下uni-app对小程序打包的整个过程，众所周知，最简单的办法是去github官网去看看他的readme文件，介绍，无奈没发现什么有价值的介绍，只能自己单步调试一下打包的过程了。 step1、在vscode中配置调试启动配置在launch.json中添加这一项就ok，这样就可以已调试的方式启动  yarn 命令，我这里是start。 123">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浅析Uni-App的加载过程">
 <meta property="og:url" content="https://blog.brzhang.club/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/index.html">
 <meta property="og:site_name" content="心随我动">
-<meta property="og:description" content="因为项目使用的uni-app来做小程序，所以，不得不去研究下uni-app对小程序打包的整个过程，众所周知，最简单的办法是去github官网去看看他的readme文件，介绍，无奈没发现什么有价值的介绍，只能自己单步调试一下打包的过程了。 step1、在vscode中配置调试启动配置在launch.json中添加这一项就ok，这样就可以已调试的方式启动  yarn 命令，我这里是start。 &#x2F;&#x2F;">
+<meta property="og:description" content="因为项目使用的uni-app来做小程序，所以，不得不去研究下uni-app对小程序打包的整个过程，众所周知，最简单的办法是去github官网去看看他的readme文件，介绍，无奈没发现什么有价值的介绍，只能自己单步调试一下打包的过程了。 step1、在vscode中配置调试启动配置在launch.json中添加这一项就ok，这样就可以已调试的方式启动  yarn 命令，我这里是start。 123">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.brzhang.club/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307185142192.png">
 <meta property="og:image" content="https://blog.brzhang.club/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307190611229.png">
@@ -261,7 +261,7 @@
         
         
         
-          106 分钟
+          112 分钟
         
       </span>
     
@@ -313,50 +313,13 @@
                 
                 <p>因为项目使用的<a target="_blank" rel="noopener" href="https://github.com/dcloudio/uni-app">uni-app</a>来做小程序，所以，不得不去研究下uni-app对小程序打包的整个过程，众所周知，最简单的办法是去github官网去看看他的readme文件，介绍，无奈没发现什么有价值的介绍，只能自己单步调试一下打包的过程了。</p>
 <h3 id="step1、在vscode中配置调试启动配置"><a href="#step1、在vscode中配置调试启动配置" class="headerlink" title="step1、在vscode中配置调试启动配置"></a>step1、在vscode中配置调试启动配置</h3><p>在launch.json中添加这一项就ok，这样就可以已调试的方式启动  yarn 命令，我这里是start。</p>
-<div class="code-wrapper"><pre><code class="hljs json"><span class="hljs-comment">// A launch configuration that compiles the extension and then opens it inside a new window</span>
-<span class="hljs-comment">// Use IntelliSense to learn about possible attributes.</span>
-<span class="hljs-comment">// Hover to view descriptions of existing attributes.</span>
-<span class="hljs-comment">// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387</span>
-<span class="hljs-punctuation">&#123;</span>
-	<span class="hljs-attr">&quot;version&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0.2.0&quot;</span><span class="hljs-punctuation">,</span>
-	<span class="hljs-attr">&quot;configurations&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
-		<span class="hljs-punctuation">&#123;</span>
-      <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;node&quot;</span><span class="hljs-punctuation">,</span>
-      <span class="hljs-attr">&quot;request&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;launch&quot;</span><span class="hljs-punctuation">,</span>
-      <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;yarn&quot;</span><span class="hljs-punctuation">,</span>
-      <span class="hljs-attr">&quot;runtimeExecutable&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;yarn&quot;</span><span class="hljs-punctuation">,</span>
-      <span class="hljs-attr">&quot;runtimeArgs&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
-        <span class="hljs-string">&quot;start&quot;</span>
-      <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
-      <span class="hljs-attr">&quot;port&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">5858</span><span class="hljs-punctuation">,</span>
-      <span class="hljs-attr">&quot;cwd&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;$&#123;workspaceRoot&#125;&quot;</span><span class="hljs-punctuation">,</span>
-      <span class="hljs-attr">&quot;timeout&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">10000</span>
-    <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span>
-		....
-<span class="hljs-punctuation">&#125;</span>
-</code></pre></div>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-comment">// A launch configuration that compiles the extension and then opens it inside a new window</span><br><span class="hljs-comment">// Use IntelliSense to learn about possible attributes.</span><br><span class="hljs-comment">// Hover to view descriptions of existing attributes.</span><br><span class="hljs-comment">// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387</span><br><span class="hljs-punctuation">&#123;</span><br>	<span class="hljs-attr">&quot;version&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0.2.0&quot;</span><span class="hljs-punctuation">,</span><br>	<span class="hljs-attr">&quot;configurations&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>		<span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;node&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;request&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;launch&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;yarn&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;runtimeExecutable&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;yarn&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;runtimeArgs&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>        <span class="hljs-string">&quot;start&quot;</span><br>      <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;port&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">5858</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;cwd&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;$&#123;workspaceRoot&#125;&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;timeout&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">10000</span><br>    <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>		....<br><span class="hljs-punctuation">&#125;</span><br><br></code></pre></td></tr></table></figure>
 
 <p>然后就是启动调试了，当然可以在适当的位置先配置一个断点，比如在这个文件中</p>
 <p><code>./node_modules/@dcloudio/vue-cli-plugin-uni/lib/env.js</code>增加一个断点</p>
 <p><img src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307185142192.png" srcset="/img/loading.gif" lazyload alt="image-20220307185142192" loading="lazy" data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307185142192.png"></p>
 <p>断掉断到之后，可以发现，栈底是在执行这个文件的代码<code>/internal/main/run_main_module.js</code></p>
-<div class="code-wrapper"><pre><code class="hljs javascript"><span class="hljs-meta">&#x27;use strict&#x27;</span>;
-
-<span class="hljs-keyword">const</span> &#123;
-  prepareMainThreadExecution
-&#125; = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;internal/bootstrap/pre_execution&#x27;</span>);
-
-<span class="hljs-title function_">prepareMainThreadExecution</span>(<span class="hljs-literal">true</span>);
-
-<span class="hljs-keyword">const</span> <span class="hljs-title class_">CJSModule</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;internal/modules/cjs/loader&#x27;</span>);
-
-<span class="hljs-title function_">markBootstrapComplete</span>();
-
-<span class="hljs-comment">// Note: this actually tries to run the module as a ESM first if</span>
-<span class="hljs-comment">// --experimental-modules is on.</span>
-<span class="hljs-comment">// TODO(joyeecheung): can we move that logic to here? Note that this</span>
-<span class="hljs-comment">// is an undocumented method available via `require(&#x27;module&#x27;).runMain`</span>
-<span class="hljs-title class_">CJSModule</span>.<span class="hljs-title function_">runMain</span>();</code></pre></div>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-meta">&#x27;use strict&#x27;</span>;<br><br><span class="hljs-keyword">const</span> &#123;<br>  prepareMainThreadExecution<br>&#125; = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;internal/bootstrap/pre_execution&#x27;</span>);<br><br><span class="hljs-title function_">prepareMainThreadExecution</span>(<span class="hljs-literal">true</span>);<br><br><span class="hljs-keyword">const</span> <span class="hljs-title class_">CJSModule</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;internal/modules/cjs/loader&#x27;</span>);<br><br><span class="hljs-title function_">markBootstrapComplete</span>();<br><br><span class="hljs-comment">// Note: this actually tries to run the module as a ESM first if</span><br><span class="hljs-comment">// --experimental-modules is on.</span><br><span class="hljs-comment">// TODO(joyeecheung): can we move that logic to here? Note that this</span><br><span class="hljs-comment">// is an undocumented method available via `require(&#x27;module&#x27;).runMain`</span><br><span class="hljs-title class_">CJSModule</span>.<span class="hljs-title function_">runMain</span>();<br></code></pre></td></tr></table></figure>
 
 <p>所以，我们发现了一个点，整个构建的开始就是从CJSModule.runMain();这句话开始的。</p>
 <h3 id="step2、分析uni的打包过程中加载了哪些文件"><a href="#step2、分析uni的打包过程中加载了哪些文件" class="headerlink" title="step2、分析uni的打包过程中加载了哪些文件"></a>step2、分析uni的打包过程中加载了哪些文件</h3><p><img src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307190611229.png" srcset="/img/loading.gif" lazyload alt="image-20220307190611229" loading="lazy" data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307190611229.png"></p>
@@ -365,24 +328,7 @@
 <p>@vue&#x2F;cli-service&#x2F;bin&#x2F;vue-cli-service.js</p>
 <p><img src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307190027189.png" srcset="/img/loading.gif" lazyload alt="image-20220307190027189" loading="lazy" data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307190027189.png"></p>
 <p>随后的过程记录粗粒度一点点，后面vue-cli-service会加载各种plugin，具体怎么判断是否是一个plugin，有一定的规则命名;</p>
-<div class="code-wrapper"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> pluginRE = <span class="hljs-regexp">/^(@vue\/|vue-|@[\w-]+(\.)?[\w-]+\/vue-)cli-plugin-/</span>
-<span class="hljs-keyword">const</span> scopeRE = <span class="hljs-regexp">/^@[\w-]+(\.)?[\w-]+\//</span>
-<span class="hljs-keyword">const</span> officialRE = <span class="hljs-regexp">/^@vue\//</span>
-
-<span class="hljs-keyword">const</span> officialPlugins = [
-  <span class="hljs-string">&#x27;babel&#x27;</span>,
-  <span class="hljs-string">&#x27;e2e-cypress&#x27;</span>,
-  <span class="hljs-string">&#x27;e2e-nightwatch&#x27;</span>,
-  <span class="hljs-string">&#x27;e2e-webdriverio&#x27;</span>,
-  <span class="hljs-string">&#x27;eslint&#x27;</span>,
-  <span class="hljs-string">&#x27;pwa&#x27;</span>,
-  <span class="hljs-string">&#x27;router&#x27;</span>,
-  <span class="hljs-string">&#x27;typescript&#x27;</span>,
-  <span class="hljs-string">&#x27;unit-jest&#x27;</span>,
-  <span class="hljs-string">&#x27;unit-mocha&#x27;</span>,
-  <span class="hljs-string">&#x27;vuex&#x27;</span>
-]
-<span class="hljs-built_in">exports</span>.<span class="hljs-property">isPlugin</span> = <span class="hljs-function"><span class="hljs-params">id</span> =&gt;</span> pluginRE.<span class="hljs-title function_">test</span>(id)</code></pre></div>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> pluginRE = <span class="hljs-regexp">/^(@vue\/|vue-|@[\w-]+(\.)?[\w-]+\/vue-)cli-plugin-/</span><br><span class="hljs-keyword">const</span> scopeRE = <span class="hljs-regexp">/^@[\w-]+(\.)?[\w-]+\//</span><br><span class="hljs-keyword">const</span> officialRE = <span class="hljs-regexp">/^@vue\//</span><br><br><span class="hljs-keyword">const</span> officialPlugins = [<br>  <span class="hljs-string">&#x27;babel&#x27;</span>,<br>  <span class="hljs-string">&#x27;e2e-cypress&#x27;</span>,<br>  <span class="hljs-string">&#x27;e2e-nightwatch&#x27;</span>,<br>  <span class="hljs-string">&#x27;e2e-webdriverio&#x27;</span>,<br>  <span class="hljs-string">&#x27;eslint&#x27;</span>,<br>  <span class="hljs-string">&#x27;pwa&#x27;</span>,<br>  <span class="hljs-string">&#x27;router&#x27;</span>,<br>  <span class="hljs-string">&#x27;typescript&#x27;</span>,<br>  <span class="hljs-string">&#x27;unit-jest&#x27;</span>,<br>  <span class="hljs-string">&#x27;unit-mocha&#x27;</span>,<br>  <span class="hljs-string">&#x27;vuex&#x27;</span><br>]<br><span class="hljs-built_in">exports</span>.<span class="hljs-property">isPlugin</span> = <span class="hljs-function"><span class="hljs-params">id</span> =&gt;</span> pluginRE.<span class="hljs-title function_">test</span>(id)<br></code></pre></td></tr></table></figure>
 
 <p>然后从项目的package.json的依赖中解析出来了三个需要加载的插件</p>
 <p><img src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307193648564.png" srcset="/img/loading.gif" lazyload alt="image-20220307193648564" loading="lazy" data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307193648564.png"></p>
@@ -390,8 +336,7 @@
 <h4 id="加载vue-cli-plugin-uni插件"><a href="#加载vue-cli-plugin-uni插件" class="headerlink" title="加载vue-cli-plugin-uni插件"></a>加载vue-cli-plugin-uni插件</h4><p>进入一看，他直接退出了，原因是只处理 app-plus相关的逻辑，而我们编译的是mp-weixin</p>
 <p><img src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307194446009.png" srcset="/img/loading.gif" lazyload loading="lazy" data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307194446009.png"></p>
 <p>所以，忽略，直接进入下面一个 vue-cli-plugin-uni的加载，这个文件先加载了一个.env.js</p>
-<div class="code-wrapper"><pre><code class="hljs javascript"><span class="hljs-comment">// 初始化全局插件对象</span>
-<span class="hljs-variable language_">global</span>.<span class="hljs-property">uniPlugin</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;@dcloudio/uni-cli-shared/lib/plugin&#x27;</span>).<span class="hljs-title function_">init</span>()</code></pre></div>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 初始化全局插件对象</span><br><span class="hljs-variable language_">global</span>.<span class="hljs-property">uniPlugin</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;@dcloudio/uni-cli-shared/lib/plugin&#x27;</span>).<span class="hljs-title function_">init</span>()<br></code></pre></td></tr></table></figure>
 
 <p>这个里面就初始化了全局插件对象，然后它的init操作中去加载了对应平台的插件，也就是说，编译什么平台就加载什么平台的插件。</p>
 <p><img src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307213703832.png" srcset="/img/loading.gif" lazyload alt="image-20220307213703832" loading="lazy" data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307213703832.png"></p>
@@ -421,111 +366,14 @@
 </ol>
 <p>插件加载之后，下一步 就是要执行插件，执行操作设计到对vue代码转换为小程序语法的过程，这部分内容，我觉得还是单独开一篇比较合适。</p>
 <h4 id="加载vue-cli-plugin-uni-optimize插件"><a href="#加载vue-cli-plugin-uni-optimize插件" class="headerlink" title="加载vue-cli-plugin-uni-optimize插件"></a>加载vue-cli-plugin-uni-optimize插件</h4><p>这个插件主要是做了一些代码优化，代码也不是很多，很直观就可以看明白</p>
-<div class="code-wrapper"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;path&#x27;</span>)
-
-<span class="hljs-keyword">const</span> webpack = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;webpack&#x27;</span>)
-
-<span class="hljs-keyword">const</span> <span class="hljs-title class_">WebpackOptimizePlugin</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./packages/webpack-optimize-plugin&#x27;</span>)
-
-<span class="hljs-keyword">const</span> &#123;
-  src,
-  lib
-&#125; = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;@dcloudio/uni-h5/path&#x27;</span>)
-
-<span class="hljs-keyword">const</span> <span class="hljs-title function_">resolve</span> = dir =&gt; path.<span class="hljs-title function_">resolve</span>(__dirname, <span class="hljs-string">&#x27;./&#x27;</span>, dir)
-
-<span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = <span class="hljs-function">(<span class="hljs-params">api, options</span>) =&gt;</span> &#123;
-  <span class="hljs-keyword">if</span> (!process.<span class="hljs-property">env</span>.<span class="hljs-property">UNI_OPT_TREESHAKINGNG</span>) &#123;
-    <span class="hljs-keyword">return</span>
-  &#125;
-
-  <span class="hljs-keyword">if</span> (process.<span class="hljs-property">env</span>.<span class="hljs-property">NODE_ENV</span> !== <span class="hljs-string">&#x27;production&#x27;</span> || process.<span class="hljs-property">env</span>.<span class="hljs-property">UNI_PLATFORM</span> !== <span class="hljs-string">&#x27;h5&#x27;</span>) &#123;
-    <span class="hljs-keyword">return</span>
-  &#125;
-
-  <span class="hljs-comment">// 组件</span>
-  <span class="hljs-keyword">const</span> uniComponentsPath = <span class="hljs-title function_">resolve</span>(<span class="hljs-string">&#x27;.tmp/components.js&#x27;</span>)
-
-  <span class="hljs-keyword">const</span> uniInvokeApiPath = <span class="hljs-title function_">resolve</span>(<span class="hljs-string">&#x27;.tmp/invoke-api.js&#x27;</span>)
-  <span class="hljs-keyword">const</span> uniServiceApiPath = <span class="hljs-title function_">resolve</span>(<span class="hljs-string">&#x27;.tmp/api.js&#x27;</span>)
-  <span class="hljs-keyword">const</span> uniApiProtocolPath = <span class="hljs-title function_">resolve</span>(<span class="hljs-string">&#x27;.tmp/protocol.js&#x27;</span>)
-  <span class="hljs-keyword">const</span> uniApiSubscribePath = <span class="hljs-title function_">resolve</span>(<span class="hljs-string">&#x27;.tmp/subscribe.js&#x27;</span>)
-  <span class="hljs-keyword">const</span> uniH5AppComponentsPath = <span class="hljs-title function_">resolve</span>(<span class="hljs-string">&#x27;.tmp/app-components.js&#x27;</span>)
-  <span class="hljs-keyword">const</span> uniH5AppMixinsPath = <span class="hljs-title function_">resolve</span>(<span class="hljs-string">&#x27;.tmp/app-mixins.js&#x27;</span>)
-  <span class="hljs-keyword">const</span> uniH5SystemRoutes = <span class="hljs-title function_">resolve</span>(<span class="hljs-string">&#x27;.tmp/system-routes.js&#x27;</span>)
-
-  options.<span class="hljs-property">transpileDependencies</span>.<span class="hljs-title function_">push</span>(<span class="hljs-regexp">/vue-cli-plugin-uni-optimize/</span>)
-  options.<span class="hljs-property">transpileDependencies</span>.<span class="hljs-title function_">push</span>(<span class="hljs-regexp">/uni-h5/</span>)
-
-  api.<span class="hljs-title function_">configureWebpack</span>(<span class="hljs-function"><span class="hljs-params">webpackConfig</span> =&gt;</span> &#123;
-    <span class="hljs-keyword">return</span> &#123;
-      <span class="hljs-attr">watch</span>: <span class="hljs-literal">true</span>,
-      <span class="hljs-attr">resolve</span>: &#123;
-        <span class="hljs-attr">alias</span>: &#123;
-          [<span class="hljs-string">&#x27;uni-&#x27;</span> + process.<span class="hljs-property">env</span>.<span class="hljs-property">UNI_PLATFORM</span>]: path.<span class="hljs-title function_">join</span>(lib, <span class="hljs-string">`<span class="hljs-subst">$&#123;process.env.UNI_PLATFORM&#125;</span>/main.js`</span>),
-          <span class="hljs-string">&#x27;uni-core&#x27;</span>: path.<span class="hljs-title function_">join</span>(src, <span class="hljs-string">&#x27;core&#x27;</span>),
-          <span class="hljs-string">&#x27;uni-view&#x27;</span>: path.<span class="hljs-title function_">join</span>(src, <span class="hljs-string">&#x27;core/view&#x27;</span>),
-          <span class="hljs-string">&#x27;uni-service&#x27;</span>: path.<span class="hljs-title function_">join</span>(src, <span class="hljs-string">&#x27;core/service&#x27;</span>),
-          <span class="hljs-string">&#x27;uni-shared&#x27;</span>: path.<span class="hljs-title function_">join</span>(src, <span class="hljs-string">&#x27;shared&#x27;</span>),
-          <span class="hljs-string">&#x27;uni-mixins&#x27;</span>: path.<span class="hljs-title function_">join</span>(src, <span class="hljs-string">&#x27;core/view/mixins&#x27;</span>),
-          <span class="hljs-string">&#x27;uni-helpers&#x27;</span>: path.<span class="hljs-title function_">join</span>(src, <span class="hljs-string">&#x27;core/helpers&#x27;</span>),
-          <span class="hljs-string">&#x27;uni-platform&#x27;</span>: path.<span class="hljs-title function_">join</span>(src, <span class="hljs-string">&#x27;platforms/&#x27;</span> + process.<span class="hljs-property">env</span>.<span class="hljs-property">UNI_PLATFORM</span>),
-
-          <span class="hljs-comment">// tree shaking</span>
-          <span class="hljs-string">&#x27;uni-components&#x27;</span>: uniComponentsPath,
-          <span class="hljs-string">&#x27;uni-invoke-api&#x27;</span>: uniInvokeApiPath,
-          <span class="hljs-string">&#x27;uni-service-api&#x27;</span>: uniServiceApiPath,
-          <span class="hljs-string">&#x27;uni-api-protocol&#x27;</span>: uniApiProtocolPath,
-          <span class="hljs-string">&#x27;uni-api-subscribe&#x27;</span>: uniApiSubscribePath,
-          <span class="hljs-comment">// h5 components</span>
-          <span class="hljs-string">&#x27;uni-h5-app-components&#x27;</span>: uniH5AppComponentsPath,
-          <span class="hljs-string">&#x27;uni-h5-app-mixins&#x27;</span>: uniH5AppMixinsPath,
-          <span class="hljs-string">&#x27;uni-h5-system-routes&#x27;</span>: uniH5SystemRoutes
-        &#125;
-      &#125;,
-      <span class="hljs-attr">plugins</span>: [
-        <span class="hljs-keyword">new</span> <span class="hljs-title class_">WebpackOptimizePlugin</span>(),
-        <span class="hljs-keyword">new</span> webpack.<span class="hljs-title class_">DefinePlugin</span>(&#123;
-          <span class="hljs-attr">__VERSION__</span>: <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(<span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;@dcloudio/uni-&#x27;</span> + process.<span class="hljs-property">env</span>.<span class="hljs-property">UNI_PLATFORM</span> + <span class="hljs-string">&#x27;/package.json&#x27;</span>).<span class="hljs-property">version</span>),
-          <span class="hljs-attr">__PLATFORM__</span>: <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(process.<span class="hljs-property">env</span>.<span class="hljs-property">UNI_PLATFORM</span>)
-        &#125;),
-        <span class="hljs-keyword">new</span> webpack.<span class="hljs-title class_">ProvidePlugin</span>(&#123;
-          <span class="hljs-attr">console</span>: [path.<span class="hljs-title function_">join</span>(src, <span class="hljs-string">&#x27;core/helpers/console&#x27;</span>), <span class="hljs-string">&#x27;default&#x27;</span>],
-          <span class="hljs-title class_">UniViewJSBridge</span>: [path.<span class="hljs-title function_">join</span>(src, <span class="hljs-string">&#x27;core/view/bridge/index&#x27;</span>)],
-          <span class="hljs-title class_">UniServiceJSBridge</span>: [path.<span class="hljs-title function_">join</span>(src, <span class="hljs-string">&#x27;core/service/bridge/index&#x27;</span>)]
-        &#125;)
-      ]
-    &#125;
-  &#125;)
-
-  api.<span class="hljs-title function_">chainWebpack</span>(<span class="hljs-function"><span class="hljs-params">webpackConfig</span> =&gt;</span> &#123;
-    <span class="hljs-comment">// Vue</span>
-    webpackConfig.<span class="hljs-property">module</span>
-      .<span class="hljs-title function_">rule</span>(<span class="hljs-string">&#x27;vue&#x27;</span>)
-      .<span class="hljs-title function_">use</span>(<span class="hljs-string">&#x27;vue-loader&#x27;</span>)
-      .<span class="hljs-title function_">tap</span>(<span class="hljs-function"><span class="hljs-params">options</span> =&gt;</span> <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">assign</span>(options, &#123;
-        <span class="hljs-attr">isH5TreeShaking</span>: <span class="hljs-literal">true</span>,
-        <span class="hljs-attr">cacheDirectory</span>: <span class="hljs-literal">false</span>,
-        <span class="hljs-attr">cacheIdentifier</span>: <span class="hljs-literal">false</span>
-      &#125;))
-      .<span class="hljs-title function_">end</span>()
-      .<span class="hljs-property">uses</span>
-      .<span class="hljs-title function_">delete</span>(<span class="hljs-string">&#x27;cache-loader&#x27;</span>)
-  &#125;)
-&#125;
-</code></pre></div>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;path&#x27;</span>)<br><br><span class="hljs-keyword">const</span> webpack = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;webpack&#x27;</span>)<br><br><span class="hljs-keyword">const</span> <span class="hljs-title class_">WebpackOptimizePlugin</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./packages/webpack-optimize-plugin&#x27;</span>)<br><br><span class="hljs-keyword">const</span> &#123;<br>  src,<br>  lib<br>&#125; = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;@dcloudio/uni-h5/path&#x27;</span>)<br><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">resolve</span> = dir =&gt; path.<span class="hljs-title function_">resolve</span>(__dirname, <span class="hljs-string">&#x27;./&#x27;</span>, dir)<br><br><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = <span class="hljs-function">(<span class="hljs-params">api, options</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">if</span> (!process.<span class="hljs-property">env</span>.<span class="hljs-property">UNI_OPT_TREESHAKINGNG</span>) &#123;<br>    <span class="hljs-keyword">return</span><br>  &#125;<br><br>  <span class="hljs-keyword">if</span> (process.<span class="hljs-property">env</span>.<span class="hljs-property">NODE_ENV</span> !== <span class="hljs-string">&#x27;production&#x27;</span> || process.<span class="hljs-property">env</span>.<span class="hljs-property">UNI_PLATFORM</span> !== <span class="hljs-string">&#x27;h5&#x27;</span>) &#123;<br>    <span class="hljs-keyword">return</span><br>  &#125;<br><br>  <span class="hljs-comment">// 组件</span><br>  <span class="hljs-keyword">const</span> uniComponentsPath = <span class="hljs-title function_">resolve</span>(<span class="hljs-string">&#x27;.tmp/components.js&#x27;</span>)<br><br>  <span class="hljs-keyword">const</span> uniInvokeApiPath = <span class="hljs-title function_">resolve</span>(<span class="hljs-string">&#x27;.tmp/invoke-api.js&#x27;</span>)<br>  <span class="hljs-keyword">const</span> uniServiceApiPath = <span class="hljs-title function_">resolve</span>(<span class="hljs-string">&#x27;.tmp/api.js&#x27;</span>)<br>  <span class="hljs-keyword">const</span> uniApiProtocolPath = <span class="hljs-title function_">resolve</span>(<span class="hljs-string">&#x27;.tmp/protocol.js&#x27;</span>)<br>  <span class="hljs-keyword">const</span> uniApiSubscribePath = <span class="hljs-title function_">resolve</span>(<span class="hljs-string">&#x27;.tmp/subscribe.js&#x27;</span>)<br>  <span class="hljs-keyword">const</span> uniH5AppComponentsPath = <span class="hljs-title function_">resolve</span>(<span class="hljs-string">&#x27;.tmp/app-components.js&#x27;</span>)<br>  <span class="hljs-keyword">const</span> uniH5AppMixinsPath = <span class="hljs-title function_">resolve</span>(<span class="hljs-string">&#x27;.tmp/app-mixins.js&#x27;</span>)<br>  <span class="hljs-keyword">const</span> uniH5SystemRoutes = <span class="hljs-title function_">resolve</span>(<span class="hljs-string">&#x27;.tmp/system-routes.js&#x27;</span>)<br><br>  options.<span class="hljs-property">transpileDependencies</span>.<span class="hljs-title function_">push</span>(<span class="hljs-regexp">/vue-cli-plugin-uni-optimize/</span>)<br>  options.<span class="hljs-property">transpileDependencies</span>.<span class="hljs-title function_">push</span>(<span class="hljs-regexp">/uni-h5/</span>)<br><br>  api.<span class="hljs-title function_">configureWebpack</span>(<span class="hljs-function"><span class="hljs-params">webpackConfig</span> =&gt;</span> &#123;<br>    <span class="hljs-keyword">return</span> &#123;<br>      <span class="hljs-attr">watch</span>: <span class="hljs-literal">true</span>,<br>      <span class="hljs-attr">resolve</span>: &#123;<br>        <span class="hljs-attr">alias</span>: &#123;<br>          [<span class="hljs-string">&#x27;uni-&#x27;</span> + process.<span class="hljs-property">env</span>.<span class="hljs-property">UNI_PLATFORM</span>]: path.<span class="hljs-title function_">join</span>(lib, <span class="hljs-string">`<span class="hljs-subst">$&#123;process.env.UNI_PLATFORM&#125;</span>/main.js`</span>),<br>          <span class="hljs-string">&#x27;uni-core&#x27;</span>: path.<span class="hljs-title function_">join</span>(src, <span class="hljs-string">&#x27;core&#x27;</span>),<br>          <span class="hljs-string">&#x27;uni-view&#x27;</span>: path.<span class="hljs-title function_">join</span>(src, <span class="hljs-string">&#x27;core/view&#x27;</span>),<br>          <span class="hljs-string">&#x27;uni-service&#x27;</span>: path.<span class="hljs-title function_">join</span>(src, <span class="hljs-string">&#x27;core/service&#x27;</span>),<br>          <span class="hljs-string">&#x27;uni-shared&#x27;</span>: path.<span class="hljs-title function_">join</span>(src, <span class="hljs-string">&#x27;shared&#x27;</span>),<br>          <span class="hljs-string">&#x27;uni-mixins&#x27;</span>: path.<span class="hljs-title function_">join</span>(src, <span class="hljs-string">&#x27;core/view/mixins&#x27;</span>),<br>          <span class="hljs-string">&#x27;uni-helpers&#x27;</span>: path.<span class="hljs-title function_">join</span>(src, <span class="hljs-string">&#x27;core/helpers&#x27;</span>),<br>          <span class="hljs-string">&#x27;uni-platform&#x27;</span>: path.<span class="hljs-title function_">join</span>(src, <span class="hljs-string">&#x27;platforms/&#x27;</span> + process.<span class="hljs-property">env</span>.<span class="hljs-property">UNI_PLATFORM</span>),<br><br>          <span class="hljs-comment">// tree shaking</span><br>          <span class="hljs-string">&#x27;uni-components&#x27;</span>: uniComponentsPath,<br>          <span class="hljs-string">&#x27;uni-invoke-api&#x27;</span>: uniInvokeApiPath,<br>          <span class="hljs-string">&#x27;uni-service-api&#x27;</span>: uniServiceApiPath,<br>          <span class="hljs-string">&#x27;uni-api-protocol&#x27;</span>: uniApiProtocolPath,<br>          <span class="hljs-string">&#x27;uni-api-subscribe&#x27;</span>: uniApiSubscribePath,<br>          <span class="hljs-comment">// h5 components</span><br>          <span class="hljs-string">&#x27;uni-h5-app-components&#x27;</span>: uniH5AppComponentsPath,<br>          <span class="hljs-string">&#x27;uni-h5-app-mixins&#x27;</span>: uniH5AppMixinsPath,<br>          <span class="hljs-string">&#x27;uni-h5-system-routes&#x27;</span>: uniH5SystemRoutes<br>        &#125;<br>      &#125;,<br>      <span class="hljs-attr">plugins</span>: [<br>        <span class="hljs-keyword">new</span> <span class="hljs-title class_">WebpackOptimizePlugin</span>(),<br>        <span class="hljs-keyword">new</span> webpack.<span class="hljs-title class_">DefinePlugin</span>(&#123;<br>          <span class="hljs-attr">__VERSION__</span>: <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(<span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;@dcloudio/uni-&#x27;</span> + process.<span class="hljs-property">env</span>.<span class="hljs-property">UNI_PLATFORM</span> + <span class="hljs-string">&#x27;/package.json&#x27;</span>).<span class="hljs-property">version</span>),<br>          <span class="hljs-attr">__PLATFORM__</span>: <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(process.<span class="hljs-property">env</span>.<span class="hljs-property">UNI_PLATFORM</span>)<br>        &#125;),<br>        <span class="hljs-keyword">new</span> webpack.<span class="hljs-title class_">ProvidePlugin</span>(&#123;<br>          <span class="hljs-attr">console</span>: [path.<span class="hljs-title function_">join</span>(src, <span class="hljs-string">&#x27;core/helpers/console&#x27;</span>), <span class="hljs-string">&#x27;default&#x27;</span>],<br>          <span class="hljs-title class_">UniViewJSBridge</span>: [path.<span class="hljs-title function_">join</span>(src, <span class="hljs-string">&#x27;core/view/bridge/index&#x27;</span>)],<br>          <span class="hljs-title class_">UniServiceJSBridge</span>: [path.<span class="hljs-title function_">join</span>(src, <span class="hljs-string">&#x27;core/service/bridge/index&#x27;</span>)]<br>        &#125;)<br>      ]<br>    &#125;<br>  &#125;)<br><br>  api.<span class="hljs-title function_">chainWebpack</span>(<span class="hljs-function"><span class="hljs-params">webpackConfig</span> =&gt;</span> &#123;<br>    <span class="hljs-comment">// Vue</span><br>    webpackConfig.<span class="hljs-property">module</span><br>      .<span class="hljs-title function_">rule</span>(<span class="hljs-string">&#x27;vue&#x27;</span>)<br>      .<span class="hljs-title function_">use</span>(<span class="hljs-string">&#x27;vue-loader&#x27;</span>)<br>      .<span class="hljs-title function_">tap</span>(<span class="hljs-function"><span class="hljs-params">options</span> =&gt;</span> <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">assign</span>(options, &#123;<br>        <span class="hljs-attr">isH5TreeShaking</span>: <span class="hljs-literal">true</span>,<br>        <span class="hljs-attr">cacheDirectory</span>: <span class="hljs-literal">false</span>,<br>        <span class="hljs-attr">cacheIdentifier</span>: <span class="hljs-literal">false</span><br>      &#125;))<br>      .<span class="hljs-title function_">end</span>()<br>      .<span class="hljs-property">uses</span><br>      .<span class="hljs-title function_">delete</span>(<span class="hljs-string">&#x27;cache-loader&#x27;</span>)<br>  &#125;)<br>&#125;<br><br></code></pre></td></tr></table></figure>
 
 <p>从这里也了解了，为啥编译一个小程序还需要h5的插件,然来是vue-cli-plugin-uni-optimize这个插件需要基于h5</p>
-<div class="code-wrapper"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> &#123;
-  src,
-  lib
-&#125; = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;@dcloudio/uni-h5/path&#x27;</span>)</code></pre></div>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> &#123;<br>  src,<br>  lib<br>&#125; = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;@dcloudio/uni-h5/path&#x27;</span>)<br></code></pre></td></tr></table></figure>
 
 <p><img src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307225158705.png" srcset="/img/loading.gif" lazyload alt="image-20220307225158705" loading="lazy" data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220307225158705.png"></p>
 <p>用到了他里面的一些核心能力，这也从侧面了解，uni编译各种版本，基本上都会最终依赖上这个h5的插件。这里也可以了解到，如果是开发模式，这个插件不会被执行，因为</p>
-<div class="code-wrapper"><pre><code class="hljs javascript"><span class="hljs-keyword">if</span> (!process.<span class="hljs-property">env</span>.<span class="hljs-property">UNI_OPT_TREESHAKINGNG</span>) &#123;
-    <span class="hljs-keyword">return</span>
-&#125;</code></pre></div>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">if</span> (!process.<span class="hljs-property">env</span>.<span class="hljs-property">UNI_OPT_TREESHAKINGNG</span>) &#123;<br>    <span class="hljs-keyword">return</span><br>&#125;<br></code></pre></td></tr></table></figure>
 
 
 
@@ -549,176 +397,14 @@
 <p>webpackConfig (&#x2F;Users&#x2F;xxx&#x2F;mp-project&#x2F;node_modules&#x2F;<strong>@dcloudio&#x2F;vue-cli-plugin-uni&#x2F;lib&#x2F;mp&#x2F;index.js</strong>:149)<br>….<strong>此处省略一些堆栈</strong><br>build (&#x2F;Users&#x2F;xxx&#x2F;mp-project&#x2F;node_modules&#x2F;@dcloudio&#x2F;vue-cli-plugin-uni&#x2F;commands&#x2F;build.js:137)<br><anonymous> (&#x2F;Users&#x2F;xxx&#x2F;mp-project&#x2F;node_modules&#x2F;<strong>@dcloudio&#x2F;vue-cli-plugin-uni&#x2F;commands&#x2F;build.js:62</strong>)<br>run (&#x2F;Users&#x2F;xxx&#x2F;mp-project&#x2F;node_modules&#x2F;@vue&#x2F;cli-service&#x2F;lib&#x2F;<strong>Service.js:230</strong>)<br><anonymous> (&#x2F;Users&#x2F;xxx&#x2F;mp-project&#x2F;node_modules&#x2F;@vue&#x2F;cli-service&#x2F;bin&#x2F;<strong>vue-cli-service.js:36</strong>)<br>Module._compile (<node_internals>&#x2F;internal&#x2F;modules&#x2F;cjs&#x2F;loader.js:956)<br>Module._extensions..js (<node_internals>&#x2F;internal&#x2F;modules&#x2F;cjs&#x2F;loader.js:973)<br>Module.load (<node_internals>&#x2F;internal&#x2F;modules&#x2F;cjs&#x2F;loader.js:812)<br>Module._load (<node_internals>&#x2F;internal&#x2F;modules&#x2F;cjs&#x2F;loader.js:724)<br>Module.runMain (<node_internals>&#x2F;internal&#x2F;modules&#x2F;cjs&#x2F;<strong>loader.js:1025</strong>)<br><anonymous> (<node_internals>&#x2F;internal&#x2F;main&#x2F;<strong>run_main_module.js:17</strong>)</node_internals></anonymous></node_internals></node_internals></node_internals></node_internals></node_internals></anonymous></anonymous></p>
 </blockquote>
 <p>这里也贴一下vue-cli-plugin-uni&#x2F;lib&#x2F;mp&#x2F;index.js的核心代码，后续的文章就了解这个里面怎么把vue代码构建成小程序的。</p>
-<div class="code-wrapper"><pre><code class="hljs javascript"><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = &#123;
-  <span class="hljs-attr">vueConfig</span>: &#123;
-    <span class="hljs-attr">parallel</span>: <span class="hljs-literal">false</span>
-  &#125;,
-  webpackConfig (webpackConfig, vueOptions, api) &#123;
-    <span class="hljs-keyword">if</span> (!webpackConfig.<span class="hljs-property">optimization</span>) &#123;
-      webpackConfig.<span class="hljs-property">optimization</span> = &#123;&#125;
-    &#125;
-    <span class="hljs-comment">// disable noEmitOnErrors</span>
-    webpackConfig.<span class="hljs-property">optimization</span>.<span class="hljs-property">noEmitOnErrors</span> = <span class="hljs-literal">false</span>
-
-    webpackConfig.<span class="hljs-property">optimization</span>.<span class="hljs-property">runtimeChunk</span> = &#123;
-      <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;common/runtime&#x27;</span>
-    &#125;
-
-    webpackConfig.<span class="hljs-property">optimization</span>.<span class="hljs-property">splitChunks</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;../split-chunks&#x27;</span>)()
-
-    <span class="hljs-title function_">parseEntry</span>()
-
-    <span class="hljs-keyword">const</span> statCode = process.<span class="hljs-property">env</span>.<span class="hljs-property">UNI_USING_STAT</span> ? <span class="hljs-string">&#x27;import \&#x27;@dcloudio/uni-stat\&#x27;;&#x27;</span> : <span class="hljs-string">&#x27;&#x27;</span>
-
-    <span class="hljs-keyword">let</span> beforeCode = <span class="hljs-string">&#x27;import \&#x27;uni-pages\&#x27;;&#x27;</span>
-
-    <span class="hljs-keyword">const</span> plugins = [
-      <span class="hljs-keyword">new</span> <span class="hljs-title class_">WebpackUniAppPlugin</span>(),
-      <span class="hljs-title function_">createUniMPPlugin</span>(),
-      <span class="hljs-keyword">new</span> webpack.<span class="hljs-title class_">ProvidePlugin</span>(<span class="hljs-title function_">getProvides</span>())
-    ]
-
-    <span class="hljs-keyword">if</span> ((process.<span class="hljs-property">env</span>.<span class="hljs-property">UNI_SUBPACKGE</span> || process.<span class="hljs-property">env</span>.<span class="hljs-property">UNI_MP_PLUGIN</span>) &amp;&amp; process.<span class="hljs-property">env</span>.<span class="hljs-property">UNI_SUBPACKGE</span> !== <span class="hljs-string">&#x27;main&#x27;</span>) &#123;
-      plugins.<span class="hljs-title function_">push</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">PreprocessAssetsPlugin</span>())
-    &#125;
-
-    <span class="hljs-keyword">if</span> (process.<span class="hljs-property">env</span>.<span class="hljs-property">UNI_MP_PLUGIN</span>) &#123;
-      <span class="hljs-comment">// 小程序插件入口使用</span>
-      <span class="hljs-comment">// packages\webpack-uni-mp-loader\lib\plugin\index-new.js -&gt; addMPPluginRequire</span>
-      beforeCode += <span class="hljs-string">`wx.__webpack_require_<span class="hljs-subst">$&#123;process.env.UNI_MP_PLUGIN.replace(<span class="hljs-string">&#x27;-&#x27;</span>, <span class="hljs-string">&#x27;_&#x27;</span>)&#125;</span>__ = __webpack_require__;`</span>
-
-      <span class="hljs-keyword">const</span> <span class="hljs-variable constant_">UNI_MP_PLUGIN_MAIN</span> = process.<span class="hljs-property">env</span>.<span class="hljs-property">UNI_MP_PLUGIN_MAIN</span>
-      <span class="hljs-keyword">if</span> (<span class="hljs-variable constant_">UNI_MP_PLUGIN_MAIN</span>) &#123;
-        process.<span class="hljs-property">UNI_ENTRY</span>[<span class="hljs-variable constant_">UNI_MP_PLUGIN_MAIN</span>.<span class="hljs-title function_">split</span>(<span class="hljs-string">&#x27;.&#x27;</span>)[<span class="hljs-number">0</span>]] = path.<span class="hljs-title function_">resolve</span>(process.<span class="hljs-property">env</span>.<span class="hljs-property">UNI_INPUT_DIR</span>, <span class="hljs-variable constant_">UNI_MP_PLUGIN_MAIN</span>)
-      &#125;
-    &#125;
-
-    <span class="hljs-keyword">return</span> &#123;
-      <span class="hljs-attr">mode</span>: process.<span class="hljs-property">env</span>.<span class="hljs-property">NODE_ENV</span> === <span class="hljs-string">&#x27;production&#x27;</span> ? <span class="hljs-string">&#x27;production&#x27;</span> : <span class="hljs-string">&#x27;development&#x27;</span>,
-      entry () &#123;
-        <span class="hljs-keyword">return</span> process.<span class="hljs-property">UNI_ENTRY</span>
-      &#125;,
-      <span class="hljs-attr">output</span>: &#123;
-        <span class="hljs-attr">filename</span>: <span class="hljs-string">&#x27;[name].js&#x27;</span>,
-        <span class="hljs-attr">chunkFilename</span>: <span class="hljs-string">&#x27;[id].js&#x27;</span>,
-        <span class="hljs-attr">globalObject</span>: process.<span class="hljs-property">env</span>.<span class="hljs-property">UNI_PLATFORM</span> === <span class="hljs-string">&#x27;mp-alipay&#x27;</span> ? <span class="hljs-string">&#x27;my&#x27;</span> : <span class="hljs-string">&#x27;global&#x27;</span>
-        <span class="hljs-comment">// sourceMapFilename: &#x27;../.sourcemap/&#x27; + process.env.UNI_PLATFORM + &#x27;/[name].js.map&#x27;</span>
-      &#125;,
-      <span class="hljs-attr">performance</span>: &#123;
-        <span class="hljs-attr">hints</span>: <span class="hljs-literal">false</span>
-      &#125;,
-      <span class="hljs-attr">resolve</span>: &#123;
-        <span class="hljs-attr">extensions</span>: [<span class="hljs-string">&#x27;.nvue&#x27;</span>],
-        <span class="hljs-attr">alias</span>: &#123; <span class="hljs-comment">// 仅 mp-weixin</span>
-          <span class="hljs-string">&#x27;mpvue-page-factory&#x27;</span>: <span class="hljs-built_in">require</span>.<span class="hljs-title function_">resolve</span>(
-            <span class="hljs-string">&#x27;@dcloudio/vue-cli-plugin-uni/packages/mpvue-page-factory&#x27;</span>)
-        &#125;
-      &#125;,
-      <span class="hljs-attr">module</span>: &#123;
-        <span class="hljs-attr">rules</span>: [&#123;
-          <span class="hljs-attr">test</span>: path.<span class="hljs-title function_">resolve</span>(process.<span class="hljs-property">env</span>.<span class="hljs-property">UNI_INPUT_DIR</span>, <span class="hljs-title function_">getMainEntry</span>()),
-          <span class="hljs-attr">use</span>: [&#123;
-            <span class="hljs-attr">loader</span>: path.<span class="hljs-title function_">resolve</span>(__dirname, <span class="hljs-string">&#x27;../../packages/wrap-loader&#x27;</span>),
-            <span class="hljs-attr">options</span>: &#123;
-              <span class="hljs-attr">before</span>: [
-                beforeCode + <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;../util&#x27;</span>).<span class="hljs-title function_">getAutomatorCode</span>() + statCode
-              ]
-            &#125;
-          &#125;, &#123;
-            <span class="hljs-attr">loader</span>: <span class="hljs-string">&#x27;@dcloudio/webpack-uni-mp-loader/lib/main&#x27;</span>
-          &#125;]
-        &#125;, &#123;
-          <span class="hljs-attr">resourceQuery</span>: <span class="hljs-regexp">/vue&amp;type=script/</span>,
-          <span class="hljs-attr">use</span>: [&#123;
-            <span class="hljs-attr">loader</span>: <span class="hljs-string">&#x27;@dcloudio/webpack-uni-mp-loader/lib/script&#x27;</span>
-          &#125;]
-        &#125;, &#123;
-          <span class="hljs-attr">resourceQuery</span>: <span class="hljs-regexp">/vue&amp;type=template/</span>,
-          <span class="hljs-attr">use</span>: [&#123;
-            <span class="hljs-attr">loader</span>: <span class="hljs-string">&#x27;@dcloudio/webpack-uni-mp-loader/lib/template&#x27;</span>
-          &#125;, &#123;
-            <span class="hljs-attr">loader</span>: <span class="hljs-string">&#x27;@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta&#x27;</span>
-          &#125;]
-        &#125;, <span class="hljs-title function_">createTemplateCacheLoader</span>(api), &#123;
-          <span class="hljs-attr">resourceQuery</span>: [
-            <span class="hljs-regexp">/lang=wxs/</span>,
-            <span class="hljs-regexp">/lang=filter/</span>,
-            <span class="hljs-regexp">/lang=sjs/</span>,
-            <span class="hljs-regexp">/blockType=wxs/</span>,
-            <span class="hljs-regexp">/blockType=filter/</span>,
-            <span class="hljs-regexp">/blockType=sjs/</span>
-          ],
-          <span class="hljs-attr">use</span>: [&#123;
-            <span class="hljs-attr">loader</span>: <span class="hljs-built_in">require</span>.<span class="hljs-title function_">resolve</span>(
-              <span class="hljs-string">&#x27;@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-filter-loader&#x27;</span>)
-          &#125;]
-        &#125;]
-      &#125;,
-      plugins
-    &#125;
-  &#125;,
-  chainWebpack (webpackConfig, vueOptions, api) &#123;
-    <span class="hljs-keyword">if</span> (process.<span class="hljs-property">env</span>.<span class="hljs-property">UNI_PLATFORM</span> === <span class="hljs-string">&#x27;mp-baidu&#x27;</span>) &#123;
-      webpackConfig.<span class="hljs-property">module</span>
-        .<span class="hljs-title function_">rule</span>(<span class="hljs-string">&#x27;js&#x27;</span>)
-        .<span class="hljs-property">exclude</span>
-        .<span class="hljs-title function_">add</span>(<span class="hljs-regexp">/\.filter\.js$/</span>)
-    &#125;
-
-    <span class="hljs-keyword">const</span> compilerOptions = process.<span class="hljs-property">env</span>.<span class="hljs-property">UNI_USING_COMPONENTS</span> ? &#123;&#125; : <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;../mp-compiler-options&#x27;</span>)
-
-    <span class="hljs-title function_">modifyVueLoader</span>(webpackConfig, &#123;&#125;, compilerOptions, api)
-
-    <span class="hljs-keyword">const</span> styleExt = <span class="hljs-title function_">getPlatformExts</span>().<span class="hljs-property">style</span>
-
-    webpackConfig.<span class="hljs-title function_">plugin</span>(<span class="hljs-string">&#x27;extract-css&#x27;</span>)
-      .<span class="hljs-title function_">init</span>(<span class="hljs-function">(<span class="hljs-params">Plugin, args</span>) =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Plugin</span>(&#123;
-        <span class="hljs-attr">filename</span>: <span class="hljs-string">&#x27;[name]&#x27;</span> + styleExt
-      &#125;))
-
-    <span class="hljs-keyword">if</span> (
-      process.<span class="hljs-property">env</span>.<span class="hljs-property">NODE_ENV</span> === <span class="hljs-string">&#x27;production&#x27;</span> &amp;&amp;
-      process.<span class="hljs-property">env</span>.<span class="hljs-property">UNI_PLATFORM</span> !== <span class="hljs-string">&#x27;app-plus&#x27;</span>
-    ) &#123;
-      <span class="hljs-keyword">const</span> <span class="hljs-title class_">OptimizeCssnanoPlugin</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;../../packages/@intervolga/optimize-cssnano-plugin/index.js&#x27;</span>)
-      webpackConfig.<span class="hljs-title function_">plugin</span>(<span class="hljs-string">&#x27;optimize-css&#x27;</span>)
-        .<span class="hljs-title function_">init</span>(<span class="hljs-function">(<span class="hljs-params">Plugin, args</span>) =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">OptimizeCssnanoPlugin</span>(&#123;
-          <span class="hljs-attr">sourceMap</span>: <span class="hljs-literal">false</span>,
-          filter (assetName) &#123;
-            <span class="hljs-keyword">return</span> path.<span class="hljs-title function_">extname</span>(assetName) === styleExt
-          &#125;,
-          <span class="hljs-attr">cssnanoOptions</span>: &#123;
-            <span class="hljs-attr">preset</span>: [
-              <span class="hljs-string">&#x27;default&#x27;</span>,
-              <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">assign</span>(&#123;&#125;, <span class="hljs-title function_">getPlatformCssnano</span>(), &#123;
-                <span class="hljs-attr">discardComments</span>: <span class="hljs-literal">true</span>
-              &#125;)
-            ]
-          &#125;
-
-        &#125;))
-    &#125;
-
-    <span class="hljs-keyword">if</span> (process.<span class="hljs-property">env</span>.<span class="hljs-property">UNI_SUBPACKGE</span> || process.<span class="hljs-property">env</span>.<span class="hljs-property">UNI_MP_PLUGIN</span>) &#123;
-      <span class="hljs-title function_">initSubpackageConfig</span>(webpackConfig, vueOptions)
-    &#125;
-
-    webpackConfig.<span class="hljs-property">plugins</span>.<span class="hljs-title function_">delete</span>(<span class="hljs-string">&#x27;hmr&#x27;</span>)
-    webpackConfig.<span class="hljs-property">plugins</span>.<span class="hljs-title function_">delete</span>(<span class="hljs-string">&#x27;html&#x27;</span>)
-    webpackConfig.<span class="hljs-property">plugins</span>.<span class="hljs-title function_">delete</span>(<span class="hljs-string">&#x27;copy&#x27;</span>)
-    webpackConfig.<span class="hljs-property">plugins</span>.<span class="hljs-title function_">delete</span>(<span class="hljs-string">&#x27;preload&#x27;</span>)
-    webpackConfig.<span class="hljs-property">plugins</span>.<span class="hljs-title function_">delete</span>(<span class="hljs-string">&#x27;prefetch&#x27;</span>)
-  &#125;
-&#125;
-</code></pre></div>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = &#123;<br>  <span class="hljs-attr">vueConfig</span>: &#123;<br>    <span class="hljs-attr">parallel</span>: <span class="hljs-literal">false</span><br>  &#125;,<br>  webpackConfig (webpackConfig, vueOptions, api) &#123;<br>    <span class="hljs-keyword">if</span> (!webpackConfig.<span class="hljs-property">optimization</span>) &#123;<br>      webpackConfig.<span class="hljs-property">optimization</span> = &#123;&#125;<br>    &#125;<br>    <span class="hljs-comment">// disable noEmitOnErrors</span><br>    webpackConfig.<span class="hljs-property">optimization</span>.<span class="hljs-property">noEmitOnErrors</span> = <span class="hljs-literal">false</span><br><br>    webpackConfig.<span class="hljs-property">optimization</span>.<span class="hljs-property">runtimeChunk</span> = &#123;<br>      <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;common/runtime&#x27;</span><br>    &#125;<br><br>    webpackConfig.<span class="hljs-property">optimization</span>.<span class="hljs-property">splitChunks</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;../split-chunks&#x27;</span>)()<br><br>    <span class="hljs-title function_">parseEntry</span>()<br><br>    <span class="hljs-keyword">const</span> statCode = process.<span class="hljs-property">env</span>.<span class="hljs-property">UNI_USING_STAT</span> ? <span class="hljs-string">&#x27;import \&#x27;@dcloudio/uni-stat\&#x27;;&#x27;</span> : <span class="hljs-string">&#x27;&#x27;</span><br><br>    <span class="hljs-keyword">let</span> beforeCode = <span class="hljs-string">&#x27;import \&#x27;uni-pages\&#x27;;&#x27;</span><br><br>    <span class="hljs-keyword">const</span> plugins = [<br>      <span class="hljs-keyword">new</span> <span class="hljs-title class_">WebpackUniAppPlugin</span>(),<br>      <span class="hljs-title function_">createUniMPPlugin</span>(),<br>      <span class="hljs-keyword">new</span> webpack.<span class="hljs-title class_">ProvidePlugin</span>(<span class="hljs-title function_">getProvides</span>())<br>    ]<br><br>    <span class="hljs-keyword">if</span> ((process.<span class="hljs-property">env</span>.<span class="hljs-property">UNI_SUBPACKGE</span> || process.<span class="hljs-property">env</span>.<span class="hljs-property">UNI_MP_PLUGIN</span>) &amp;&amp; process.<span class="hljs-property">env</span>.<span class="hljs-property">UNI_SUBPACKGE</span> !== <span class="hljs-string">&#x27;main&#x27;</span>) &#123;<br>      plugins.<span class="hljs-title function_">push</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">PreprocessAssetsPlugin</span>())<br>    &#125;<br><br>    <span class="hljs-keyword">if</span> (process.<span class="hljs-property">env</span>.<span class="hljs-property">UNI_MP_PLUGIN</span>) &#123;<br>      <span class="hljs-comment">// 小程序插件入口使用</span><br>      <span class="hljs-comment">// packages\webpack-uni-mp-loader\lib\plugin\index-new.js -&gt; addMPPluginRequire</span><br>      beforeCode += <span class="hljs-string">`wx.__webpack_require_<span class="hljs-subst">$&#123;process.env.UNI_MP_PLUGIN.replace(<span class="hljs-string">&#x27;-&#x27;</span>, <span class="hljs-string">&#x27;_&#x27;</span>)&#125;</span>__ = __webpack_require__;`</span><br><br>      <span class="hljs-keyword">const</span> <span class="hljs-variable constant_">UNI_MP_PLUGIN_MAIN</span> = process.<span class="hljs-property">env</span>.<span class="hljs-property">UNI_MP_PLUGIN_MAIN</span><br>      <span class="hljs-keyword">if</span> (<span class="hljs-variable constant_">UNI_MP_PLUGIN_MAIN</span>) &#123;<br>        process.<span class="hljs-property">UNI_ENTRY</span>[<span class="hljs-variable constant_">UNI_MP_PLUGIN_MAIN</span>.<span class="hljs-title function_">split</span>(<span class="hljs-string">&#x27;.&#x27;</span>)[<span class="hljs-number">0</span>]] = path.<span class="hljs-title function_">resolve</span>(process.<span class="hljs-property">env</span>.<span class="hljs-property">UNI_INPUT_DIR</span>, <span class="hljs-variable constant_">UNI_MP_PLUGIN_MAIN</span>)<br>      &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> &#123;<br>      <span class="hljs-attr">mode</span>: process.<span class="hljs-property">env</span>.<span class="hljs-property">NODE_ENV</span> === <span class="hljs-string">&#x27;production&#x27;</span> ? <span class="hljs-string">&#x27;production&#x27;</span> : <span class="hljs-string">&#x27;development&#x27;</span>,<br>      entry () &#123;<br>        <span class="hljs-keyword">return</span> process.<span class="hljs-property">UNI_ENTRY</span><br>      &#125;,<br>      <span class="hljs-attr">output</span>: &#123;<br>        <span class="hljs-attr">filename</span>: <span class="hljs-string">&#x27;[name].js&#x27;</span>,<br>        <span class="hljs-attr">chunkFilename</span>: <span class="hljs-string">&#x27;[id].js&#x27;</span>,<br>        <span class="hljs-attr">globalObject</span>: process.<span class="hljs-property">env</span>.<span class="hljs-property">UNI_PLATFORM</span> === <span class="hljs-string">&#x27;mp-alipay&#x27;</span> ? <span class="hljs-string">&#x27;my&#x27;</span> : <span class="hljs-string">&#x27;global&#x27;</span><br>        <span class="hljs-comment">// sourceMapFilename: &#x27;../.sourcemap/&#x27; + process.env.UNI_PLATFORM + &#x27;/[name].js.map&#x27;</span><br>      &#125;,<br>      <span class="hljs-attr">performance</span>: &#123;<br>        <span class="hljs-attr">hints</span>: <span class="hljs-literal">false</span><br>      &#125;,<br>      <span class="hljs-attr">resolve</span>: &#123;<br>        <span class="hljs-attr">extensions</span>: [<span class="hljs-string">&#x27;.nvue&#x27;</span>],<br>        <span class="hljs-attr">alias</span>: &#123; <span class="hljs-comment">// 仅 mp-weixin</span><br>          <span class="hljs-string">&#x27;mpvue-page-factory&#x27;</span>: <span class="hljs-built_in">require</span>.<span class="hljs-title function_">resolve</span>(<br>            <span class="hljs-string">&#x27;@dcloudio/vue-cli-plugin-uni/packages/mpvue-page-factory&#x27;</span>)<br>        &#125;<br>      &#125;,<br>      <span class="hljs-attr">module</span>: &#123;<br>        <span class="hljs-attr">rules</span>: [&#123;<br>          <span class="hljs-attr">test</span>: path.<span class="hljs-title function_">resolve</span>(process.<span class="hljs-property">env</span>.<span class="hljs-property">UNI_INPUT_DIR</span>, <span class="hljs-title function_">getMainEntry</span>()),<br>          <span class="hljs-attr">use</span>: [&#123;<br>            <span class="hljs-attr">loader</span>: path.<span class="hljs-title function_">resolve</span>(__dirname, <span class="hljs-string">&#x27;../../packages/wrap-loader&#x27;</span>),<br>            <span class="hljs-attr">options</span>: &#123;<br>              <span class="hljs-attr">before</span>: [<br>                beforeCode + <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;../util&#x27;</span>).<span class="hljs-title function_">getAutomatorCode</span>() + statCode<br>              ]<br>            &#125;<br>          &#125;, &#123;<br>            <span class="hljs-attr">loader</span>: <span class="hljs-string">&#x27;@dcloudio/webpack-uni-mp-loader/lib/main&#x27;</span><br>          &#125;]<br>        &#125;, &#123;<br>          <span class="hljs-attr">resourceQuery</span>: <span class="hljs-regexp">/vue&amp;type=script/</span>,<br>          <span class="hljs-attr">use</span>: [&#123;<br>            <span class="hljs-attr">loader</span>: <span class="hljs-string">&#x27;@dcloudio/webpack-uni-mp-loader/lib/script&#x27;</span><br>          &#125;]<br>        &#125;, &#123;<br>          <span class="hljs-attr">resourceQuery</span>: <span class="hljs-regexp">/vue&amp;type=template/</span>,<br>          <span class="hljs-attr">use</span>: [&#123;<br>            <span class="hljs-attr">loader</span>: <span class="hljs-string">&#x27;@dcloudio/webpack-uni-mp-loader/lib/template&#x27;</span><br>          &#125;, &#123;<br>            <span class="hljs-attr">loader</span>: <span class="hljs-string">&#x27;@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta&#x27;</span><br>          &#125;]<br>        &#125;, <span class="hljs-title function_">createTemplateCacheLoader</span>(api), &#123;<br>          <span class="hljs-attr">resourceQuery</span>: [<br>            <span class="hljs-regexp">/lang=wxs/</span>,<br>            <span class="hljs-regexp">/lang=filter/</span>,<br>            <span class="hljs-regexp">/lang=sjs/</span>,<br>            <span class="hljs-regexp">/blockType=wxs/</span>,<br>            <span class="hljs-regexp">/blockType=filter/</span>,<br>            <span class="hljs-regexp">/blockType=sjs/</span><br>          ],<br>          <span class="hljs-attr">use</span>: [&#123;<br>            <span class="hljs-attr">loader</span>: <span class="hljs-built_in">require</span>.<span class="hljs-title function_">resolve</span>(<br>              <span class="hljs-string">&#x27;@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-filter-loader&#x27;</span>)<br>          &#125;]<br>        &#125;]<br>      &#125;,<br>      plugins<br>    &#125;<br>  &#125;,<br>  chainWebpack (webpackConfig, vueOptions, api) &#123;<br>    <span class="hljs-keyword">if</span> (process.<span class="hljs-property">env</span>.<span class="hljs-property">UNI_PLATFORM</span> === <span class="hljs-string">&#x27;mp-baidu&#x27;</span>) &#123;<br>      webpackConfig.<span class="hljs-property">module</span><br>        .<span class="hljs-title function_">rule</span>(<span class="hljs-string">&#x27;js&#x27;</span>)<br>        .<span class="hljs-property">exclude</span><br>        .<span class="hljs-title function_">add</span>(<span class="hljs-regexp">/\.filter\.js$/</span>)<br>    &#125;<br><br>    <span class="hljs-keyword">const</span> compilerOptions = process.<span class="hljs-property">env</span>.<span class="hljs-property">UNI_USING_COMPONENTS</span> ? &#123;&#125; : <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;../mp-compiler-options&#x27;</span>)<br><br>    <span class="hljs-title function_">modifyVueLoader</span>(webpackConfig, &#123;&#125;, compilerOptions, api)<br><br>    <span class="hljs-keyword">const</span> styleExt = <span class="hljs-title function_">getPlatformExts</span>().<span class="hljs-property">style</span><br><br>    webpackConfig.<span class="hljs-title function_">plugin</span>(<span class="hljs-string">&#x27;extract-css&#x27;</span>)<br>      .<span class="hljs-title function_">init</span>(<span class="hljs-function">(<span class="hljs-params">Plugin, args</span>) =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Plugin</span>(&#123;<br>        <span class="hljs-attr">filename</span>: <span class="hljs-string">&#x27;[name]&#x27;</span> + styleExt<br>      &#125;))<br><br>    <span class="hljs-keyword">if</span> (<br>      process.<span class="hljs-property">env</span>.<span class="hljs-property">NODE_ENV</span> === <span class="hljs-string">&#x27;production&#x27;</span> &amp;&amp;<br>      process.<span class="hljs-property">env</span>.<span class="hljs-property">UNI_PLATFORM</span> !== <span class="hljs-string">&#x27;app-plus&#x27;</span><br>    ) &#123;<br>      <span class="hljs-keyword">const</span> <span class="hljs-title class_">OptimizeCssnanoPlugin</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;../../packages/@intervolga/optimize-cssnano-plugin/index.js&#x27;</span>)<br>      webpackConfig.<span class="hljs-title function_">plugin</span>(<span class="hljs-string">&#x27;optimize-css&#x27;</span>)<br>        .<span class="hljs-title function_">init</span>(<span class="hljs-function">(<span class="hljs-params">Plugin, args</span>) =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">OptimizeCssnanoPlugin</span>(&#123;<br>          <span class="hljs-attr">sourceMap</span>: <span class="hljs-literal">false</span>,<br>          filter (assetName) &#123;<br>            <span class="hljs-keyword">return</span> path.<span class="hljs-title function_">extname</span>(assetName) === styleExt<br>          &#125;,<br>          <span class="hljs-attr">cssnanoOptions</span>: &#123;<br>            <span class="hljs-attr">preset</span>: [<br>              <span class="hljs-string">&#x27;default&#x27;</span>,<br>              <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">assign</span>(&#123;&#125;, <span class="hljs-title function_">getPlatformCssnano</span>(), &#123;<br>                <span class="hljs-attr">discardComments</span>: <span class="hljs-literal">true</span><br>              &#125;)<br>            ]<br>          &#125;<br><br>        &#125;))<br>    &#125;<br><br>    <span class="hljs-keyword">if</span> (process.<span class="hljs-property">env</span>.<span class="hljs-property">UNI_SUBPACKGE</span> || process.<span class="hljs-property">env</span>.<span class="hljs-property">UNI_MP_PLUGIN</span>) &#123;<br>      <span class="hljs-title function_">initSubpackageConfig</span>(webpackConfig, vueOptions)<br>    &#125;<br><br>    webpackConfig.<span class="hljs-property">plugins</span>.<span class="hljs-title function_">delete</span>(<span class="hljs-string">&#x27;hmr&#x27;</span>)<br>    webpackConfig.<span class="hljs-property">plugins</span>.<span class="hljs-title function_">delete</span>(<span class="hljs-string">&#x27;html&#x27;</span>)<br>    webpackConfig.<span class="hljs-property">plugins</span>.<span class="hljs-title function_">delete</span>(<span class="hljs-string">&#x27;copy&#x27;</span>)<br>    webpackConfig.<span class="hljs-property">plugins</span>.<span class="hljs-title function_">delete</span>(<span class="hljs-string">&#x27;preload&#x27;</span>)<br>    webpackConfig.<span class="hljs-property">plugins</span>.<span class="hljs-title function_">delete</span>(<span class="hljs-string">&#x27;prefetch&#x27;</span>)<br>  &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
 
 <p>最后配置汇总之后，还要验证下是否合法</p>
-<div class="code-wrapper"><pre><code class="hljs javascript"><span class="hljs-comment">// check for common config errors</span>
- <span class="hljs-title function_">validateWebpackConfig</span>(webpackConfig, api, options, args.<span class="hljs-property">target</span>)</code></pre></div>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// check for common config errors</span><br> <span class="hljs-title function_">validateWebpackConfig</span>(webpackConfig, api, options, args.<span class="hljs-property">target</span>)<br></code></pre></td></tr></table></figure>
 
 <p>合法就开始使用webpack打包咯</p>
 <p><img src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220308000801898.png" srcset="/img/loading.gif" lazyload alt="image-20220308000801898" loading="lazy" data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220308000801898.png"></p>
-<div class="code-wrapper"><pre><code class="hljs javascript"></code></pre></div>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><br></code></pre></td></tr></table></figure>
 
 <p><img src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220308005120412.png" srcset="/img/loading.gif" lazyload alt="image-20220308005120412" loading="lazy" data-src="/2022/03/07/%E6%B5%85%E6%9E%90uni-app%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B/image-20220308005120412.png"></p>
 <!-- flag of hidden posts -->

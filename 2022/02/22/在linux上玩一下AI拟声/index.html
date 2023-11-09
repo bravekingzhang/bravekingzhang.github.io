@@ -16,12 +16,12 @@
   <meta name="author" content="hz">
   <meta name="keywords" content="">
   
-    <meta name="description" content="项目地址https:&#x2F;&#x2F;github.com&#x2F;babysor&#x2F;MockingBird git clone项目到本地，然后安装环境，开始体验。 操作方式1、环境安装1、1安装python环境yum install python39  1、2指定系统默认python版本[root@VM-80-70-centos alternatives]# update-alternatives --config p">
+    <meta name="description" content="项目地址https:&#x2F;&#x2F;github.com&#x2F;babysor&#x2F;MockingBird git clone项目到本地，然后安装环境，开始体验。 操作方式1、环境安装1、1安装python环境1yum install python39  1、2指定系统默认python版本123456789101112[root@VM-80-70-centos alternatives]# update-alterna">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在linux上玩一下AI拟声">
 <meta property="og:url" content="https://blog.brzhang.club/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/index.html">
 <meta property="og:site_name" content="心随我动">
-<meta property="og:description" content="项目地址https:&#x2F;&#x2F;github.com&#x2F;babysor&#x2F;MockingBird git clone项目到本地，然后安装环境，开始体验。 操作方式1、环境安装1、1安装python环境yum install python39  1、2指定系统默认python版本[root@VM-80-70-centos alternatives]# update-alternatives --config p">
+<meta property="og:description" content="项目地址https:&#x2F;&#x2F;github.com&#x2F;babysor&#x2F;MockingBird git clone项目到本地，然后安装环境，开始体验。 操作方式1、环境安装1、1安装python环境1yum install python39  1、2指定系统默认python版本123456789101112[root@VM-80-70-centos alternatives]# update-alterna">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.brzhang.club/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222120812006.png">
 <meta property="og:image" content="https://blog.brzhang.club/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222120729276.png">
@@ -244,7 +244,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.1k 字
+          4.2k 字
         
       </span>
     
@@ -255,7 +255,7 @@
         
         
         
-          34 分钟
+          35 分钟
         
       </span>
     
@@ -307,153 +307,66 @@
                 
                 <h3 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h3><p><a target="_blank" rel="noopener" href="https://github.com/babysor/MockingBird">https://github.com/babysor/MockingBird</a></p>
 <p>git clone项目到本地，然后安装环境，开始体验。</p>
-<h3 id="操作方式"><a href="#操作方式" class="headerlink" title="操作方式"></a>操作方式</h3><h4 id="1、环境安装"><a href="#1、环境安装" class="headerlink" title="1、环境安装"></a>1、环境安装</h4><h5 id="1、1安装python环境"><a href="#1、1安装python环境" class="headerlink" title="1、1安装python环境"></a>1、1安装python环境</h5><div class="code-wrapper"><pre><code class="hljs shell">yum install python39</code></pre></div>
+<h3 id="操作方式"><a href="#操作方式" class="headerlink" title="操作方式"></a>操作方式</h3><h4 id="1、环境安装"><a href="#1、环境安装" class="headerlink" title="1、环境安装"></a>1、环境安装</h4><h5 id="1、1安装python环境"><a href="#1、1安装python环境" class="headerlink" title="1、1安装python环境"></a>1、1安装python环境</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">yum install python39<br></code></pre></td></tr></table></figure>
 
-<h5 id="1、2指定系统默认python版本"><a href="#1、2指定系统默认python版本" class="headerlink" title="1、2指定系统默认python版本"></a>1、2指定系统默认python版本</h5><div class="code-wrapper"><pre><code class="hljs shell">[root@VM-80-70-centos alternatives]# update-alternatives --config python3
-
-There are 3 programs which provide &#x27;python3&#x27;.
-
-  Selection    Command
------------------------------------------------
-   1           /usr/bin/python3.8
-*  2           /usr/bin/python3.6
- + 3           /usr/bin/python3.9
-
-Enter to keep the current selection[+], or type selection number:
-</code></pre></div>
+<h5 id="1、2指定系统默认python版本"><a href="#1、2指定系统默认python版本" class="headerlink" title="1、2指定系统默认python版本"></a>1、2指定系统默认python版本</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs shell">[root@VM-80-70-centos alternatives]# update-alternatives --config python3<br><br>There are 3 programs which provide &#x27;python3&#x27;.<br><br>  Selection    Command<br>-----------------------------------------------<br>   1           /usr/bin/python3.8<br>*  2           /usr/bin/python3.6<br> + 3           /usr/bin/python3.9<br><br>Enter to keep the current selection[+], or type selection number:<br><br></code></pre></td></tr></table></figure>
 
 <p>这里默认是3.6，这个工程是不支持的，比如后续如果安装pytorch，就会报错</p>
 <p><img src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222120812006.png" srcset="/img/loading.gif" lazyload alt="image-20220222120812006" loading="lazy" data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222120812006.png"></p>
 <p>所以，这里输入3，选择3.9版本搞起，其实也可以系统python版本如果高于3.7也是可以不用安装python3.9，可直接进入安装pytorch。</p>
-<h5 id="1、3安装pytorch"><a href="#1、3安装pytorch" class="headerlink" title="1、3安装pytorch"></a>1、3安装pytorch</h5><div class="code-wrapper"><pre><code class="hljs shell">pip3 install torch torchvision</code></pre></div>
+<h5 id="1、3安装pytorch"><a href="#1、3安装pytorch" class="headerlink" title="1、3安装pytorch"></a>1、3安装pytorch</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">pip3 install torch torchvision<br></code></pre></td></tr></table></figure>
 
 <p>验证一下是否安装成功</p>
-<div class="code-wrapper"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch
-x = torch.rand(<span class="hljs-number">5</span>, <span class="hljs-number">3</span>)
-<span class="hljs-built_in">print</span>(x)
-<span class="hljs-comment">#=============输出</span></code></pre></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br>x = torch.rand(<span class="hljs-number">5</span>, <span class="hljs-number">3</span>)<br><span class="hljs-built_in">print</span>(x)<br><span class="hljs-comment">#=============输出</span><br></code></pre></td></tr></table></figure>
 
 <p><img src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222120729276.png" srcset="/img/loading.gif" lazyload alt="image-20220222120729276" loading="lazy" data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222120729276.png"></p>
 <h5 id="1、4安装ffmpeg，这个比较复杂，最好是使用源码编译安装的方式，yum找源大概率报错"><a href="#1、4安装ffmpeg，这个比较复杂，最好是使用源码编译安装的方式，yum找源大概率报错" class="headerlink" title="1、4安装ffmpeg，这个比较复杂，最好是使用源码编译安装的方式，yum找源大概率报错"></a>1、4安装ffmpeg，这个比较复杂，最好是使用源码编译安装的方式，yum找源大概率报错</h5><p>安装以及升级可以参考这里的步骤  <a target="_blank" rel="noopener" href="https://trac.ffmpeg.org/wiki/CompilationGuide/Centos%EF%BC%8C%E6%95%B4%E4%B8%AA%E8%BF%87%E7%A8%8B%E7%BD%91%E7%BB%9Cok%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E8%87%B3%E5%B0%91%E9%9C%80%E8%A6%81%E5%8D%8A%E5%B0%8F%E6%97%B6%E3%80%82">https://trac.ffmpeg.org/wiki/CompilationGuide/Centos，整个过程网络ok的情况下至少需要半小时。</a></p>
 <p>我这里只展示安装的步骤，升级可以通过上面的链接查找。</p>
 <p>step1</p>
-<div class="code-wrapper"><pre><code class="hljs shell">yum install autoconf automake bzip2 bzip2-devel cmake freetype-devel gcc gcc-c++ git libtool make pkgconfig zlib-devel</code></pre></div>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">yum install autoconf automake bzip2 bzip2-devel cmake freetype-devel gcc gcc-c++ git libtool make pkgconfig zlib-devel<br></code></pre></td></tr></table></figure>
 
 <p>step2</p>
-<div class="code-wrapper"><pre><code class="hljs shell">mkdir ~/ffmpeg_sources</code></pre></div>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">mkdir ~/ffmpeg_sources<br></code></pre></td></tr></table></figure>
 
 <p>step3</p>
-<div class="code-wrapper"><pre><code class="hljs shell">cd ~/ffmpeg_sources
-curl -O -L https://www.nasm.us/pub/nasm/releasebuilds/2.15.05/nasm-2.15.05.tar.bz2
-tar xjvf nasm-2.15.05.tar.bz2
-cd nasm-2.15.05
-./autogen.sh
-./configure --prefix=&quot;$HOME/ffmpeg_build&quot; --bindir=&quot;$HOME/bin&quot;
-make
-make install</code></pre></div>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd ~/ffmpeg_sources<br>curl -O -L https://www.nasm.us/pub/nasm/releasebuilds/2.15.05/nasm-2.15.05.tar.bz2<br>tar xjvf nasm-2.15.05.tar.bz2<br>cd nasm-2.15.05<br>./autogen.sh<br>./configure --prefix=&quot;$HOME/ffmpeg_build&quot; --bindir=&quot;$HOME/bin&quot;<br>make<br>make install<br></code></pre></td></tr></table></figure>
 
 <p>step4</p>
-<div class="code-wrapper"><pre><code class="hljs shell">cd ~/ffmpeg_sources
-curl -O -L https://www.tortall.net/projects/yasm/releases/yasm-1.3.0.tar.gz
-tar xzvf yasm-1.3.0.tar.gz
-cd yasm-1.3.0
-./configure --prefix=&quot;$HOME/ffmpeg_build&quot; --bindir=&quot;$HOME/bin&quot;
-make
-make install</code></pre></div>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd ~/ffmpeg_sources<br>curl -O -L https://www.tortall.net/projects/yasm/releases/yasm-1.3.0.tar.gz<br>tar xzvf yasm-1.3.0.tar.gz<br>cd yasm-1.3.0<br>./configure --prefix=&quot;$HOME/ffmpeg_build&quot; --bindir=&quot;$HOME/bin&quot;<br>make<br>make install<br></code></pre></td></tr></table></figure>
 
 <p>step5</p>
-<div class="code-wrapper"><pre><code class="hljs shell">cd ~/ffmpeg_sources
-git clone --branch stable --depth 1 https://code.videolan.org/videolan/x264.git
-cd x264
-PKG_CONFIG_PATH=&quot;$HOME/ffmpeg_build/lib/pkgconfig&quot; ./configure --prefix=&quot;$HOME/ffmpeg_build&quot; --bindir=&quot;$HOME/bin&quot; --enable-static
-make
-make install</code></pre></div>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd ~/ffmpeg_sources<br>git clone --branch stable --depth 1 https://code.videolan.org/videolan/x264.git<br>cd x264<br>PKG_CONFIG_PATH=&quot;$HOME/ffmpeg_build/lib/pkgconfig&quot; ./configure --prefix=&quot;$HOME/ffmpeg_build&quot; --bindir=&quot;$HOME/bin&quot; --enable-static<br>make<br>make install<br></code></pre></td></tr></table></figure>
 
 <p>step6</p>
-<div class="code-wrapper"><pre><code class="hljs shell">cd ~/ffmpeg_sources
-git clone --branch stable --depth 2 https://bitbucket.org/multicoreware/x265_git
-cd ~/ffmpeg_sources/x265_git/build/linux
-cmake -G &quot;Unix Makefiles&quot; -DCMAKE_INSTALL_PREFIX=&quot;$HOME/ffmpeg_build&quot; -DENABLE_SHARED:bool=off ../../source
-make
-make install</code></pre></div>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd ~/ffmpeg_sources<br>git clone --branch stable --depth 2 https://bitbucket.org/multicoreware/x265_git<br>cd ~/ffmpeg_sources/x265_git/build/linux<br>cmake -G &quot;Unix Makefiles&quot; -DCMAKE_INSTALL_PREFIX=&quot;$HOME/ffmpeg_build&quot; -DENABLE_SHARED:bool=off ../../source<br>make<br>make install<br></code></pre></td></tr></table></figure>
 
 <p>step7</p>
-<div class="code-wrapper"><pre><code class="hljs shell">cd ~/ffmpeg_sources
-git clone --depth 1 https://github.com/mstorsjo/fdk-aac
-cd fdk-aac
-autoreconf -fiv
-./configure --prefix=&quot;$HOME/ffmpeg_build&quot; --disable-shared
-make
-make install</code></pre></div>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd ~/ffmpeg_sources<br>git clone --depth 1 https://github.com/mstorsjo/fdk-aac<br>cd fdk-aac<br>autoreconf -fiv<br>./configure --prefix=&quot;$HOME/ffmpeg_build&quot; --disable-shared<br>make<br>make install<br></code></pre></td></tr></table></figure>
 
 <p>step8</p>
-<div class="code-wrapper"><pre><code class="hljs shell">cd ~/ffmpeg_sources
-curl -O -L https://downloads.sourceforge.net/project/lame/lame/3.100/lame-3.100.tar.gz
-tar xzvf lame-3.100.tar.gz
-cd lame-3.100
-./configure --prefix=&quot;$HOME/ffmpeg_build&quot; --bindir=&quot;$HOME/bin&quot; --disable-shared --enable-nasm
-make
-make install</code></pre></div>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd ~/ffmpeg_sources<br>curl -O -L https://downloads.sourceforge.net/project/lame/lame/3.100/lame-3.100.tar.gz<br>tar xzvf lame-3.100.tar.gz<br>cd lame-3.100<br>./configure --prefix=&quot;$HOME/ffmpeg_build&quot; --bindir=&quot;$HOME/bin&quot; --disable-shared --enable-nasm<br>make<br>make install<br></code></pre></td></tr></table></figure>
 
 <p>step9</p>
-<div class="code-wrapper"><pre><code class="hljs shell">cd ~/ffmpeg_sources
-curl -O -L https://archive.mozilla.org/pub/opus/opus-1.3.1.tar.gz
-tar xzvf opus-1.3.1.tar.gz
-cd opus-1.3.1
-./configure --prefix=&quot;$HOME/ffmpeg_build&quot; --disable-shared
-make
-make install</code></pre></div>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd ~/ffmpeg_sources<br>curl -O -L https://archive.mozilla.org/pub/opus/opus-1.3.1.tar.gz<br>tar xzvf opus-1.3.1.tar.gz<br>cd opus-1.3.1<br>./configure --prefix=&quot;$HOME/ffmpeg_build&quot; --disable-shared<br>make<br>make install<br></code></pre></td></tr></table></figure>
 
 <p>step10</p>
-<div class="code-wrapper"><pre><code class="hljs shell">cd ~/ffmpeg_sources
-git clone --depth 1 https://chromium.googlesource.com/webm/libvpx.git
-cd libvpx
-./configure --prefix=&quot;$HOME/ffmpeg_build&quot; --disable-examples --disable-unit-tests --enable-vp9-highbitdepth --as=yasm
-make
-make install</code></pre></div>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd ~/ffmpeg_sources<br>git clone --depth 1 https://chromium.googlesource.com/webm/libvpx.git<br>cd libvpx<br>./configure --prefix=&quot;$HOME/ffmpeg_build&quot; --disable-examples --disable-unit-tests --enable-vp9-highbitdepth --as=yasm<br>make<br>make install<br></code></pre></td></tr></table></figure>
 
 <p>step11</p>
-<div class="code-wrapper"><pre><code class="hljs shell">cd ~/ffmpeg_sources
-curl -O -L https://ffmpeg.org/releases/ffmpeg-5.0.tar.bz2
-tar xjvf ffmpeg-5.0.tar.bz2
-cd ffmpeg-5.0
-PATH=&quot;$HOME/bin:$PATH&quot; PKG_CONFIG_PATH=&quot;$HOME/ffmpeg_build/lib/pkgconfig&quot; ./configure \
-  --prefix=&quot;$HOME/ffmpeg_build&quot; \
-  --pkg-config-flags=&quot;--static&quot; \
-  --extra-cflags=&quot;-I$HOME/ffmpeg_build/include&quot; \
-  --extra-ldflags=&quot;-L$HOME/ffmpeg_build/lib&quot; \
-  --extra-libs=-lpthread \
-  --extra-libs=-lm \
-  --bindir=&quot;$HOME/bin&quot; \
-  --enable-gpl \
-  --enable-libfdk_aac \
-  --enable-libfreetype \
-  --enable-libmp3lame \
-  --enable-libopus \
-  --enable-libvpx \
-  --enable-libx264 \
-  --enable-libx265 \
-  --enable-nonfree
-make
-make install
-hash -d ffmpeg</code></pre></div>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd ~/ffmpeg_sources<br>curl -O -L https://ffmpeg.org/releases/ffmpeg-5.0.tar.bz2<br>tar xjvf ffmpeg-5.0.tar.bz2<br>cd ffmpeg-5.0<br>PATH=&quot;$HOME/bin:$PATH&quot; PKG_CONFIG_PATH=&quot;$HOME/ffmpeg_build/lib/pkgconfig&quot; ./configure \<br>  --prefix=&quot;$HOME/ffmpeg_build&quot; \<br>  --pkg-config-flags=&quot;--static&quot; \<br>  --extra-cflags=&quot;-I$HOME/ffmpeg_build/include&quot; \<br>  --extra-ldflags=&quot;-L$HOME/ffmpeg_build/lib&quot; \<br>  --extra-libs=-lpthread \<br>  --extra-libs=-lm \<br>  --bindir=&quot;$HOME/bin&quot; \<br>  --enable-gpl \<br>  --enable-libfdk_aac \<br>  --enable-libfreetype \<br>  --enable-libmp3lame \<br>  --enable-libopus \<br>  --enable-libvpx \<br>  --enable-libx264 \<br>  --enable-libx265 \<br>  --enable-nonfree<br>make<br>make install<br>hash -d ffmpeg<br></code></pre></td></tr></table></figure>
 
-<h5 id="1、5安装python需要的包"><a href="#1、5安装python需要的包" class="headerlink" title="1、5安装python需要的包"></a>1、5安装python需要的包</h5><div class="code-wrapper"><pre><code class="hljs sh"><span class="hljs-built_in">cd</span> /pathto/MockingBird <span class="hljs-comment">#到里本地项目克隆路径下</span>
-pip3 install -r requirements.txt</code></pre></div>
+<h5 id="1、5安装python需要的包"><a href="#1、5安装python需要的包" class="headerlink" title="1、5安装python需要的包"></a>1、5安装python需要的包</h5><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-built_in">cd</span> /pathto/MockingBird <span class="hljs-comment">#到里本地项目克隆路径下</span><br>pip3 install -r requirements.txt<br></code></pre></td></tr></table></figure>
 
 <p>什么鬼，安装直接报错</p>
 <p><img src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222130237710.png" srcset="/img/loading.gif" lazyload alt="image-20220222130237710" loading="lazy" data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222130237710.png"></p>
 <p>查了下资料，要解决这个问题，需要暗转下python39的devel，于是</p>
-<div class="code-wrapper"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">安装EPEL源</span>
-yum install epel-release -y
-<span class="hljs-meta prompt_"># </span><span class="language-bash">安装python3开发包</span>
-yum install python39-devel -y</code></pre></div>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">安装EPEL源</span><br>yum install epel-release -y<br><span class="hljs-meta prompt_"># </span><span class="language-bash">安装python3开发包</span><br>yum install python39-devel -y<br></code></pre></td></tr></table></figure>
 
 <p><img src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222130400801.png" srcset="/img/loading.gif" lazyload alt="image-20220222130400801" loading="lazy" data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222130400801.png"></p>
 <p>这里大概就有我们需要的头文件了，然后在重试一次</p>
 <p><img src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222130524618.png" srcset="/img/loading.gif" lazyload alt="image-20220222130524618" loading="lazy" data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222130524618.png"></p>
 <p>这一次果断就成功了。</p>
-<h5 id="继续安装一个可选的依赖"><a href="#继续安装一个可选的依赖" class="headerlink" title="继续安装一个可选的依赖"></a>继续安装一个可选的依赖</h5><div class="code-wrapper"><pre><code class="hljs shell">pip3 install webrtcvad-wheels</code></pre></div>
+<h5 id="继续安装一个可选的依赖"><a href="#继续安装一个可选的依赖" class="headerlink" title="继续安装一个可选的依赖"></a>继续安装一个可选的依赖</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">pip3 install webrtcvad-wheels<br></code></pre></td></tr></table></figure>
 
 
 
@@ -475,12 +388,12 @@ yum install python39-devel -y</code></pre></div>
 <td></td>
 </tr>
 </tbody></table>
-<h4 id="3、打开web网页"><a href="#3、打开web网页" class="headerlink" title="3、打开web网页"></a>3、打开web网页</h4><div class="code-wrapper"><pre><code class="hljs python">python web.py</code></pre></div>
+<h4 id="3、打开web网页"><a href="#3、打开web网页" class="headerlink" title="3、打开web网页"></a>3、打开web网页</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">python web.py<br></code></pre></td></tr></table></figure>
 
 <p>什么鬼，又一个报错</p>
 <p><img src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222131611301.png" srcset="/img/loading.gif" lazyload alt="image-20220222131611301" loading="lazy" data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222131611301.png"></p>
 <p>查了下，需要安装</p>
-<div class="code-wrapper"><pre><code class="hljs shell">yum install libsndfile</code></pre></div>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">yum install libsndfile<br></code></pre></td></tr></table></figure>
 
 
 

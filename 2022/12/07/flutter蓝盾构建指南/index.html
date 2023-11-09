@@ -240,7 +240,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.1k 字
+          4.2k 字
         
       </span>
     
@@ -251,7 +251,7 @@
         
         
         
-          35 分钟
+          36 分钟
         
       </span>
     
@@ -330,40 +330,14 @@
 <h4 id="iOS配置篇"><a href="#iOS配置篇" class="headerlink" title="iOS配置篇"></a>iOS配置篇</h4><p>在证书申请成功的前提下，我们需要对iOS工程进行一定的配置，首先，需要下载发布环境的<strong>签名证书</strong>和<strong>描述文件</strong>，然后双击添加到系统keychain里面，相信我过程很简单。然后接下来就是需要对iOS工程进行一定的配置了，使用xcode打开iOS目录。按照红框从左到右的顺序，就可以进入<strong>描述文件</strong>配置的界面，记住，<strong>因为我们是使用公司的证书，而不是自己登录的accont来获取描述文件，因此，我们一定要记住把Automatically mange signing 给反勾选掉</strong>。</p>
 <p><img src="/2022/12/07/flutter%E8%93%9D%E7%9B%BE%E6%9E%84%E5%BB%BA%E6%8C%87%E5%8D%97/image-20221207191509340.png" srcset="/img/loading.gif" lazyload alt="image-20221207191509340" loading="lazy" data-src="/2022/12/07/flutter%E8%93%9D%E7%9B%BE%E6%9E%84%E5%BB%BA%E6%8C%87%E5%8D%97/image-20221207191509340.png"></p>
 <p>很简单，配置其实就已经OK了，但别急着打包，还要补一个文件到ios工程下面，随便命名都可以，这里为了规范，取名为<code>ExportOptions.plist</code></p>
-<div class="code-wrapper"><pre><code class="hljs shel">cd ios
-touch ExportOptions.plist</code></pre></div>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shel">cd ios<br>touch ExportOptions.plist<br></code></pre></td></tr></table></figure>
 
 <p>在里面补充内容</p>
-<div class="code-wrapper"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span> encoding=<span class="hljs-string">&quot;UTF-8&quot;</span>?&gt;</span>
-<span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">plist</span> <span class="hljs-keyword">PUBLIC</span> <span class="hljs-string">&quot;-//Apple//DTD PLIST 1.0//EN&quot;</span> <span class="hljs-string">&quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">plist</span> <span class="hljs-attr">version</span>=<span class="hljs-string">&quot;1.0&quot;</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">dict</span>&gt;</span>
-	<span class="hljs-tag">&lt;<span class="hljs-name">key</span>&gt;</span>generateAppStoreInformation<span class="hljs-tag">&lt;/<span class="hljs-name">key</span>&gt;</span>
-	<span class="hljs-tag">&lt;<span class="hljs-name">false</span>/&gt;</span>
-	<span class="hljs-tag">&lt;<span class="hljs-name">key</span>&gt;</span>manageAppVersionAndBuildNumber<span class="hljs-tag">&lt;/<span class="hljs-name">key</span>&gt;</span>
-	<span class="hljs-tag">&lt;<span class="hljs-name">true</span>/&gt;</span>
-	<span class="hljs-tag">&lt;<span class="hljs-name">key</span>&gt;</span>method<span class="hljs-tag">&lt;/<span class="hljs-name">key</span>&gt;</span>
-	<span class="hljs-tag">&lt;<span class="hljs-name">string</span>&gt;</span>app-store<span class="hljs-tag">&lt;/<span class="hljs-name">string</span>&gt;</span>
-	<span class="hljs-tag">&lt;<span class="hljs-name">key</span>&gt;</span>provisioningProfiles<span class="hljs-tag">&lt;/<span class="hljs-name">key</span>&gt;</span>
-	<span class="hljs-tag">&lt;<span class="hljs-name">dict</span>&gt;</span>
-		<span class="hljs-tag">&lt;<span class="hljs-name">key</span>&gt;</span>com.xxx.xxx<span class="hljs-tag">&lt;/<span class="hljs-name">key</span>&gt;</span>
-		<span class="hljs-tag">&lt;<span class="hljs-name">string</span>&gt;</span>com.xxx.xxx_Production_SignProvision<span class="hljs-tag">&lt;/<span class="hljs-name">string</span>&gt;</span>
-	<span class="hljs-tag">&lt;/<span class="hljs-name">dict</span>&gt;</span>
-	<span class="hljs-tag">&lt;<span class="hljs-name">key</span>&gt;</span>signingCertificate<span class="hljs-tag">&lt;/<span class="hljs-name">key</span>&gt;</span>
-	<span class="hljs-tag">&lt;<span class="hljs-name">string</span>&gt;</span>Apple Distribution<span class="hljs-tag">&lt;/<span class="hljs-name">string</span>&gt;</span>
-	<span class="hljs-tag">&lt;<span class="hljs-name">key</span>&gt;</span>signingStyle<span class="hljs-tag">&lt;/<span class="hljs-name">key</span>&gt;</span>
-	<span class="hljs-tag">&lt;<span class="hljs-name">string</span>&gt;</span>manual<span class="hljs-tag">&lt;/<span class="hljs-name">string</span>&gt;</span>
-	<span class="hljs-tag">&lt;<span class="hljs-name">key</span>&gt;</span>stripSwiftSymbols<span class="hljs-tag">&lt;/<span class="hljs-name">key</span>&gt;</span>
-	<span class="hljs-tag">&lt;<span class="hljs-name">true</span>/&gt;</span>
-	<span class="hljs-tag">&lt;<span class="hljs-name">key</span>&gt;</span>uploadSymbols<span class="hljs-tag">&lt;/<span class="hljs-name">key</span>&gt;</span>
-	<span class="hljs-tag">&lt;<span class="hljs-name">false</span>/&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">dict</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">plist</span>&gt;</span>
-</code></pre></div>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span> encoding=<span class="hljs-string">&quot;UTF-8&quot;</span>?&gt;</span><br><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">plist</span> <span class="hljs-keyword">PUBLIC</span> <span class="hljs-string">&quot;-//Apple//DTD PLIST 1.0//EN&quot;</span> <span class="hljs-string">&quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">plist</span> <span class="hljs-attr">version</span>=<span class="hljs-string">&quot;1.0&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dict</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">key</span>&gt;</span>generateAppStoreInformation<span class="hljs-tag">&lt;/<span class="hljs-name">key</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">false</span>/&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">key</span>&gt;</span>manageAppVersionAndBuildNumber<span class="hljs-tag">&lt;/<span class="hljs-name">key</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">true</span>/&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">key</span>&gt;</span>method<span class="hljs-tag">&lt;/<span class="hljs-name">key</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">string</span>&gt;</span>app-store<span class="hljs-tag">&lt;/<span class="hljs-name">string</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">key</span>&gt;</span>provisioningProfiles<span class="hljs-tag">&lt;/<span class="hljs-name">key</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">dict</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">key</span>&gt;</span>com.xxx.xxx<span class="hljs-tag">&lt;/<span class="hljs-name">key</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">string</span>&gt;</span>com.xxx.xxx_Production_SignProvision<span class="hljs-tag">&lt;/<span class="hljs-name">string</span>&gt;</span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">dict</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">key</span>&gt;</span>signingCertificate<span class="hljs-tag">&lt;/<span class="hljs-name">key</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">string</span>&gt;</span>Apple Distribution<span class="hljs-tag">&lt;/<span class="hljs-name">string</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">key</span>&gt;</span>signingStyle<span class="hljs-tag">&lt;/<span class="hljs-name">key</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">string</span>&gt;</span>manual<span class="hljs-tag">&lt;/<span class="hljs-name">string</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">key</span>&gt;</span>stripSwiftSymbols<span class="hljs-tag">&lt;/<span class="hljs-name">key</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">true</span>/&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">key</span>&gt;</span>uploadSymbols<span class="hljs-tag">&lt;/<span class="hljs-name">key</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">false</span>/&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dict</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">plist</span>&gt;</span><br><br></code></pre></td></tr></table></figure>
 
 <p>别忘记把里面的xxx调换为你自己的BundleID，这个很重要，搞错肯定是打不出包的。好了，接下来验证一下。</p>
 <p><strong>在flutter工程根目录下执行：</strong></p>
-<div class="code-wrapper"><pre><code class="hljs shell">flutter build ipa --export-options-plist $PWD/ios/ExportOptions.plist</code></pre></div>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">flutter build ipa --export-options-plist $PWD/ios/ExportOptions.plist<br></code></pre></td></tr></table></figure>
 
 <p>不出意外，应该是可以看到</p>
 <p><img src="/2022/12/07/flutter%E8%93%9D%E7%9B%BE%E6%9E%84%E5%BB%BA%E6%8C%87%E5%8D%97/image-20221207192201361-0412125.png" srcset="/img/loading.gif" lazyload alt="image-20221207192201361" loading="lazy" data-src="/2022/12/07/flutter%E8%93%9D%E7%9B%BE%E6%9E%84%E5%BB%BA%E6%8C%87%E5%8D%97/image-20221207192201361-0412125.png"></p>
@@ -374,37 +348,7 @@ touch ExportOptions.plist</code></pre></div>
 <p>git拉取就不必多说，原理就是把项目git clone 到工作空间下；</p>
 <p>打包产物这里就有必要详细聊一下了</p>
 <p>1、需要准备flutter环境，这里直接在公司的镜像上托下来，思路是直接装到工作空间下，用这个flutter来跑，避免构建机上版本冲突。脚本内容如下:</p>
-<div class="code-wrapper"><pre><code class="hljs shell">
-cd $WORKSPACE
-ARG_FLUTTER_VERSION=3.3.6
-<span class="hljs-meta prompt_"># </span><span class="language-bash">这里就是git拉取代码保存flutter代码的目录，随便写</span>
-BUILD_ROOT=code/
-echo &quot;执行清理缓存&quot;
-rm -rf flutter
-rm -rf /tmp/flutter_output_path.log
-FLUTTER_DOWNLOAD_URL=&quot;https://mirrors.tencent.com/flutter/flutter_infra_release/releases/stable/macos/flutter_macos_$&#123;ARG_FLUTTER_VERSION&#125;-stable.zip&quot;
-wget $&#123;FLUTTER_DOWNLOAD_URL&#125; --no-check-certificate -O flutter.zip
-unzip flutter.zip
-export PATH=&quot;$(pwd)/flutter/bin:$PATH&quot;
-echo $PATH
-FLUTTER_PATH=&quot;$(pwd)/flutter/&quot;
-export PUB_HOSTED_URL=https://pub.flutter-io.cn
-export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
-echo &quot;PUB_HOSTED_URL=$PUB_HOSTED_URL&quot;
-echo &quot;FLUTTER_STORAGE_BASE_URL=$FLUTTER_STORAGE_BASE_URL&quot;
-export PUB_CACHE=~/.pub-cache/
-rm -rf ~/.pub-cache/*
-rm -rf $FLUTTER_PATH/.pub-cache/*
-<span class="hljs-meta prompt_"># </span><span class="language-bash">进入flutter项目根目录</span>
-cd $BUILD_ROOT
-flutter packages get
-<span class="hljs-meta prompt_"># </span><span class="language-bash">执行本地尝试成功的那个构建产物命令</span>
-flutter build ipa --export-options-plist ./ios/ExportOptions.plist
-<span class="hljs-meta prompt_"></span>
-<span class="hljs-meta prompt_"># </span><span class="language-bash">构建Android产物</span>
-flutter build apk
-
-</code></pre></div>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs shell"><br>cd $WORKSPACE<br>ARG_FLUTTER_VERSION=3.3.6<br><span class="hljs-meta prompt_"># </span><span class="language-bash">这里就是git拉取代码保存flutter代码的目录，随便写</span><br>BUILD_ROOT=code/<br>echo &quot;执行清理缓存&quot;<br>rm -rf flutter<br>rm -rf /tmp/flutter_output_path.log<br>FLUTTER_DOWNLOAD_URL=&quot;https://mirrors.tencent.com/flutter/flutter_infra_release/releases/stable/macos/flutter_macos_$&#123;ARG_FLUTTER_VERSION&#125;-stable.zip&quot;<br>wget $&#123;FLUTTER_DOWNLOAD_URL&#125; --no-check-certificate -O flutter.zip<br>unzip flutter.zip<br>export PATH=&quot;$(pwd)/flutter/bin:$PATH&quot;<br>echo $PATH<br>FLUTTER_PATH=&quot;$(pwd)/flutter/&quot;<br>export PUB_HOSTED_URL=https://pub.flutter-io.cn<br>export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn<br>echo &quot;PUB_HOSTED_URL=$PUB_HOSTED_URL&quot;<br>echo &quot;FLUTTER_STORAGE_BASE_URL=$FLUTTER_STORAGE_BASE_URL&quot;<br>export PUB_CACHE=~/.pub-cache/<br>rm -rf ~/.pub-cache/*<br>rm -rf $FLUTTER_PATH/.pub-cache/*<br><span class="hljs-meta prompt_"># </span><span class="language-bash">进入flutter项目根目录</span><br>cd $BUILD_ROOT<br>flutter packages get<br><span class="hljs-meta prompt_"># </span><span class="language-bash">执行本地尝试成功的那个构建产物命令</span><br>flutter build ipa --export-options-plist ./ios/ExportOptions.plist<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">构建Android产物</span><br>flutter build apk<br><br><br></code></pre></td></tr></table></figure>
 
 
 
@@ -416,14 +360,10 @@ flutter build apk
 <h4 id="Android配置篇"><a href="#Android配置篇" class="headerlink" title="Android配置篇"></a>Android配置篇</h4><p>Android的实现过程其实比较类似，深圳还更加简单些，直接使用keystore上蓝盾的证书，<strong>思路是flutter构建出一个不签名的包</strong>。</p>
 <p>然后使用蓝盾插件签名。</p>
 <p>因此，我们对android下面的app目录下的build.gradle进行更改，直接把buildTypes配置成这样</p>
-<div class="code-wrapper"><pre><code class="hljs groovy">buildTypes &#123;
-       release &#123;
-           signingConfig <span class="hljs-literal">null</span>
-       &#125;
-   &#125;</code></pre></div>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs groovy">buildTypes &#123;<br>       release &#123;<br>           signingConfig <span class="hljs-literal">null</span><br>       &#125;<br>   &#125;<br></code></pre></td></tr></table></figure>
 
 <p>本地执行 ，默认注意需要jdk8</p>
-<div class="code-wrapper"><pre><code class="hljs shell">flutter build apk</code></pre></div>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">flutter build apk<br></code></pre></td></tr></table></figure>
 
 <p>可以看到apk可以构建成功，只不过是一个未签名的，然后由蓝盾上的签名流程的处理就好了，简单的办法是，直接在构建产物环节增加一下 Android产物的构建，过程复用，免得重新搞一个shell，又得安装一下flutter环境等。</p>
 <p>至此，整个蓝盾构建flutter工程的Android和ios包均完毕。如果比较幸运，是可以看到产物的。</p>
@@ -463,7 +403,8 @@ flutter build apk
     AA --&gt; AB[左侧子数组]
     AA --&gt; AC[右侧子数组]
     AB --&gt; B
-    AC --&gt; B</code></pre>
+    AC --&gt; B
+</code></pre>
 
 <!-- flag of hidden posts -->
                 

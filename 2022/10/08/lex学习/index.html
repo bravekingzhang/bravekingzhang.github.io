@@ -239,7 +239,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.2k 字
+          2.3k 字
         
       </span>
     
@@ -250,7 +250,7 @@
         
         
         
-          19 分钟
+          20 分钟
         
       </span>
     
@@ -306,102 +306,28 @@
 <h4 id="bison"><a href="#bison" class="headerlink" title="bison"></a>bison</h4><p>其实就是GNU标准yacc，完全兼容yacc，但是功能更加强大。</p>
 <p>一个 Lex 程序分为三个段：第一段是 C 和 Lex 的全局声明，第二段包括模式（C 代码），第三段是补充的 C 函数，这些段以%%来分界。</p>
 <h3 id="先来看看lex解析一个配置的示例"><a href="#先来看看lex解析一个配置的示例" class="headerlink" title="先来看看lex解析一个配置的示例"></a>先来看看lex解析一个配置的示例</h3><p>假设，我们有一个配置文件 config.s，接下来我们利用lex来解析它。</p>
-<div class="code-wrapper"><pre><code class="hljs avrasm"><span class="hljs-symbol">db_type:</span> mysql
-<span class="hljs-symbol">db_name:</span> student
-<span class="hljs-symbol">db_table_prefix:</span> test_
-<span class="hljs-symbol">db_port:</span><span class="hljs-number">3306</span></code></pre></div>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">db_type:</span> mysql<br><span class="hljs-symbol">db_name:</span> student<br><span class="hljs-symbol">db_table_prefix:</span> test_<br><span class="hljs-symbol">db_port:</span><span class="hljs-number">3306</span><br></code></pre></td></tr></table></figure>
 
 <p>所以，我们来写我们的lex文件</p>
-<div class="code-wrapper"><pre><code class="hljs kotlin">
-%&#123;
-    #include <span class="hljs-string">&quot;myscaner.h&quot;</span>
-%&#125;
-
-
-%%
-:                 		<span class="hljs-keyword">return</span> COLON;
-<span class="hljs-string">&quot;db_type&quot;</span>         		<span class="hljs-keyword">return</span> TYPE;
-<span class="hljs-string">&quot;db_name&quot;</span>         		<span class="hljs-keyword">return</span> NAME;
-<span class="hljs-string">&quot;db_table_prefix&quot;</span> 		<span class="hljs-keyword">return</span> TABLE_PREFIX;
-<span class="hljs-string">&quot;db_port&quot;</span>           	<span class="hljs-keyword">return</span> PORT;
-
-[a-zA-Z][_a-zA-Z0-<span class="hljs-number">9</span>]* <span class="hljs-keyword">return</span> IDENTIFIER;
-[<span class="hljs-number">1</span>-<span class="hljs-number">9</span>][<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]*           <span class="hljs-keyword">return</span> INTEGER;
-[ \t\n]               ;
-.                     printf(<span class="hljs-string">&quot;unexpected character\n&quot;</span>);
-
-
-
-%%
-
-int yywrap(void) &#123;
-    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
-&#125;</code></pre></div>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><br>%&#123;<br>    #include <span class="hljs-string">&quot;myscaner.h&quot;</span><br>%&#125;<br><br><br>%%<br>:                 		<span class="hljs-keyword">return</span> COLON;<br><span class="hljs-string">&quot;db_type&quot;</span>         		<span class="hljs-keyword">return</span> TYPE;<br><span class="hljs-string">&quot;db_name&quot;</span>         		<span class="hljs-keyword">return</span> NAME;<br><span class="hljs-string">&quot;db_table_prefix&quot;</span> 		<span class="hljs-keyword">return</span> TABLE_PREFIX;<br><span class="hljs-string">&quot;db_port&quot;</span>           	<span class="hljs-keyword">return</span> PORT;<br><br>[a-zA-Z][_a-zA-Z0-<span class="hljs-number">9</span>]* <span class="hljs-keyword">return</span> IDENTIFIER;<br>[<span class="hljs-number">1</span>-<span class="hljs-number">9</span>][<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]*           <span class="hljs-keyword">return</span> INTEGER;<br>[ \t\n]               ;<br>.                     printf(<span class="hljs-string">&quot;unexpected character\n&quot;</span>);<br><br><br><br>%%<br><br>int yywrap(void) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>可以很明显的看出来，我们的lex文件分为3部分，第一部分，我们引入了一个头文件，这个文件的内容是：</p>
-<div class="code-wrapper"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">define</span> TYPE 1</span>
-<span class="hljs-meta">#<span class="hljs-keyword">define</span> NAME 2</span>
-<span class="hljs-meta">#<span class="hljs-keyword">define</span> TABLE_PREFIX 3</span>
-<span class="hljs-meta">#<span class="hljs-keyword">define</span> PORT 4</span>
-<span class="hljs-meta">#<span class="hljs-keyword">define</span> COLON 5</span>
-<span class="hljs-meta">#<span class="hljs-keyword">define</span> IDENTIFIER 6</span>
-<span class="hljs-meta">#<span class="hljs-keyword">define</span> INTEGER 7</span></code></pre></div>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">define</span> TYPE 1</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> NAME 2</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> TABLE_PREFIX 3</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> PORT 4</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> COLON 5</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> IDENTIFIER 6</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> INTEGER 7</span><br></code></pre></td></tr></table></figure>
 
 <p>就是定义了一些常量，可以看到lex文件的第二部分就是使用正则匹配好文本之后，返回token所使用的标识。</p>
 <p>有了这样一个 lex文件之后，我们使用lex进行编译，就会输出一个.c文件</p>
-<div class="code-wrapper"><pre><code class="hljs nginx"><span class="hljs-attribute">lex</span> myscanner.l</code></pre></div>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">lex</span> myscanner.l<br></code></pre></td></tr></table></figure>
 
 <p><img src="/2022/10/08/lex%E5%AD%A6%E4%B9%A0/image-20221008124503677.png" srcset="/img/loading.gif" lazyload alt="image-20221008124503677" loading="lazy" data-src="/2022/10/08/lex%E5%AD%A6%E4%B9%A0/image-20221008124503677.png"></p>
 <p>生成的这个文件1千多行，不干别的就是为了把我们输入的文本解析为一堆token，为啥这么说等会你就明白了。</p>
 <p>有了这个lex.yy.c这个文件之后呢，我们就可以利用他来做配置文件解析了。我们可以写一个C程序。</p>
-<div class="code-wrapper"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;myscaner.h&quot;</span></span>
-
-<span class="hljs-keyword">extern</span> <span class="hljs-type">int</span> <span class="hljs-title function_">yylex</span><span class="hljs-params">()</span>; <span class="hljs-comment">// 链接 lex.yy.c中的方法，这个就是获取下token</span>
-<span class="hljs-keyword">extern</span> <span class="hljs-type">int</span> yylineno; <span class="hljs-comment">// 链接lex.yy.c中的 变量，指示这当前解析的行数</span>
-<span class="hljs-keyword">extern</span> <span class="hljs-type">char</span> *yytext; <span class="hljs-comment">// 链接lex.yy.c中的 变量,只是当前token的 值。</span>
-
-<span class="hljs-type">char</span> *names[] = &#123;<span class="hljs-literal">NULL</span>, <span class="hljs-string">&quot;db_type&quot;</span>, <span class="hljs-string">&quot;db_name&quot;</span>, <span class="hljs-string">&quot;db_table_prefix&quot;</span>, <span class="hljs-string">&quot;db_port&quot;</span>&#125;;
-<span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span>
-&#123;
-
-    <span class="hljs-type">int</span> ntoken, vtoken;<span class="hljs-comment">//定义 ”:“ 两边的token</span>
-    ntoken = yylex();
-    <span class="hljs-keyword">while</span> (ntoken)
-    &#123;
-        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d\n&quot;</span>, ntoken);
-        <span class="hljs-keyword">if</span> (yylex() != COLON)
-        &#123;
-            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Syntax error in line %d, Expected a : but fount %s\n&quot;</span>, yylineno, yytext);
-            <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
-        &#125;
-        <span class="hljs-keyword">switch</span> (ntoken)
-        &#123;
-        <span class="hljs-keyword">case</span> TYPE:
-        <span class="hljs-keyword">case</span> NAME:
-        <span class="hljs-keyword">case</span> TABLE_PREFIX:
-        <span class="hljs-keyword">case</span> PORT:
-            vtoken = yylex();
-            <span class="hljs-keyword">if</span> (ntoken == PORT &amp;&amp; vtoken != INTEGER)<span class="hljs-comment">//如果是port的话，那么他的值需要时整数</span>
-            &#123;
-                <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;port expected to be a integer,but %s got\n&quot;</span>, yytext);
-                <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
-            &#125;
-            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s has set to %s\n&quot;</span>, names[ntoken], yytext);
-            <span class="hljs-keyword">break</span>;
-        <span class="hljs-keyword">default</span>:
-            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;unexpected token&quot;</span>);
-        &#125;
-        ntoken = yylex();
-    &#125;
-    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
-&#125;</code></pre></div>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;myscaner.h&quot;</span></span><br><br><span class="hljs-keyword">extern</span> <span class="hljs-type">int</span> <span class="hljs-title function_">yylex</span><span class="hljs-params">()</span>; <span class="hljs-comment">// 链接 lex.yy.c中的方法，这个就是获取下token</span><br><span class="hljs-keyword">extern</span> <span class="hljs-type">int</span> yylineno; <span class="hljs-comment">// 链接lex.yy.c中的 变量，指示这当前解析的行数</span><br><span class="hljs-keyword">extern</span> <span class="hljs-type">char</span> *yytext; <span class="hljs-comment">// 链接lex.yy.c中的 变量,只是当前token的 值。</span><br><br><span class="hljs-type">char</span> *names[] = &#123;<span class="hljs-literal">NULL</span>, <span class="hljs-string">&quot;db_type&quot;</span>, <span class="hljs-string">&quot;db_name&quot;</span>, <span class="hljs-string">&quot;db_table_prefix&quot;</span>, <span class="hljs-string">&quot;db_port&quot;</span>&#125;;<br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span><br>&#123;<br><br>    <span class="hljs-type">int</span> ntoken, vtoken;<span class="hljs-comment">//定义 ”:“ 两边的token</span><br>    ntoken = yylex();<br>    <span class="hljs-keyword">while</span> (ntoken)<br>    &#123;<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d\n&quot;</span>, ntoken);<br>        <span class="hljs-keyword">if</span> (yylex() != COLON)<br>        &#123;<br>            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Syntax error in line %d, Expected a : but fount %s\n&quot;</span>, yylineno, yytext);<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>        &#125;<br>        <span class="hljs-keyword">switch</span> (ntoken)<br>        &#123;<br>        <span class="hljs-keyword">case</span> TYPE:<br>        <span class="hljs-keyword">case</span> NAME:<br>        <span class="hljs-keyword">case</span> TABLE_PREFIX:<br>        <span class="hljs-keyword">case</span> PORT:<br>            vtoken = yylex();<br>            <span class="hljs-keyword">if</span> (ntoken == PORT &amp;&amp; vtoken != INTEGER)<span class="hljs-comment">//如果是port的话，那么他的值需要时整数</span><br>            &#123;<br>                <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;port expected to be a integer,but %s got\n&quot;</span>, yytext);<br>                <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>            &#125;<br>            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s has set to %s\n&quot;</span>, names[ntoken], yytext);<br>            <span class="hljs-keyword">break</span>;<br>        <span class="hljs-keyword">default</span>:<br>            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;unexpected token&quot;</span>);<br>        &#125;<br>        ntoken = yylex();<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>我们跑一下程序看看</p>
 <p><img src="/2022/10/08/lex%E5%AD%A6%E4%B9%A0/image-20221008130140375.png" srcset="/img/loading.gif" lazyload alt="image-20221008130140375" loading="lazy" data-src="/2022/10/08/lex%E5%AD%A6%E4%B9%A0/image-20221008130140375.png"></p>
 <p>可以看到，配置文件解析成功。</p>
 <p>那么实际上，我们如果没有lex的帮忙解析这个配置文件应该也不是啥难事，就是读一行文本，解析一行，就比如使用js处理一行</p>
-<div class="code-wrapper"><pre><code class="hljs javascript">line.<span class="hljs-title function_">split</span>(<span class="hljs-string">&quot;:&quot;</span>).<span class="hljs-title function_">reduce</span>(..<span class="hljs-title function_">trim</span>().) <span class="hljs-comment">//不是照样可以很容易输出每行配置，要做什么数字检查也相信客观不是啥难事。</span></code></pre></div>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">line.<span class="hljs-title function_">split</span>(<span class="hljs-string">&quot;:&quot;</span>).<span class="hljs-title function_">reduce</span>(..<span class="hljs-title function_">trim</span>().) <span class="hljs-comment">//不是照样可以很容易输出每行配置，要做什么数字检查也相信客观不是啥难事。</span><br></code></pre></td></tr></table></figure>
 
 
 

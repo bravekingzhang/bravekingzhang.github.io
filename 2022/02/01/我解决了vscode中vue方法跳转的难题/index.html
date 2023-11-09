@@ -16,12 +16,12 @@
   <meta name="author" content="hz">
   <meta name="keywords" content="">
   
-    <meta name="description" content="第一步 创建项目yo code mp-sign-vscode-extension  根据vscode官网描述 ，要实现一个GoDefinition的插件，需要做以下两个步骤；  第一步，我们要在语言服务中申明支持 defintionProvider这样才可以在在插件加载之后出现  转到定义之类的菜单，但我们这里不这么做，因为，根据官网描述，这个只需要被任何一个插件申明一次即可，因为我们的项目mp-">
+    <meta name="description" content="第一步 创建项目1yo code mp-sign-vscode-extension  根据vscode官网描述 ，要实现一个GoDefinition的插件，需要做以下两个步骤；  第一步，我们要在语言服务中申明支持 defintionProvider这样才可以在在插件加载之后出现  转到定义之类的菜单，但我们这里不这么做，因为，根据官网描述，这个只需要被任何一个插件申明一次即可，因为我们的项目mp">
 <meta property="og:type" content="article">
 <meta property="og:title" content="我解决了Vscode中vue方法跳转的难题">
 <meta property="og:url" content="https://blog.brzhang.club/2022/02/01/%E6%88%91%E8%A7%A3%E5%86%B3%E4%BA%86vscode%E4%B8%ADvue%E6%96%B9%E6%B3%95%E8%B7%B3%E8%BD%AC%E7%9A%84%E9%9A%BE%E9%A2%98/index.html">
 <meta property="og:site_name" content="心随我动">
-<meta property="og:description" content="第一步 创建项目yo code mp-sign-vscode-extension  根据vscode官网描述 ，要实现一个GoDefinition的插件，需要做以下两个步骤；  第一步，我们要在语言服务中申明支持 defintionProvider这样才可以在在插件加载之后出现  转到定义之类的菜单，但我们这里不这么做，因为，根据官网描述，这个只需要被任何一个插件申明一次即可，因为我们的项目mp-">
+<meta property="og:description" content="第一步 创建项目1yo code mp-sign-vscode-extension  根据vscode官网描述 ，要实现一个GoDefinition的插件，需要做以下两个步骤；  第一步，我们要在语言服务中申明支持 defintionProvider这样才可以在在插件加载之后出现  转到定义之类的菜单，但我们这里不这么做，因为，根据官网描述，这个只需要被任何一个插件申明一次即可，因为我们的项目mp">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.brzhang.club/2022/02/01/%E6%88%91%E8%A7%A3%E5%86%B3%E4%BA%86vscode%E4%B8%ADvue%E6%96%B9%E6%B3%95%E8%B7%B3%E8%BD%AC%E7%9A%84%E9%9A%BE%E9%A2%98/image-20220131104418874.png">
 <meta property="og:image" content="https://blog.brzhang.club/2022/02/01/%E6%88%91%E8%A7%A3%E5%86%B3%E4%BA%86vscode%E4%B8%ADvue%E6%96%B9%E6%B3%95%E8%B7%B3%E8%BD%AC%E7%9A%84%E9%9A%BE%E9%A2%98/image-20220131104623771.png">
@@ -304,7 +304,7 @@
             
               <div class="markdown-body">
                 
-                <h4 id="第一步-创建项目"><a href="#第一步-创建项目" class="headerlink" title="第一步 创建项目"></a>第一步 创建项目</h4><div class="code-wrapper"><pre><code class="hljs shell">yo code mp-sign-vscode-extension</code></pre></div>
+                <h4 id="第一步-创建项目"><a href="#第一步-创建项目" class="headerlink" title="第一步 创建项目"></a>第一步 创建项目</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">yo code mp-sign-vscode-extension<br></code></pre></td></tr></table></figure>
 
 <p>根据<a target="_blank" rel="noopener" href="https://code.visualstudio.com/api/language-extensions/programmatic-language-features">vscode官网</a>描述 ，要实现一个GoDefinition的插件，需要做以下两个步骤；</p>
 <p><img src="/2022/02/01/%E6%88%91%E8%A7%A3%E5%86%B3%E4%BA%86vscode%E4%B8%ADvue%E6%96%B9%E6%B3%95%E8%B7%B3%E8%BD%AC%E7%9A%84%E9%9A%BE%E9%A2%98/image-20220131104418874.png" srcset="/img/loading.gif" lazyload loading="lazy" data-src="/2022/02/01/%E6%88%91%E8%A7%A3%E5%86%B3%E4%BA%86vscode%E4%B8%ADvue%E6%96%B9%E6%B3%95%E8%B7%B3%E8%BD%AC%E7%9A%84%E9%9A%BE%E9%A2%98/image-20220131104418874.png"></p>
@@ -316,40 +316,7 @@
 <h4 id="第二步-实现vscode-DefinitionProvider"><a href="#第二步-实现vscode-DefinitionProvider" class="headerlink" title="第二步 实现vscode.DefinitionProvider"></a>第二步 实现<code>vscode.DefinitionProvider</code></h4><p>根据官网描述，我们要定义个自定义跳转的插件，需要实现一个  vscode.DefinitionProvider，其原理就是写一个方法实现，定位到源码位置vscode.Location;其原理就是，当我们按住【mac上是command建|windows上是CTRL键】+ 鼠标左键，vscode语言服务就会将当前鼠标位置捕捉到的相关信息传递到给我们这个插件，这些信息丢给vscode.DefinitionProvider 具体实现的 <code>provideDefinition</code>这个回调处理。</p>
 <p>然后根据我们mp-sign项目的特点，我们主要是解决 mixin和vuex方法定位比较难的问题。同时在实践中发现vue methods块中的方法调用也无法自动跳转，定位代码也挺烦的，因此，直接把三种方式跳转定义全部实现了；</p>
 <p>我们要实现的大体框架如下所示。</p>
-<div class="code-wrapper"><pre><code class="hljs typescript"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> vscode <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;vscode&quot;</span>;
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> path <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;path&quot;</span>;
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MpDefinitionProvider</span> <span class="hljs-keyword">implements</span> vscode.<span class="hljs-property">DefinitionProvider</span> &#123;
-  <span class="hljs-title function_">provideDefinition</span>(
-    <span class="hljs-attr">document</span>: vscode.<span class="hljs-property">TextDocument</span>,
-    <span class="hljs-attr">position</span>: vscode.<span class="hljs-property">Position</span>,
-    <span class="hljs-attr">token</span>: vscode.<span class="hljs-property">CancellationToken</span>
-  ): vscode.<span class="hljs-property">ProviderResult</span>&lt;vscode.<span class="hljs-property">Definition</span> | vscode.<span class="hljs-property">LocationLink</span>[]&gt; &#123;
-
-    <span class="hljs-keyword">const</span> <span class="hljs-attr">location</span>:vscode.<span class="hljs-property">Location</span> = <span class="hljs-title function_">vueMethods</span>()||<span class="hljs-title function_">mixinMethod</span>()||<span class="hljs-title function_">vuexActionOrMutations</span>()||<span class="hljs-literal">null</span>
-
-    <span class="hljs-keyword">return</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(
-      location
-    );
-  &#125;
-&#125;
-
-<span class="hljs-comment">// 是vue的内联方法</span>
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">vueMethods</span>(<span class="hljs-params"></span>) &#123;
-  <span class="hljs-comment">//TODO</span>
-  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Location</span>()||<span class="hljs-literal">null</span>;
-&#125;
-<span class="hljs-comment">// 是 mixin 方法</span>
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">mixinMethod</span>(<span class="hljs-params"></span>) &#123;
-   <span class="hljs-comment">//TODO</span>
-  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title function_">location</span>()||<span class="hljs-literal">null</span>;
-&#125;
-<span class="hljs-comment">// 是 Vuex 的action</span>
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">vuexActionOrMutations</span>(<span class="hljs-params"></span>) &#123;
-   <span class="hljs-comment">//TODO</span>
-  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title function_">location</span>()||<span class="hljs-literal">null</span>;
-&#125;
-</code></pre></div>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> vscode <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;vscode&quot;</span>;<br><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> path <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;path&quot;</span>;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MpDefinitionProvider</span> <span class="hljs-keyword">implements</span> vscode.<span class="hljs-property">DefinitionProvider</span> &#123;<br>  <span class="hljs-title function_">provideDefinition</span>(<br>    <span class="hljs-attr">document</span>: vscode.<span class="hljs-property">TextDocument</span>,<br>    <span class="hljs-attr">position</span>: vscode.<span class="hljs-property">Position</span>,<br>    <span class="hljs-attr">token</span>: vscode.<span class="hljs-property">CancellationToken</span><br>  ): vscode.<span class="hljs-property">ProviderResult</span>&lt;vscode.<span class="hljs-property">Definition</span> | vscode.<span class="hljs-property">LocationLink</span>[]&gt; &#123;<br><br>    <span class="hljs-keyword">const</span> <span class="hljs-attr">location</span>:vscode.<span class="hljs-property">Location</span> = <span class="hljs-title function_">vueMethods</span>()||<span class="hljs-title function_">mixinMethod</span>()||<span class="hljs-title function_">vuexActionOrMutations</span>()||<span class="hljs-literal">null</span><br><br>    <span class="hljs-keyword">return</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(<br>      location<br>    );<br>  &#125;<br>&#125;<br><br><span class="hljs-comment">// 是vue的内联方法</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">vueMethods</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-comment">//TODO</span><br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Location</span>()||<span class="hljs-literal">null</span>;<br>&#125;<br><span class="hljs-comment">// 是 mixin 方法</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">mixinMethod</span>(<span class="hljs-params"></span>) &#123;<br>   <span class="hljs-comment">//TODO</span><br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title function_">location</span>()||<span class="hljs-literal">null</span>;<br>&#125;<br><span class="hljs-comment">// 是 Vuex 的action</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">vuexActionOrMutations</span>(<span class="hljs-params"></span>) &#123;<br>   <span class="hljs-comment">//TODO</span><br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title function_">location</span>()||<span class="hljs-literal">null</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
 
 <p>注意看看provideDefinition这个方法，他入参有2个比较重要<code>document vs position</code>，document有一个属性是uri，这个可以方便我们拿到当前文件的path，position，顾名思义，就是当前鼠标悬停的位置，可以方便我们拿到鼠标悬停的字符串是个啥。</p>
 <p>第一个是来处理vueMethods，那么确定目前想要跳转的方法是否是本文件中的methods中的方法，我们需要解析这个vue文件，并且把里面的方法都遍历出来，然后来匹配一下，如果可以匹配到，那说明，改方法就在本文件中对吧。说干就干，解析vue文件搞起，使用 @vue&#x2F;compiler-dom  的 <code>parse</code>方法。</p>
