@@ -236,7 +236,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.3k 字
+          2.2k 字
         
       </span>
     
@@ -299,29 +299,93 @@
                 
                 <h2 id="yew是啥"><a href="#yew是啥" class="headerlink" title="yew是啥"></a>yew是啥</h2><p><strong>Yew</strong> 是一个设计先进的 <a target="_blank" rel="noopener" href="https://www.rust-lang.org/">Rust</a> 框架，目的是使用 <a target="_blank" rel="noopener" href="https://webassembly.org/">WebAssembly</a> 来创建多线程的前端 web 应用，众所周知，webAssembly是前端的未来，比如设计软件之神figma就是使用rust写的一个webAssembly，其打败sketch的直接原因就是由于其性能秒杀了它，因此毫无疑问，后面越来越多的web应用将会拥抱webAssembly。实现webAssembly很多种方式，为什么选用rust，其实业界有很多种对比，我觉得figma就是很好的例子，因为它用的是rust，而yew是一个这样的框架，这里是<a target="_blank" rel="noopener" href="https://yew.rs/zh-Hans">yew</a>的介绍。</p>
 <h2 id="yew入门"><a href="#yew入门" class="headerlink" title="yew入门"></a>yew入门</h2><h3 id="安装yew环境"><a href="#安装yew环境" class="headerlink" title="安装yew环境"></a>安装yew环境</h3><h4 id="安装rust环境"><a href="#安装rust环境" class="headerlink" title="安装rust环境"></a>安装rust环境</h4><p>要使用yew，需要先安装rust环境，命令简单的不得了</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">curl --proto &#x27;=https&#x27; --tlsv1.2 -sSf https://sh.rustup.rs | sh<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs shell">curl --proto &#x27;=https&#x27; --tlsv1.2 -sSf https://sh.rustup.rs | sh</code></pre></div>
 
 <p>执行完之后记得</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">source &quot;$HOME/.cargo/env&quot;<br>cargo --version<br><span class="hljs-meta prompt_">-&gt;</span><span class="language-bash">cargo 1.64.0 (387270bc7 2022-09-16)</span><br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs shell">source &quot;$HOME/.cargo/env&quot;
+cargo --version
+<span class="hljs-meta prompt_">-&gt;</span><span class="language-bash">cargo 1.64.0 (387270bc7 2022-09-16)</span></code></pre></div>
 
 <p>来验证下rust环境是否安装成功。</p>
 <h4 id="安装WebAssembly目标"><a href="#安装WebAssembly目标" class="headerlink" title="安装WebAssembly目标"></a>安装WebAssembly目标</h4><p>Rust 可以编译成不同的 “目标”。浏览器上支持的目标是 “wasm32-unknown-unknown”，安装的办法是：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">rustup target add wasm32-unknown-unknown<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs shell">rustup target add wasm32-unknown-unknown</code></pre></div>
 
-<h4 id="安装trunk这个包管理工具"><a href="#安装trunk这个包管理工具" class="headerlink" title="安装trunk这个包管理工具"></a>安装trunk这个包管理工具</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">cargo install trunk<br></code></pre></td></tr></table></figure>
+<h4 id="安装trunk这个包管理工具"><a href="#安装trunk这个包管理工具" class="headerlink" title="安装trunk这个包管理工具"></a>安装trunk这个包管理工具</h4><div class="code-wrapper"><pre><code class="hljs shell">cargo install trunk</code></pre></div>
 
-<h3 id="开始体验一个yew的简单项目"><a href="#开始体验一个yew的简单项目" class="headerlink" title="开始体验一个yew的简单项目"></a>开始体验一个yew的简单项目</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">cargo new yew-app<br>cd yew-app<br>cargo run<br></code></pre></td></tr></table></figure>
+<h3 id="开始体验一个yew的简单项目"><a href="#开始体验一个yew的简单项目" class="headerlink" title="开始体验一个yew的简单项目"></a>开始体验一个yew的简单项目</h3><div class="code-wrapper"><pre><code class="hljs shell">cargo new yew-app
+cd yew-app
+cargo run</code></pre></div>
 
 <p>跑起来之后，你会发现只是在控制台打印了一个开门红，此时也许你也不了解rust，也别着急，我们先把项目转换为web应用。</p>
-<h5 id="使用vscode打开项目，编辑cargo-toml"><a href="#使用vscode打开项目，编辑cargo-toml" class="headerlink" title="使用vscode打开项目，编辑cargo.toml"></a>使用vscode打开项目，编辑cargo.toml</h5><figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs toml"><span class="hljs-section">[package]</span><br><span class="hljs-attr">name</span> = <span class="hljs-string">&quot;yew-app&quot;</span><br><span class="hljs-attr">version</span> = <span class="hljs-string">&quot;0.1.0&quot;</span><br><span class="hljs-attr">edition</span> = <span class="hljs-string">&quot;2021&quot;</span><br><br><span class="hljs-comment"># See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html</span><br><br><span class="hljs-section">[dependencies]</span><br><span class="hljs-comment"># 因为我操作时最新的是0.19.3，如果你验证是已经有更加新的版本，可以尝试更新的版本。</span><br><span class="hljs-attr">yew</span> = <span class="hljs-string">&quot;0.19.3&quot;</span><br></code></pre></td></tr></table></figure>
+<h5 id="使用vscode打开项目，编辑cargo-toml"><a href="#使用vscode打开项目，编辑cargo-toml" class="headerlink" title="使用vscode打开项目，编辑cargo.toml"></a>使用vscode打开项目，编辑cargo.toml</h5><div class="code-wrapper"><pre><code class="hljs toml"><span class="hljs-section">[package]</span>
+<span class="hljs-attr">name</span> = <span class="hljs-string">&quot;yew-app&quot;</span>
+<span class="hljs-attr">version</span> = <span class="hljs-string">&quot;0.1.0&quot;</span>
+<span class="hljs-attr">edition</span> = <span class="hljs-string">&quot;2021&quot;</span>
 
-<h5 id="编辑一下main-rs"><a href="#编辑一下main-rs" class="headerlink" title="编辑一下main.rs"></a>编辑一下main.rs</h5><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">use</span> yew::prelude::*;<br><br><span class="hljs-keyword">enum</span> <span class="hljs-title class_">Msg</span> &#123;<br>    AddOne,<br>&#125;<br><br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">Model</span> &#123;<br>    value: <span class="hljs-type">i64</span>,<br>&#125;<br><br><span class="hljs-keyword">impl</span> <span class="hljs-title class_">Component</span> <span class="hljs-keyword">for</span> <span class="hljs-title class_">Model</span> &#123;<br>    <span class="hljs-keyword">type</span> <span class="hljs-title class_">Message</span> = Msg;<br>    <span class="hljs-keyword">type</span> <span class="hljs-title class_">Properties</span> = ();<br><br>    <span class="hljs-keyword">fn</span> <span class="hljs-title function_">create</span>(_ctx: &amp;Context&lt;<span class="hljs-keyword">Self</span>&gt;) <span class="hljs-punctuation">-&gt;</span> <span class="hljs-keyword">Self</span> &#123;<br>        <span class="hljs-keyword">Self</span> &#123;<br>            value: <span class="hljs-number">0</span>,<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">fn</span> <span class="hljs-title function_">update</span>(&amp;<span class="hljs-keyword">mut</span> <span class="hljs-keyword">self</span>, _ctx: &amp;Context&lt;<span class="hljs-keyword">Self</span>&gt;, msg: <span class="hljs-keyword">Self</span>::Message) <span class="hljs-punctuation">-&gt;</span> <span class="hljs-type">bool</span> &#123;<br>        <span class="hljs-keyword">match</span> msg &#123;<br>            Msg::AddOne =&gt; &#123;<br>                <span class="hljs-keyword">self</span>.value += <span class="hljs-number">1</span>;<br>                <span class="hljs-comment">// the value has changed so we need to</span><br>                <span class="hljs-comment">// re-render for it to appear on the page</span><br>                <span class="hljs-literal">true</span><br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">fn</span> <span class="hljs-title function_">view</span>(&amp;<span class="hljs-keyword">self</span>, ctx: &amp;Context&lt;<span class="hljs-keyword">Self</span>&gt;) <span class="hljs-punctuation">-&gt;</span> Html &#123;<br>        <span class="hljs-comment">// This gives us a component&#x27;s &quot;`Scope`&quot; which allows us to send messages, etc to the component.</span><br>        <span class="hljs-keyword">let</span> <span class="hljs-variable">link</span> = ctx.<span class="hljs-title function_ invoke__">link</span>();<br>        html! &#123;<br>            &lt;div&gt;<br>                &lt;button onclick=&#123;link.<span class="hljs-title function_ invoke__">callback</span>(|_| Msg::AddOne)&#125;&gt;&#123; <span class="hljs-string">&quot;+1&quot;</span> &#125;&lt;/button&gt;<br>                &lt;p&gt;&#123; <span class="hljs-keyword">self</span>.value &#125;&lt;/p&gt;<br>            &lt;/div&gt;<br>        &#125;<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">fn</span> <span class="hljs-title function_">main</span>() &#123;<br>    yew::start_app::&lt;Model&gt;();<br>&#125;<br></code></pre></td></tr></table></figure>
+<span class="hljs-comment"># See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html</span>
 
-<h5 id="创建一个index-html"><a href="#创建一个index-html" class="headerlink" title="创建一个index.html"></a>创建一个index.html</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;utf-8&quot;</span> /&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Yew App<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<span class="hljs-section">[dependencies]</span>
+<span class="hljs-comment"># 因为我操作时最新的是0.19.3，如果你验证是已经有更加新的版本，可以尝试更新的版本。</span>
+<span class="hljs-attr">yew</span> = <span class="hljs-string">&quot;0.19.3&quot;</span></code></pre></div>
 
-<h5 id="好了，编译出你的web应用吧"><a href="#好了，编译出你的web应用吧" class="headerlink" title="好了，编译出你的web应用吧"></a>好了，编译出你的web应用吧</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">trunk serve<br></code></pre></td></tr></table></figure>
+<h5 id="编辑一下main-rs"><a href="#编辑一下main-rs" class="headerlink" title="编辑一下main.rs"></a>编辑一下main.rs</h5><div class="code-wrapper"><pre><code class="hljs rust"><span class="hljs-keyword">use</span> yew::prelude::*;
 
-<h5 id="打开浏览器卡看"><a href="#打开浏览器卡看" class="headerlink" title="打开浏览器卡看"></a>打开浏览器卡看</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">http://127.0.0.1:8080<br></code></pre></td></tr></table></figure>
+<span class="hljs-keyword">enum</span> <span class="hljs-title class_">Msg</span> &#123;
+    AddOne,
+&#125;
+
+<span class="hljs-keyword">struct</span> <span class="hljs-title class_">Model</span> &#123;
+    value: <span class="hljs-type">i64</span>,
+&#125;
+
+<span class="hljs-keyword">impl</span> <span class="hljs-title class_">Component</span> <span class="hljs-keyword">for</span> <span class="hljs-title class_">Model</span> &#123;
+    <span class="hljs-keyword">type</span> <span class="hljs-title class_">Message</span> = Msg;
+    <span class="hljs-keyword">type</span> <span class="hljs-title class_">Properties</span> = ();
+
+    <span class="hljs-keyword">fn</span> <span class="hljs-title function_">create</span>(_ctx: &amp;Context&lt;<span class="hljs-keyword">Self</span>&gt;) <span class="hljs-punctuation">-&gt;</span> <span class="hljs-keyword">Self</span> &#123;
+        <span class="hljs-keyword">Self</span> &#123;
+            value: <span class="hljs-number">0</span>,
+        &#125;
+    &#125;
+
+    <span class="hljs-keyword">fn</span> <span class="hljs-title function_">update</span>(&amp;<span class="hljs-keyword">mut</span> <span class="hljs-keyword">self</span>, _ctx: &amp;Context&lt;<span class="hljs-keyword">Self</span>&gt;, msg: <span class="hljs-keyword">Self</span>::Message) <span class="hljs-punctuation">-&gt;</span> <span class="hljs-type">bool</span> &#123;
+        <span class="hljs-keyword">match</span> msg &#123;
+            Msg::AddOne =&gt; &#123;
+                <span class="hljs-keyword">self</span>.value += <span class="hljs-number">1</span>;
+                <span class="hljs-comment">// the value has changed so we need to</span>
+                <span class="hljs-comment">// re-render for it to appear on the page</span>
+                <span class="hljs-literal">true</span>
+            &#125;
+        &#125;
+    &#125;
+
+    <span class="hljs-keyword">fn</span> <span class="hljs-title function_">view</span>(&amp;<span class="hljs-keyword">self</span>, ctx: &amp;Context&lt;<span class="hljs-keyword">Self</span>&gt;) <span class="hljs-punctuation">-&gt;</span> Html &#123;
+        <span class="hljs-comment">// This gives us a component&#x27;s &quot;`Scope`&quot; which allows us to send messages, etc to the component.</span>
+        <span class="hljs-keyword">let</span> <span class="hljs-variable">link</span> = ctx.<span class="hljs-title function_ invoke__">link</span>();
+        html! &#123;
+            &lt;div&gt;
+                &lt;button onclick=&#123;link.<span class="hljs-title function_ invoke__">callback</span>(|_| Msg::AddOne)&#125;&gt;&#123; <span class="hljs-string">&quot;+1&quot;</span> &#125;&lt;/button&gt;
+                &lt;p&gt;&#123; <span class="hljs-keyword">self</span>.value &#125;&lt;/p&gt;
+            &lt;/div&gt;
+        &#125;
+    &#125;
+&#125;
+
+<span class="hljs-keyword">fn</span> <span class="hljs-title function_">main</span>() &#123;
+    yew::start_app::&lt;Model&gt;();
+&#125;</code></pre></div>
+
+<h5 id="创建一个index-html"><a href="#创建一个index-html" class="headerlink" title="创建一个index.html"></a>创建一个index.html</h5><div class="code-wrapper"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;utf-8&quot;</span> /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Yew App<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></pre></div>
+
+<h5 id="好了，编译出你的web应用吧"><a href="#好了，编译出你的web应用吧" class="headerlink" title="好了，编译出你的web应用吧"></a>好了，编译出你的web应用吧</h5><div class="code-wrapper"><pre><code class="hljs shell">trunk serve</code></pre></div>
+
+<h5 id="打开浏览器卡看"><a href="#打开浏览器卡看" class="headerlink" title="打开浏览器卡看"></a>打开浏览器卡看</h5><div class="code-wrapper"><pre><code class="hljs shell">http://127.0.0.1:8080</code></pre></div>
 
 <h5 id="打包生成的文件是"><a href="#打包生成的文件是" class="headerlink" title="打包生成的文件是"></a>打包生成的文件是</h5><p><img src="/2022/09/29/yew%E5%88%9D%E6%8E%A2/image-20220929165528190.png" srcset="/img/loading.gif" lazyload alt="image-20220929165528190" loading="lazy" data-src="/2022/09/29/yew%E5%88%9D%E6%8E%A2/image-20220929165528190.png"></p>
 <p>这个框架也算是比较人性化，对rs文件的变更，保存之后，也会马上热更新。</p>

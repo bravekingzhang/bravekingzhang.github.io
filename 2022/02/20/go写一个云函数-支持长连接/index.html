@@ -16,12 +16,12 @@
   <meta name="author" content="hz">
   <meta name="keywords" content="">
   
-    <meta name="description" content="参考链接https:&#x2F;&#x2F;github.com&#x2F;tencentyun&#x2F;scf-go-lib 开发说明推荐安装Tencent CloudBase Toolkit  打包说明1234GOOS&#x3D;linux GOARCH&#x3D;amd64 go build -o main main.gozip main.zip main  需要注意，go版本的云函数只能本地编译成可执行文件后在上传zip，而且看起来必须要指定GO">
+    <meta name="description" content="参考链接https:&#x2F;&#x2F;github.com&#x2F;tencentyun&#x2F;scf-go-lib 开发说明推荐安装Tencent CloudBase Toolkit  打包说明 GOOS&#x3D;linux GOARCH&#x3D;amd64 go build -o main main.go  zip main.zip main  需要注意，go版本的云函数只能本地编译成可执行文件后在上传zip，而且看起来必须要指定GOA">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Go写一个云函数,支持长连接">
 <meta property="og:url" content="https://blog.brzhang.club/2022/02/20/go%E5%86%99%E4%B8%80%E4%B8%AA%E4%BA%91%E5%87%BD%E6%95%B0-%E6%94%AF%E6%8C%81%E9%95%BF%E8%BF%9E%E6%8E%A5/index.html">
 <meta property="og:site_name" content="心随我动">
-<meta property="og:description" content="参考链接https:&#x2F;&#x2F;github.com&#x2F;tencentyun&#x2F;scf-go-lib 开发说明推荐安装Tencent CloudBase Toolkit  打包说明1234GOOS&#x3D;linux GOARCH&#x3D;amd64 go build -o main main.gozip main.zip main  需要注意，go版本的云函数只能本地编译成可执行文件后在上传zip，而且看起来必须要指定GO">
+<meta property="og:description" content="参考链接https:&#x2F;&#x2F;github.com&#x2F;tencentyun&#x2F;scf-go-lib 开发说明推荐安装Tencent CloudBase Toolkit  打包说明 GOOS&#x3D;linux GOARCH&#x3D;amd64 go build -o main main.go  zip main.zip main  需要注意，go版本的云函数只能本地编译成可执行文件后在上传zip，而且看起来必须要指定GOA">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.brzhang.club/2022/02/20/go%E5%86%99%E4%B8%80%E4%B8%AA%E4%BA%91%E5%87%BD%E6%95%B0-%E6%94%AF%E6%8C%81%E9%95%BF%E8%BF%9E%E6%8E%A5/image-20220220223836051.png">
 <meta property="og:image" content="https://blog.brzhang.club/2022/02/20/go%E5%86%99%E4%B8%80%E4%B8%AA%E4%BA%91%E5%87%BD%E6%95%B0-%E6%94%AF%E6%8C%81%E9%95%BF%E8%BF%9E%E6%8E%A5/image-20220220223706956.png">
@@ -241,7 +241,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4k 字
+          3.7k 字
         
       </span>
     
@@ -252,7 +252,7 @@
         
         
         
-          34 分钟
+          32 分钟
         
       </span>
     
@@ -305,7 +305,10 @@
                 <h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="https://github.com/tencentyun/scf-go-lib">https://github.com/tencentyun/scf-go-lib</a></p>
 <h4 id="开发说明"><a href="#开发说明" class="headerlink" title="开发说明"></a>开发说明</h4><p>推荐安装Tencent CloudBase Toolkit</p>
 <p><img src="/2022/02/20/go%E5%86%99%E4%B8%80%E4%B8%AA%E4%BA%91%E5%87%BD%E6%95%B0-%E6%94%AF%E6%8C%81%E9%95%BF%E8%BF%9E%E6%8E%A5/image-20220220223836051.png" srcset="/img/loading.gif" lazyload alt="image-20220220223836051" loading="lazy" data-src="/2022/02/20/go%E5%86%99%E4%B8%80%E4%B8%AA%E4%BA%91%E5%87%BD%E6%95%B0-%E6%94%AF%E6%8C%81%E9%95%BF%E8%BF%9E%E6%8E%A5/image-20220220223836051.png"></p>
-<h4 id="打包说明"><a href="#打包说明" class="headerlink" title="打包说明"></a>打包说明</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell"><br>GOOS=linux GOARCH=amd64 go build -o main main.go<br><br>zip main.zip main<br></code></pre></td></tr></table></figure>
+<h4 id="打包说明"><a href="#打包说明" class="headerlink" title="打包说明"></a>打包说明</h4><div class="code-wrapper"><pre><code class="hljs shell">
+GOOS=linux GOARCH=amd64 go build -o main main.go
+
+zip main.zip main</code></pre></div>
 
 <p>需要注意，go版本的云函数只能本地编译成可执行文件后在上传zip，而且看起来必须要指定GOARCH以及GOOS。否则云函数是跑步起来的。</p>
 <h4 id="部署说明"><a href="#部署说明" class="headerlink" title="部署说明"></a>部署说明</h4><p><img src="/2022/02/20/go%E5%86%99%E4%B8%80%E4%B8%AA%E4%BA%91%E5%87%BD%E6%95%B0-%E6%94%AF%E6%8C%81%E9%95%BF%E8%BF%9E%E6%8E%A5/image-20220220223706956.png" srcset="/img/loading.gif" lazyload alt="image-20220220223706956" loading="lazy" data-src="/2022/02/20/go%E5%86%99%E4%B8%80%E4%B8%AA%E4%BA%91%E5%87%BD%E6%95%B0-%E6%94%AF%E6%8C%81%E9%95%BF%E8%BF%9E%E6%8E%A5/image-20220220223706956.png"></p>
@@ -316,15 +319,136 @@
 <p><img src="/2022/02/20/go%E5%86%99%E4%B8%80%E4%B8%AA%E4%BA%91%E5%87%BD%E6%95%B0-%E6%94%AF%E6%8C%81%E9%95%BF%E8%BF%9E%E6%8E%A5/image-20220220230730819.png" srcset="/img/loading.gif" lazyload alt="image-20220220230730819" loading="lazy" data-src="/2022/02/20/go%E5%86%99%E4%B8%80%E4%B8%AA%E4%BA%91%E5%87%BD%E6%95%B0-%E6%94%AF%E6%8C%81%E9%95%BF%E8%BF%9E%E6%8E%A5/image-20220220230730819.png"></p>
 <p>注意，千万别直接在线上IDE编辑上改代码测试！</p>
 <p>就算你试一千遍都不会生效的，很奇怪，既然不支持go在线编辑，那为何不把这个入口干掉呢。</p>
-<h4 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;context&quot;</span><br>	<span class="hljs-string">&quot;encoding/json&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;io/ioutil&quot;</span><br>	<span class="hljs-string">&quot;net/http&quot;</span><br><br>	<span class="hljs-string">&quot;github.com/tencentyun/scf-go-lib/cloudfunction&quot;</span><br>	<span class="hljs-string">&quot;github.com/tencentyun/scf-go-lib/functioncontext&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">hello</span><span class="hljs-params">(ctx context.Context, event <span class="hljs-keyword">interface</span>&#123;&#125;)</span></span> (<span class="hljs-keyword">interface</span>&#123;&#125;, <span class="hljs-type">error</span>) &#123;<br>	lc, _ := functioncontext.FromContext(ctx)<br>	fmt.Printf(<span class="hljs-string">&quot;function ClientContext.Env: %s\n&quot;</span>, lc.ClientContext.Env)<br>	fmt.Printf(<span class="hljs-string">&quot;function ClientContext.Custom: %s\n&quot;</span>, lc.ClientContext.Custom)<br>	<span class="hljs-comment">// fmt.Printf(&quot;function Environment: %s\n&quot;, lc.Environment)</span><br>	requestUrl := lc.Environment[<span class="hljs-string">&quot;APIGateWay_Url&quot;</span>] <span class="hljs-comment">//这里可以拿到自己设置的环境变量</span><br>	secretId := lc.Environment[<span class="hljs-string">&quot;APIGateWay_SecretId&quot;</span>]<br>	secretKey := lc.Environment[<span class="hljs-string">&quot;APIGateWay_SecretKey&quot;</span>]<br>	fmt.Printf(<span class="hljs-string">&quot;requestUrl %s\n,secretId %s\n,secretKey %s\n&quot;</span>, requestUrl, secretId, secretKey)<br>	resp, err := http.Get(<span class="hljs-string">&quot;http://httpbin.org/get&quot;</span>)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> err, <span class="hljs-literal">nil</span><br>	&#125;<br>	<span class="hljs-keyword">defer</span> resp.Body.Close()<br>	body, _ := ioutil.ReadAll(resp.Body)<br>	<span class="hljs-keyword">var</span> res <span class="hljs-keyword">interface</span>&#123;&#125;<br>	json.Unmarshal(body, &amp;res)<br>	<span class="hljs-keyword">return</span> res, <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">// Make the handler available for Remote Procedure Call by Cloud Function</span><br>	cloudfunction.Start(hello)<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<h4 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h4><div class="code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+	<span class="hljs-string">&quot;context&quot;</span>
+	<span class="hljs-string">&quot;encoding/json&quot;</span>
+	<span class="hljs-string">&quot;fmt&quot;</span>
+	<span class="hljs-string">&quot;io/ioutil&quot;</span>
+	<span class="hljs-string">&quot;net/http&quot;</span>
+
+	<span class="hljs-string">&quot;github.com/tencentyun/scf-go-lib/cloudfunction&quot;</span>
+	<span class="hljs-string">&quot;github.com/tencentyun/scf-go-lib/functioncontext&quot;</span>
+)
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">hello</span><span class="hljs-params">(ctx context.Context, event <span class="hljs-keyword">interface</span>&#123;&#125;)</span></span> (<span class="hljs-keyword">interface</span>&#123;&#125;, <span class="hljs-type">error</span>) &#123;
+	lc, _ := functioncontext.FromContext(ctx)
+	fmt.Printf(<span class="hljs-string">&quot;function ClientContext.Env: %s\n&quot;</span>, lc.ClientContext.Env)
+	fmt.Printf(<span class="hljs-string">&quot;function ClientContext.Custom: %s\n&quot;</span>, lc.ClientContext.Custom)
+	<span class="hljs-comment">// fmt.Printf(&quot;function Environment: %s\n&quot;, lc.Environment)</span>
+	requestUrl := lc.Environment[<span class="hljs-string">&quot;APIGateWay_Url&quot;</span>] <span class="hljs-comment">//这里可以拿到自己设置的环境变量</span>
+	secretId := lc.Environment[<span class="hljs-string">&quot;APIGateWay_SecretId&quot;</span>]
+	secretKey := lc.Environment[<span class="hljs-string">&quot;APIGateWay_SecretKey&quot;</span>]
+	fmt.Printf(<span class="hljs-string">&quot;requestUrl %s\n,secretId %s\n,secretKey %s\n&quot;</span>, requestUrl, secretId, secretKey)
+	resp, err := http.Get(<span class="hljs-string">&quot;http://httpbin.org/get&quot;</span>)
+	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;
+		<span class="hljs-keyword">return</span> err, <span class="hljs-literal">nil</span>
+	&#125;
+	<span class="hljs-keyword">defer</span> resp.Body.Close()
+	body, _ := ioutil.ReadAll(resp.Body)
+	<span class="hljs-keyword">var</span> res <span class="hljs-keyword">interface</span>&#123;&#125;
+	json.Unmarshal(body, &amp;res)
+	<span class="hljs-keyword">return</span> res, <span class="hljs-literal">nil</span>
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;
+	<span class="hljs-comment">// Make the handler available for Remote Procedure Call by Cloud Function</span>
+	cloudfunction.Start(hello)
+&#125;
+</code></pre></div>
 
 <p>这里在微信小程序云函数环境中，有点坑，是拿不到请求客户端的clientip的。ClientContext里面打印出来，发现是没有该项的，已经在<a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/community/develop/doc/00024e867d86e036d4971353f56400">开发者社区</a>中提问了。</p>
-<h3 id="长连接优化"><a href="#长连接优化" class="headerlink" title="长连接优化"></a>长连接优化</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;io/ioutil&quot;</span><br>	<span class="hljs-string">&quot;net&quot;</span><br>	<span class="hljs-string">&quot;net/http&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-keyword">var</span> httpTransportCloseOnComplete = &amp;http.Transport&#123;<br>	DisableKeepAlives: <span class="hljs-literal">true</span>, <span class="hljs-comment">//禁用长连接</span><br>&#125;<br><span class="hljs-keyword">var</span> httpTransportKeepAlive = &amp;http.Transport&#123;<br>	DialContext: (&amp;net.Dialer&#123;<br>		Timeout:   <span class="hljs-number">3</span> * time.Second, <span class="hljs-comment">// 连接超时时间</span><br>		KeepAlive: <span class="hljs-number">7</span> * time.Second, <span class="hljs-comment">// 保持长连接的时间</span><br>	&#125;).DialContext, <span class="hljs-comment">// 设置连接的参数</span><br>	MaxIdleConns:          <span class="hljs-number">500</span>,              <span class="hljs-comment">// 最大空闲连接</span><br>	IdleConnTimeout:       <span class="hljs-number">60</span> * time.Second, <span class="hljs-comment">// 空闲连接的超时时间</span><br>	ExpectContinueTimeout: <span class="hljs-number">30</span> * time.Second, <span class="hljs-comment">// 等待服务第一个响应的超时时间</span><br>	MaxIdleConnsPerHost:   <span class="hljs-number">100</span>,              <span class="hljs-comment">// 每个host保持的空闲连接数</span><br>	DisableKeepAlives:     <span class="hljs-literal">false</span>,            <span class="hljs-comment">//长连接生效</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	times := <span class="hljs-number">20</span><br>	uri := <span class="hljs-string">&quot;https://github.com/request/request/blob/master/request.js&quot;</span><br>	<span class="hljs-comment">// 短连接的情况</span><br><br>	start := time.Now()<br>	client := http.Client&#123;Transport: httpTransportCloseOnComplete&#125; <span class="hljs-comment">// 初始化http的client</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; times; i++ &#123;<br>		req, err := http.NewRequest(http.MethodGet, uri, <span class="hljs-literal">nil</span>)<br>		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>			<span class="hljs-built_in">panic</span>(<span class="hljs-string">&quot;Http Req Failed &quot;</span> + err.Error())<br>		&#125;<br>		resp, err := client.Do(req) <span class="hljs-comment">// 发起请求</span><br>		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>			<span class="hljs-built_in">panic</span>(<span class="hljs-string">&quot;Http Request Failed &quot;</span> + err.Error())<br>		&#125;<br>		<span class="hljs-keyword">defer</span> resp.Body.Close()<br>		ioutil.ReadAll(resp.Body)<br>	&#125;<br>	fmt.Println(<span class="hljs-string">&quot;Orig GoNet Short Link&quot;</span>, time.Since(start))<br><br>	<span class="hljs-comment">// 长连接的情况</span><br><br>	start2 := time.Now()<br>	client2 := http.Client&#123;Transport: httpTransportKeepAlive&#125; <span class="hljs-comment">// 初始化一个带有transport的http的client</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; times; i++ &#123;<br>		req, err := http.NewRequest(http.MethodGet, uri, <span class="hljs-literal">nil</span>)<br>		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>			<span class="hljs-built_in">panic</span>(<span class="hljs-string">&quot;Http Req Failed &quot;</span> + err.Error())<br>		&#125;<br>		resp, err := client2.Do(req)<br>		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>			<span class="hljs-built_in">panic</span>(<span class="hljs-string">&quot;Http Request Failed &quot;</span> + err.Error())<br>		&#125;<br>		<span class="hljs-keyword">defer</span> resp.Body.Close()<br>		ioutil.ReadAll(resp.Body) <span class="hljs-comment">// 如果不及时从请求中获取结果，此连接会占用，其他请求服务复用连接</span><br>	&#125;<br>	fmt.Println(<span class="hljs-string">&quot;Orig GoNet Long Link&quot;</span>, time.Since(start2))<br>&#125;<br><br><br></code></pre></td></tr></table></figure>
+<h3 id="长连接优化"><a href="#长连接优化" class="headerlink" title="长连接优化"></a>长连接优化</h3><div class="code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+	<span class="hljs-string">&quot;fmt&quot;</span>
+	<span class="hljs-string">&quot;io/ioutil&quot;</span>
+	<span class="hljs-string">&quot;net&quot;</span>
+	<span class="hljs-string">&quot;net/http&quot;</span>
+	<span class="hljs-string">&quot;time&quot;</span>
+)
+
+<span class="hljs-keyword">var</span> httpTransportCloseOnComplete = &amp;http.Transport&#123;
+	DisableKeepAlives: <span class="hljs-literal">true</span>, <span class="hljs-comment">//禁用长连接</span>
+&#125;
+<span class="hljs-keyword">var</span> httpTransportKeepAlive = &amp;http.Transport&#123;
+	DialContext: (&amp;net.Dialer&#123;
+		Timeout:   <span class="hljs-number">3</span> * time.Second, <span class="hljs-comment">// 连接超时时间</span>
+		KeepAlive: <span class="hljs-number">7</span> * time.Second, <span class="hljs-comment">// 保持长连接的时间</span>
+	&#125;).DialContext, <span class="hljs-comment">// 设置连接的参数</span>
+	MaxIdleConns:          <span class="hljs-number">500</span>,              <span class="hljs-comment">// 最大空闲连接</span>
+	IdleConnTimeout:       <span class="hljs-number">60</span> * time.Second, <span class="hljs-comment">// 空闲连接的超时时间</span>
+	ExpectContinueTimeout: <span class="hljs-number">30</span> * time.Second, <span class="hljs-comment">// 等待服务第一个响应的超时时间</span>
+	MaxIdleConnsPerHost:   <span class="hljs-number">100</span>,              <span class="hljs-comment">// 每个host保持的空闲连接数</span>
+	DisableKeepAlives:     <span class="hljs-literal">false</span>,            <span class="hljs-comment">//长连接生效</span>
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;
+	times := <span class="hljs-number">20</span>
+	uri := <span class="hljs-string">&quot;https://github.com/request/request/blob/master/request.js&quot;</span>
+	<span class="hljs-comment">// 短连接的情况</span>
+
+	start := time.Now()
+	client := http.Client&#123;Transport: httpTransportCloseOnComplete&#125; <span class="hljs-comment">// 初始化http的client</span>
+	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; times; i++ &#123;
+		req, err := http.NewRequest(http.MethodGet, uri, <span class="hljs-literal">nil</span>)
+		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;
+			<span class="hljs-built_in">panic</span>(<span class="hljs-string">&quot;Http Req Failed &quot;</span> + err.Error())
+		&#125;
+		resp, err := client.Do(req) <span class="hljs-comment">// 发起请求</span>
+		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;
+			<span class="hljs-built_in">panic</span>(<span class="hljs-string">&quot;Http Request Failed &quot;</span> + err.Error())
+		&#125;
+		<span class="hljs-keyword">defer</span> resp.Body.Close()
+		ioutil.ReadAll(resp.Body)
+	&#125;
+	fmt.Println(<span class="hljs-string">&quot;Orig GoNet Short Link&quot;</span>, time.Since(start))
+
+	<span class="hljs-comment">// 长连接的情况</span>
+
+	start2 := time.Now()
+	client2 := http.Client&#123;Transport: httpTransportKeepAlive&#125; <span class="hljs-comment">// 初始化一个带有transport的http的client</span>
+	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; times; i++ &#123;
+		req, err := http.NewRequest(http.MethodGet, uri, <span class="hljs-literal">nil</span>)
+		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;
+			<span class="hljs-built_in">panic</span>(<span class="hljs-string">&quot;Http Req Failed &quot;</span> + err.Error())
+		&#125;
+		resp, err := client2.Do(req)
+		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;
+			<span class="hljs-built_in">panic</span>(<span class="hljs-string">&quot;Http Request Failed &quot;</span> + err.Error())
+		&#125;
+		<span class="hljs-keyword">defer</span> resp.Body.Close()
+		ioutil.ReadAll(resp.Body) <span class="hljs-comment">// 如果不及时从请求中获取结果，此连接会占用，其他请求服务复用连接</span>
+	&#125;
+	fmt.Println(<span class="hljs-string">&quot;Orig GoNet Long Link&quot;</span>, time.Since(start2))
+&#125;
+
+</code></pre></div>
 
 <p><img src="/2022/02/20/go%E5%86%99%E4%B8%80%E4%B8%AA%E4%BA%91%E5%87%BD%E6%95%B0-%E6%94%AF%E6%8C%81%E9%95%BF%E8%BF%9E%E6%8E%A5/image-20220220225436507.png" srcset="/img/loading.gif" lazyload alt="image-20220220225436507" loading="lazy" data-src="/2022/02/20/go%E5%86%99%E4%B8%80%E4%B8%AA%E4%BA%91%E5%87%BD%E6%95%B0-%E6%94%AF%E6%8C%81%E9%95%BF%E8%BF%9E%E6%8E%A5/image-20220220225436507.png"></p>
 <p>这里使用<a target="_blank" rel="noopener" href="https://github.com/request/request/blob/master/request.js">https://github.com/request/request/blob/master/request.js</a> 测试，使用长连接明显要好过不适用长连接。</p>
 <p>这里有一点需要注意，这种特性还需要服务端支持，比如，你遇到这种服务端，那基本上你客户端在怎么努力也行不通</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;log&quot;</span><br>	<span class="hljs-string">&quot;net/http&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Index</span><span class="hljs-params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;<br>	log.Println(<span class="hljs-string">&quot;receive a request from:&quot;</span>, r.RemoteAddr, r.Header)<br>	w.Write([]<span class="hljs-type">byte</span>(<span class="hljs-string">&quot;ok&quot;</span>))<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">var</span> s = http.Server&#123;<br>		Addr:    <span class="hljs-string">&quot;:8080&quot;</span>,<br>		Handler: http.HandlerFunc(Index),<br>	&#125;<br>	s.SetKeepAlivesEnabled(<span class="hljs-literal">false</span>)<span class="hljs-comment">//服务度直接给你关闭</span><br>	s.ListenAndServe()<br>&#125;<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+	<span class="hljs-string">&quot;log&quot;</span>
+	<span class="hljs-string">&quot;net/http&quot;</span>
+)
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Index</span><span class="hljs-params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;
+	log.Println(<span class="hljs-string">&quot;receive a request from:&quot;</span>, r.RemoteAddr, r.Header)
+	w.Write([]<span class="hljs-type">byte</span>(<span class="hljs-string">&quot;ok&quot;</span>))
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;
+	<span class="hljs-keyword">var</span> s = http.Server&#123;
+		Addr:    <span class="hljs-string">&quot;:8080&quot;</span>,
+		Handler: http.HandlerFunc(Index),
+	&#125;
+	s.SetKeepAlivesEnabled(<span class="hljs-literal">false</span>)<span class="hljs-comment">//服务度直接给你关闭</span>
+	s.ListenAndServe()
+&#125;</code></pre></div>
 
 
 

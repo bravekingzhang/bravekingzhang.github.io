@@ -314,7 +314,30 @@
 <p>找@xkyhuang，我理解开通了上面的开发者，就可以找文档小伙伴索要了。</p>
 <h4 id="准备开发环境"><a href="#准备开发环境" class="headerlink" title="准备开发环境"></a>准备开发环境</h4><p>参考<a target="_blank" rel="noopener" href="https://docs.qq.com/doc/DTnB5b2VJeUNTY1FG">这个文档</a>开始搞起，安装开发工具。</p>
 <p>homebrew的方式安装失败的话，可以参考下面的方式：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">First check OS.</span><br>OS=&quot;$(uname)&quot;<br>if [[ &quot;$&#123;OS&#125;&quot; == &quot;Linux&quot; ]]<br>then<br>  ADDON_TOOLS_ON_OS=&quot;linux&quot;<br>elif [[ &quot;$&#123;OS&#125;&quot; == &quot;Darwin&quot; ]]<br>then<br>  ADDON_TOOLS_ON_OS=&quot;macos&quot;<br>else<br>  abort &quot;Homebrew is only supported on macOS and Linux.&quot;<br>fi<br><br>default_name=&quot;docs-addon-tools-$ADDON_TOOLS_ON_OS-v0.5.323.zip&quot;<br>if [[ &quot;$ADDON_TOOLS_VERSION&quot; ]]; then<br>  name=&quot;docs-addon-tools-$ADDON_TOOLS_ON_OS-$ADDON_TOOLS_VERSION.zip&quot;<br>else<br>  name=$default_name<br>fi<br><br>curl https://cdn.addon.tencentsuite.com/addon-tools/beta/$name -o $name<br>unzip $name<br>rm $name<br>chmod 0555 docs-addon-tools<br>mv ./docs-addon-tools /usr/local/bin<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">First check OS.</span>
+OS=&quot;$(uname)&quot;
+if [[ &quot;$&#123;OS&#125;&quot; == &quot;Linux&quot; ]]
+then
+  ADDON_TOOLS_ON_OS=&quot;linux&quot;
+elif [[ &quot;$&#123;OS&#125;&quot; == &quot;Darwin&quot; ]]
+then
+  ADDON_TOOLS_ON_OS=&quot;macos&quot;
+else
+  abort &quot;Homebrew is only supported on macOS and Linux.&quot;
+fi
+
+default_name=&quot;docs-addon-tools-$ADDON_TOOLS_ON_OS-v0.5.323.zip&quot;
+if [[ &quot;$ADDON_TOOLS_VERSION&quot; ]]; then
+  name=&quot;docs-addon-tools-$ADDON_TOOLS_ON_OS-$ADDON_TOOLS_VERSION.zip&quot;
+else
+  name=$default_name
+fi
+
+curl https://cdn.addon.tencentsuite.com/addon-tools/beta/$name -o $name
+unzip $name
+rm $name
+chmod 0555 docs-addon-tools
+mv ./docs-addon-tools /usr/local/bin</code></pre></div>
 
 <p>保存这个脚本为<code>smart-tools-latest.sh</code>，对文件  <code>chmod a+x smart-tools-latest.sh</code>,然后<code>./smart-tools-latest.sh</code>执行脚本，就可以安装了。</p>
 <p><img src="/2022/03/29/%E8%85%BE%E8%AE%AF%E6%96%87%E6%A1%A3%E6%8F%92%E4%BB%B6%E7%A0%94%E5%8F%91/image-20220330095757636.png" srcset="/img/loading.gif" lazyload alt="image-20220330095757636" loading="lazy" data-src="/2022/03/29/%E8%85%BE%E8%AE%AF%E6%96%87%E6%A1%A3%E6%8F%92%E4%BB%B6%E7%A0%94%E5%8F%91/image-20220330095757636.png"></p>
@@ -322,10 +345,10 @@
 <p><img src="/2022/03/29/%E8%85%BE%E8%AE%AF%E6%96%87%E6%A1%A3%E6%8F%92%E4%BB%B6%E7%A0%94%E5%8F%91/image-20220330100028938.png" srcset="/img/loading.gif" lazyload alt="image-20220330100028938" loading="lazy" data-src="/2022/03/29/%E8%85%BE%E8%AE%AF%E6%96%87%E6%A1%A3%E6%8F%92%E4%BB%B6%E7%A0%94%E5%8F%91/image-20220330100028938.png"></p>
 <p>至此，环境已经安装完毕。</p>
 <h4 id="创建一个demo"><a href="#创建一个demo" class="headerlink" title="创建一个demo"></a>创建一个demo</h4><p>直接使用命令创建一个项目</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docs-addon-tools create demo<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs shell">docs-addon-tools create demo</code></pre></div>
 
 <p>运行项目</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docs-addon-tools dev -p 3000 -d ./demo<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs shell">docs-addon-tools dev -p 3000 -d ./demo</code></pre></div>
 
 <p>注意，没有addonId会报错，所以一定要在前面的步骤申请下来addonId。申请之后跑上面的例子，会进入这个页面。</p>
 <p>但是你会发现，插件这里没有我们的插件。</p>

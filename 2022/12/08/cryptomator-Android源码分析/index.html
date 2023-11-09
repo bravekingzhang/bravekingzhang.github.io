@@ -234,7 +234,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          14k 字
+          13k 字
         
       </span>
     
@@ -245,7 +245,7 @@
         
         
         
-          116 分钟
+          112 分钟
         
       </span>
     
@@ -305,25 +305,116 @@
 <p>8、给RxJava添加一个统一的错误处理，啥都没干，只打印了日志。</p>
 <p>至此，cryptomator-Android的启动过程就完成了，这里难点在于dagger注入各种依赖，大可不必细看，只知道，需要使用到各种module的时候，dagger会自动帮注入好就可以。</p>
 <p>需要稍微了解一下kotlin的一些语法，如:</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-comment">//回调lambda简化</span><br>mView.setEventListener(<span class="hljs-keyword">object</span>:Listenser&#123;<br>	<span class="hljs-keyword">public</span> void onSuccess(Data <span class="hljs-keyword">data</span>)&#123;<br>    <span class="hljs-comment">//todo</span><br>  &#125;<br>&#125;)<br><span class="hljs-comment">////可简化为</span><br>mView.setEventListener&#123;<br>  <span class="hljs-comment">//todo</span><br>&#125;<br><br><span class="hljs-comment">//内联扩展函数,最重要的事可以简化多次判空操作。</span><br>a?let&#123;<br>  it.do1()<br>  it.do2()<br>  it.do3()<br>&#125;<br><span class="hljs-comment">/// 类似的内联还有 with操作，和js的with有点类似，可以避免频繁的写多次context</span><br><br><span class="hljs-comment">// use 操作，自带try catch ，fanlly 中 自带close操作，简直是流操作的福音</span><br><br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs kotlin"><span class="hljs-comment">//回调lambda简化</span>
+mView.setEventListener(<span class="hljs-keyword">object</span>:Listenser&#123;
+	<span class="hljs-keyword">public</span> void onSuccess(Data <span class="hljs-keyword">data</span>)&#123;
+    <span class="hljs-comment">//todo</span>
+  &#125;
+&#125;)
+<span class="hljs-comment">////可简化为</span>
+mView.setEventListener&#123;
+  <span class="hljs-comment">//todo</span>
+&#125;
+
+<span class="hljs-comment">//内联扩展函数,最重要的事可以简化多次判空操作。</span>
+a?let&#123;
+  it.do1()
+  it.do2()
+  it.do3()
+&#125;
+<span class="hljs-comment">/// 类似的内联还有 with操作，和js的with有点类似，可以避免频繁的写多次context</span>
+
+<span class="hljs-comment">// use 操作，自带try catch ，fanlly 中 自带close操作，简直是流操作的福音</span>
+</code></pre></div>
 
 
 
 <h4 id="主activity的启动"><a href="#主activity的启动" class="headerlink" title="主activity的启动"></a>主activity的启动</h4><p>App启动之后，更具Android规则，打开的第一个activity应该是AndroidManifest中定义的启动的那个</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">activity</span></span><br><span class="hljs-tag">			<span class="hljs-attr">android:name</span>=<span class="hljs-string">&quot;.ui.activity.VaultListActivity&quot;</span></span><br><span class="hljs-tag">			<span class="hljs-attr">android:exported</span>=<span class="hljs-string">&quot;true&quot;</span></span><br><span class="hljs-tag">			<span class="hljs-attr">android:theme</span>=<span class="hljs-string">&quot;@style/AppTheme.Starting&quot;</span></span><br><span class="hljs-tag">			<span class="hljs-attr">android:windowSoftInputMode</span>=<span class="hljs-string">&quot;adjustPan&quot;</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">intent-filter</span>&gt;</span><br>				<span class="hljs-tag">&lt;<span class="hljs-name">action</span> <span class="hljs-attr">android:name</span>=<span class="hljs-string">&quot;android.intent.action.MAIN&quot;</span> /&gt;</span><br><br>				<span class="hljs-tag">&lt;<span class="hljs-name">category</span> <span class="hljs-attr">android:name</span>=<span class="hljs-string">&quot;android.intent.category.LAUNCHER&quot;</span> /&gt;</span><br>			<span class="hljs-tag">&lt;/<span class="hljs-name">intent-filter</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">activity</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">activity</span></span>
+<span class="hljs-tag">			<span class="hljs-attr">android:name</span>=<span class="hljs-string">&quot;.ui.activity.VaultListActivity&quot;</span></span>
+<span class="hljs-tag">			<span class="hljs-attr">android:exported</span>=<span class="hljs-string">&quot;true&quot;</span></span>
+<span class="hljs-tag">			<span class="hljs-attr">android:theme</span>=<span class="hljs-string">&quot;@style/AppTheme.Starting&quot;</span></span>
+<span class="hljs-tag">			<span class="hljs-attr">android:windowSoftInputMode</span>=<span class="hljs-string">&quot;adjustPan&quot;</span>&gt;</span>
+			<span class="hljs-tag">&lt;<span class="hljs-name">intent-filter</span>&gt;</span>
+				<span class="hljs-tag">&lt;<span class="hljs-name">action</span> <span class="hljs-attr">android:name</span>=<span class="hljs-string">&quot;android.intent.action.MAIN&quot;</span> /&gt;</span>
+
+				<span class="hljs-tag">&lt;<span class="hljs-name">category</span> <span class="hljs-attr">android:name</span>=<span class="hljs-string">&quot;android.intent.category.LAUNCHER&quot;</span> /&gt;</span>
+			<span class="hljs-tag">&lt;/<span class="hljs-name">intent-filter</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">activity</span>&gt;</span></code></pre></div>
 
 <p>因此，毫无疑问，应该跑到这个入口页里面瞅瞅做了啥。</p>
 <p>VaultListActivity继承自BaseActivity，因此，一般来讲一些公共的逻辑讲都会放在基类中来处理，直接看onCreate方法：</p>
 <p>1、埋个日志，表示进入onCreate，简单不介绍</p>
 <p>2、initializeDagger，使用dagger进行依赖注入,</p>
 <p>3、初始化界面，可以看到布局是一个空壳子，界面的渲染全靠fragment。</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onCreate</span><span class="hljs-params">(savedInstanceState: <span class="hljs-type">Bundle</span>?)</span></span> &#123;<br>		<span class="hljs-keyword">super</span>.onCreate(savedInstanceState)<br>		logLifecycle(<span class="hljs-string">&quot;onCreate&quot;</span>)<br><br>		<span class="hljs-keyword">this</span>.activityComponent = initializeDagger()<br><br>		javaClass.getAnnotation(Activity::<span class="hljs-keyword">class</span>.java)?.let &#123;<br>			setContentView(getContentLayout(it))<br><br>			Activities.setIntent(<span class="hljs-keyword">this</span>)<br>			<span class="hljs-keyword">this</span>.presenter = Activities.initializePresenter(<span class="hljs-keyword">this</span>)<br>			afterIntentInjected()<br><br>			<span class="hljs-keyword">if</span> (savedInstanceState != <span class="hljs-literal">null</span>) &#123;<br>				restoreState(savedInstanceState)<br>			&#125;<br>			<span class="hljs-comment">//</span><br>			setupView()<br>			setupPresenter()<br><br>			<span class="hljs-keyword">if</span> (savedInstanceState == <span class="hljs-literal">null</span>) &#123;<br>				createAndAddFragment()<br>			&#125;<br><br>			currentDialog = supportFragmentManager.findFragmentByTag(ACTIVE_DIALOG) <span class="hljs-keyword">as</span>? DialogFragment<br>			closeDialogOnResume = currentDialog != <span class="hljs-literal">null</span><br>		&#125; ?: Timber.tag(<span class="hljs-string">&quot;BaseActivity&quot;</span>).e(<span class="hljs-string">&quot;Failed to initialize Activity because config is null&quot;</span>)<br>	&#125;<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs kotlin"><span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onCreate</span><span class="hljs-params">(savedInstanceState: <span class="hljs-type">Bundle</span>?)</span></span> &#123;
+		<span class="hljs-keyword">super</span>.onCreate(savedInstanceState)
+		logLifecycle(<span class="hljs-string">&quot;onCreate&quot;</span>)
+
+		<span class="hljs-keyword">this</span>.activityComponent = initializeDagger()
+
+		javaClass.getAnnotation(Activity::<span class="hljs-keyword">class</span>.java)?.let &#123;
+			setContentView(getContentLayout(it))
+
+			Activities.setIntent(<span class="hljs-keyword">this</span>)
+			<span class="hljs-keyword">this</span>.presenter = Activities.initializePresenter(<span class="hljs-keyword">this</span>)
+			afterIntentInjected()
+
+			<span class="hljs-keyword">if</span> (savedInstanceState != <span class="hljs-literal">null</span>) &#123;
+				restoreState(savedInstanceState)
+			&#125;
+			<span class="hljs-comment">//</span>
+			setupView()
+			setupPresenter()
+
+			<span class="hljs-keyword">if</span> (savedInstanceState == <span class="hljs-literal">null</span>) &#123;
+				createAndAddFragment()
+			&#125;
+
+			currentDialog = supportFragmentManager.findFragmentByTag(ACTIVE_DIALOG) <span class="hljs-keyword">as</span>? DialogFragment
+			closeDialogOnResume = currentDialog != <span class="hljs-literal">null</span>
+		&#125; ?: Timber.tag(<span class="hljs-string">&quot;BaseActivity&quot;</span>).e(<span class="hljs-string">&quot;Failed to initialize Activity because config is null&quot;</span>)
+	&#125;</code></pre></div>
 
 <p>setupView中使用</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">setupView</span><span class="hljs-params">()</span></span> &#123;<br>		setupToolbar()<br>		vaultListPresenter.prepareView()<br>		activityRootView.setOnFilteredTouchEventForSecurityListener(<span class="hljs-keyword">object</span> : Listener &#123;<br>			<span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onFilteredTouchEventForSecurity</span><span class="hljs-params">()</span></span> &#123;<br>				vaultListPresenter.onFilteredTouchEventForSecurity()<br>			&#125;<br>		&#125;)<br><br>		<span class="hljs-keyword">if</span> (stopEditFilePressed() &amp;&amp; sharedPreferencesHandler.keepUnlockedWhileEditing()) &#123;<br>			hideNotification()<br>			unSuspendLock()<br>		&#125;<br>	&#125;<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs kotlin"><span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">setupView</span><span class="hljs-params">()</span></span> &#123;
+		setupToolbar()
+		vaultListPresenter.prepareView()
+		activityRootView.setOnFilteredTouchEventForSecurityListener(<span class="hljs-keyword">object</span> : Listener &#123;
+			<span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onFilteredTouchEventForSecurity</span><span class="hljs-params">()</span></span> &#123;
+				vaultListPresenter.onFilteredTouchEventForSecurity()
+			&#125;
+		&#125;)
+
+		<span class="hljs-keyword">if</span> (stopEditFilePressed() &amp;&amp; sharedPreferencesHandler.keepUnlockedWhileEditing()) &#123;
+			hideNotification()
+			unSuspendLock()
+		&#125;
+	&#125;</code></pre></div>
 
 <p>vaultListPresenter.prepareView() 去准备view，这个时候，会触发checkLicense()。如果没有License，会告诉你去填license。这里绕过license的检测比较简单，直接注释去检测就好，下面一小节讲解一下license的检查策略。</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">prepareView</span><span class="hljs-params">()</span></span> &#123;<br>		<span class="hljs-keyword">if</span> (!sharedPreferencesHandler.isScreenLockDialogAlreadyShown) &#123;<br>			<span class="hljs-keyword">val</span> keyguardManager = context().getSystemService(Context.KEYGUARD_SERVICE) <span class="hljs-keyword">as</span> KeyguardManager<br>			<span class="hljs-keyword">if</span> (!keyguardManager.isKeyguardSecure) &#123;<br>				view?.showDialog(AskForLockScreenDialog.newInstance())<br>			&#125;<br>			sharedPreferencesHandler.setScreenLockDialogAlreadyShown()<br>		&#125;<br><br>		sharedPreferencesHandler.vaultsRemovedDuringMigration()?.let &#123;<br>			<span class="hljs-keyword">val</span> cloudNameString = getString(CloudTypeModel.valueOf(CloudType.valueOf(it.first)).displayNameResource)<br>			view?.showDialog(VaultsRemovedDuringMigrationDialog.newInstance(Pair(cloudNameString, it.second)))<br>			sharedPreferencesHandler.vaultsRemovedDuringMigration(<span class="hljs-literal">null</span>)<br>		&#125;<br><br>  	<span class="hljs-comment">// 注释，别去检查了</span><br>		<span class="hljs-comment">//checkLicense()</span><br><br>		<span class="hljs-keyword">if</span> (sharedPreferencesHandler.usePhotoUpload()) &#123;<br>			checkLocalStoragePermissionRegardingAutoUpload()<br>		&#125;<br>	&#125;<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">prepareView</span><span class="hljs-params">()</span></span> &#123;
+		<span class="hljs-keyword">if</span> (!sharedPreferencesHandler.isScreenLockDialogAlreadyShown) &#123;
+			<span class="hljs-keyword">val</span> keyguardManager = context().getSystemService(Context.KEYGUARD_SERVICE) <span class="hljs-keyword">as</span> KeyguardManager
+			<span class="hljs-keyword">if</span> (!keyguardManager.isKeyguardSecure) &#123;
+				view?.showDialog(AskForLockScreenDialog.newInstance())
+			&#125;
+			sharedPreferencesHandler.setScreenLockDialogAlreadyShown()
+		&#125;
+
+		sharedPreferencesHandler.vaultsRemovedDuringMigration()?.let &#123;
+			<span class="hljs-keyword">val</span> cloudNameString = getString(CloudTypeModel.valueOf(CloudType.valueOf(it.first)).displayNameResource)
+			view?.showDialog(VaultsRemovedDuringMigrationDialog.newInstance(Pair(cloudNameString, it.second)))
+			sharedPreferencesHandler.vaultsRemovedDuringMigration(<span class="hljs-literal">null</span>)
+		&#125;
+
+  	<span class="hljs-comment">// 注释，别去检查了</span>
+		<span class="hljs-comment">//checkLicense()</span>
+
+		<span class="hljs-keyword">if</span> (sharedPreferencesHandler.usePhotoUpload()) &#123;
+			checkLocalStoragePermissionRegardingAutoUpload()
+		&#125;
+	&#125;</code></pre></div>
 
 
 
@@ -335,50 +426,271 @@
 <p>4、判断是否没有打开的保险库，如果没有，就关闭当前打开的图片呀，文本文件之类的资源，一种保护。<strong>主要就是防止锁屏了，锁屏之前在浏览文件，打开还会看到文件</strong>。</p>
 <p>所以第一个启动的activity的视图展示任务就落到了VaultListFragment上了。</p>
 <p>整个布局就是一个RecyclerView展示的列表，然后在onResume的时候，调用presenter去load保险库列表</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onResume</span><span class="hljs-params">()</span></span> &#123;<br>		<span class="hljs-keyword">super</span>.onResume()<br>		vaultListPresenter.loadVaultList()<br>&#125;<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs kotlin"><span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onResume</span><span class="hljs-params">()</span></span> &#123;
+		<span class="hljs-keyword">super</span>.onResume()
+		vaultListPresenter.loadVaultList()
+&#125;</code></pre></div>
 
 <p>至此其实进入保险库的整个流程就完毕了。</p>
 <h4 id="license检查"><a href="#license检查" class="headerlink" title="license检查"></a>license检查</h4><p>前面提到应用主界面会触发license的检查，其检查逻辑是除了Google player安装的版本，就会进入license检查环境，因此，这里可以看到版本的打包是使用了<code>BuildConfig.FLAVOR </code>特性。检查的逻辑是</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">checkLicense</span><span class="hljs-params">()</span></span> &#123;<br>		<span class="hljs-keyword">if</span> (BuildConfig.FLAVOR == <span class="hljs-string">&quot;apkstore&quot;</span> || BuildConfig.FLAVOR == <span class="hljs-string">&quot;fdroid&quot;</span> || BuildConfig.FLAVOR == <span class="hljs-string">&quot;lite&quot;</span>) &#123;<br>			licenseCheckUseCase <span class="hljs-comment">//</span><br>				.withLicense(<span class="hljs-string">&quot;&quot;</span>) <span class="hljs-comment">//</span><br>				.run(<span class="hljs-keyword">object</span> : NoOpResultHandler&lt;LicenseCheck&gt;() &#123;<br>					<span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onSuccess</span><span class="hljs-params">(licenseCheck: <span class="hljs-type">LicenseCheck</span>)</span></span> &#123;<br>						<span class="hljs-keyword">if</span> (BuildConfig.FLAVOR == <span class="hljs-string">&quot;apkstore&quot;</span> &amp;&amp; sharedPreferencesHandler.doUpdate()) &#123;<br>							checkForAppUpdates()<br>						&#125;<br>					&#125;<br><br>					<span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onError</span><span class="hljs-params">(e: <span class="hljs-type">Throwable</span>)</span></span> &#123;<br>						<span class="hljs-keyword">val</span> license = <span class="hljs-keyword">if</span> (e <span class="hljs-keyword">is</span> LicenseNotValidException) &#123;<br>							e.license<br>						&#125; <span class="hljs-keyword">else</span> &#123;<br>							<span class="hljs-string">&quot;&quot;</span><br>						&#125;<br>						<span class="hljs-keyword">val</span> intent = Intent(context(), LicenseCheckActivity::<span class="hljs-keyword">class</span>.java)<br>						intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK<br>						intent.<span class="hljs-keyword">data</span> = Uri.parse(String.format(<span class="hljs-string">&quot;app://cryptomator/%s&quot;</span>, license))<br><br>						<span class="hljs-keyword">try</span> &#123;<br>							context().startActivity(intent)<br>						&#125; <span class="hljs-keyword">catch</span> (e: ActivityNotFoundException) &#123;<br>							Toast.makeText(context(), <span class="hljs-string">&quot;Please contact the support.&quot;</span>, Toast.LENGTH_LONG).show()<br>							finish()<br>						&#125;<br>					&#125;<br>				&#125;)<br>		&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs kotlin"><span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">checkLicense</span><span class="hljs-params">()</span></span> &#123;
+		<span class="hljs-keyword">if</span> (BuildConfig.FLAVOR == <span class="hljs-string">&quot;apkstore&quot;</span> || BuildConfig.FLAVOR == <span class="hljs-string">&quot;fdroid&quot;</span> || BuildConfig.FLAVOR == <span class="hljs-string">&quot;lite&quot;</span>) &#123;
+			licenseCheckUseCase <span class="hljs-comment">//</span>
+				.withLicense(<span class="hljs-string">&quot;&quot;</span>) <span class="hljs-comment">//</span>
+				.run(<span class="hljs-keyword">object</span> : NoOpResultHandler&lt;LicenseCheck&gt;() &#123;
+					<span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onSuccess</span><span class="hljs-params">(licenseCheck: <span class="hljs-type">LicenseCheck</span>)</span></span> &#123;
+						<span class="hljs-keyword">if</span> (BuildConfig.FLAVOR == <span class="hljs-string">&quot;apkstore&quot;</span> &amp;&amp; sharedPreferencesHandler.doUpdate()) &#123;
+							checkForAppUpdates()
+						&#125;
+					&#125;
+
+					<span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onError</span><span class="hljs-params">(e: <span class="hljs-type">Throwable</span>)</span></span> &#123;
+						<span class="hljs-keyword">val</span> license = <span class="hljs-keyword">if</span> (e <span class="hljs-keyword">is</span> LicenseNotValidException) &#123;
+							e.license
+						&#125; <span class="hljs-keyword">else</span> &#123;
+							<span class="hljs-string">&quot;&quot;</span>
+						&#125;
+						<span class="hljs-keyword">val</span> intent = Intent(context(), LicenseCheckActivity::<span class="hljs-keyword">class</span>.java)
+						intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+						intent.<span class="hljs-keyword">data</span> = Uri.parse(String.format(<span class="hljs-string">&quot;app://cryptomator/%s&quot;</span>, license))
+
+						<span class="hljs-keyword">try</span> &#123;
+							context().startActivity(intent)
+						&#125; <span class="hljs-keyword">catch</span> (e: ActivityNotFoundException) &#123;
+							Toast.makeText(context(), <span class="hljs-string">&quot;Please contact the support.&quot;</span>, Toast.LENGTH_LONG).show()
+							finish()
+						&#125;
+					&#125;
+				&#125;)
+		&#125;
+&#125;</code></pre></div>
 
 <p>1、如果没有传入license，就会使用本地存储（SQLlite）中的license来进行验证。</p>
 <p>2、验证的主要逻辑就是使用公钥来解密license，看看是否可以解密出来，如果可以，就证明license是人家私钥加密的合法license，否则就是伪造的。</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">private</span> static <span class="hljs-keyword">final</span> String ANDROID_PUB_KEY = <span class="hljs-string">&quot;MIGbMBAGByqGSM49AgEGBSuBBAAjA4GGAAQBcnb81CfNeL3qBVFMx/yRfm1Y1yib&quot;</span> + <span class="hljs-comment">//</span><br>			<span class="hljs-string">&quot;ajIJkV1s82AQt+mOl4+Kub64wq1OCgBVwWUlKwqgnyF39nmkoXEjakRPFngBzg2J&quot;</span> + <span class="hljs-comment">//</span><br>			<span class="hljs-string">&quot;zo4UR0B7OYmn0uGf3K+zQfxKnNMxGVPtlzE8j9Nqz/dm2YvYLLVwvTSDQX/GaxoP&quot;</span> + <span class="hljs-comment">//</span><br>			<span class="hljs-string">&quot;/EH84Hupw2wuU7qAaFU=&quot;</span>;<br><span class="hljs-keyword">final</span> Claims claims = <br>Jwts.parserBuilder().setSigningKey(getPublicKey(ANDROID_PUB_KEY)).build().parseClaimsJws(license).getBody();<br>			<span class="hljs-keyword">return</span> claims::getSubject;<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs kotlin"><span class="hljs-keyword">private</span> static <span class="hljs-keyword">final</span> String ANDROID_PUB_KEY = <span class="hljs-string">&quot;MIGbMBAGByqGSM49AgEGBSuBBAAjA4GGAAQBcnb81CfNeL3qBVFMx/yRfm1Y1yib&quot;</span> + <span class="hljs-comment">//</span>
+			<span class="hljs-string">&quot;ajIJkV1s82AQt+mOl4+Kub64wq1OCgBVwWUlKwqgnyF39nmkoXEjakRPFngBzg2J&quot;</span> + <span class="hljs-comment">//</span>
+			<span class="hljs-string">&quot;zo4UR0B7OYmn0uGf3K+zQfxKnNMxGVPtlzE8j9Nqz/dm2YvYLLVwvTSDQX/GaxoP&quot;</span> + <span class="hljs-comment">//</span>
+			<span class="hljs-string">&quot;/EH84Hupw2wuU7qAaFU=&quot;</span>;
+<span class="hljs-keyword">final</span> Claims claims = 
+Jwts.parserBuilder().setSigningKey(getPublicKey(ANDROID_PUB_KEY)).build().parseClaimsJws(license).getBody();
+			<span class="hljs-keyword">return</span> claims::getSubject;</code></pre></div>
 
 <p>原理很简单，就是利用了<strong>非对称加解密</strong>。</p>
 <h4 id="添加一个保险库"><a href="#添加一个保险库" class="headerlink" title="添加一个保险库"></a>添加一个保险库</h4><p>进入系统之后，就是看怎么添加一个保险库，保险库的添加有两种方式；1、从0创建一个。2、继承至一个已有的。</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onAddExistingVault</span><span class="hljs-params">()</span></span> &#123;<br>		addExistingVaultWorkflow.start()<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onCreateVault</span><span class="hljs-params">()</span></span> &#123;<br>  	createNewVaultWorkflow.start()<br>&#125;<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onAddExistingVault</span><span class="hljs-params">()</span></span> &#123;
+		addExistingVaultWorkflow.start()
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onCreateVault</span><span class="hljs-params">()</span></span> &#123;
+  	createNewVaultWorkflow.start()
+&#125;</code></pre></div>
 
 <p>直接看从0开始创建的流程：</p>
 <p>1、点击新建一个vault的话，会进入一个选择CloudType的界面，有[Dropbox，Google Drive，OneDrive等等]，当然还包括本地。</p>
 <p>2、选择一个本地的玩一玩</p>
 <p>3、进去是一个recycleView，如果之前添加过本地文件目录，那么是会有location列表的，初次创建是没有</p>
 <p>4、点击底部的➕，会进入创建，创建会根据不同的CloudType进入不同的界面</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onAddConnectionClicked</span><span class="hljs-params">()</span></span> &#123;<br>		<span class="hljs-keyword">when</span> (selectedCloudType.<span class="hljs-keyword">get</span>()) &#123;<br>			CloudTypeModel.ONEDRIVE -&gt; addOnedriveCloud()<br>			CloudTypeModel.WEBDAV -&gt; requestActivityResult(ActivityResultCallbacks.addChangeMultiCloud(), Intents.webDavAddOrChangeIntent())<br>			CloudTypeModel.PCLOUD -&gt; requestActivityResult(ActivityResultCallbacks.pCloudAuthenticationFinished(), Intents.authenticatePCloudIntent())<br>			CloudTypeModel.S3 -&gt; requestActivityResult(ActivityResultCallbacks.addChangeMultiCloud(), Intents.s3AddOrChangeIntent())<br>			CloudTypeModel.LOCAL -&gt; openDocumentTree()<br>		&#125;<br>	&#125;<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onAddConnectionClicked</span><span class="hljs-params">()</span></span> &#123;
+		<span class="hljs-keyword">when</span> (selectedCloudType.<span class="hljs-keyword">get</span>()) &#123;
+			CloudTypeModel.ONEDRIVE -&gt; addOnedriveCloud()
+			CloudTypeModel.WEBDAV -&gt; requestActivityResult(ActivityResultCallbacks.addChangeMultiCloud(), Intents.webDavAddOrChangeIntent())
+			CloudTypeModel.PCLOUD -&gt; requestActivityResult(ActivityResultCallbacks.pCloudAuthenticationFinished(), Intents.authenticatePCloudIntent())
+			CloudTypeModel.S3 -&gt; requestActivityResult(ActivityResultCallbacks.addChangeMultiCloud(), Intents.s3AddOrChangeIntent())
+			CloudTypeModel.LOCAL -&gt; openDocumentTree()
+		&#125;
+	&#125;</code></pre></div>
 
 <p>5、openDocumentTree就是拿到一个通过一个intent打开文件管理，然后返回一个contentProvider的uri，长这样<code>content://com.android.externalstorage.documents/tree/primary%3A11111</code>，随后保存到书库中</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">public</span> void execute() throws BackendException &#123;<br>		<span class="hljs-keyword">if</span> (cloudExists(cloud)) &#123;<br>			<span class="hljs-keyword">throw</span> new CloudAlreadyExistsException();<br>		&#125;<br><br>		<span class="hljs-keyword">if</span> (cloud.persistent()) &#123;<br>			cloudRepository.store(cloud);<br>		&#125; <span class="hljs-keyword">else</span> &#123;<br>			<span class="hljs-keyword">throw</span> new FatalBackendException(<span class="hljs-string">&quot;Can&#x27;t change cloud because it&#x27;s not persistent&quot;</span>);<br>		&#125;<br>	&#125;<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs kotlin"><span class="hljs-keyword">public</span> void execute() throws BackendException &#123;
+		<span class="hljs-keyword">if</span> (cloudExists(cloud)) &#123;
+			<span class="hljs-keyword">throw</span> new CloudAlreadyExistsException();
+		&#125;
+
+		<span class="hljs-keyword">if</span> (cloud.persistent()) &#123;
+			cloudRepository.store(cloud);
+		&#125; <span class="hljs-keyword">else</span> &#123;
+			<span class="hljs-keyword">throw</span> new FatalBackendException(<span class="hljs-string">&quot;Can&#x27;t change cloud because it&#x27;s not persistent&quot;</span>);
+		&#125;
+	&#125;</code></pre></div>
 
 <p>6、点击一个location之后，会进入CreateVaultActivity中。</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs kotlin">void onCloudServiceChosen(SerializableResult&lt;CloudModel&gt; result) &#123;<br>		onCloudServiceChosen(result.getResult());<br>	&#125;<br><br>	<span class="hljs-keyword">private</span> void onCloudServiceChosen(CloudModel cloud) &#123;<br>		presenter().getView().showProgress(ProgressModel.GENERIC);<br>		getRootFolderUseCase <span class="hljs-comment">//</span><br>				.withCloud(cloud.toCloud()) <span class="hljs-comment">//</span><br>				.run(((ChooseCloudServicePresenter) presenter()).new ProgressCompletingResultHandler&lt;CloudFolder&gt;() &#123;<br>					<span class="hljs-meta">@Override</span><br>					<span class="hljs-keyword">public</span> void onSuccess(CloudFolder cloudFolder) &#123;<br>						state().cloudRoot = cloudFolder;<br>						chain(createVaultIntent(), SerializableResultCallbacks.nameEntered());<br>					&#125;<br><br>					<span class="hljs-meta">@Override</span><br>					<span class="hljs-keyword">public</span> void onError(Throwable e) &#123;<br>						<span class="hljs-keyword">if</span> (!authenticationExceptionHandler.handleAuthenticationException( <span class="hljs-comment">//</span><br>								presenter(), <span class="hljs-comment">//</span><br>								e, <span class="hljs-comment">//</span><br>								ActivityResultCallbacks.onCloudServiceAuthenticated())) &#123;<br>							<span class="hljs-keyword">super</span>.onError(e);<br>						&#125;<br>					&#125;<br>				&#125;);<br>	&#125;<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs kotlin">void onCloudServiceChosen(SerializableResult&lt;CloudModel&gt; result) &#123;
+		onCloudServiceChosen(result.getResult());
+	&#125;
+
+	<span class="hljs-keyword">private</span> void onCloudServiceChosen(CloudModel cloud) &#123;
+		presenter().getView().showProgress(ProgressModel.GENERIC);
+		getRootFolderUseCase <span class="hljs-comment">//</span>
+				.withCloud(cloud.toCloud()) <span class="hljs-comment">//</span>
+				.run(((ChooseCloudServicePresenter) presenter()).new ProgressCompletingResultHandler&lt;CloudFolder&gt;() &#123;
+					<span class="hljs-meta">@Override</span>
+					<span class="hljs-keyword">public</span> void onSuccess(CloudFolder cloudFolder) &#123;
+						state().cloudRoot = cloudFolder;
+						chain(createVaultIntent(), SerializableResultCallbacks.nameEntered());
+					&#125;
+
+					<span class="hljs-meta">@Override</span>
+					<span class="hljs-keyword">public</span> void onError(Throwable e) &#123;
+						<span class="hljs-keyword">if</span> (!authenticationExceptionHandler.handleAuthenticationException( <span class="hljs-comment">//</span>
+								presenter(), <span class="hljs-comment">//</span>
+								e, <span class="hljs-comment">//</span>
+								ActivityResultCallbacks.onCloudServiceAuthenticated())) &#123;
+							<span class="hljs-keyword">super</span>.onError(e);
+						&#125;
+					&#125;
+				&#125;);
+	&#125;</code></pre></div>
 
 <p>7、一进入，vaultNameEditText.requestFocus()就开始让你输入vaultName，确认之后，进入密码输入界面，密码是有强度的，使用了一个开源库zxvcbn来验证密码强度，而且排除了一些关键字作为密码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java">RxTextView.textChanges(passwordInput) <span class="hljs-comment">//</span><br>				.observeOn(Schedulers.computation()) <span class="hljs-comment">//</span><br>				.map(password -&gt; PasswordStrength.Companion.forPassword(password.toString(), SANITIZED_INPUTS)) <span class="hljs-comment">//</span><br>				.observeOn(AndroidSchedulers.mainThread()) <span class="hljs-comment">//</span><br>				.subscribe(strength -&gt; &#123;<br>					strengthMeter.getProgressDrawable().setColorFilter(ResourceHelper.Companion.getColor(strength.getColor()), PorterDuff.Mode.SRC_IN);<br>					strengthLabel.setText(strength.getDescription());<br>					strengthMeter.setProgress(strength.getScore() + <span class="hljs-number">1</span>);<br>					button.setEnabled(strength.getScore() &gt; PasswordStrength.EXTREMELY_WEAK.getScore());<br>				&#125;);<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs java">RxTextView.textChanges(passwordInput) <span class="hljs-comment">//</span>
+				.observeOn(Schedulers.computation()) <span class="hljs-comment">//</span>
+				.map(password -&gt; PasswordStrength.Companion.forPassword(password.toString(), SANITIZED_INPUTS)) <span class="hljs-comment">//</span>
+				.observeOn(AndroidSchedulers.mainThread()) <span class="hljs-comment">//</span>
+				.subscribe(strength -&gt; &#123;
+					strengthMeter.getProgressDrawable().setColorFilter(ResourceHelper.Companion.getColor(strength.getColor()), PorterDuff.Mode.SRC_IN);
+					strengthLabel.setText(strength.getDescription());
+					strengthMeter.setProgress(strength.getScore() + <span class="hljs-number">1</span>);
+					button.setEnabled(strength.getScore() &gt; PasswordStrength.EXTREMELY_WEAK.getScore());
+				&#125;);</code></pre></div>
 
 <p>输入强度比较OK的密码之后，就到了创建vault的最后环节了</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">public</span> Vault execute() throws BackendException &#123;<br>		CloudFolder vaultFolder = cloudContentRepository.folder(folder, vaultName);<br>		vaultFolder = cloudContentRepository.create(vaultFolder);<br>   <span class="hljs-comment">// 带着输入的密码过来创建vaultFolder</span><br>		cloudRepository.create(vaultFolder, password);<br>		<span class="hljs-keyword">return</span> vaultRepository.store(aVault() <span class="hljs-comment">//</span><br>				.thatIsNew() <span class="hljs-comment">//</span><br>				.withNamePathAndCloudFrom(vaultFolder) <span class="hljs-comment">//</span><br>				.withPosition(vaultRepository.vaults().size()) <span class="hljs-comment">//</span><br>				.build());<br>	&#125;<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs kotlin"><span class="hljs-keyword">public</span> Vault execute() throws BackendException &#123;
+		CloudFolder vaultFolder = cloudContentRepository.folder(folder, vaultName);
+		vaultFolder = cloudContentRepository.create(vaultFolder);
+   <span class="hljs-comment">// 带着输入的密码过来创建vaultFolder</span>
+		cloudRepository.create(vaultFolder, password);
+		<span class="hljs-keyword">return</span> vaultRepository.store(aVault() <span class="hljs-comment">//</span>
+				.thatIsNew() <span class="hljs-comment">//</span>
+				.withNamePathAndCloudFrom(vaultFolder) <span class="hljs-comment">//</span>
+				.withPosition(vaultRepository.vaults().size()) <span class="hljs-comment">//</span>
+				.build());
+	&#125;</code></pre></div>
 
 <p>create的真正实现在于</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">create</span><span class="hljs-params">(location: <span class="hljs-type">CloudFolder</span>, password: <span class="hljs-type">CharSequence</span>?, vaultConfigBuilder: <span class="hljs-type">VaultConfigBuilder</span>)</span></span> &#123;<br>		<span class="hljs-comment">// 1. write masterkey:</span><br>		<span class="hljs-keyword">val</span> masterkey = Masterkey.generate(secureRandom)<br>		<span class="hljs-keyword">try</span> &#123;<br>			ByteArrayOutputStream().use &#123; <span class="hljs-keyword">data</span> -&gt;<br>				MasterkeyFileAccess(CryptoConstants.PEPPER, secureRandom).persist(masterkey, <span class="hljs-keyword">data</span>, password, CryptoConstants.DEFAULT_MASTERKEY_FILE_VERSION)<br>				cloudContentRepository.write(legacyMasterkeyFile(location), from(<span class="hljs-keyword">data</span>.toByteArray()), ProgressAware.NO_OP_PROGRESS_AWARE_UPLOAD, <span class="hljs-literal">false</span>, <span class="hljs-keyword">data</span>.size().toLong())<br>			&#125;<br>		&#125; <span class="hljs-keyword">catch</span> (e: IOException) &#123;<br>			<span class="hljs-keyword">throw</span> FatalBackendException(<span class="hljs-string">&quot;Failed to write masterkey&quot;</span>, e)<br>		&#125;<br><br>		<span class="hljs-comment">// 2. initialize vault:</span><br>		<span class="hljs-keyword">val</span> vaultConfig = vaultConfigBuilder <span class="hljs-comment">//</span><br>			.vaultFormat(CryptoConstants.MAX_VAULT_VERSION) <span class="hljs-comment">//</span><br>			.cipherCombo(CryptoConstants.DEFAULT_CIPHER_COMBO) <span class="hljs-comment">//</span><br>			.keyId(URI.create(String.format(<span class="hljs-string">&quot;%s:%s&quot;</span>, CryptoConstants.MASTERKEY_SCHEME, CryptoConstants.MASTERKEY_FILE_NAME))) <span class="hljs-comment">//</span><br>			.shorteningThreshold(CryptoConstants.DEFAULT_MAX_FILE_NAME) <span class="hljs-comment">//</span><br>			.build()<br>		<span class="hljs-keyword">val</span> encodedVaultConfig = vaultConfig.toToken(masterkey.encoded).toByteArray(StandardCharsets.UTF_8)<br>		<span class="hljs-keyword">val</span> vaultFile = cloudContentRepository.file(location, CryptoConstants.VAULT_FILE_NAME)<br>		cloudContentRepository.write(vaultFile, from(encodedVaultConfig), ProgressAware.NO_OP_PROGRESS_AWARE_UPLOAD, <span class="hljs-literal">false</span>, encodedVaultConfig.size.toLong())<br><br>		<span class="hljs-comment">// 3. create root folder:</span><br>		createRootFolder(location, cryptorFor(masterkey, vaultConfig.cipherCombo))<br>	&#125;<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">create</span><span class="hljs-params">(location: <span class="hljs-type">CloudFolder</span>, password: <span class="hljs-type">CharSequence</span>?, vaultConfigBuilder: <span class="hljs-type">VaultConfigBuilder</span>)</span></span> &#123;
+		<span class="hljs-comment">// 1. write masterkey:</span>
+		<span class="hljs-keyword">val</span> masterkey = Masterkey.generate(secureRandom)
+		<span class="hljs-keyword">try</span> &#123;
+			ByteArrayOutputStream().use &#123; <span class="hljs-keyword">data</span> -&gt;
+				MasterkeyFileAccess(CryptoConstants.PEPPER, secureRandom).persist(masterkey, <span class="hljs-keyword">data</span>, password, CryptoConstants.DEFAULT_MASTERKEY_FILE_VERSION)
+				cloudContentRepository.write(legacyMasterkeyFile(location), from(<span class="hljs-keyword">data</span>.toByteArray()), ProgressAware.NO_OP_PROGRESS_AWARE_UPLOAD, <span class="hljs-literal">false</span>, <span class="hljs-keyword">data</span>.size().toLong())
+			&#125;
+		&#125; <span class="hljs-keyword">catch</span> (e: IOException) &#123;
+			<span class="hljs-keyword">throw</span> FatalBackendException(<span class="hljs-string">&quot;Failed to write masterkey&quot;</span>, e)
+		&#125;
+
+		<span class="hljs-comment">// 2. initialize vault:</span>
+		<span class="hljs-keyword">val</span> vaultConfig = vaultConfigBuilder <span class="hljs-comment">//</span>
+			.vaultFormat(CryptoConstants.MAX_VAULT_VERSION) <span class="hljs-comment">//</span>
+			.cipherCombo(CryptoConstants.DEFAULT_CIPHER_COMBO) <span class="hljs-comment">//</span>
+			.keyId(URI.create(String.format(<span class="hljs-string">&quot;%s:%s&quot;</span>, CryptoConstants.MASTERKEY_SCHEME, CryptoConstants.MASTERKEY_FILE_NAME))) <span class="hljs-comment">//</span>
+			.shorteningThreshold(CryptoConstants.DEFAULT_MAX_FILE_NAME) <span class="hljs-comment">//</span>
+			.build()
+		<span class="hljs-keyword">val</span> encodedVaultConfig = vaultConfig.toToken(masterkey.encoded).toByteArray(StandardCharsets.UTF_8)
+		<span class="hljs-keyword">val</span> vaultFile = cloudContentRepository.file(location, CryptoConstants.VAULT_FILE_NAME)
+		cloudContentRepository.write(vaultFile, from(encodedVaultConfig), ProgressAware.NO_OP_PROGRESS_AWARE_UPLOAD, <span class="hljs-literal">false</span>, encodedVaultConfig.size.toLong())
+
+		<span class="hljs-comment">// 3. create root folder:</span>
+		createRootFolder(location, cryptorFor(masterkey, vaultConfig.cipherCombo))
+	&#125;</code></pre></div>
 
 <p>1、写了一个Masterkey，写一个masterkey.cryptomator</p>
 <p>2、初始化一个vault，写一个vault.cryptomator</p>
 <p>3、初始化根目录，支持一个保险库初始化完毕。</p>
 <h4 id="文件加密机制"><a href="#文件加密机制" class="headerlink" title="文件加密机制"></a>文件加密机制</h4><p>要添加文件，就需要先打开保险库，然后在保险库中添加文件。</p>
 <p>1、因为我们打开的是本地保险库，因此会根据这个保险库的找到目录下的vault.cryptomator，然后从里面读出，内容，用来匹配用户输入的密码，其原理就是重放生成masterkey.cryptomator的过程，匹配看是否一致。</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">unlockVault</span><span class="hljs-params">(vaultModel: <span class="hljs-type">VaultModel</span>)</span></span> &#123;<br>		<span class="hljs-keyword">if</span> (canUseBiometricOn(vaultModel)) &#123;<br>			<span class="hljs-keyword">if</span> (startedUsingPrepareUnlock) &#123;<br>				startPrepareUnlockUseCase(vaultModel.toVault())<br>			&#125;<br>			view?.showBiometricDialog(vaultModel)<br>		&#125; <span class="hljs-keyword">else</span> &#123;<br>			view?.showEnterPasswordDialog(vaultModel)<br>			startPrepareUnlockUseCase(vaultModel.toVault())<br>		&#125;<br>	&#125;<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs kotlin"><span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">unlockVault</span><span class="hljs-params">(vaultModel: <span class="hljs-type">VaultModel</span>)</span></span> &#123;
+		<span class="hljs-keyword">if</span> (canUseBiometricOn(vaultModel)) &#123;
+			<span class="hljs-keyword">if</span> (startedUsingPrepareUnlock) &#123;
+				startPrepareUnlockUseCase(vaultModel.toVault())
+			&#125;
+			view?.showBiometricDialog(vaultModel)
+		&#125; <span class="hljs-keyword">else</span> &#123;
+			view?.showEnterPasswordDialog(vaultModel)
+			startPrepareUnlockUseCase(vaultModel.toVault())
+		&#125;
+	&#125;</code></pre></div>
 
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/*******************************************************************************</span><br><span class="hljs-comment"> * Copyright (c) 2016 Sebastian Stenzel and others.</span><br><span class="hljs-comment"> * All rights reserved. This program and the accompanying materials</span><br><span class="hljs-comment"> * are made available under the terms of the accompanying LICENSE.txt.</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * Contributors:</span><br><span class="hljs-comment"> *     Sebastian Stenzel - initial API and implementation</span><br><span class="hljs-comment"> *******************************************************************************/</span><br><span class="hljs-keyword">package</span> org.cryptomator.cryptolib.common;<br><br><span class="hljs-keyword">import</span> java.io.IOException;<br><span class="hljs-keyword">import</span> java.nio.ByteBuffer;<br><span class="hljs-keyword">import</span> java.nio.channels.WritableByteChannel;<br><br><span class="hljs-keyword">import</span> org.cryptomator.cryptolib.api.Cryptor;<br><span class="hljs-keyword">import</span> org.cryptomator.cryptolib.api.FileHeader;<br><span class="hljs-keyword">import</span> org.cryptomator.cryptolib.common.ByteBuffers;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">EncryptingWritableByteChannel</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">WritableByteChannel</span> &#123;<br><br>	<span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> WritableByteChannel delegate;<br>	<span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Cryptor cryptor;<br>	<span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> FileHeader header;<br>	<span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> ByteBuffer cleartextBuffer;<br><br>	<span class="hljs-keyword">private</span> <span class="hljs-type">boolean</span> <span class="hljs-variable">firstWrite</span> <span class="hljs-operator">=</span> <span class="hljs-literal">true</span>;<br>	<span class="hljs-keyword">private</span> <span class="hljs-type">long</span> <span class="hljs-variable">chunkNumber</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br><br>	<span class="hljs-keyword">public</span> <span class="hljs-title function_">EncryptingWritableByteChannel</span><span class="hljs-params">(WritableByteChannel destination, Cryptor cryptor)</span> &#123;<br>		<span class="hljs-built_in">this</span>.delegate = destination;<br>		<span class="hljs-built_in">this</span>.cryptor = cryptor;<br>		<span class="hljs-built_in">this</span>.header = cryptor.fileHeaderCryptor().create();<br>		<span class="hljs-built_in">this</span>.cleartextBuffer = ByteBuffer.allocate(cryptor.fileContentCryptor().cleartextChunkSize());<br>	&#125;<br><br>	<span class="hljs-meta">@Override</span><br>	<span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">isOpen</span><span class="hljs-params">()</span> &#123;<br>		<span class="hljs-keyword">return</span> delegate.isOpen();<br>	&#125;<br><br>	<span class="hljs-meta">@Override</span><br>	<span class="hljs-keyword">public</span> <span class="hljs-keyword">synchronized</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">close</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>		writeHeaderOnFirstWrite();<br>		encryptAndFlushBuffer();<br>		delegate.close();<br>	&#125;<br><br>	<span class="hljs-meta">@Override</span><br>	<span class="hljs-keyword">public</span> <span class="hljs-keyword">synchronized</span> <span class="hljs-type">int</span> <span class="hljs-title function_">write</span><span class="hljs-params">(ByteBuffer src)</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>		writeHeaderOnFirstWrite();<br>		<span class="hljs-type">int</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>		<span class="hljs-keyword">while</span> (src.hasRemaining()) &#123;<br>			result += ByteBuffers.copy(src, cleartextBuffer);<br>			<span class="hljs-keyword">if</span> (!cleartextBuffer.hasRemaining()) &#123;<br>				encryptAndFlushBuffer();<br>			&#125;<br>		&#125;<br>		<span class="hljs-keyword">return</span> result;<br>	&#125;<br><br>  <span class="hljs-comment">/// 文件头加密</span><br>	<span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">writeHeaderOnFirstWrite</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>		<span class="hljs-keyword">if</span> (firstWrite) &#123;<br>			delegate.write(cryptor.fileHeaderCryptor().encryptHeader(header));<br>		&#125;<br>		firstWrite = <span class="hljs-literal">false</span>;<br>	&#125;<br><br>  <span class="hljs-comment">// 文件块加密</span><br>	<span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">encryptAndFlushBuffer</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>		cleartextBuffer.flip();<br>		<span class="hljs-keyword">if</span> (cleartextBuffer.hasRemaining()) &#123;<br>			<span class="hljs-type">ByteBuffer</span> <span class="hljs-variable">ciphertextBuffer</span> <span class="hljs-operator">=</span> cryptor.fileContentCryptor().encryptChunk(cleartextBuffer, chunkNumber++, header);<br>			delegate.write(ciphertextBuffer);<br>		&#125;<br>		cleartextBuffer.clear();<br>	&#125;<br><br>&#125;<br><br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">/*******************************************************************************</span>
+<span class="hljs-comment"> * Copyright (c) 2016 Sebastian Stenzel and others.</span>
+<span class="hljs-comment"> * All rights reserved. This program and the accompanying materials</span>
+<span class="hljs-comment"> * are made available under the terms of the accompanying LICENSE.txt.</span>
+<span class="hljs-comment"> *</span>
+<span class="hljs-comment"> * Contributors:</span>
+<span class="hljs-comment"> *     Sebastian Stenzel - initial API and implementation</span>
+<span class="hljs-comment"> *******************************************************************************/</span>
+<span class="hljs-keyword">package</span> org.cryptomator.cryptolib.common;
+
+<span class="hljs-keyword">import</span> java.io.IOException;
+<span class="hljs-keyword">import</span> java.nio.ByteBuffer;
+<span class="hljs-keyword">import</span> java.nio.channels.WritableByteChannel;
+
+<span class="hljs-keyword">import</span> org.cryptomator.cryptolib.api.Cryptor;
+<span class="hljs-keyword">import</span> org.cryptomator.cryptolib.api.FileHeader;
+<span class="hljs-keyword">import</span> org.cryptomator.cryptolib.common.ByteBuffers;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">EncryptingWritableByteChannel</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">WritableByteChannel</span> &#123;
+
+	<span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> WritableByteChannel delegate;
+	<span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Cryptor cryptor;
+	<span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> FileHeader header;
+	<span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> ByteBuffer cleartextBuffer;
+
+	<span class="hljs-keyword">private</span> <span class="hljs-type">boolean</span> <span class="hljs-variable">firstWrite</span> <span class="hljs-operator">=</span> <span class="hljs-literal">true</span>;
+	<span class="hljs-keyword">private</span> <span class="hljs-type">long</span> <span class="hljs-variable">chunkNumber</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;
+
+	<span class="hljs-keyword">public</span> <span class="hljs-title function_">EncryptingWritableByteChannel</span><span class="hljs-params">(WritableByteChannel destination, Cryptor cryptor)</span> &#123;
+		<span class="hljs-built_in">this</span>.delegate = destination;
+		<span class="hljs-built_in">this</span>.cryptor = cryptor;
+		<span class="hljs-built_in">this</span>.header = cryptor.fileHeaderCryptor().create();
+		<span class="hljs-built_in">this</span>.cleartextBuffer = ByteBuffer.allocate(cryptor.fileContentCryptor().cleartextChunkSize());
+	&#125;
+
+	<span class="hljs-meta">@Override</span>
+	<span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">isOpen</span><span class="hljs-params">()</span> &#123;
+		<span class="hljs-keyword">return</span> delegate.isOpen();
+	&#125;
+
+	<span class="hljs-meta">@Override</span>
+	<span class="hljs-keyword">public</span> <span class="hljs-keyword">synchronized</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">close</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;
+		writeHeaderOnFirstWrite();
+		encryptAndFlushBuffer();
+		delegate.close();
+	&#125;
+
+	<span class="hljs-meta">@Override</span>
+	<span class="hljs-keyword">public</span> <span class="hljs-keyword">synchronized</span> <span class="hljs-type">int</span> <span class="hljs-title function_">write</span><span class="hljs-params">(ByteBuffer src)</span> <span class="hljs-keyword">throws</span> IOException &#123;
+		writeHeaderOnFirstWrite();
+		<span class="hljs-type">int</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;
+		<span class="hljs-keyword">while</span> (src.hasRemaining()) &#123;
+			result += ByteBuffers.copy(src, cleartextBuffer);
+			<span class="hljs-keyword">if</span> (!cleartextBuffer.hasRemaining()) &#123;
+				encryptAndFlushBuffer();
+			&#125;
+		&#125;
+		<span class="hljs-keyword">return</span> result;
+	&#125;
+
+  <span class="hljs-comment">/// 文件头加密</span>
+	<span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">writeHeaderOnFirstWrite</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;
+		<span class="hljs-keyword">if</span> (firstWrite) &#123;
+			delegate.write(cryptor.fileHeaderCryptor().encryptHeader(header));
+		&#125;
+		firstWrite = <span class="hljs-literal">false</span>;
+	&#125;
+
+  <span class="hljs-comment">// 文件块加密</span>
+	<span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">encryptAndFlushBuffer</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;
+		cleartextBuffer.flip();
+		<span class="hljs-keyword">if</span> (cleartextBuffer.hasRemaining()) &#123;
+			<span class="hljs-type">ByteBuffer</span> <span class="hljs-variable">ciphertextBuffer</span> <span class="hljs-operator">=</span> cryptor.fileContentCryptor().encryptChunk(cleartextBuffer, chunkNumber++, header);
+			delegate.write(ciphertextBuffer);
+		&#125;
+		cleartextBuffer.clear();
+	&#125;
+
+&#125;
+</code></pre></div>
 
 
 

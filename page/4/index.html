@@ -307,7 +307,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2022/03/16/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%82%B9%E5%87%BB%E9%98%B2%E6%8A%96%E5%93%AA%E5%AE%B6%E5%BC%BA/" target="_self">
         <div>
-          背景从腾讯电子签在现网问题反馈中，我们发现中发现有部分用户吐槽一些按钮不小心快速多次点击出现出现多个类似的页面，处理完业务之后回退需要退两次。虽说对于业务流程来说没有影响，但是确实影响到用户体验，所以如何优雅且强制性规范的在小程序上做防重复点击是本文研究的重点。 分析腾讯电子签小程序基于 uni-app 研发，举个栗子，通常一处存在点击的处理事件长这个样子，见下面的@click。 12345678
+          背景从腾讯电子签在现网问题反馈中，我们发现中发现有部分用户吐槽一些按钮不小心快速多次点击出现出现多个类似的页面，处理完业务之后回退需要退两次。虽说对于业务流程来说没有影响，但是确实影响到用户体验，所以如何优雅且强制性规范的在小程序上做防重复点击是本文研究的重点。 分析腾讯电子签小程序基于 uni-app 研发，举个栗子，通常一处存在点击的处理事件长这个样子，见下面的@click。 &lt;temp
         </div>
       </a>
 
@@ -490,7 +490,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2022/03/10/uni%E5%A6%82%E4%BD%95%E6%A1%A5%E6%8E%A5%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%9A%84/" target="_self">
         <div>
-          uni编译后的代码 1234567891011121314151617181920212223242526const getEmitter = (function () &#123;  let Emitter;  return function getUniEmitter() &#123;    if (!Emitter) &#123;      Emitter = new Vue();    &
+          uni编译后的代码 const getEmitter = (function () &#123;   let Emitter;   return function getUniEmitter() &#123;     if (!Emitter) &#123;       Emitter = new Vue();     &#125;     return Emitter;   &#125;; &#
         </div>
       </a>
 
