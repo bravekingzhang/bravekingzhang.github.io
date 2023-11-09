@@ -1,268 +1,302 @@
+
+
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.3.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
-
-<link rel="stylesheet" href="/css/main.css">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"blog.brzhang.club","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":true,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
-
-  <meta name="description" content="通过request源码分析 if (!self.agent) &amp;#123;     if (options.agentOptions) &amp;#123;       self.agentOptions &#x3D; options.agentOptions     &amp;#125;      if (options.agentClass) &amp;#123;       self.agentClass &#x3D; options">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="hz">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="通过request源码分析 1234567891011121314151617181920212223242526272829303132333435if (!self.agent) &amp;#123;    if (options.agentOptions) &amp;#123;      self.agentOptions &#x3D; options.agentOptions    &amp;#125;    if (op">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Node创建长连接">
 <meta property="og:url" content="https://blog.brzhang.club/2022/02/20/node%E5%88%9B%E5%BB%BA%E9%95%BF%E8%BF%9E%E6%8E%A5/index.html">
 <meta property="og:site_name" content="心随我动">
-<meta property="og:description" content="通过request源码分析 if (!self.agent) &amp;#123;     if (options.agentOptions) &amp;#123;       self.agentOptions &#x3D; options.agentOptions     &amp;#125;      if (options.agentClass) &amp;#123;       self.agentClass &#x3D; options">
+<meta property="og:description" content="通过request源码分析 1234567891011121314151617181920212223242526272829303132333435if (!self.agent) &amp;#123;    if (options.agentOptions) &amp;#123;      self.agentOptions &#x3D; options.agentOptions    &amp;#125;    if (op">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-02-20T13:12:40.000Z">
 <meta property="article:modified_time" content="2022-11-28T01:25:08.251Z">
 <meta property="article:author" content="hz">
 <meta property="article:tag" content="源码">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Node创建长连接 - 心随我动</title><meta name="robots" content="noindex">
 
-<link rel="canonical" href="https://blog.brzhang.club/2022/02/20/node%E5%88%9B%E5%BB%BA%E9%95%BF%E8%BF%9E%E6%8E%A5/">
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
 
-  <title>Node创建长连接 | 心随我动</title><meta name="robots" content="noindex">
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
   
 
 
 
 
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blog.brzhang.club","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
 
 
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
 
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
+<body>
+  
 
-</head>
+  <header>
+    
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
-
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">心随我动</h1>
-      <span class="logo-line-after"><i></i></span>
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Brzhang</strong>
     </a>
-  </div>
 
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
     </div>
   </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-主页">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>主页</a>
-
-  </li>
-        <li class="menu-item menu-item-关于">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
-
-  </li>
-        <li class="menu-item menu-item-标签">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-归档">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
-  </ul>
 </nav>
 
-
-
-
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-  <div class="reading-progress-bar"></div>
-
-  <a href="https://github.com/bravekingzhang" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
-            
-
-    
   
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2022/02/20/node%E5%88%9B%E5%BB%BA%E9%95%BF%E8%BF%9E%E6%8E%A5/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hz">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="心随我动">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          Node创建长连接
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-02-20 21:12:40" itemprop="dateCreated datePublished" datetime="2022-02-20T21:12:40+08:00">2022-02-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-28 09:25:08" itemprop="dateModified" datetime="2022-11-28T09:25:08+08:00">2022-11-28</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-                </span>
-            </span>
-
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
           
-            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span id="busuanzi_value_page_pv"></span>
-            </span>
-
+            <span id="subtitle" data-typed-text="Node创建长连接"></span>
+          
         </div>
-      </header>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-02-20 21:12" pubdate>
+          2022年2月20日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          11k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          96 分钟
+        
+      </span>
+    
 
     
     
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
     
-    <div class="post-body" itemprop="articleBody">
+  </div>
+
+
+        
+      </div>
 
       
-        <p>通过<a target="_blank" rel="noopener" href="https://github.com/request/request/blob/master/request.js">request源码</a>分析</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>self<span class="token punctuation">.</span>agent<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>options<span class="token punctuation">.</span>agentOptions<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-      self<span class="token punctuation">.</span>agentOptions <span class="token operator">=</span> options<span class="token punctuation">.</span>agentOptions
-    <span class="token punctuation">&#125;</span>
+    </div>
+  </div>
+</div>
 
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>options<span class="token punctuation">.</span>agentClass<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-      self<span class="token punctuation">.</span>agentClass <span class="token operator">=</span> options<span class="token punctuation">.</span>agentClass
-    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>options<span class="token punctuation">.</span>forever<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-      <span class="token keyword">var</span> v <span class="token operator">=</span> <span class="token function">version</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-      <span class="token comment">// use ForeverAgent in node 0.10- only</span>
-      <span class="token keyword">if</span> <span class="token punctuation">(</span>v<span class="token punctuation">.</span>major <span class="token operator">===</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> v<span class="token punctuation">.</span>minor <span class="token operator">&lt;=</span> <span class="token number">10</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        self<span class="token punctuation">.</span>agentClass <span class="token operator">=</span> protocol <span class="token operator">===</span> <span class="token string">'http:'</span> <span class="token operator">?</span> ForeverAgent <span class="token operator">:</span> ForeverAgent<span class="token punctuation">.</span><span class="token constant">SSL</span>
-      <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
-        self<span class="token punctuation">.</span>agentClass <span class="token operator">=</span> self<span class="token punctuation">.</span>httpModule<span class="token punctuation">.</span>Agent
-        self<span class="token punctuation">.</span>agentOptions <span class="token operator">=</span> self<span class="token punctuation">.</span>agentOptions <span class="token operator">||</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
-        self<span class="token punctuation">.</span>agentOptions<span class="token punctuation">.</span>keepAlive <span class="token operator">=</span> <span class="token boolean">true</span>
-      <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
-      self<span class="token punctuation">.</span>agentClass <span class="token operator">=</span> self<span class="token punctuation">.</span>httpModule<span class="token punctuation">.</span>Agent
-    <span class="token punctuation">&#125;</span>
-  <span class="token punctuation">&#125;</span>
+</div>
 
-  <span class="token keyword">if</span> <span class="token punctuation">(</span>self<span class="token punctuation">.</span>pool <span class="token operator">===</span> <span class="token boolean">false</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    self<span class="token punctuation">.</span>agent <span class="token operator">=</span> <span class="token boolean">false</span>
-  <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
-    self<span class="token punctuation">.</span>agent <span class="token operator">=</span> self<span class="token punctuation">.</span>agent <span class="token operator">||</span> self<span class="token punctuation">.</span><span class="token function">getNewAgent</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
+  </header>
 
-  <span class="token keyword">if</span> <span class="token punctuation">(</span>self<span class="token punctuation">.</span>pool <span class="token operator">===</span> <span class="token boolean">false</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    self<span class="token punctuation">.</span>agent <span class="token operator">=</span> <span class="token boolean">false</span>
-  <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
-    self<span class="token punctuation">.</span>agent <span class="token operator">=</span> self<span class="token punctuation">.</span>agent <span class="token operator">||</span> self<span class="token punctuation">.</span><span class="token function">getNewAgent</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  <span class="token punctuation">&#125;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Node创建长连接</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>通过<a target="_blank" rel="noopener" href="https://github.com/request/request/blob/master/request.js">request源码</a>分析</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">if</span> (!self.<span class="hljs-property">agent</span>) &#123;<br>    <span class="hljs-keyword">if</span> (options.<span class="hljs-property">agentOptions</span>) &#123;<br>      self.<span class="hljs-property">agentOptions</span> = options.<span class="hljs-property">agentOptions</span><br>    &#125;<br><br>    <span class="hljs-keyword">if</span> (options.<span class="hljs-property">agentClass</span>) &#123;<br>      self.<span class="hljs-property">agentClass</span> = options.<span class="hljs-property">agentClass</span><br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (options.<span class="hljs-property">forever</span>) &#123;<br>      <span class="hljs-keyword">var</span> v = <span class="hljs-title function_">version</span>()<br>      <span class="hljs-comment">// use ForeverAgent in node 0.10- only</span><br>      <span class="hljs-keyword">if</span> (v.<span class="hljs-property">major</span> === <span class="hljs-number">0</span> &amp;&amp; v.<span class="hljs-property">minor</span> &lt;= <span class="hljs-number">10</span>) &#123;<br>        self.<span class="hljs-property">agentClass</span> = protocol === <span class="hljs-string">&#x27;http:&#x27;</span> ? <span class="hljs-title class_">ForeverAgent</span> : <span class="hljs-title class_">ForeverAgent</span>.<span class="hljs-property">SSL</span><br>      &#125; <span class="hljs-keyword">else</span> &#123;<br>        self.<span class="hljs-property">agentClass</span> = self.<span class="hljs-property">httpModule</span>.<span class="hljs-property">Agent</span><br>        self.<span class="hljs-property">agentOptions</span> = self.<span class="hljs-property">agentOptions</span> || &#123;&#125;<br>        self.<span class="hljs-property">agentOptions</span>.<span class="hljs-property">keepAlive</span> = <span class="hljs-literal">true</span><br>      &#125;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      self.<span class="hljs-property">agentClass</span> = self.<span class="hljs-property">httpModule</span>.<span class="hljs-property">Agent</span><br>    &#125;<br>  &#125;<br><br>  <span class="hljs-keyword">if</span> (self.<span class="hljs-property">pool</span> === <span class="hljs-literal">false</span>) &#123;<br>    self.<span class="hljs-property">agent</span> = <span class="hljs-literal">false</span><br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    self.<span class="hljs-property">agent</span> = self.<span class="hljs-property">agent</span> || self.<span class="hljs-title function_">getNewAgent</span>()<br>  &#125;<br>&#125;<br><br>  <span class="hljs-keyword">if</span> (self.<span class="hljs-property">pool</span> === <span class="hljs-literal">false</span>) &#123;<br>    self.<span class="hljs-property">agent</span> = <span class="hljs-literal">false</span><br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    self.<span class="hljs-property">agent</span> = self.<span class="hljs-property">agent</span> || self.<span class="hljs-title function_">getNewAgent</span>()<br>  &#125;<br><br></code></pre></td></tr></table></figure>
 
 <p>通过源码可以看到，要使用node创建一个长连接的http请求，有三种方式：</p>
 <ol>
@@ -271,618 +305,506 @@
 <li>options.forever的值设置为true</li>
 </ol>
 <p>但是，如果追踪代码的话，最后发现，基本上都是去new 一个 Agent，这里的pool，其实就是globalPool，</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> globalPool <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
-
-<span class="token function">debug</span><span class="token punctuation">(</span>options<span class="token punctuation">)</span>
-  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>self<span class="token punctuation">.</span>pool <span class="token operator">&amp;&amp;</span> self<span class="token punctuation">.</span>pool <span class="token operator">!==</span> <span class="token boolean">false</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    self<span class="token punctuation">.</span>pool <span class="token operator">=</span> globalPool
-  <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> globalPool = &#123;&#125;<br><br><span class="hljs-title function_">debug</span>(options)<br>  <span class="hljs-keyword">if</span> (!self.<span class="hljs-property">pool</span> &amp;&amp; self.<span class="hljs-property">pool</span> !== <span class="hljs-literal">false</span>) &#123;<br>    self.<span class="hljs-property">pool</span> = globalPool<br>  &#125;<br></code></pre></td></tr></table></figure>
 
 <p>那么，看看Agent的源码：他在node的<a target="_blank" rel="noopener" href="https://github.com/nodejs/node/blob/v17.0.0/lib/_http_client.js">http模块</a>中</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">Agent</span><span class="token punctuation">(</span><span class="token parameter">options</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token punctuation">(</span><span class="token keyword">this</span> <span class="token keyword">instanceof</span> <span class="token class-name">Agent</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Agent</span><span class="token punctuation">(</span>options<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  <span class="token function">FunctionPrototypeCall</span><span class="token punctuation">(</span>EventEmitter<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  <span class="token keyword">this</span><span class="token punctuation">.</span>defaultPort <span class="token operator">=</span> <span class="token number">80</span><span class="token punctuation">;</span>
-  <span class="token keyword">this</span><span class="token punctuation">.</span>protocol <span class="token operator">=</span> <span class="token string">'http:'</span><span class="token punctuation">;</span>
-
-  <span class="token keyword">this</span><span class="token punctuation">.</span>options <span class="token operator">=</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">__proto__</span><span class="token operator">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token operator">...</span>options <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-
-  <span class="token comment">// Don't confuse net and make it think that we're connecting to a pipe</span>
-  <span class="token keyword">this</span><span class="token punctuation">.</span>options<span class="token punctuation">.</span>path <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
-  <span class="token keyword">this</span><span class="token punctuation">.</span>requests <span class="token operator">=</span> <span class="token function">ObjectCreate</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">this</span><span class="token punctuation">.</span>sockets <span class="token operator">=</span> <span class="token function">ObjectCreate</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">this</span><span class="token punctuation">.</span>freeSockets <span class="token operator">=</span> <span class="token function">ObjectCreate</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">this</span><span class="token punctuation">.</span>keepAliveMsecs <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>options<span class="token punctuation">.</span>keepAliveMsecs <span class="token operator">||</span> <span class="token number">1000</span><span class="token punctuation">;</span>
-  <span class="token keyword">this</span><span class="token punctuation">.</span>keepAlive <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>options<span class="token punctuation">.</span>keepAlive <span class="token operator">||</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
-  <span class="token keyword">this</span><span class="token punctuation">.</span>maxSockets <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>options<span class="token punctuation">.</span>maxSockets <span class="token operator">||</span> Agent<span class="token punctuation">.</span>defaultMaxSockets<span class="token punctuation">;</span>
-  <span class="token keyword">this</span><span class="token punctuation">.</span>maxFreeSockets <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>options<span class="token punctuation">.</span>maxFreeSockets <span class="token operator">||</span> <span class="token number">256</span><span class="token punctuation">;</span>
-  <span class="token keyword">this</span><span class="token punctuation">.</span>scheduling <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>options<span class="token punctuation">.</span>scheduling <span class="token operator">||</span> <span class="token string">'lifo'</span><span class="token punctuation">;</span>
-  <span class="token keyword">this</span><span class="token punctuation">.</span>maxTotalSockets <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>options<span class="token punctuation">.</span>maxTotalSockets<span class="token punctuation">;</span>
-  <span class="token keyword">this</span><span class="token punctuation">.</span>totalSocketCount <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-
-  <span class="token function">validateOneOf</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>scheduling<span class="token punctuation">,</span> <span class="token string">'scheduling'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'fifo'</span><span class="token punctuation">,</span> <span class="token string">'lifo'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>maxTotalSockets <span class="token operator">!==</span> <span class="token keyword">undefined</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token function">validateNumber</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>maxTotalSockets<span class="token punctuation">,</span> <span class="token string">'maxTotalSockets'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>maxTotalSockets <span class="token operator">&lt;=</span> <span class="token number">0</span> <span class="token operator">||</span> <span class="token function">NumberIsNaN</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>maxTotalSockets<span class="token punctuation">)</span><span class="token punctuation">)</span>
-      <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">ERR_OUT_OF_RANGE</span><span class="token punctuation">(</span><span class="token string">'maxTotalSockets'</span><span class="token punctuation">,</span> <span class="token string">'> 0'</span><span class="token punctuation">,</span>
-                                 <span class="token keyword">this</span><span class="token punctuation">.</span>maxTotalSockets<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">this</span><span class="token punctuation">.</span>maxTotalSockets <span class="token operator">=</span> <span class="token number">Infinity</span><span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span>
-
-  <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'free'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">socket<span class="token punctuation">,</span> options</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">const</span> name <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span>options<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">debug</span><span class="token punctuation">(</span><span class="token string">'agent.on(free)'</span><span class="token punctuation">,</span> name<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token comment">// TODO(ronag): socket.destroy(err) might have been called</span>
-    <span class="token comment">// before coming here and have an 'error' scheduled. In the</span>
-    <span class="token comment">// case of socket.destroy() below this 'error' has no handler</span>
-    <span class="token comment">// and could cause unhandled exception.</span>
-
-    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>socket<span class="token punctuation">.</span>writable<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-      socket<span class="token punctuation">.</span><span class="token function">destroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token keyword">return</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-
-    <span class="token keyword">const</span> requests <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>requests<span class="token punctuation">[</span>name<span class="token punctuation">]</span><span class="token punctuation">;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>requests <span class="token operator">&amp;&amp;</span> requests<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-      <span class="token keyword">const</span> req <span class="token operator">=</span> <span class="token function">ArrayPrototypeShift</span><span class="token punctuation">(</span>requests<span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token keyword">const</span> reqAsyncRes <span class="token operator">=</span> req<span class="token punctuation">[</span>kRequestAsyncResource<span class="token punctuation">]</span><span class="token punctuation">;</span>
-      <span class="token keyword">if</span> <span class="token punctuation">(</span>reqAsyncRes<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token comment">// Run request within the original async context.</span>
-        reqAsyncRes<span class="token punctuation">.</span><span class="token function">runInAsyncScope</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-          <span class="token function">asyncResetHandle</span><span class="token punctuation">(</span>socket<span class="token punctuation">)</span><span class="token punctuation">;</span>
-          <span class="token function">setRequestSocket</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> req<span class="token punctuation">,</span> socket<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        req<span class="token punctuation">[</span>kRequestAsyncResource<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
-      <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
-        <span class="token function">setRequestSocket</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> req<span class="token punctuation">,</span> socket<span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">&#125;</span>
-      <span class="token keyword">if</span> <span class="token punctuation">(</span>requests<span class="token punctuation">.</span>length <span class="token operator">===</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">delete</span> <span class="token keyword">this</span><span class="token punctuation">.</span>requests<span class="token punctuation">[</span>name<span class="token punctuation">]</span><span class="token punctuation">;</span>
-      <span class="token punctuation">&#125;</span>
-      <span class="token keyword">return</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-
-    <span class="token comment">// If there are no pending requests, then put it in</span>
-    <span class="token comment">// the freeSockets pool, but only if we're allowed to do so.</span>
-    <span class="token keyword">const</span> req <span class="token operator">=</span> socket<span class="token punctuation">.</span>_httpMessage<span class="token punctuation">;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>req <span class="token operator">||</span> <span class="token operator">!</span>req<span class="token punctuation">.</span>shouldKeepAlive <span class="token operator">||</span> <span class="token operator">!</span><span class="token keyword">this</span><span class="token punctuation">.</span>keepAlive<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-      socket<span class="token punctuation">.</span><span class="token function">destroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token keyword">return</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-
-    <span class="token keyword">const</span> freeSockets <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>freeSockets<span class="token punctuation">[</span>name<span class="token punctuation">]</span> <span class="token operator">||</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-    <span class="token keyword">const</span> freeLen <span class="token operator">=</span> freeSockets<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
-    <span class="token keyword">let</span> count <span class="token operator">=</span> freeLen<span class="token punctuation">;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>sockets<span class="token punctuation">[</span>name<span class="token punctuation">]</span><span class="token punctuation">)</span>
-      count <span class="token operator">+=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>sockets<span class="token punctuation">[</span>name<span class="token punctuation">]</span><span class="token punctuation">.</span>length<span class="token punctuation">;</span>
-
-    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>totalSocketCount <span class="token operator">></span> <span class="token keyword">this</span><span class="token punctuation">.</span>maxTotalSockets <span class="token operator">||</span>
-        count <span class="token operator">></span> <span class="token keyword">this</span><span class="token punctuation">.</span>maxSockets <span class="token operator">||</span>
-        freeLen <span class="token operator">>=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>maxFreeSockets <span class="token operator">||</span>
-        <span class="token operator">!</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">keepSocketAlive</span><span class="token punctuation">(</span>socket<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-      socket<span class="token punctuation">.</span><span class="token function">destroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token keyword">return</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-
-    <span class="token keyword">this</span><span class="token punctuation">.</span>freeSockets<span class="token punctuation">[</span>name<span class="token punctuation">]</span> <span class="token operator">=</span> freeSockets<span class="token punctuation">;</span>
-    socket<span class="token punctuation">[</span>async_id_symbol<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
-    socket<span class="token punctuation">.</span>_httpMessage <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
-    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">removeSocket</span><span class="token punctuation">(</span>socket<span class="token punctuation">,</span> options<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    socket<span class="token punctuation">.</span><span class="token function">once</span><span class="token punctuation">(</span><span class="token string">'error'</span><span class="token punctuation">,</span> freeSocketErrorListener<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">ArrayPrototypePush</span><span class="token punctuation">(</span>freeSockets<span class="token punctuation">,</span> socket<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  <span class="token comment">// Don't emit keylog events unless there is a listener for them.</span>
-  <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'newListener'</span><span class="token punctuation">,</span> maybeEnableKeylog<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Agent</span>(<span class="hljs-params">options</span>) &#123;<br>  <span class="hljs-keyword">if</span> (!(<span class="hljs-variable language_">this</span> <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">Agent</span>))<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Agent</span>(options);<br><br>  <span class="hljs-title class_">FunctionPrototypeCall</span>(<span class="hljs-title class_">EventEmitter</span>, <span class="hljs-variable language_">this</span>);<br><br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">defaultPort</span> = <span class="hljs-number">80</span>;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">protocol</span> = <span class="hljs-string">&#x27;http:&#x27;</span>;<br><br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">options</span> = &#123; <span class="hljs-attr">__proto__</span>: <span class="hljs-literal">null</span>, ...options &#125;;<br><br>  <span class="hljs-comment">// Don&#x27;t confuse net and make it think that we&#x27;re connecting to a pipe</span><br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">options</span>.<span class="hljs-property">path</span> = <span class="hljs-literal">null</span>;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">requests</span> = <span class="hljs-title class_">ObjectCreate</span>(<span class="hljs-literal">null</span>);<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">sockets</span> = <span class="hljs-title class_">ObjectCreate</span>(<span class="hljs-literal">null</span>);<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">freeSockets</span> = <span class="hljs-title class_">ObjectCreate</span>(<span class="hljs-literal">null</span>);<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">keepAliveMsecs</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">options</span>.<span class="hljs-property">keepAliveMsecs</span> || <span class="hljs-number">1000</span>;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">keepAlive</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">options</span>.<span class="hljs-property">keepAlive</span> || <span class="hljs-literal">false</span>;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">maxSockets</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">options</span>.<span class="hljs-property">maxSockets</span> || <span class="hljs-title class_">Agent</span>.<span class="hljs-property">defaultMaxSockets</span>;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">maxFreeSockets</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">options</span>.<span class="hljs-property">maxFreeSockets</span> || <span class="hljs-number">256</span>;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">scheduling</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">options</span>.<span class="hljs-property">scheduling</span> || <span class="hljs-string">&#x27;lifo&#x27;</span>;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">maxTotalSockets</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">options</span>.<span class="hljs-property">maxTotalSockets</span>;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">totalSocketCount</span> = <span class="hljs-number">0</span>;<br><br>  <span class="hljs-title function_">validateOneOf</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">scheduling</span>, <span class="hljs-string">&#x27;scheduling&#x27;</span>, [<span class="hljs-string">&#x27;fifo&#x27;</span>, <span class="hljs-string">&#x27;lifo&#x27;</span>]);<br><br>  <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">maxTotalSockets</span> !== <span class="hljs-literal">undefined</span>) &#123;<br>    <span class="hljs-title function_">validateNumber</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">maxTotalSockets</span>, <span class="hljs-string">&#x27;maxTotalSockets&#x27;</span>);<br>    <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">maxTotalSockets</span> &lt;= <span class="hljs-number">0</span> || <span class="hljs-title class_">NumberIsNaN</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">maxTotalSockets</span>))<br>      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title function_">ERR_OUT_OF_RANGE</span>(<span class="hljs-string">&#x27;maxTotalSockets&#x27;</span>, <span class="hljs-string">&#x27;&gt; 0&#x27;</span>,<br>                                 <span class="hljs-variable language_">this</span>.<span class="hljs-property">maxTotalSockets</span>);<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">maxTotalSockets</span> = <span class="hljs-title class_">Infinity</span>;<br>  &#125;<br><br>  <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;free&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">socket, options</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">const</span> name = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">getName</span>(options);<br>    <span class="hljs-title function_">debug</span>(<span class="hljs-string">&#x27;agent.on(free)&#x27;</span>, name);<br><br>    <span class="hljs-comment">// TODO(ronag): socket.destroy(err) might have been called</span><br>    <span class="hljs-comment">// before coming here and have an &#x27;error&#x27; scheduled. In the</span><br>    <span class="hljs-comment">// case of socket.destroy() below this &#x27;error&#x27; has no handler</span><br>    <span class="hljs-comment">// and could cause unhandled exception.</span><br><br>    <span class="hljs-keyword">if</span> (!socket.<span class="hljs-property">writable</span>) &#123;<br>      socket.<span class="hljs-title function_">destroy</span>();<br>      <span class="hljs-keyword">return</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">const</span> requests = <span class="hljs-variable language_">this</span>.<span class="hljs-property">requests</span>[name];<br>    <span class="hljs-keyword">if</span> (requests &amp;&amp; requests.<span class="hljs-property">length</span>) &#123;<br>      <span class="hljs-keyword">const</span> req = <span class="hljs-title class_">ArrayPrototypeShift</span>(requests);<br>      <span class="hljs-keyword">const</span> reqAsyncRes = req[kRequestAsyncResource];<br>      <span class="hljs-keyword">if</span> (reqAsyncRes) &#123;<br>        <span class="hljs-comment">// Run request within the original async context.</span><br>        reqAsyncRes.<span class="hljs-title function_">runInAsyncScope</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>          <span class="hljs-title function_">asyncResetHandle</span>(socket);<br>          <span class="hljs-title function_">setRequestSocket</span>(<span class="hljs-variable language_">this</span>, req, socket);<br>        &#125;);<br>        req[kRequestAsyncResource] = <span class="hljs-literal">null</span>;<br>      &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-title function_">setRequestSocket</span>(<span class="hljs-variable language_">this</span>, req, socket);<br>      &#125;<br>      <span class="hljs-keyword">if</span> (requests.<span class="hljs-property">length</span> === <span class="hljs-number">0</span>) &#123;<br>        <span class="hljs-keyword">delete</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">requests</span>[name];<br>      &#125;<br>      <span class="hljs-keyword">return</span>;<br>    &#125;<br><br>    <span class="hljs-comment">// If there are no pending requests, then put it in</span><br>    <span class="hljs-comment">// the freeSockets pool, but only if we&#x27;re allowed to do so.</span><br>    <span class="hljs-keyword">const</span> req = socket.<span class="hljs-property">_httpMessage</span>;<br>    <span class="hljs-keyword">if</span> (!req || !req.<span class="hljs-property">shouldKeepAlive</span> || !<span class="hljs-variable language_">this</span>.<span class="hljs-property">keepAlive</span>) &#123;<br>      socket.<span class="hljs-title function_">destroy</span>();<br>      <span class="hljs-keyword">return</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">const</span> freeSockets = <span class="hljs-variable language_">this</span>.<span class="hljs-property">freeSockets</span>[name] || [];<br>    <span class="hljs-keyword">const</span> freeLen = freeSockets.<span class="hljs-property">length</span>;<br>    <span class="hljs-keyword">let</span> count = freeLen;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">sockets</span>[name])<br>      count += <span class="hljs-variable language_">this</span>.<span class="hljs-property">sockets</span>[name].<span class="hljs-property">length</span>;<br><br>    <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">totalSocketCount</span> &gt; <span class="hljs-variable language_">this</span>.<span class="hljs-property">maxTotalSockets</span> ||<br>        count &gt; <span class="hljs-variable language_">this</span>.<span class="hljs-property">maxSockets</span> ||<br>        freeLen &gt;= <span class="hljs-variable language_">this</span>.<span class="hljs-property">maxFreeSockets</span> ||<br>        !<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">keepSocketAlive</span>(socket)) &#123;<br>      socket.<span class="hljs-title function_">destroy</span>();<br>      <span class="hljs-keyword">return</span>;<br>    &#125;<br><br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">freeSockets</span>[name] = freeSockets;<br>    socket[async_id_symbol] = -<span class="hljs-number">1</span>;<br>    socket.<span class="hljs-property">_httpMessage</span> = <span class="hljs-literal">null</span>;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">removeSocket</span>(socket, options);<br><br>    socket.<span class="hljs-title function_">once</span>(<span class="hljs-string">&#x27;error&#x27;</span>, freeSocketErrorListener);<br>    <span class="hljs-title class_">ArrayPrototypePush</span>(freeSockets, socket);<br>  &#125;);<br><br>  <span class="hljs-comment">// Don&#x27;t emit keylog events unless there is a listener for them.</span><br>  <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;newListener&#x27;</span>, maybeEnableKeylog);<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>注意这句话</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"> <span class="token comment">// If there are no pending requests, then put it in</span>
-    <span class="token comment">// the freeSockets pool, but only if we're allowed to do so.</span>
-<span class="token keyword">const</span> req <span class="token operator">=</span> socket<span class="token punctuation">.</span>_httpMessage<span class="token punctuation">;</span>
-<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>req <span class="token operator">||</span> <span class="token operator">!</span>req<span class="token punctuation">.</span>shouldKeepAlive <span class="token operator">||</span> <span class="token operator">!</span><span class="token keyword">this</span><span class="token punctuation">.</span>keepAlive<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-      socket<span class="token punctuation">.</span><span class="token function">destroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token keyword">return</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript"> <span class="hljs-comment">// If there are no pending requests, then put it in</span><br>    <span class="hljs-comment">// the freeSockets pool, but only if we&#x27;re allowed to do so.</span><br><span class="hljs-keyword">const</span> req = socket.<span class="hljs-property">_httpMessage</span>;<br><span class="hljs-keyword">if</span> (!req || !req.<span class="hljs-property">shouldKeepAlive</span> || !<span class="hljs-variable language_">this</span>.<span class="hljs-property">keepAlive</span>) &#123;<br>      socket.<span class="hljs-title function_">destroy</span>();<br>      <span class="hljs-keyword">return</span>;<br>    &#125;<br></code></pre></td></tr></table></figure>
 
 <p>如果不是keepAlive的，一个请求结束，这个socket将果断断开，但其实还有一个条件，那就是，已经没有等待要处理的请求了，也是直接断开，避免浪费内存。</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">tickOnSocket</span><span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">,</span> socket</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">const</span> parser <span class="token operator">=</span> parsers<span class="token punctuation">.</span><span class="token function">alloc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  req<span class="token punctuation">.</span>socket <span class="token operator">=</span> socket<span class="token punctuation">;</span>
-  <span class="token keyword">const</span> lenient <span class="token operator">=</span> req<span class="token punctuation">.</span>insecureHTTPParser <span class="token operator">===</span> <span class="token keyword">undefined</span> <span class="token operator">?</span>
-    <span class="token function">isLenient</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">:</span> req<span class="token punctuation">.</span>insecureHTTPParser<span class="token punctuation">;</span>
-  parser<span class="token punctuation">.</span><span class="token function">initialize</span><span class="token punctuation">(</span>HTTPParser<span class="token punctuation">.</span><span class="token constant">RESPONSE</span><span class="token punctuation">,</span>
-                    <span class="token keyword">new</span> <span class="token class-name">HTTPClientAsyncResource</span><span class="token punctuation">(</span><span class="token string">'HTTPINCOMINGMESSAGE'</span><span class="token punctuation">,</span> req<span class="token punctuation">)</span><span class="token punctuation">,</span>
-                    req<span class="token punctuation">.</span>maxHeaderSize <span class="token operator">||</span> <span class="token number">0</span><span class="token punctuation">,</span>
-                    lenient <span class="token operator">?</span> kLenientAll <span class="token operator">:</span> kLenientNone<span class="token punctuation">,</span>
-                    <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  parser<span class="token punctuation">.</span>socket <span class="token operator">=</span> socket<span class="token punctuation">;</span>
-  parser<span class="token punctuation">.</span>outgoing <span class="token operator">=</span> req<span class="token punctuation">;</span>
-  req<span class="token punctuation">.</span>parser <span class="token operator">=</span> parser<span class="token punctuation">;</span>
-
-  socket<span class="token punctuation">.</span>parser <span class="token operator">=</span> parser<span class="token punctuation">;</span>
-  socket<span class="token punctuation">.</span>_httpMessage <span class="token operator">=</span> req<span class="token punctuation">;</span><span class="token comment">//是在这赋值的。</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">tickOnSocket</span>(<span class="hljs-params">req, socket</span>) &#123;<br>  <span class="hljs-keyword">const</span> parser = parsers.<span class="hljs-title function_">alloc</span>();<br>  req.<span class="hljs-property">socket</span> = socket;<br>  <span class="hljs-keyword">const</span> lenient = req.<span class="hljs-property">insecureHTTPParser</span> === <span class="hljs-literal">undefined</span> ?<br>    <span class="hljs-title function_">isLenient</span>() : req.<span class="hljs-property">insecureHTTPParser</span>;<br>  parser.<span class="hljs-title function_">initialize</span>(<span class="hljs-title class_">HTTPParser</span>.<span class="hljs-property">RESPONSE</span>,<br>                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">HTTPClientAsyncResource</span>(<span class="hljs-string">&#x27;HTTPINCOMINGMESSAGE&#x27;</span>, req),<br>                    req.<span class="hljs-property">maxHeaderSize</span> || <span class="hljs-number">0</span>,<br>                    lenient ? kLenientAll : kLenientNone,<br>                    <span class="hljs-number">0</span>);<br>  parser.<span class="hljs-property">socket</span> = socket;<br>  parser.<span class="hljs-property">outgoing</span> = req;<br>  req.<span class="hljs-property">parser</span> = parser;<br><br>  socket.<span class="hljs-property">parser</span> = parser;<br>  socket.<span class="hljs-property">_httpMessage</span> = req;<span class="hljs-comment">//是在这赋值的。</span><br><br></code></pre></td></tr></table></figure>
 
 
 
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token class-name">ClientRequest</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">onSocket</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token function">onSocket</span><span class="token punctuation">(</span><span class="token parameter">socket<span class="token punctuation">,</span> err</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token comment">// TODO(ronag): Between here and onSocketNT the socket</span>
-  <span class="token comment">// has no 'error' handler.</span>
-  process<span class="token punctuation">.</span><span class="token function">nextTick</span><span class="token punctuation">(</span>onSocketNT<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">,</span> socket<span class="token punctuation">,</span> err<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-
-<span class="token keyword">function</span> <span class="token function">onSocketNT</span><span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">,</span> socket<span class="token punctuation">,</span> err</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">if</span> <span class="token punctuation">(</span>req<span class="token punctuation">.</span>destroyed <span class="token operator">||</span> err<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    req<span class="token punctuation">.</span>destroyed <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">function</span> <span class="token function">_destroy</span><span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">,</span> err</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>req<span class="token punctuation">.</span>aborted <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>err<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        err <span class="token operator">=</span> <span class="token function">connResetException</span><span class="token punctuation">(</span><span class="token string">'socket hang up'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">&#125;</span>
-      <span class="token keyword">if</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        req<span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token string">'error'</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">&#125;</span>
-      req<span class="token punctuation">.</span>_closed <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-      req<span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token string">'close'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>socket<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>err <span class="token operator">&amp;&amp;</span> req<span class="token punctuation">.</span>agent <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>socket<span class="token punctuation">.</span>destroyed<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        socket<span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token string">'free'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
-        <span class="token function">finished</span><span class="token punctuation">(</span>socket<span class="token punctuation">.</span><span class="token function">destroy</span><span class="token punctuation">(</span>err <span class="token operator">||</span> req<span class="token punctuation">[</span>kError<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">er</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-          <span class="token keyword">if</span> <span class="token punctuation">(</span>er<span class="token operator">?.</span>code <span class="token operator">===</span> <span class="token string">'ERR_STREAM_PREMATURE_CLOSE'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            er <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
-          <span class="token punctuation">&#125;</span>
-          <span class="token function">_destroy</span><span class="token punctuation">(</span>req<span class="token punctuation">,</span> er <span class="token operator">||</span> err<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span><span class="token punctuation">;</span>
-      <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
-
-    <span class="token function">_destroy</span><span class="token punctuation">(</span>req<span class="token punctuation">,</span> err <span class="token operator">||</span> req<span class="token punctuation">[</span>kError<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
-    <span class="token function">tickOnSocket</span><span class="token punctuation">(</span>req<span class="token punctuation">,</span> socket<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    req<span class="token punctuation">.</span><span class="token function">_flush</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-title class_">ClientRequest</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">onSocket</span> = <span class="hljs-keyword">function</span> <span class="hljs-title function_">onSocket</span>(<span class="hljs-params">socket, err</span>) &#123;<br>  <span class="hljs-comment">// TODO(ronag): Between here and onSocketNT the socket</span><br>  <span class="hljs-comment">// has no &#x27;error&#x27; handler.</span><br>  process.<span class="hljs-title function_">nextTick</span>(onSocketNT, <span class="hljs-variable language_">this</span>, socket, err);<br>&#125;;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">onSocketNT</span>(<span class="hljs-params">req, socket, err</span>) &#123;<br>  <span class="hljs-keyword">if</span> (req.<span class="hljs-property">destroyed</span> || err) &#123;<br>    req.<span class="hljs-property">destroyed</span> = <span class="hljs-literal">true</span>;<br><br>    <span class="hljs-keyword">function</span> <span class="hljs-title function_">_destroy</span>(<span class="hljs-params">req, err</span>) &#123;<br>      <span class="hljs-keyword">if</span> (!req.<span class="hljs-property">aborted</span> &amp;&amp; !err) &#123;<br>        err = <span class="hljs-title function_">connResetException</span>(<span class="hljs-string">&#x27;socket hang up&#x27;</span>);<br>      &#125;<br>      <span class="hljs-keyword">if</span> (err) &#123;<br>        req.<span class="hljs-title function_">emit</span>(<span class="hljs-string">&#x27;error&#x27;</span>, err);<br>      &#125;<br>      req.<span class="hljs-property">_closed</span> = <span class="hljs-literal">true</span>;<br>      req.<span class="hljs-title function_">emit</span>(<span class="hljs-string">&#x27;close&#x27;</span>);<br>    &#125;<br><br>    <span class="hljs-keyword">if</span> (socket) &#123;<br>      <span class="hljs-keyword">if</span> (!err &amp;&amp; req.<span class="hljs-property">agent</span> &amp;&amp; !socket.<span class="hljs-property">destroyed</span>) &#123;<br>        socket.<span class="hljs-title function_">emit</span>(<span class="hljs-string">&#x27;free&#x27;</span>);<br>      &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-title function_">finished</span>(socket.<span class="hljs-title function_">destroy</span>(err || req[kError]), <span class="hljs-function">(<span class="hljs-params">er</span>) =&gt;</span> &#123;<br>          <span class="hljs-keyword">if</span> (er?.<span class="hljs-property">code</span> === <span class="hljs-string">&#x27;ERR_STREAM_PREMATURE_CLOSE&#x27;</span>) &#123;<br>            er = <span class="hljs-literal">null</span>;<br>          &#125;<br>          <span class="hljs-title function_">_destroy</span>(req, er || err);<br>        &#125;);<br>        <span class="hljs-keyword">return</span>;<br>      &#125;<br>    &#125;<br><br>    <span class="hljs-title function_">_destroy</span>(req, err || req[kError]);<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-title function_">tickOnSocket</span>(req, socket);<br>    req.<span class="hljs-title function_">_flush</span>();<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 
 
 <p>这是底层Socket的setKeepAlive，</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token class-name">Socket</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">setKeepAlive</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">setting<span class="token punctuation">,</span> msecs</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token keyword">this</span><span class="token punctuation">.</span>_handle<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">once</span><span class="token punctuation">(</span><span class="token string">'connect'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setKeepAlive</span><span class="token punctuation">(</span>setting<span class="token punctuation">,</span> msecs<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span>
-
-  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>_handle<span class="token punctuation">.</span>setKeepAlive<span class="token punctuation">)</span>
-    <span class="token keyword">this</span><span class="token punctuation">.</span>_handle<span class="token punctuation">.</span><span class="token function">setKeepAlive</span><span class="token punctuation">(</span>setting<span class="token punctuation">,</span> <span class="token operator">~</span><span class="token operator">~</span><span class="token punctuation">(</span>msecs <span class="token operator">/</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-title class_">Socket</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">setKeepAlive</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">setting, msecs</span>) &#123;<br>  <span class="hljs-keyword">if</span> (!<span class="hljs-variable language_">this</span>.<span class="hljs-property">_handle</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">once</span>(<span class="hljs-string">&#x27;connect&#x27;</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">setKeepAlive</span>(setting, msecs));<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>;<br>  &#125;<br><br>  <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">_handle</span>.<span class="hljs-property">setKeepAlive</span>)<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">_handle</span>.<span class="hljs-title function_">setKeepAlive</span>(setting, ~~(msecs / <span class="hljs-number">1000</span>));<br><br>  <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>;<br>&#125;;<br></code></pre></td></tr></table></figure>
 
 
 
 <p>这个是SetKeepAlive的底层C++代码</p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void TCPWrap::SetKeepAlive(const FunctionCallbackInfo&lt;Value&gt;&amp; args) &#123;
-  TCPWrap* wrap;
-  ASSIGN_OR_RETURN_UNWRAP(&amp;wrap,
-                          args.Holder(),
-                          args.GetReturnValue().Set(UV_EBADF));
-  Environment* env &#x3D; wrap-&gt;env();
-  int enable;
-  if (!args[0]-&gt;Int32Value(env-&gt;context()).To(&amp;enable)) return;
-  unsigned int delay &#x3D; static_cast&lt;unsigned int&gt;(args[1].As&lt;Uint32&gt;()-&gt;Value());
-  int err &#x3D; uv_tcp_keepalive(&amp;wrap-&gt;handle_, enable, delay);
-  args.GetReturnValue().Set(err);
-&#125;
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">TCPWrap::SetKeepAlive</span><span class="hljs-params">(<span class="hljs-type">const</span> FunctionCallbackInfo&lt;Value&gt;&amp; args)</span> </span>&#123;<br>  TCPWrap* wrap;<br>  <span class="hljs-built_in">ASSIGN_OR_RETURN_UNWRAP</span>(&amp;wrap,<br>                          args.<span class="hljs-built_in">Holder</span>(),<br>                          args.<span class="hljs-built_in">GetReturnValue</span>().<span class="hljs-built_in">Set</span>(UV_EBADF));<br>  Environment* env = wrap-&gt;<span class="hljs-built_in">env</span>();<br>  <span class="hljs-type">int</span> enable;<br>  <span class="hljs-keyword">if</span> (!args[<span class="hljs-number">0</span>]-&gt;<span class="hljs-built_in">Int32Value</span>(env-&gt;<span class="hljs-built_in">context</span>()).<span class="hljs-built_in">To</span>(&amp;enable)) <span class="hljs-keyword">return</span>;<br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> delay = <span class="hljs-built_in">static_cast</span>&lt;<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span>&gt;(args[<span class="hljs-number">1</span>].<span class="hljs-built_in">As</span>&lt;Uint32&gt;()-&gt;<span class="hljs-built_in">Value</span>());<br>  <span class="hljs-type">int</span> err = <span class="hljs-built_in">uv_tcp_keepalive</span>(&amp;wrap-&gt;handle_, enable, delay);<br>  args.<span class="hljs-built_in">GetReturnValue</span>().<span class="hljs-built_in">Set</span>(err);<br>&#125;<br><br></code></pre></td></tr></table></figure>
 
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void TCPWrap::Initialize(Local&lt;Object&gt; target,
-                         Local&lt;Value&gt; unused,
-                         Local&lt;Context&gt; context,
-                         void* priv) &#123;
-  Environment* env &#x3D; Environment::GetCurrent(context);
-
-  Local&lt;FunctionTemplate&gt; t &#x3D; env-&gt;NewFunctionTemplate(New);
-  t-&gt;InstanceTemplate()-&gt;SetInternalFieldCount(StreamBase::kInternalFieldCount);
-
-  &#x2F;&#x2F; Init properties
-  t-&gt;InstanceTemplate()-&gt;Set(FIXED_ONE_BYTE_STRING(env-&gt;isolate(), &quot;reading&quot;),
-                             Boolean::New(env-&gt;isolate(), false));
-  t-&gt;InstanceTemplate()-&gt;Set(env-&gt;owner_symbol(), Null(env-&gt;isolate()));
-  t-&gt;InstanceTemplate()-&gt;Set(env-&gt;onconnection_string(), Null(env-&gt;isolate()));
-
-  t-&gt;Inherit(LibuvStreamWrap::GetConstructorTemplate(env));
-
-  env-&gt;SetProtoMethod(t, &quot;open&quot;, Open);
-  env-&gt;SetProtoMethod(t, &quot;bind&quot;, Bind);
-  env-&gt;SetProtoMethod(t, &quot;listen&quot;, Listen);
-  env-&gt;SetProtoMethod(t, &quot;connect&quot;, Connect);
-  env-&gt;SetProtoMethod(t, &quot;bind6&quot;, Bind6);
-  env-&gt;SetProtoMethod(t, &quot;connect6&quot;, Connect6);
-  env-&gt;SetProtoMethod(t, &quot;getsockname&quot;,
-                      GetSockOrPeerName&lt;TCPWrap, uv_tcp_getsockname&gt;);
-  env-&gt;SetProtoMethod(t, &quot;getpeername&quot;,
-                      GetSockOrPeerName&lt;TCPWrap, uv_tcp_getpeername&gt;);
-  env-&gt;SetProtoMethod(t, &quot;setNoDelay&quot;, SetNoDelay);
-  env-&gt;SetProtoMethod(t, &quot;setKeepAlive&quot;, SetKeepAlive);&#x2F;&#x2F;这里注册<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">TCPWrap::Initialize</span><span class="hljs-params">(Local&lt;Object&gt; target,</span></span><br><span class="hljs-params"><span class="hljs-function">                         Local&lt;Value&gt; unused,</span></span><br><span class="hljs-params"><span class="hljs-function">                         Local&lt;Context&gt; context,</span></span><br><span class="hljs-params"><span class="hljs-function">                         <span class="hljs-type">void</span>* priv)</span> </span>&#123;<br>  Environment* env = Environment::<span class="hljs-built_in">GetCurrent</span>(context);<br><br>  Local&lt;FunctionTemplate&gt; t = env-&gt;<span class="hljs-built_in">NewFunctionTemplate</span>(New);<br>  t-&gt;<span class="hljs-built_in">InstanceTemplate</span>()-&gt;<span class="hljs-built_in">SetInternalFieldCount</span>(StreamBase::kInternalFieldCount);<br><br>  <span class="hljs-comment">// Init properties</span><br>  t-&gt;<span class="hljs-built_in">InstanceTemplate</span>()-&gt;<span class="hljs-built_in">Set</span>(<span class="hljs-built_in">FIXED_ONE_BYTE_STRING</span>(env-&gt;<span class="hljs-built_in">isolate</span>(), <span class="hljs-string">&quot;reading&quot;</span>),<br>                             Boolean::<span class="hljs-built_in">New</span>(env-&gt;<span class="hljs-built_in">isolate</span>(), <span class="hljs-literal">false</span>));<br>  t-&gt;<span class="hljs-built_in">InstanceTemplate</span>()-&gt;<span class="hljs-built_in">Set</span>(env-&gt;<span class="hljs-built_in">owner_symbol</span>(), <span class="hljs-built_in">Null</span>(env-&gt;<span class="hljs-built_in">isolate</span>()));<br>  t-&gt;<span class="hljs-built_in">InstanceTemplate</span>()-&gt;<span class="hljs-built_in">Set</span>(env-&gt;<span class="hljs-built_in">onconnection_string</span>(), <span class="hljs-built_in">Null</span>(env-&gt;<span class="hljs-built_in">isolate</span>()));<br><br>  t-&gt;<span class="hljs-built_in">Inherit</span>(LibuvStreamWrap::<span class="hljs-built_in">GetConstructorTemplate</span>(env));<br><br>  env-&gt;<span class="hljs-built_in">SetProtoMethod</span>(t, <span class="hljs-string">&quot;open&quot;</span>, Open);<br>  env-&gt;<span class="hljs-built_in">SetProtoMethod</span>(t, <span class="hljs-string">&quot;bind&quot;</span>, Bind);<br>  env-&gt;<span class="hljs-built_in">SetProtoMethod</span>(t, <span class="hljs-string">&quot;listen&quot;</span>, Listen);<br>  env-&gt;<span class="hljs-built_in">SetProtoMethod</span>(t, <span class="hljs-string">&quot;connect&quot;</span>, Connect);<br>  env-&gt;<span class="hljs-built_in">SetProtoMethod</span>(t, <span class="hljs-string">&quot;bind6&quot;</span>, Bind6);<br>  env-&gt;<span class="hljs-built_in">SetProtoMethod</span>(t, <span class="hljs-string">&quot;connect6&quot;</span>, Connect6);<br>  env-&gt;<span class="hljs-built_in">SetProtoMethod</span>(t, <span class="hljs-string">&quot;getsockname&quot;</span>,<br>                      GetSockOrPeerName&lt;TCPWrap, uv_tcp_getsockname&gt;);<br>  env-&gt;<span class="hljs-built_in">SetProtoMethod</span>(t, <span class="hljs-string">&quot;getpeername&quot;</span>,<br>                      GetSockOrPeerName&lt;TCPWrap, uv_tcp_getpeername&gt;);<br>  env-&gt;<span class="hljs-built_in">SetProtoMethod</span>(t, <span class="hljs-string">&quot;setNoDelay&quot;</span>, SetNoDelay);<br>  env-&gt;<span class="hljs-built_in">SetProtoMethod</span>(t, <span class="hljs-string">&quot;setKeepAlive&quot;</span>, SetKeepAlive);<span class="hljs-comment">//这里注册</span><br></code></pre></td></tr></table></figure>
 
 
 
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">
-In the <span class="token keyword">case</span> <span class="token keyword">of</span> a premature connection close before the response is received<span class="token punctuation">,</span>
-the following events will be emitted <span class="token keyword">in</span> the following order<span class="token operator">:</span>
-
-<span class="token operator">*</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">'socket'</span><span class="token template-punctuation string">`</span></span>
-<span class="token operator">*</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">'error'</span><span class="token template-punctuation string">`</span></span> <span class="token keyword">with</span> an error <span class="token keyword">with</span> message <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">'Error: socket hang up'</span><span class="token template-punctuation string">`</span></span> and code
-  <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">'ECONNRESET'</span><span class="token template-punctuation string">`</span></span>
-<span class="token operator">*</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">'close'</span><span class="token template-punctuation string">`</span></span>
-
-If <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">req.destroy()</span><span class="token template-punctuation string">`</span></span> is called before a socket is assigned<span class="token punctuation">,</span> the following
-events will be emitted <span class="token keyword">in</span> the following order<span class="token operator">:</span>
-
-<span class="token operator">*</span> <span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">req.destroy()</span><span class="token template-punctuation string">`</span></span> called here<span class="token punctuation">)</span>
-<span class="token operator">*</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">'error'</span><span class="token template-punctuation string">`</span></span> <span class="token keyword">with</span> an error <span class="token keyword">with</span> message <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">'Error: socket hang up'</span><span class="token template-punctuation string">`</span></span> and code
-  <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">'ECONNRESET'</span><span class="token template-punctuation string">`</span></span>
-<span class="token operator">*</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">'close'</span><span class="token template-punctuation string">`</span></span>
-
-If <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">req.destroy()</span><span class="token template-punctuation string">`</span></span> is called before the connection succeeds<span class="token punctuation">,</span> the following
-events will be emitted <span class="token keyword">in</span> the following order<span class="token operator">:</span>
-
-<span class="token operator">*</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">'socket'</span><span class="token template-punctuation string">`</span></span>
-<span class="token operator">*</span> <span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">req.destroy()</span><span class="token template-punctuation string">`</span></span> called here<span class="token punctuation">)</span>
-<span class="token operator">*</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">'error'</span><span class="token template-punctuation string">`</span></span> <span class="token keyword">with</span> an error <span class="token keyword">with</span> message <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">'Error: socket hang up'</span><span class="token template-punctuation string">`</span></span> and code
-  <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">'ECONNRESET'</span><span class="token template-punctuation string">`</span></span>
-<span class="token operator">*</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">'close'</span><span class="token template-punctuation string">`</span></span>
-
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><br><span class="hljs-title class_">In</span> the <span class="hljs-keyword">case</span> <span class="hljs-keyword">of</span> a premature connection close before the response is received,<br>the following events will be emitted <span class="hljs-keyword">in</span> the following <span class="hljs-attr">order</span>:<br><br>* <span class="hljs-string">`&#x27;socket&#x27;`</span><br>* <span class="hljs-string">`&#x27;error&#x27;`</span> <span class="hljs-keyword">with</span> an error <span class="hljs-keyword">with</span> message <span class="hljs-string">`&#x27;Error: socket hang up&#x27;`</span> and code<br>  <span class="hljs-string">`&#x27;ECONNRESET&#x27;`</span><br>* <span class="hljs-string">`&#x27;close&#x27;`</span><br><br><span class="hljs-title class_">If</span> <span class="hljs-string">`req.destroy()`</span> is called before a socket is assigned, the following<br>events will be emitted <span class="hljs-keyword">in</span> the following <span class="hljs-attr">order</span>:<br><br>* (<span class="hljs-string">`req.destroy()`</span> called here)<br>* <span class="hljs-string">`&#x27;error&#x27;`</span> <span class="hljs-keyword">with</span> an error <span class="hljs-keyword">with</span> message <span class="hljs-string">`&#x27;Error: socket hang up&#x27;`</span> and code<br>  <span class="hljs-string">`&#x27;ECONNRESET&#x27;`</span><br>* <span class="hljs-string">`&#x27;close&#x27;`</span><br><br><span class="hljs-title class_">If</span> <span class="hljs-string">`req.destroy()`</span> is called before the connection succeeds, the following<br>events will be emitted <span class="hljs-keyword">in</span> the following <span class="hljs-attr">order</span>:<br><br>* <span class="hljs-string">`&#x27;socket&#x27;`</span><br>* (<span class="hljs-string">`req.destroy()`</span> called here)<br>* <span class="hljs-string">`&#x27;error&#x27;`</span> <span class="hljs-keyword">with</span> an error <span class="hljs-keyword">with</span> message <span class="hljs-string">`&#x27;Error: socket hang up&#x27;`</span> and code<br>  <span class="hljs-string">`&#x27;ECONNRESET&#x27;`</span><br>* <span class="hljs-string">`&#x27;close&#x27;`</span><br><br><br></code></pre></td></tr></table></figure>
 
 
 
 <p>dns解析</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">lookupAndListen</span><span class="token punctuation">(</span><span class="token parameter">self<span class="token punctuation">,</span> port<span class="token punctuation">,</span> address<span class="token punctuation">,</span> backlog<span class="token punctuation">,</span> exclusive<span class="token punctuation">,</span> flags</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">if</span> <span class="token punctuation">(</span>dns <span class="token operator">===</span> <span class="token keyword">undefined</span><span class="token punctuation">)</span> dns <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'dns'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  dns<span class="token punctuation">.</span><span class="token function">lookup</span><span class="token punctuation">(</span>address<span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token function">doListen</span><span class="token punctuation">(</span><span class="token parameter">err<span class="token punctuation">,</span> ip<span class="token punctuation">,</span> addressType</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-      self<span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token string">'error'</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
-      addressType <span class="token operator">=</span> ip <span class="token operator">?</span> addressType <span class="token operator">:</span> <span class="token number">4</span><span class="token punctuation">;</span>
-      <span class="token function">listenInCluster</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> ip<span class="token punctuation">,</span> port<span class="token punctuation">,</span> addressType<span class="token punctuation">,</span>
-                      backlog<span class="token punctuation">,</span> <span class="token keyword">undefined</span><span class="token punctuation">,</span> exclusive<span class="token punctuation">,</span> flags<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">lookupAndListen</span>(<span class="hljs-params">self, port, address, backlog, exclusive, flags</span>) &#123;<br>  <span class="hljs-keyword">if</span> (dns === <span class="hljs-literal">undefined</span>) dns = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;dns&#x27;</span>);<br>  dns.<span class="hljs-title function_">lookup</span>(address, <span class="hljs-keyword">function</span> <span class="hljs-title function_">doListen</span>(<span class="hljs-params">err, ip, addressType</span>) &#123;<br>    <span class="hljs-keyword">if</span> (err) &#123;<br>      self.<span class="hljs-title function_">emit</span>(<span class="hljs-string">&#x27;error&#x27;</span>, err);<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      addressType = ip ? addressType : <span class="hljs-number">4</span>;<br>      <span class="hljs-title function_">listenInCluster</span>(self, ip, port, addressType,<br>                      backlog, <span class="hljs-literal">undefined</span>, exclusive, flags);<br>    &#125;<br>  &#125;);<br>&#125;<br><br></code></pre></td></tr></table></figure>
 
 
 
 <p>创建socket，是管道，或者 tcp</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">createHandle</span><span class="token punctuation">(</span><span class="token parameter">fd<span class="token punctuation">,</span> is_server</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token function">validateInt32</span><span class="token punctuation">(</span>fd<span class="token punctuation">,</span> <span class="token string">'fd'</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">const</span> type <span class="token operator">=</span> <span class="token function">guessHandleType</span><span class="token punctuation">(</span>fd<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">if</span> <span class="token punctuation">(</span>type <span class="token operator">===</span> <span class="token string">'PIPE'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Pipe</span><span class="token punctuation">(</span>
-      is_server <span class="token operator">?</span> PipeConstants<span class="token punctuation">.</span><span class="token constant">SERVER</span> <span class="token operator">:</span> PipeConstants<span class="token punctuation">.</span><span class="token constant">SOCKET</span>
-    <span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span>
-
-  <span class="token keyword">if</span> <span class="token punctuation">(</span>type <span class="token operator">===</span> <span class="token string">'TCP'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">TCP</span><span class="token punctuation">(</span>
-      is_server <span class="token operator">?</span> TCPConstants<span class="token punctuation">.</span><span class="token constant">SERVER</span> <span class="token operator">:</span> TCPConstants<span class="token punctuation">.</span><span class="token constant">SOCKET</span>
-    <span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span>
-
-  <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">ERR_INVALID_FD_TYPE</span><span class="token punctuation">(</span>type<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">createHandle</span>(<span class="hljs-params">fd, is_server</span>) &#123;<br>  <span class="hljs-title function_">validateInt32</span>(fd, <span class="hljs-string">&#x27;fd&#x27;</span>, <span class="hljs-number">0</span>);<br>  <span class="hljs-keyword">const</span> type = <span class="hljs-title function_">guessHandleType</span>(fd);<br>  <span class="hljs-keyword">if</span> (type === <span class="hljs-string">&#x27;PIPE&#x27;</span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Pipe</span>(<br>      is_server ? <span class="hljs-title class_">PipeConstants</span>.<span class="hljs-property">SERVER</span> : <span class="hljs-title class_">PipeConstants</span>.<span class="hljs-property">SOCKET</span><br>    );<br>  &#125;<br><br>  <span class="hljs-keyword">if</span> (type === <span class="hljs-string">&#x27;TCP&#x27;</span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title function_">TCP</span>(<br>      is_server ? <span class="hljs-title class_">TCPConstants</span>.<span class="hljs-property">SERVER</span> : <span class="hljs-title class_">TCPConstants</span>.<span class="hljs-property">SOCKET</span><br>    );<br>  &#125;<br><br>  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title function_">ERR_INVALID_FD_TYPE</span>(type);<br>&#125;<br></code></pre></td></tr></table></figure>
 
 
 
 <p>老外的测试用例</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token function">tape</span><span class="token punctuation">(</span><span class="token string">'keepAlive is timed'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">t</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">var</span> agent <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">http<span class="token punctuation">.</span>Agent</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> <span class="token literal-property property">keepAlive</span><span class="token operator">:</span> <span class="token boolean">true</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
-  <span class="token keyword">var</span> options <span class="token operator">=</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">time</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token literal-property property">agent</span><span class="token operator">:</span> agent <span class="token punctuation">&#125;</span>
-  <span class="token keyword">var</span> start1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-  <span class="token function">request</span><span class="token punctuation">(</span><span class="token string">'http://localhost:'</span> <span class="token operator">+</span> plainServer<span class="token punctuation">.</span>port <span class="token operator">+</span> <span class="token string">'/'</span><span class="token punctuation">,</span> options<span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">err1<span class="token punctuation">,</span> res1<span class="token punctuation">,</span> body1</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">var</span> end1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-    <span class="token comment">// ensure the first request's timestamps look ok</span>
-    t<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token punctuation">(</span>res1<span class="token punctuation">.</span>timingStart <span class="token operator">>=</span> start1<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
-    t<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token punctuation">(</span>start1 <span class="token operator">&lt;=</span> end1<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
-
-    t<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token punctuation">(</span>res1<span class="token punctuation">.</span>timings<span class="token punctuation">.</span>socket <span class="token operator">>=</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
-    t<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token punctuation">(</span>res1<span class="token punctuation">.</span>timings<span class="token punctuation">.</span>lookup <span class="token operator">>=</span> res1<span class="token punctuation">.</span>timings<span class="token punctuation">.</span>socket<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
-    t<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token punctuation">(</span>res1<span class="token punctuation">.</span>timings<span class="token punctuation">.</span>connect <span class="token operator">>=</span> res1<span class="token punctuation">.</span>timings<span class="token punctuation">.</span>lookup<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
-    t<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token punctuation">(</span>res1<span class="token punctuation">.</span>timings<span class="token punctuation">.</span>response <span class="token operator">>=</span> res1<span class="token punctuation">.</span>timings<span class="token punctuation">.</span>connect<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
-
-    <span class="token comment">// open a second request with the same agent so we re-use the same connection</span>
-    <span class="token keyword">var</span> start2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token function">request</span><span class="token punctuation">(</span><span class="token string">'http://localhost:'</span> <span class="token operator">+</span> plainServer<span class="token punctuation">.</span>port <span class="token operator">+</span> <span class="token string">'/'</span><span class="token punctuation">,</span> options<span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">err2<span class="token punctuation">,</span> res2<span class="token punctuation">,</span> body2</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-      <span class="token keyword">var</span> end2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-      <span class="token comment">// ensure the second request's timestamps look ok</span>
-      t<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token punctuation">(</span>res2<span class="token punctuation">.</span>timingStart <span class="token operator">>=</span> start2<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
-      t<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token punctuation">(</span>start2 <span class="token operator">&lt;=</span> end2<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
-
-      <span class="token comment">// ensure socket==lookup==connect for the second request</span>
-      t<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token punctuation">(</span>res2<span class="token punctuation">.</span>timings<span class="token punctuation">.</span>socket <span class="token operator">>=</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
-      t<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token punctuation">(</span>res2<span class="token punctuation">.</span>timings<span class="token punctuation">.</span>lookup <span class="token operator">===</span> res2<span class="token punctuation">.</span>timings<span class="token punctuation">.</span>socket<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
-      t<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token punctuation">(</span>res2<span class="token punctuation">.</span>timings<span class="token punctuation">.</span>connect <span class="token operator">===</span> res2<span class="token punctuation">.</span>timings<span class="token punctuation">.</span>lookup<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
-      t<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token punctuation">(</span>res2<span class="token punctuation">.</span>timings<span class="token punctuation">.</span>response <span class="token operator">>=</span> res2<span class="token punctuation">.</span>timings<span class="token punctuation">.</span>connect<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
-
-      <span class="token comment">// explicitly shut down the agent</span>
-      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> agent<span class="token punctuation">.</span>destroy <span class="token operator">===</span> <span class="token string">'function'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        agent<span class="token punctuation">.</span><span class="token function">destroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-      <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
-        <span class="token comment">// node &lt; 0.12</span>
-        Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span>agent<span class="token punctuation">.</span>sockets<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">name</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-          agent<span class="token punctuation">.</span>sockets<span class="token punctuation">[</span>name<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">socket</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            socket<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-          <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
-        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
-      <span class="token punctuation">&#125;</span>
-
-      t<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-title function_">tape</span>(<span class="hljs-string">&#x27;keepAlive is timed&#x27;</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params">t</span>) &#123;<br>  <span class="hljs-keyword">var</span> agent = <span class="hljs-keyword">new</span> http.<span class="hljs-title class_">Agent</span>(&#123; <span class="hljs-attr">keepAlive</span>: <span class="hljs-literal">true</span> &#125;)<br>  <span class="hljs-keyword">var</span> options = &#123; <span class="hljs-attr">time</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">agent</span>: agent &#125;<br>  <span class="hljs-keyword">var</span> start1 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>().<span class="hljs-title function_">getTime</span>()<br><br>  <span class="hljs-title function_">request</span>(<span class="hljs-string">&#x27;http://localhost:&#x27;</span> + plainServer.<span class="hljs-property">port</span> + <span class="hljs-string">&#x27;/&#x27;</span>, options, <span class="hljs-keyword">function</span> (<span class="hljs-params">err1, res1, body1</span>) &#123;<br>    <span class="hljs-keyword">var</span> end1 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>().<span class="hljs-title function_">getTime</span>()<br><br>    <span class="hljs-comment">// ensure the first request&#x27;s timestamps look ok</span><br>    t.<span class="hljs-title function_">equal</span>((res1.<span class="hljs-property">timingStart</span> &gt;= start1), <span class="hljs-literal">true</span>)<br>    t.<span class="hljs-title function_">equal</span>((start1 &lt;= end1), <span class="hljs-literal">true</span>)<br><br>    t.<span class="hljs-title function_">equal</span>((res1.<span class="hljs-property">timings</span>.<span class="hljs-property">socket</span> &gt;= <span class="hljs-number">0</span>), <span class="hljs-literal">true</span>)<br>    t.<span class="hljs-title function_">equal</span>((res1.<span class="hljs-property">timings</span>.<span class="hljs-property">lookup</span> &gt;= res1.<span class="hljs-property">timings</span>.<span class="hljs-property">socket</span>), <span class="hljs-literal">true</span>)<br>    t.<span class="hljs-title function_">equal</span>((res1.<span class="hljs-property">timings</span>.<span class="hljs-property">connect</span> &gt;= res1.<span class="hljs-property">timings</span>.<span class="hljs-property">lookup</span>), <span class="hljs-literal">true</span>)<br>    t.<span class="hljs-title function_">equal</span>((res1.<span class="hljs-property">timings</span>.<span class="hljs-property">response</span> &gt;= res1.<span class="hljs-property">timings</span>.<span class="hljs-property">connect</span>), <span class="hljs-literal">true</span>)<br><br>    <span class="hljs-comment">// open a second request with the same agent so we re-use the same connection</span><br>    <span class="hljs-keyword">var</span> start2 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>().<span class="hljs-title function_">getTime</span>()<br>    <span class="hljs-title function_">request</span>(<span class="hljs-string">&#x27;http://localhost:&#x27;</span> + plainServer.<span class="hljs-property">port</span> + <span class="hljs-string">&#x27;/&#x27;</span>, options, <span class="hljs-keyword">function</span> (<span class="hljs-params">err2, res2, body2</span>) &#123;<br>      <span class="hljs-keyword">var</span> end2 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>().<span class="hljs-title function_">getTime</span>()<br><br>      <span class="hljs-comment">// ensure the second request&#x27;s timestamps look ok</span><br>      t.<span class="hljs-title function_">equal</span>((res2.<span class="hljs-property">timingStart</span> &gt;= start2), <span class="hljs-literal">true</span>)<br>      t.<span class="hljs-title function_">equal</span>((start2 &lt;= end2), <span class="hljs-literal">true</span>)<br><br>      <span class="hljs-comment">// ensure socket==lookup==connect for the second request</span><br>      t.<span class="hljs-title function_">equal</span>((res2.<span class="hljs-property">timings</span>.<span class="hljs-property">socket</span> &gt;= <span class="hljs-number">0</span>), <span class="hljs-literal">true</span>)<br>      t.<span class="hljs-title function_">equal</span>((res2.<span class="hljs-property">timings</span>.<span class="hljs-property">lookup</span> === res2.<span class="hljs-property">timings</span>.<span class="hljs-property">socket</span>), <span class="hljs-literal">true</span>)<br>      t.<span class="hljs-title function_">equal</span>((res2.<span class="hljs-property">timings</span>.<span class="hljs-property">connect</span> === res2.<span class="hljs-property">timings</span>.<span class="hljs-property">lookup</span>), <span class="hljs-literal">true</span>)<br>      t.<span class="hljs-title function_">equal</span>((res2.<span class="hljs-property">timings</span>.<span class="hljs-property">response</span> &gt;= res2.<span class="hljs-property">timings</span>.<span class="hljs-property">connect</span>), <span class="hljs-literal">true</span>)<br><br>      <span class="hljs-comment">// explicitly shut down the agent</span><br>      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> agent.<span class="hljs-property">destroy</span> === <span class="hljs-string">&#x27;function&#x27;</span>) &#123;<br>        agent.<span class="hljs-title function_">destroy</span>()<br>      &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-comment">// node &lt; 0.12</span><br>        <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(agent.<span class="hljs-property">sockets</span>).<span class="hljs-title function_">forEach</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">name</span>) &#123;<br>          agent.<span class="hljs-property">sockets</span>[name].<span class="hljs-title function_">forEach</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">socket</span>) &#123;<br>            socket.<span class="hljs-title function_">end</span>()<br>          &#125;)<br>        &#125;)<br>      &#125;<br><br>      t.<span class="hljs-title function_">end</span>()<br>    &#125;)<br>  &#125;)<br>&#125;)<br></code></pre></td></tr></table></figure>
 
 <!-- flag of hidden posts -->
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8A%80%E6%9C%AF/" class="category-chain-item">技术</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
     </div>
-
-    
-    
-    
-
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/%E6%BA%90%E7%A0%81/" rel="tag"># 源码</a>
-          </div>
-
-        
-
-
-        
-      </footer>
-    
-  </article>
   
   
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%BA%90%E7%A0%81/" class="print-no-link">#源码</a>
+      
+    </div>
+  
+</div>
+
+
+              
   
 
-
-
-          </div>
-          
-    <div class="comments" id="gitalk-container"></div>
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Node创建长连接</div>
+      <div>https://blog.brzhang.club/2022/02/20/node创建长连接/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>hz</div>
         </div>
-          
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年2月20日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
   
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
+  
+    <article id="comments" lazyload>
+      
 
-  <aside class="sidebar">
-    <div class="sidebar-inner">
+    </article>
+  
 
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
 
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
+          </article>
+        </div>
       </div>
-      <!--/noindex-->
+    </div>
 
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">hz</p>
-  <div class="site-description" itemprop="description"></div>
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
 </div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives">
-          <span class="site-state-item-count">26</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-        <span class="site-state-item-count">6</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-        <span class="site-state-item-count">21</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
-</div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/bravekingzhang" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;bravekingzhang" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-  </div>
 
 
 
-      </div>
+  </aside>
+
 
     </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2023</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">hz</span>
-</div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
   </div>
+</div>
 
-        
-<div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-user"></i>
-      </span>
-      <span class="site-uv" title="总访客量">
-        <span id="busuanzi_value_site_uv"></span>
-      </span>
-    </span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-eye"></i>
-      </span>
-      <span class="site-pv" title="总访问量">
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+  <script>
+  Fluid.utils.createScript('https://lib.baomitu.com/mermaid/8.14.0/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"default"});
+
+    Fluid.utils.listenDOMLoaded(function() {
+      Fluid.events.registerRefreshCallback(function() {
+        if ('mermaid' in window) {
+          mermaid.init();
+        }
+      });
+    });
+  });
+</script>
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
         <span id="busuanzi_value_site_pv"></span>
+         次
       </span>
-    </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
 </div>
 
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
 
 
 
-
-
-
-
-      </div>
-    </footer>
-  </div>
 
   
-  <script src="//cdn.jsdelivr.net/npm/animejs@3.1.0/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/lozad.js/1.14.0/lozad.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
-
+    <script  src="/js/img-lazyload.js" ></script>
   
 
 
 
 
-
-
-
-
-
-
-
-
-
+  
 <script>
-if (document.querySelectorAll('pre.mermaid').length) {
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
-    mermaid.initialize({
-      theme    : 'forest',
-      logLevel : 3,
-      flowchart: { curve     : 'linear' },
-      gantt    : { axisFormat: '%m/%d/%Y' },
-      sequence : { actorMargin: 50 }
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
     });
-  }, window.mermaid);
-}
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
 </script>
 
 
   
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
 
   
 
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
-
-<script>
-NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
-    var gitalk = new Gitalk({
-      clientID    : 'ba71a05708000167b907',
-      clientSecret: '32c7f2b320469e3c90e930e7548a397773f36bd0',
-      repo        : 'bravekingzhang.github.io',
-      owner       : 'bravekingzhang',
-      admin       : ['bravekingzhang'],
-      id          : 'bc058631204e9c047af218c80af790bc',
-        language: 'zh-CN',
-      distractionFreeMode: true
-    });
-    gitalk.render('gitalk-container');
-  }, window.Gitalk);
-});
-</script>
-
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
 </body>
 </html>

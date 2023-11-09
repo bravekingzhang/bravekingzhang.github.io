@@ -1,34 +1,27 @@
+
+
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.3.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
-
-<link rel="stylesheet" href="/css/main.css">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"blog.brzhang.club","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":true,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
-
-  <meta name="description" content="背景从腾讯电子签在现网问题反馈中，我们发现中发现有部分用户吐槽一些按钮不小心快速多次点击出现出现多个类似的页面，处理完业务之后回退需要退两次。虽说对于业务流程来说没有影响，但是确实影响到用户体验，所以如何优雅且强制性规范的在小程序上做防重复点击是本文研究的重点。 分析腾讯电子签小程序基于 uni-app 研发，举个栗子，通常一处存在点击的处理事件长这个样子，见下面的@click。 &lt;temp">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="hz">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="背景从腾讯电子签在现网问题反馈中，我们发现中发现有部分用户吐槽一些按钮不小心快速多次点击出现出现多个类似的页面，处理完业务之后回退需要退两次。虽说对于业务流程来说没有影响，但是确实影响到用户体验，所以如何优雅且强制性规范的在小程序上做防重复点击是本文研究的重点。 分析腾讯电子签小程序基于 uni-app 研发，举个栗子，通常一处存在点击的处理事件长这个样子，见下面的@click。 12345678">
 <meta property="og:type" content="article">
 <meta property="og:title" content="小程序点击防抖哪家强">
 <meta property="og:url" content="https://blog.brzhang.club/2022/03/16/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%82%B9%E5%87%BB%E9%98%B2%E6%8A%96%E5%93%AA%E5%AE%B6%E5%BC%BA/index.html">
 <meta property="og:site_name" content="心随我动">
-<meta property="og:description" content="背景从腾讯电子签在现网问题反馈中，我们发现中发现有部分用户吐槽一些按钮不小心快速多次点击出现出现多个类似的页面，处理完业务之后回退需要退两次。虽说对于业务流程来说没有影响，但是确实影响到用户体验，所以如何优雅且强制性规范的在小程序上做防重复点击是本文研究的重点。 分析腾讯电子签小程序基于 uni-app 研发，举个栗子，通常一处存在点击的处理事件长这个样子，见下面的@click。 &lt;temp">
+<meta property="og:description" content="背景从腾讯电子签在现网问题反馈中，我们发现中发现有部分用户吐槽一些按钮不小心快速多次点击出现出现多个类似的页面，处理完业务之后回退需要退两次。虽说对于业务流程来说没有影响，但是确实影响到用户体验，所以如何优雅且强制性规范的在小程序上做防重复点击是本文研究的重点。 分析腾讯电子签小程序基于 uni-app 研发，举个栗子，通常一处存在点击的处理事件长这个样子，见下面的@click。 12345678">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.brzhang.club/2022/03/16/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%82%B9%E5%87%BB%E9%98%B2%E6%8A%96%E5%93%AA%E5%AE%B6%E5%BC%BA/image-20220316185014558.png">
 <meta property="og:image" content="https://blog.brzhang.club/2022/03/16/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%82%B9%E5%87%BB%E9%98%B2%E6%8A%96%E5%93%AA%E5%AE%B6%E5%BC%BA/image-20220316190601141.png">
@@ -38,238 +31,286 @@
 <meta property="article:modified_time" content="2022-11-28T01:25:08.267Z">
 <meta property="article:author" content="hz">
 <meta property="article:tag" content="小程序">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://blog.brzhang.club/2022/03/16/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%82%B9%E5%87%BB%E9%98%B2%E6%8A%96%E5%93%AA%E5%AE%B6%E5%BC%BA/image-20220316185014558.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>小程序点击防抖哪家强 - 心随我动</title><meta name="robots" content="noindex">
 
-<link rel="canonical" href="https://blog.brzhang.club/2022/03/16/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%82%B9%E5%87%BB%E9%98%B2%E6%8A%96%E5%93%AA%E5%AE%B6%E5%BC%BA/">
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
 
-  <title>小程序点击防抖哪家强 | 心随我动</title><meta name="robots" content="noindex">
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
   
 
 
 
 
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blog.brzhang.club","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
 
 
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
 
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
+<body>
+  
 
-</head>
+  <header>
+    
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
-
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">心随我动</h1>
-      <span class="logo-line-after"><i></i></span>
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Brzhang</strong>
     </a>
-  </div>
 
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
     </div>
   </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-主页">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>主页</a>
-
-  </li>
-        <li class="menu-item menu-item-关于">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
-
-  </li>
-        <li class="menu-item menu-item-标签">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-归档">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
-  </ul>
 </nav>
 
-
-
-
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-  <div class="reading-progress-bar"></div>
-
-  <a href="https://github.com/bravekingzhang" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
-            
-
-    
   
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2022/03/16/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%82%B9%E5%87%BB%E9%98%B2%E6%8A%96%E5%93%AA%E5%AE%B6%E5%BC%BA/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hz">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="心随我动">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          小程序点击防抖哪家强
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-03-16 17:28:20" itemprop="dateCreated datePublished" datetime="2022-03-16T17:28:20+08:00">2022-03-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-28 09:25:08" itemprop="dateModified" datetime="2022-11-28T09:25:08+08:00">2022-11-28</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-                </span>
-            </span>
-
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
           
-            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span id="busuanzi_value_page_pv"></span>
-            </span>
-
+            <span id="subtitle" data-typed-text="小程序点击防抖哪家强"></span>
+          
         </div>
-      </header>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-03-16 17:28" pubdate>
+          2022年3月16日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          45 分钟
+        
+      </span>
+    
 
     
     
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
     
-    <div class="post-body" itemprop="articleBody">
+  </div>
+
+
+        
+      </div>
 
       
-        <h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><p>从<strong>腾讯电子签</strong>在现网问题反馈中，我们发现中发现有部分用户吐槽一些按钮不小心快速多次点击出现出现多个类似的页面，处理完业务之后回退需要退两次。虽说对于业务流程来说没有影响，但是确实影响到用户体验，所以如何优雅且<strong>强制性</strong>规范的在小程序上做防重复点击是本文研究的重点。</p>
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">小程序点击防抖哪家强</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><p>从<strong>腾讯电子签</strong>在现网问题反馈中，我们发现中发现有部分用户吐槽一些按钮不小心快速多次点击出现出现多个类似的页面，处理完业务之后回退需要退两次。虽说对于业务流程来说没有影响，但是确实影响到用户体验，所以如何优雅且<strong>强制性</strong>规范的在小程序上做防重复点击是本文研究的重点。</p>
 <h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><p>腾讯电子签小程序基于 uni-app 研发，举个栗子，通常一处存在点击的处理事件长这个样子，见下面的@click。</p>
-<pre class="line-numbers language-vue" data-language="vue"><code class="language-vue">&lt;template&gt;
-  &lt;PdfItem v-for&#x3D;&quot;(img, idx) in images&quot; @click&#x3D;&quot;doSomeThing(idx)&quot; &#x2F;&gt;
-&lt;&#x2F;template&gt;
-&lt;script&gt;
-
-export default &#123;
-
-  data() &#123;
-    return &#123;
-      ...
-    &#125;;
-  &#125;,
-  methods: &#123;
-    doSomeThing(idx) &#123;
-      &#x2F;&#x2F;do some thing
-    &#125;,
-  &#125;,
-&#125;;
-&lt;&#x2F;script&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;PdfItem v-for=&quot;(img, idx) in images&quot; @click=&quot;doSomeThing(idx)&quot; /&gt;<br>&lt;/template&gt;<br>&lt;script&gt;<br><br>export default &#123;<br><br>  data() &#123;<br>    return &#123;<br>      ...<br>    &#125;;<br>  &#125;,<br>  methods: &#123;<br>    doSomeThing(idx) &#123;<br>      //do some thing<br>    &#125;,<br>  &#125;,<br>&#125;;<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
 
 <p>那么，如何做好并消灭防重复点击就是本文要研究的点。拿上面的例子来说，大概有几个方式</p>
 <ol>
 <li><p>在 doSomeThing 中加一个变量，当做门卫，如果方法没处理完，再次进入直接返回，恩，每个方法都需要增加一段逻辑，去设置变量，比较繁琐。</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token function">doSomeThing</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-  <span class="token keyword">if</span><span class="token punctuation">(</span>isDoing<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span>
-  <span class="token punctuation">&#125;</span>
-  isDoing <span class="token operator">=</span> <span class="token boolean">true</span>
-  <span class="token operator">...</span><span class="token punctuation">.</span>
-  isDoing <span class="token operator">=</span> <span class="token boolean">false</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-title function_">doSomeThing</span>(<span class="hljs-params"></span>)&#123;<br>  <span class="hljs-keyword">if</span>(isDoing)&#123;<br>    <span class="hljs-keyword">return</span><br>  &#125;<br>  isDoing = <span class="hljs-literal">true</span><br>  ....<br>  isDoing = <span class="hljs-literal">false</span><br>&#125;<br></code></pre></td></tr></table></figure>
 </li>
 <li><p>给 doSomeThing 方法增加一个 debounce 包裹一下，恩，比第一种略好，更加简洁点。</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token literal-property property">doSomeThing</span><span class="token operator">:</span>_<span class="token punctuation">.</span><span class="token function">debounce</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-  <span class="token operator">...</span><span class="token punctuation">.</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-attr">doSomeThing</span>:_.<span class="hljs-title function_">debounce</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;<br>  ....<br>&#125;)<br></code></pre></td></tr></table></figure>
 </li>
 <li><p>hook 的方式 hook 住 click 方法，然后来做处理逻辑，无奈小程序也没有类似 web 的这种 addEventListener，遂放弃。</p>
 </li>
@@ -281,380 +322,477 @@ export default &#123;
 </ol>
 <p>很显然，对于代码规范检测，我们非常容易想到使用 eslint，但是现有的 eslint 有这么规则吗？自然是没有的，所以，我们遇到的问题在理论上转换为了：<strong>如何开发一款插件有效的检测 onClick 有没有使用防抖</strong>。</p>
 <h4 id="eslint-插件开搞"><a href="#eslint-插件开搞" class="headerlink" title="eslint 插件开搞"></a>eslint 插件开搞</h4><h5 id="基本开发准备"><a href="#基本开发准备" class="headerlink" title="基本开发准备"></a>基本开发准备</h5><p>插件开发的整体流程我就不在本文的介绍当中，本文只关心如何去实现检测的逻辑及基本的程序入口和调试技巧介绍。首先，我们要检测的文件是 .vue 文件，因此，我们需要在 eslint 大环境下解析 vue 语法，那么使用什么方式解析 vue 语法，我们需要自己开发吗，显然不是，vue 肯定是有的，比如<a target="_blank" rel="noopener" href="https://github.com/vuejs/vue-eslint-parser#readme">vue-eslint-parser</a>,想要更加直观的看解析效果，可以到<a target="_blank" rel="noopener" href="https://astexplorer.net/">astexplorer</a>贴上一段 vue 代码看看。</p>
-<p><img data-src="/2022/03/16/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%82%B9%E5%87%BB%E9%98%B2%E6%8A%96%E5%93%AA%E5%AE%B6%E5%BC%BA/image-20220316185014558.png" alt="image-20220316185014558" loading="lazy" src="/2022/03/16/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%82%B9%E5%87%BB%E9%98%B2%E6%8A%96%E5%93%AA%E5%AE%B6%E5%BC%BA/image-20220316185014558.png"></p>
+<p><img src="/2022/03/16/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%82%B9%E5%87%BB%E9%98%B2%E6%8A%96%E5%93%AA%E5%AE%B6%E5%BC%BA/image-20220316185014558.png" srcset="/img/loading.gif" lazyload alt="image-20220316185014558" loading="lazy" data-src="/2022/03/16/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%82%B9%E5%87%BB%E9%98%B2%E6%8A%96%E5%93%AA%E5%AE%B6%E5%BC%BA/image-20220316185014558.png"></p>
 <p>那么，我们就可以插件的开发框架下，模拟 vue 文件被这个插件解析，然后生成一个语法树抛给 eslint 插件入口，参见下面的代码块，解析好的语法数会已 node 参数传入到 Program 函数。</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">/**
- * @fileoverview onClick should wrap with debounce in page
- * @author hoollyzhang
- */</span>
-<span class="token string">'use strict'</span><span class="token punctuation">;</span>
-
-<span class="token comment">//------------------------------------------------------------------------------</span>
-<span class="token comment">// Rule Definition</span>
-<span class="token comment">//------------------------------------------------------------------------------</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'电子签防抖插件已加载'</span><span class="token punctuation">)</span>
-<span class="token comment">/**
- * @type &#123;import('eslint').Rule.RuleModule&#125;
- */</span>
-module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-  <span class="token literal-property property">meta</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-    <span class="token literal-property property">type</span><span class="token operator">:</span> <span class="token string">'problem'</span><span class="token punctuation">,</span> <span class="token comment">// `problem`, `suggestion`, or `layout`</span>
-    <span class="token literal-property property">docs</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-      <span class="token literal-property property">description</span><span class="token operator">:</span> <span class="token string">'onClick should wrap with debounce in page'</span><span class="token punctuation">,</span>
-      <span class="token literal-property property">category</span><span class="token operator">:</span> <span class="token string">'Possible Problems'</span><span class="token punctuation">,</span>
-      <span class="token literal-property property">recommended</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-      <span class="token literal-property property">url</span><span class="token operator">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token comment">// URL to the documentation page for this rule</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-    <span class="token literal-property property">schema</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token comment">// Add a schema if the rule has options</span>
-    <span class="token literal-property property">messages</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-      <span class="token literal-property property">missingAddDebounceClick</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">onClick method should wrap with debounce, use "import &#123; debounce &#125; from '@/utils/custom-lodash'" and wrap with it in the page.</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
-      <span class="token literal-property property">shouldNotUseEmitThisWay</span><span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">It is suggested to use the debounce method of wrapping</span><span class="token template-punctuation string">`</span></span>
-    <span class="token punctuation">&#125;</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-
-  <span class="token function">create</span><span class="token punctuation">(</span><span class="token parameter">context</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token comment">// variables should be defined here</span>
-
-    <span class="token comment">//----------------------------------------------------------------------</span>
-    <span class="token comment">// Helpers</span>
-    <span class="token comment">//----------------------------------------------------------------------</span>
-
-    <span class="token comment">//----------------------------------------------------------------------</span>
-    <span class="token comment">// Public</span>
-    <span class="token comment">//----------------------------------------------------------------------</span>
-
-    <span class="token keyword">return</span> <span class="token punctuation">&#123;</span>
-      <span class="token comment">// visitor functions for different types of nodes</span>
-      <span class="token function">Program</span><span class="token punctuation">(</span><span class="token parameter">node</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">const</span> fileName <span class="token operator">=</span> context<span class="token punctuation">.</span><span class="token function">getFilename</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>fileName<span class="token punctuation">.</span><span class="token function">endsWith</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">vue</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-          <span class="token keyword">return</span>
-        <span class="token punctuation">&#125;</span>
-        <span class="token comment">//...</span>
-        <span class="token keyword">const</span> <span class="token punctuation">&#123;</span> templateBody<span class="token punctuation">,</span>body <span class="token punctuation">&#125;</span> <span class="token operator">=</span> node
-
-        <span class="token punctuation">[</span><span class="token operator">...</span>methods<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token parameter">item</span><span class="token operator">=></span><span class="token function">reportError</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span><span class="token punctuation">)</span>
-      <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@fileoverview</span> onClick should wrap with debounce in page</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> <span class="hljs-variable">hoollyzhang</span></span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">&#x27;use strict&#x27;</span>;<br><br><span class="hljs-comment">//------------------------------------------------------------------------------</span><br><span class="hljs-comment">// Rule Definition</span><br><span class="hljs-comment">//------------------------------------------------------------------------------</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;电子签防抖插件已加载&#x27;</span>)<br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@type</span> &#123;<span class="hljs-type">import(&#x27;eslint&#x27;).Rule.RuleModule</span>&#125;</span><br><span class="hljs-comment"> */</span><br><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = &#123;<br>  <span class="hljs-attr">meta</span>: &#123;<br>    <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;problem&#x27;</span>, <span class="hljs-comment">// `problem`, `suggestion`, or `layout`</span><br>    <span class="hljs-attr">docs</span>: &#123;<br>      <span class="hljs-attr">description</span>: <span class="hljs-string">&#x27;onClick should wrap with debounce in page&#x27;</span>,<br>      <span class="hljs-attr">category</span>: <span class="hljs-string">&#x27;Possible Problems&#x27;</span>,<br>      <span class="hljs-attr">recommended</span>: <span class="hljs-literal">true</span>,<br>      <span class="hljs-attr">url</span>: <span class="hljs-literal">null</span>, <span class="hljs-comment">// URL to the documentation page for this rule</span><br>    &#125;,<br>    <span class="hljs-attr">schema</span>: [], <span class="hljs-comment">// Add a schema if the rule has options</span><br>    <span class="hljs-attr">messages</span>: &#123;<br>      <span class="hljs-attr">missingAddDebounceClick</span>: <span class="hljs-string">`onClick method should wrap with debounce, use &quot;import &#123; debounce &#125; from &#x27;@/utils/custom-lodash&#x27;&quot; and wrap with it in the page.`</span>,<br>      <span class="hljs-attr">shouldNotUseEmitThisWay</span>: <span class="hljs-string">`It is suggested to use the debounce method of wrapping`</span><br>    &#125;<br>  &#125;,<br><br>  <span class="hljs-title function_">create</span>(<span class="hljs-params">context</span>) &#123;<br>    <span class="hljs-comment">// variables should be defined here</span><br><br>    <span class="hljs-comment">//----------------------------------------------------------------------</span><br>    <span class="hljs-comment">// Helpers</span><br>    <span class="hljs-comment">//----------------------------------------------------------------------</span><br><br>    <span class="hljs-comment">//----------------------------------------------------------------------</span><br>    <span class="hljs-comment">// Public</span><br>    <span class="hljs-comment">//----------------------------------------------------------------------</span><br><br>    <span class="hljs-keyword">return</span> &#123;<br>      <span class="hljs-comment">// visitor functions for different types of nodes</span><br>      <span class="hljs-title class_">Program</span>(node) &#123;<br>        <span class="hljs-keyword">const</span> fileName = context.<span class="hljs-title function_">getFilename</span>();<br>        <span class="hljs-keyword">if</span>(!fileName.<span class="hljs-title function_">endsWith</span>(<span class="hljs-string">`vue`</span>))&#123;<br>          <span class="hljs-keyword">return</span><br>        &#125;<br>        <span class="hljs-comment">//...</span><br>        <span class="hljs-keyword">const</span> &#123; templateBody,body &#125; = node<br><br>        [...methods].<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">item</span>=&gt;</span><span class="hljs-title function_">reportError</span>(item))<br>      &#125;,<br>    &#125;;<br>  &#125;,<br>&#125;;<br><br></code></pre></td></tr></table></figure>
 
 <p>插件开发框架为了便于我们开发调试插件，提供了这样一套模板方法</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">/**
- * @fileoverview Import subPackage config in page
- * @author hoollyzhang
- */</span>
-<span class="token string">"use strict"</span><span class="token punctuation">;</span>
-
-<span class="token comment">//------------------------------------------------------------------------------</span>
-<span class="token comment">// Requirements</span>
-<span class="token comment">//------------------------------------------------------------------------------</span>
-
-<span class="token keyword">const</span> rule <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"../../../lib/rules/check-on-click-debounce"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">const</span> <span class="token constant">VUE_ESLINT_PARSER</span> <span class="token operator">=</span> path<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>
-  __dirname<span class="token punctuation">,</span>
-  <span class="token constant">NODE_MODULES</span><span class="token punctuation">,</span>
-  <span class="token string">"vue-eslint-parser"</span>
-<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token comment">//------------------------------------------------------------------------------</span>
-<span class="token comment">// Tests</span>
-<span class="token comment">//------------------------------------------------------------------------------</span>
-
-<span class="token keyword">const</span> ruleTester <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">RuleTester</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-ruleTester<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token string">"check-on-click-debounce"</span><span class="token punctuation">,</span> rule<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>
-  <span class="token literal-property property">valid</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"pages/vue-onclick-debounce/onclick-debounce-test-ok.vue"</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>
-    <span class="token punctuation">(</span><span class="token parameter">filename</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
-      <span class="token literal-property property">code</span><span class="token operator">:</span> fs<span class="token punctuation">.</span><span class="token function">readFileSync</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token constant">TEST_INPUTS_DIR</span><span class="token punctuation">,</span> filename<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"utf8"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-      <span class="token literal-property property">filename</span><span class="token operator">:</span> path<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token constant">TEST_INPUTS_DIR</span><span class="token punctuation">,</span> filename<span class="token punctuation">)</span><span class="token punctuation">,</span>
-      <span class="token literal-property property">parser</span><span class="token operator">:</span> <span class="token constant">VUE_ESLINT_PARSER</span><span class="token punctuation">,</span>
-      parserOptions<span class="token punctuation">,</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
-  <span class="token punctuation">)</span><span class="token punctuation">,</span>
-
-  <span class="token literal-property property">invalid</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"pages/vue-onclick-debounce/onclick-debounce-test-not-ok.vue"</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>
-    <span class="token punctuation">(</span><span class="token parameter">filename</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
-      <span class="token literal-property property">code</span><span class="token operator">:</span> fs<span class="token punctuation">.</span><span class="token function">readFileSync</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token constant">TEST_INPUTS_DIR</span><span class="token punctuation">,</span> filename<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"utf8"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-      <span class="token literal-property property">filename</span><span class="token operator">:</span> path<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token constant">TEST_INPUTS_DIR</span><span class="token punctuation">,</span> filename<span class="token punctuation">)</span><span class="token punctuation">,</span>
-      <span class="token literal-property property">parser</span><span class="token operator">:</span> <span class="token constant">VUE_ESLINT_PARSER</span><span class="token punctuation">,</span>
-      parserOptions<span class="token punctuation">,</span>
-      <span class="token literal-property property">errors</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">&#123;</span> <span class="token literal-property property">messageId</span><span class="token operator">:</span> <span class="token string">"missingAddDebounceClick"</span> <span class="token punctuation">&#125;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
-  <span class="token punctuation">)</span><span class="token punctuation">,</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@fileoverview</span> Import subPackage config in page</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> <span class="hljs-variable">hoollyzhang</span></span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">&quot;use strict&quot;</span>;<br><br><span class="hljs-comment">//------------------------------------------------------------------------------</span><br><span class="hljs-comment">// Requirements</span><br><span class="hljs-comment">//------------------------------------------------------------------------------</span><br><br><span class="hljs-keyword">const</span> rule = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;../../../lib/rules/check-on-click-debounce&quot;</span>);<br><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">VUE_ESLINT_PARSER</span> = path.<span class="hljs-title function_">join</span>(<br>  __dirname,<br>  <span class="hljs-variable constant_">NODE_MODULES</span>,<br>  <span class="hljs-string">&quot;vue-eslint-parser&quot;</span><br>);<br><br><span class="hljs-comment">//------------------------------------------------------------------------------</span><br><span class="hljs-comment">// Tests</span><br><span class="hljs-comment">//------------------------------------------------------------------------------</span><br><br><span class="hljs-keyword">const</span> ruleTester = <span class="hljs-keyword">new</span> <span class="hljs-title class_">RuleTester</span>();<br>ruleTester.<span class="hljs-title function_">run</span>(<span class="hljs-string">&quot;check-on-click-debounce&quot;</span>, rule, &#123;<br>  <span class="hljs-attr">valid</span>: [<span class="hljs-string">&quot;pages/vue-onclick-debounce/onclick-debounce-test-ok.vue&quot;</span>].<span class="hljs-title function_">map</span>(<br>    <span class="hljs-function">(<span class="hljs-params">filename</span>) =&gt;</span> (&#123;<br>      <span class="hljs-attr">code</span>: fs.<span class="hljs-title function_">readFileSync</span>(path.<span class="hljs-title function_">join</span>(<span class="hljs-variable constant_">TEST_INPUTS_DIR</span>, filename), <span class="hljs-string">&quot;utf8&quot;</span>),<br>      <span class="hljs-attr">filename</span>: path.<span class="hljs-title function_">join</span>(<span class="hljs-variable constant_">TEST_INPUTS_DIR</span>, filename),<br>      <span class="hljs-attr">parser</span>: <span class="hljs-variable constant_">VUE_ESLINT_PARSER</span>,<br>      parserOptions,<br>    &#125;)<br>  ),<br><br>  <span class="hljs-attr">invalid</span>: [<span class="hljs-string">&quot;pages/vue-onclick-debounce/onclick-debounce-test-not-ok.vue&quot;</span>].<span class="hljs-title function_">map</span>(<br>    <span class="hljs-function">(<span class="hljs-params">filename</span>) =&gt;</span> (&#123;<br>      <span class="hljs-attr">code</span>: fs.<span class="hljs-title function_">readFileSync</span>(path.<span class="hljs-title function_">join</span>(<span class="hljs-variable constant_">TEST_INPUTS_DIR</span>, filename), <span class="hljs-string">&quot;utf8&quot;</span>),<br>      <span class="hljs-attr">filename</span>: path.<span class="hljs-title function_">join</span>(<span class="hljs-variable constant_">TEST_INPUTS_DIR</span>, filename),<br>      <span class="hljs-attr">parser</span>: <span class="hljs-variable constant_">VUE_ESLINT_PARSER</span>,<br>      parserOptions,<br>      <span class="hljs-attr">errors</span>: [&#123; <span class="hljs-attr">messageId</span>: <span class="hljs-string">&quot;missingAddDebounceClick&quot;</span> &#125;],<br>    &#125;)<br>  ),<br>&#125;);<br></code></pre></td></tr></table></figure>
 
 <p>所以，我们可以使用这个验证我们研发的 eslint 插件是否符合预期，而且调试起来也比较方便，在 vscode 上开发的话，配置一个启动项即可，比如我配置了一个 launch.json;</p>
-<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
-  <span class="token comment">// 使用 IntelliSense 了解相关属性。</span>
-  <span class="token comment">// 悬停以查看现有属性的描述。</span>
-  <span class="token comment">// 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387</span>
-  <span class="token property">"version"</span><span class="token operator">:</span> <span class="token string">"0.2.0"</span><span class="token punctuation">,</span>
-  <span class="token property">"configurations"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-    <span class="token punctuation">&#123;</span>
-      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"pwa-node"</span><span class="token punctuation">,</span>
-      <span class="token property">"request"</span><span class="token operator">:</span> <span class="token string">"launch"</span><span class="token punctuation">,</span>
-      <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Launch onClick test"</span><span class="token punctuation">,</span>
-      <span class="token property">"skipFiles"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"&lt;node_internals>/**"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-      <span class="token property">"program"</span><span class="token operator">:</span> <span class="token string">"$&#123;workspaceFolder&#125;/packages/eslint-plugin-tsign-weapp/tests/lib/rules/check-on-click-debounce.js"</span>
-    <span class="token punctuation">&#125;</span>
-  <span class="token punctuation">]</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-comment">// 使用 IntelliSense 了解相关属性。</span><br>  <span class="hljs-comment">// 悬停以查看现有属性的描述。</span><br>  <span class="hljs-comment">// 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387</span><br>  <span class="hljs-attr">&quot;version&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0.2.0&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;configurations&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>    <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;pwa-node&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;request&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;launch&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Launch onClick test&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;skipFiles&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;&lt;node_internals&gt;/**&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;program&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;$&#123;workspaceFolder&#125;/packages/eslint-plugin-tsign-weapp/tests/lib/rules/check-on-click-debounce.js&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><br>  <span class="hljs-punctuation">]</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
 
 <p>这样一来，我们就可以展开调试了。</p>
-<p><img data-src="/2022/03/16/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%82%B9%E5%87%BB%E9%98%B2%E6%8A%96%E5%93%AA%E5%AE%B6%E5%BC%BA/image-20220316190601141.png" alt="image-20220316190601141" loading="lazy" src="/2022/03/16/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%82%B9%E5%87%BB%E9%98%B2%E6%8A%96%E5%93%AA%E5%AE%B6%E5%BC%BA/image-20220316190601141.png"></p>
+<p><img src="/2022/03/16/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%82%B9%E5%87%BB%E9%98%B2%E6%8A%96%E5%93%AA%E5%AE%B6%E5%BC%BA/image-20220316190601141.png" srcset="/img/loading.gif" lazyload alt="image-20220316190601141" loading="lazy" data-src="/2022/03/16/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%82%B9%E5%87%BB%E9%98%B2%E6%8A%96%E5%93%AA%E5%AE%B6%E5%BC%BA/image-20220316190601141.png"></p>
 <h5 id="检测原理介绍"><a href="#检测原理介绍" class="headerlink" title="检测原理介绍"></a>检测原理介绍</h5><p>1、首先我们需要拿到所有&lt;template 中被 @click 引用到的方法，这个可以通过递归遍历 templateBody 这个树解决。</p>
-<p><img data-src="/2022/03/16/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%82%B9%E5%87%BB%E9%98%B2%E6%8A%96%E5%93%AA%E5%AE%B6%E5%BC%BA/image-20220316191301667.png" alt="image-20220316191301667" loading="lazy" src="/2022/03/16/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%82%B9%E5%87%BB%E9%98%B2%E6%8A%96%E5%93%AA%E5%AE%B6%E5%BC%BA/image-20220316191301667.png"></p>
+<p><img src="/2022/03/16/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%82%B9%E5%87%BB%E9%98%B2%E6%8A%96%E5%93%AA%E5%AE%B6%E5%BC%BA/image-20220316191301667.png" srcset="/img/loading.gif" lazyload alt="image-20220316191301667" loading="lazy" data-src="/2022/03/16/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%82%B9%E5%87%BB%E9%98%B2%E6%8A%96%E5%93%AA%E5%AE%B6%E5%BC%BA/image-20220316191301667.png"></p>
 <p>如上图，我们只需要找到这个 argument name 是 click 的这个结点中 value 里面的 expression 的 name，就是我们要检测的方法</p>
 <p>2、基于上面找到的方法，我们在去 methods 的结点中去找到对应的方法，看看这个方法的 body 有没有被 debounce 包裹即可，如果没有哦就告警处理。</p>
-<h5 id="实际效果"><a href="#实际效果" class="headerlink" title="实际效果"></a>实际效果</h5><p><img data-src="/2022/03/16/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%82%B9%E5%87%BB%E9%98%B2%E6%8A%96%E5%93%AA%E5%AE%B6%E5%BC%BA/image-20220316191949544.png" alt="image-20220316191949544" loading="lazy" src="/2022/03/16/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%82%B9%E5%87%BB%E9%98%B2%E6%8A%96%E5%93%AA%E5%AE%B6%E5%BC%BA/image-20220316191949544.png"></p>
+<h5 id="实际效果"><a href="#实际效果" class="headerlink" title="实际效果"></a>实际效果</h5><p><img src="/2022/03/16/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%82%B9%E5%87%BB%E9%98%B2%E6%8A%96%E5%93%AA%E5%AE%B6%E5%BC%BA/image-20220316191949544.png" srcset="/img/loading.gif" lazyload alt="image-20220316191949544" loading="lazy" data-src="/2022/03/16/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%82%B9%E5%87%BB%E9%98%B2%E6%8A%96%E5%93%AA%E5%AE%B6%E5%BC%BA/image-20220316191949544.png"></p>
 <!-- flag of hidden posts -->
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8A%80%E6%9C%AF/" class="category-chain-item">技术</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
     </div>
-
-    
-    
-    
-
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" rel="tag"># 小程序</a>
-          </div>
-
-        
-
-
-        
-      </footer>
-    
-  </article>
   
   
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" class="print-no-link">#小程序</a>
+      
+    </div>
+  
+</div>
+
+
+              
   
 
-
-
-          </div>
-          
-    <div class="comments" id="gitalk-container"></div>
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>小程序点击防抖哪家强</div>
+      <div>https://blog.brzhang.club/2022/03/16/小程序点击防抖哪家强/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>hz</div>
         </div>
-          
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年3月16日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
   
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
+  
+    <article id="comments" lazyload>
+      
 
-  <aside class="sidebar">
-    <div class="sidebar-inner">
+    </article>
+  
 
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
 
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#eslint-%E6%8F%92%E4%BB%B6%E5%BC%80%E6%90%9E"><span class="nav-number">3.</span> <span class="nav-text">eslint 插件开搞</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%BC%80%E5%8F%91%E5%87%86%E5%A4%87"><span class="nav-number">3.1.</span> <span class="nav-text">基本开发准备</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A3%80%E6%B5%8B%E5%8E%9F%E7%90%86%E4%BB%8B%E7%BB%8D"><span class="nav-number">3.2.</span> <span class="nav-text">检测原理介绍</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9E%E9%99%85%E6%95%88%E6%9E%9C"><span class="nav-number">3.3.</span> <span class="nav-text">实际效果</span></a></li></ol></li></ol></div>
+          </article>
+        </div>
       </div>
-      <!--/noindex-->
+    </div>
 
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">hz</p>
-  <div class="site-description" itemprop="description"></div>
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
 </div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives">
-          <span class="site-state-item-count">26</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-        <span class="site-state-item-count">6</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-        <span class="site-state-item-count">21</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
-</div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/bravekingzhang" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;bravekingzhang" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-  </div>
 
 
 
-      </div>
+  </aside>
+
 
     </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2023</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">hz</span>
-</div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
   </div>
+</div>
 
-        
-<div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-user"></i>
-      </span>
-      <span class="site-uv" title="总访客量">
-        <span id="busuanzi_value_site_uv"></span>
-      </span>
-    </span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-eye"></i>
-      </span>
-      <span class="site-pv" title="总访问量">
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+  <script>
+  Fluid.utils.createScript('https://lib.baomitu.com/mermaid/8.14.0/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"default"});
+
+    Fluid.utils.listenDOMLoaded(function() {
+      Fluid.events.registerRefreshCallback(function() {
+        if ('mermaid' in window) {
+          mermaid.init();
+        }
+      });
+    });
+  });
+</script>
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
         <span id="busuanzi_value_site_pv"></span>
+         次
       </span>
-    </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
 </div>
 
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
 
 
 
-
-
-
-
-      </div>
-    </footer>
-  </div>
 
   
-  <script src="//cdn.jsdelivr.net/npm/animejs@3.1.0/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/lozad.js/1.14.0/lozad.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
-
+    <script  src="/js/img-lazyload.js" ></script>
   
 
 
 
 
-
-
-
-
-
-
-
-
-
+  
 <script>
-if (document.querySelectorAll('pre.mermaid').length) {
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
-    mermaid.initialize({
-      theme    : 'forest',
-      logLevel : 3,
-      flowchart: { curve     : 'linear' },
-      gantt    : { axisFormat: '%m/%d/%Y' },
-      sequence : { actorMargin: 50 }
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
     });
-  }, window.mermaid);
-}
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
 </script>
 
 
   
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
 
   
 
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
-
-<script>
-NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
-    var gitalk = new Gitalk({
-      clientID    : 'ba71a05708000167b907',
-      clientSecret: '32c7f2b320469e3c90e930e7548a397773f36bd0',
-      repo        : 'bravekingzhang.github.io',
-      owner       : 'bravekingzhang',
-      admin       : ['bravekingzhang'],
-      id          : '189b481f0c0960d473a490e38cba8dfe',
-        language: 'zh-CN',
-      distractionFreeMode: true
-    });
-    gitalk.render('gitalk-container');
-  }, window.Gitalk);
-});
-</script>
-
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
 </body>
 </html>

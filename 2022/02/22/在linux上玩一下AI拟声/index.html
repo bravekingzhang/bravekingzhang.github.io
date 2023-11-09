@@ -1,34 +1,27 @@
+
+
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.3.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
-
-<link rel="stylesheet" href="/css/main.css">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"blog.brzhang.club","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":true,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
-
-  <meta name="description" content="项目地址https:&#x2F;&#x2F;github.com&#x2F;babysor&#x2F;MockingBird git clone项目到本地，然后安装环境，开始体验。 操作方式1、环境安装1、1安装python环境yum install python39  1、2指定系统默认python版本[root@VM-80-70-centos alternatives]# update-alternatives --config p">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="hz">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="项目地址https:&#x2F;&#x2F;github.com&#x2F;babysor&#x2F;MockingBird git clone项目到本地，然后安装环境，开始体验。 操作方式1、环境安装1、1安装python环境1yum install python39  1、2指定系统默认python版本123456789101112[root@VM-80-70-centos alternatives]# update-alterna">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在linux上玩一下AI拟声">
 <meta property="og:url" content="https://blog.brzhang.club/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/index.html">
 <meta property="og:site_name" content="心随我动">
-<meta property="og:description" content="项目地址https:&#x2F;&#x2F;github.com&#x2F;babysor&#x2F;MockingBird git clone项目到本地，然后安装环境，开始体验。 操作方式1、环境安装1、1安装python环境yum install python39  1、2指定系统默认python版本[root@VM-80-70-centos alternatives]# update-alternatives --config p">
+<meta property="og:description" content="项目地址https:&#x2F;&#x2F;github.com&#x2F;babysor&#x2F;MockingBird git clone项目到本地，然后安装环境，开始体验。 操作方式1、环境安装1、1安装python环境1yum install python39  1、2指定系统默认python版本123456789101112[root@VM-80-70-centos alternatives]# update-alterna">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.brzhang.club/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222120812006.png">
 <meta property="og:image" content="https://blog.brzhang.club/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222120729276.png">
@@ -43,349 +36,337 @@
 <meta property="article:modified_time" content="2022-11-28T01:25:08.266Z">
 <meta property="article:author" content="hz">
 <meta property="article:tag" content="黑科技">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://blog.brzhang.club/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222120812006.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>在linux上玩一下AI拟声 - 心随我动</title>
 
-<link rel="canonical" href="https://blog.brzhang.club/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/">
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
 
-  <title>在linux上玩一下AI拟声 | 心随我动</title>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
   
 
 
 
 
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blog.brzhang.club","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
 
 
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
 
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
+<body>
+  
 
-</head>
+  <header>
+    
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
-
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">心随我动</h1>
-      <span class="logo-line-after"><i></i></span>
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Brzhang</strong>
     </a>
-  </div>
 
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
     </div>
   </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-主页">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>主页</a>
-
-  </li>
-        <li class="menu-item menu-item-关于">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
-
-  </li>
-        <li class="menu-item menu-item-标签">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-归档">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
-  </ul>
 </nav>
 
-
-
-
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-  <div class="reading-progress-bar"></div>
-
-  <a href="https://github.com/bravekingzhang" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
-            
-
-    
   
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.brzhang.club/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hz">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="心随我动">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          在linux上玩一下AI拟声
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-02-22 12:02:04" itemprop="dateCreated datePublished" datetime="2022-02-22T12:02:04+08:00">2022-02-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-28 09:25:08" itemprop="dateModified" datetime="2022-11-28T09:25:08+08:00">2022-11-28</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-                </span>
-            </span>
-
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
           
-            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span id="busuanzi_value_page_pv"></span>
-            </span>
-
+            <span id="subtitle" data-typed-text="在linux上玩一下AI拟声"></span>
+          
         </div>
-      </header>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-02-22 12:02" pubdate>
+          2022年2月22日 中午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          35 分钟
+        
+      </span>
+    
 
     
     
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
     
-    <div class="post-body" itemprop="articleBody">
+  </div>
+
+
+        
+      </div>
 
       
-        <h3 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h3><p><a target="_blank" rel="noopener" href="https://github.com/babysor/MockingBird">https://github.com/babysor/MockingBird</a></p>
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">在linux上玩一下AI拟声</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h3><p><a target="_blank" rel="noopener" href="https://github.com/babysor/MockingBird">https://github.com/babysor/MockingBird</a></p>
 <p>git clone项目到本地，然后安装环境，开始体验。</p>
-<h3 id="操作方式"><a href="#操作方式" class="headerlink" title="操作方式"></a>操作方式</h3><h4 id="1、环境安装"><a href="#1、环境安装" class="headerlink" title="1、环境安装"></a>1、环境安装</h4><h5 id="1、1安装python环境"><a href="#1、1安装python环境" class="headerlink" title="1、1安装python环境"></a>1、1安装python环境</h5><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">yum <span class="token function">install</span> python39<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="操作方式"><a href="#操作方式" class="headerlink" title="操作方式"></a>操作方式</h3><h4 id="1、环境安装"><a href="#1、环境安装" class="headerlink" title="1、环境安装"></a>1、环境安装</h4><h5 id="1、1安装python环境"><a href="#1、1安装python环境" class="headerlink" title="1、1安装python环境"></a>1、1安装python环境</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">yum install python39<br></code></pre></td></tr></table></figure>
 
-<h5 id="1、2指定系统默认python版本"><a href="#1、2指定系统默认python版本" class="headerlink" title="1、2指定系统默认python版本"></a>1、2指定系统默认python版本</h5><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@VM-80-70-centos alternatives<span class="token punctuation">]</span><span class="token comment"># update-alternatives --config python3</span>
-
-There are <span class="token number">3</span> programs <span class="token function">which</span> provide <span class="token string">'python3'</span><span class="token builtin class-name">.</span>
-
-  Selection    Command
------------------------------------------------
-   <span class="token number">1</span>           /usr/bin/python3.8
-*  <span class="token number">2</span>           /usr/bin/python3.6
- + <span class="token number">3</span>           /usr/bin/python3.9
-
-Enter to keep the current selection<span class="token punctuation">[</span>+<span class="token punctuation">]</span>, or <span class="token builtin class-name">type</span> selection number:
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="1、2指定系统默认python版本"><a href="#1、2指定系统默认python版本" class="headerlink" title="1、2指定系统默认python版本"></a>1、2指定系统默认python版本</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs shell">[root@VM-80-70-centos alternatives]# update-alternatives --config python3<br><br>There are 3 programs which provide &#x27;python3&#x27;.<br><br>  Selection    Command<br>-----------------------------------------------<br>   1           /usr/bin/python3.8<br>*  2           /usr/bin/python3.6<br> + 3           /usr/bin/python3.9<br><br>Enter to keep the current selection[+], or type selection number:<br><br></code></pre></td></tr></table></figure>
 
 <p>这里默认是3.6，这个工程是不支持的，比如后续如果安装pytorch，就会报错</p>
-<p><img data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222120812006.png" alt="image-20220222120812006" loading="lazy" src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222120812006.png"></p>
+<p><img src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222120812006.png" srcset="/img/loading.gif" lazyload alt="image-20220222120812006" loading="lazy" data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222120812006.png"></p>
 <p>所以，这里输入3，选择3.9版本搞起，其实也可以系统python版本如果高于3.7也是可以不用安装python3.9，可直接进入安装pytorch。</p>
-<h5 id="1、3安装pytorch"><a href="#1、3安装pytorch" class="headerlink" title="1、3安装pytorch"></a>1、3安装pytorch</h5><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pip3 <span class="token function">install</span> torch torchvision<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h5 id="1、3安装pytorch"><a href="#1、3安装pytorch" class="headerlink" title="1、3安装pytorch"></a>1、3安装pytorch</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">pip3 install torch torchvision<br></code></pre></td></tr></table></figure>
 
 <p>验证一下是否安装成功</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> torch
-x <span class="token operator">=</span> torch<span class="token punctuation">.</span>rand<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span>
-<span class="token comment">#=============输出</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br>x = torch.rand(<span class="hljs-number">5</span>, <span class="hljs-number">3</span>)<br><span class="hljs-built_in">print</span>(x)<br><span class="hljs-comment">#=============输出</span><br></code></pre></td></tr></table></figure>
 
-<p><img data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222120729276.png" alt="image-20220222120729276" loading="lazy" src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222120729276.png"></p>
+<p><img src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222120729276.png" srcset="/img/loading.gif" lazyload alt="image-20220222120729276" loading="lazy" data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222120729276.png"></p>
 <h5 id="1、4安装ffmpeg，这个比较复杂，最好是使用源码编译安装的方式，yum找源大概率报错"><a href="#1、4安装ffmpeg，这个比较复杂，最好是使用源码编译安装的方式，yum找源大概率报错" class="headerlink" title="1、4安装ffmpeg，这个比较复杂，最好是使用源码编译安装的方式，yum找源大概率报错"></a>1、4安装ffmpeg，这个比较复杂，最好是使用源码编译安装的方式，yum找源大概率报错</h5><p>安装以及升级可以参考这里的步骤  <a target="_blank" rel="noopener" href="https://trac.ffmpeg.org/wiki/CompilationGuide/Centos%EF%BC%8C%E6%95%B4%E4%B8%AA%E8%BF%87%E7%A8%8B%E7%BD%91%E7%BB%9Cok%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E8%87%B3%E5%B0%91%E9%9C%80%E8%A6%81%E5%8D%8A%E5%B0%8F%E6%97%B6%E3%80%82">https://trac.ffmpeg.org/wiki/CompilationGuide/Centos，整个过程网络ok的情况下至少需要半小时。</a></p>
 <p>我这里只展示安装的步骤，升级可以通过上面的链接查找。</p>
 <p>step1</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">yum <span class="token function">install</span> autoconf automake <span class="token function">bzip2</span> bzip2-devel cmake freetype-devel gcc gcc-c++ <span class="token function">git</span> libtool <span class="token function">make</span> pkgconfig zlib-devel<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">yum install autoconf automake bzip2 bzip2-devel cmake freetype-devel gcc gcc-c++ git libtool make pkgconfig zlib-devel<br></code></pre></td></tr></table></figure>
 
 <p>step2</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">mkdir</span> ~/ffmpeg_sources<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">mkdir ~/ffmpeg_sources<br></code></pre></td></tr></table></figure>
 
 <p>step3</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> ~/ffmpeg_sources
-<span class="token function">curl</span> <span class="token parameter variable">-O</span> <span class="token parameter variable">-L</span> https://www.nasm.us/pub/nasm/releasebuilds/2.15.05/nasm-2.15.05.tar.bz2
-<span class="token function">tar</span> xjvf nasm-2.15.05.tar.bz2
-<span class="token builtin class-name">cd</span> nasm-2.15.05
-./autogen.sh
-./configure <span class="token parameter variable">--prefix</span><span class="token operator">=</span><span class="token string">"<span class="token environment constant">$HOME</span>/ffmpeg_build"</span> <span class="token parameter variable">--bindir</span><span class="token operator">=</span><span class="token string">"<span class="token environment constant">$HOME</span>/bin"</span>
-<span class="token function">make</span>
-<span class="token function">make</span> <span class="token function">install</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd ~/ffmpeg_sources<br>curl -O -L https://www.nasm.us/pub/nasm/releasebuilds/2.15.05/nasm-2.15.05.tar.bz2<br>tar xjvf nasm-2.15.05.tar.bz2<br>cd nasm-2.15.05<br>./autogen.sh<br>./configure --prefix=&quot;$HOME/ffmpeg_build&quot; --bindir=&quot;$HOME/bin&quot;<br>make<br>make install<br></code></pre></td></tr></table></figure>
 
 <p>step4</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> ~/ffmpeg_sources
-<span class="token function">curl</span> <span class="token parameter variable">-O</span> <span class="token parameter variable">-L</span> https://www.tortall.net/projects/yasm/releases/yasm-1.3.0.tar.gz
-<span class="token function">tar</span> xzvf yasm-1.3.0.tar.gz
-<span class="token builtin class-name">cd</span> yasm-1.3.0
-./configure <span class="token parameter variable">--prefix</span><span class="token operator">=</span><span class="token string">"<span class="token environment constant">$HOME</span>/ffmpeg_build"</span> <span class="token parameter variable">--bindir</span><span class="token operator">=</span><span class="token string">"<span class="token environment constant">$HOME</span>/bin"</span>
-<span class="token function">make</span>
-<span class="token function">make</span> <span class="token function">install</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd ~/ffmpeg_sources<br>curl -O -L https://www.tortall.net/projects/yasm/releases/yasm-1.3.0.tar.gz<br>tar xzvf yasm-1.3.0.tar.gz<br>cd yasm-1.3.0<br>./configure --prefix=&quot;$HOME/ffmpeg_build&quot; --bindir=&quot;$HOME/bin&quot;<br>make<br>make install<br></code></pre></td></tr></table></figure>
 
 <p>step5</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> ~/ffmpeg_sources
-<span class="token function">git</span> clone <span class="token parameter variable">--branch</span> stable <span class="token parameter variable">--depth</span> <span class="token number">1</span> https://code.videolan.org/videolan/x264.git
-<span class="token builtin class-name">cd</span> x264
-<span class="token assign-left variable">PKG_CONFIG_PATH</span><span class="token operator">=</span><span class="token string">"<span class="token environment constant">$HOME</span>/ffmpeg_build/lib/pkgconfig"</span> ./configure <span class="token parameter variable">--prefix</span><span class="token operator">=</span><span class="token string">"<span class="token environment constant">$HOME</span>/ffmpeg_build"</span> <span class="token parameter variable">--bindir</span><span class="token operator">=</span><span class="token string">"<span class="token environment constant">$HOME</span>/bin"</span> --enable-static
-<span class="token function">make</span>
-<span class="token function">make</span> <span class="token function">install</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd ~/ffmpeg_sources<br>git clone --branch stable --depth 1 https://code.videolan.org/videolan/x264.git<br>cd x264<br>PKG_CONFIG_PATH=&quot;$HOME/ffmpeg_build/lib/pkgconfig&quot; ./configure --prefix=&quot;$HOME/ffmpeg_build&quot; --bindir=&quot;$HOME/bin&quot; --enable-static<br>make<br>make install<br></code></pre></td></tr></table></figure>
 
 <p>step6</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> ~/ffmpeg_sources
-<span class="token function">git</span> clone <span class="token parameter variable">--branch</span> stable <span class="token parameter variable">--depth</span> <span class="token number">2</span> https://bitbucket.org/multicoreware/x265_git
-<span class="token builtin class-name">cd</span> ~/ffmpeg_sources/x265_git/build/linux
-cmake <span class="token parameter variable">-G</span> <span class="token string">"Unix Makefiles"</span> <span class="token parameter variable">-DCMAKE_INSTALL_PREFIX</span><span class="token operator">=</span><span class="token string">"<span class="token environment constant">$HOME</span>/ffmpeg_build"</span> <span class="token parameter variable">-DENABLE_SHARED:bool</span><span class="token operator">=</span>off <span class="token punctuation">..</span>/<span class="token punctuation">..</span>/source
-<span class="token function">make</span>
-<span class="token function">make</span> <span class="token function">install</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd ~/ffmpeg_sources<br>git clone --branch stable --depth 2 https://bitbucket.org/multicoreware/x265_git<br>cd ~/ffmpeg_sources/x265_git/build/linux<br>cmake -G &quot;Unix Makefiles&quot; -DCMAKE_INSTALL_PREFIX=&quot;$HOME/ffmpeg_build&quot; -DENABLE_SHARED:bool=off ../../source<br>make<br>make install<br></code></pre></td></tr></table></figure>
 
 <p>step7</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> ~/ffmpeg_sources
-<span class="token function">git</span> clone <span class="token parameter variable">--depth</span> <span class="token number">1</span> https://github.com/mstorsjo/fdk-aac
-<span class="token builtin class-name">cd</span> fdk-aac
-autoreconf <span class="token parameter variable">-fiv</span>
-./configure <span class="token parameter variable">--prefix</span><span class="token operator">=</span><span class="token string">"<span class="token environment constant">$HOME</span>/ffmpeg_build"</span> --disable-shared
-<span class="token function">make</span>
-<span class="token function">make</span> <span class="token function">install</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd ~/ffmpeg_sources<br>git clone --depth 1 https://github.com/mstorsjo/fdk-aac<br>cd fdk-aac<br>autoreconf -fiv<br>./configure --prefix=&quot;$HOME/ffmpeg_build&quot; --disable-shared<br>make<br>make install<br></code></pre></td></tr></table></figure>
 
 <p>step8</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> ~/ffmpeg_sources
-<span class="token function">curl</span> <span class="token parameter variable">-O</span> <span class="token parameter variable">-L</span> https://downloads.sourceforge.net/project/lame/lame/3.100/lame-3.100.tar.gz
-<span class="token function">tar</span> xzvf lame-3.100.tar.gz
-<span class="token builtin class-name">cd</span> lame-3.100
-./configure <span class="token parameter variable">--prefix</span><span class="token operator">=</span><span class="token string">"<span class="token environment constant">$HOME</span>/ffmpeg_build"</span> <span class="token parameter variable">--bindir</span><span class="token operator">=</span><span class="token string">"<span class="token environment constant">$HOME</span>/bin"</span> --disable-shared --enable-nasm
-<span class="token function">make</span>
-<span class="token function">make</span> <span class="token function">install</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd ~/ffmpeg_sources<br>curl -O -L https://downloads.sourceforge.net/project/lame/lame/3.100/lame-3.100.tar.gz<br>tar xzvf lame-3.100.tar.gz<br>cd lame-3.100<br>./configure --prefix=&quot;$HOME/ffmpeg_build&quot; --bindir=&quot;$HOME/bin&quot; --disable-shared --enable-nasm<br>make<br>make install<br></code></pre></td></tr></table></figure>
 
 <p>step9</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> ~/ffmpeg_sources
-<span class="token function">curl</span> <span class="token parameter variable">-O</span> <span class="token parameter variable">-L</span> https://archive.mozilla.org/pub/opus/opus-1.3.1.tar.gz
-<span class="token function">tar</span> xzvf opus-1.3.1.tar.gz
-<span class="token builtin class-name">cd</span> opus-1.3.1
-./configure <span class="token parameter variable">--prefix</span><span class="token operator">=</span><span class="token string">"<span class="token environment constant">$HOME</span>/ffmpeg_build"</span> --disable-shared
-<span class="token function">make</span>
-<span class="token function">make</span> <span class="token function">install</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd ~/ffmpeg_sources<br>curl -O -L https://archive.mozilla.org/pub/opus/opus-1.3.1.tar.gz<br>tar xzvf opus-1.3.1.tar.gz<br>cd opus-1.3.1<br>./configure --prefix=&quot;$HOME/ffmpeg_build&quot; --disable-shared<br>make<br>make install<br></code></pre></td></tr></table></figure>
 
 <p>step10</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> ~/ffmpeg_sources
-<span class="token function">git</span> clone <span class="token parameter variable">--depth</span> <span class="token number">1</span> https://chromium.googlesource.com/webm/libvpx.git
-<span class="token builtin class-name">cd</span> libvpx
-./configure <span class="token parameter variable">--prefix</span><span class="token operator">=</span><span class="token string">"<span class="token environment constant">$HOME</span>/ffmpeg_build"</span> --disable-examples --disable-unit-tests --enable-vp9-highbitdepth <span class="token parameter variable">--as</span><span class="token operator">=</span>yasm
-<span class="token function">make</span>
-<span class="token function">make</span> <span class="token function">install</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd ~/ffmpeg_sources<br>git clone --depth 1 https://chromium.googlesource.com/webm/libvpx.git<br>cd libvpx<br>./configure --prefix=&quot;$HOME/ffmpeg_build&quot; --disable-examples --disable-unit-tests --enable-vp9-highbitdepth --as=yasm<br>make<br>make install<br></code></pre></td></tr></table></figure>
 
 <p>step11</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> ~/ffmpeg_sources
-<span class="token function">curl</span> <span class="token parameter variable">-O</span> <span class="token parameter variable">-L</span> https://ffmpeg.org/releases/ffmpeg-5.0.tar.bz2
-<span class="token function">tar</span> xjvf ffmpeg-5.0.tar.bz2
-<span class="token builtin class-name">cd</span> ffmpeg-5.0
-<span class="token assign-left variable"><span class="token environment constant">PATH</span></span><span class="token operator">=</span><span class="token string">"<span class="token environment constant">$HOME</span>/bin:<span class="token environment constant">$PATH</span>"</span> <span class="token assign-left variable">PKG_CONFIG_PATH</span><span class="token operator">=</span><span class="token string">"<span class="token environment constant">$HOME</span>/ffmpeg_build/lib/pkgconfig"</span> ./configure <span class="token punctuation">\</span>
-  <span class="token parameter variable">--prefix</span><span class="token operator">=</span><span class="token string">"<span class="token environment constant">$HOME</span>/ffmpeg_build"</span> <span class="token punctuation">\</span>
-  --pkg-config-flags<span class="token operator">=</span><span class="token string">"--static"</span> <span class="token punctuation">\</span>
-  --extra-cflags<span class="token operator">=</span><span class="token string">"-I<span class="token environment constant">$HOME</span>/ffmpeg_build/include"</span> <span class="token punctuation">\</span>
-  --extra-ldflags<span class="token operator">=</span><span class="token string">"-L<span class="token environment constant">$HOME</span>/ffmpeg_build/lib"</span> <span class="token punctuation">\</span>
-  --extra-libs<span class="token operator">=</span>-lpthread <span class="token punctuation">\</span>
-  --extra-libs<span class="token operator">=</span>-lm <span class="token punctuation">\</span>
-  <span class="token parameter variable">--bindir</span><span class="token operator">=</span><span class="token string">"<span class="token environment constant">$HOME</span>/bin"</span> <span class="token punctuation">\</span>
-  --enable-gpl <span class="token punctuation">\</span>
-  --enable-libfdk_aac <span class="token punctuation">\</span>
-  --enable-libfreetype <span class="token punctuation">\</span>
-  --enable-libmp3lame <span class="token punctuation">\</span>
-  --enable-libopus <span class="token punctuation">\</span>
-  --enable-libvpx <span class="token punctuation">\</span>
-  --enable-libx264 <span class="token punctuation">\</span>
-  --enable-libx265 <span class="token punctuation">\</span>
-  --enable-nonfree
-<span class="token function">make</span>
-<span class="token function">make</span> <span class="token function">install</span>
-<span class="token builtin class-name">hash</span> <span class="token parameter variable">-d</span> ffmpeg<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd ~/ffmpeg_sources<br>curl -O -L https://ffmpeg.org/releases/ffmpeg-5.0.tar.bz2<br>tar xjvf ffmpeg-5.0.tar.bz2<br>cd ffmpeg-5.0<br>PATH=&quot;$HOME/bin:$PATH&quot; PKG_CONFIG_PATH=&quot;$HOME/ffmpeg_build/lib/pkgconfig&quot; ./configure \<br>  --prefix=&quot;$HOME/ffmpeg_build&quot; \<br>  --pkg-config-flags=&quot;--static&quot; \<br>  --extra-cflags=&quot;-I$HOME/ffmpeg_build/include&quot; \<br>  --extra-ldflags=&quot;-L$HOME/ffmpeg_build/lib&quot; \<br>  --extra-libs=-lpthread \<br>  --extra-libs=-lm \<br>  --bindir=&quot;$HOME/bin&quot; \<br>  --enable-gpl \<br>  --enable-libfdk_aac \<br>  --enable-libfreetype \<br>  --enable-libmp3lame \<br>  --enable-libopus \<br>  --enable-libvpx \<br>  --enable-libx264 \<br>  --enable-libx265 \<br>  --enable-nonfree<br>make<br>make install<br>hash -d ffmpeg<br></code></pre></td></tr></table></figure>
 
-<h5 id="1、5安装python需要的包"><a href="#1、5安装python需要的包" class="headerlink" title="1、5安装python需要的包"></a>1、5安装python需要的包</h5><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> /pathto/MockingBird <span class="token comment">#到里本地项目克隆路径下</span>
-pip3 <span class="token function">install</span> <span class="token parameter variable">-r</span> requirements.txt<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h5 id="1、5安装python需要的包"><a href="#1、5安装python需要的包" class="headerlink" title="1、5安装python需要的包"></a>1、5安装python需要的包</h5><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-built_in">cd</span> /pathto/MockingBird <span class="hljs-comment">#到里本地项目克隆路径下</span><br>pip3 install -r requirements.txt<br></code></pre></td></tr></table></figure>
 
 <p>什么鬼，安装直接报错</p>
-<p><img data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222130237710.png" alt="image-20220222130237710" loading="lazy" src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222130237710.png"></p>
+<p><img src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222130237710.png" srcset="/img/loading.gif" lazyload alt="image-20220222130237710" loading="lazy" data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222130237710.png"></p>
 <p>查了下资料，要解决这个问题，需要暗转下python39的devel，于是</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 安装EPEL源</span>
-yum <span class="token function">install</span> epel-release <span class="token parameter variable">-y</span>
-<span class="token comment"># 安装python3开发包</span>
-yum <span class="token function">install</span> python39-devel <span class="token parameter variable">-y</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">安装EPEL源</span><br>yum install epel-release -y<br><span class="hljs-meta prompt_"># </span><span class="language-bash">安装python3开发包</span><br>yum install python39-devel -y<br></code></pre></td></tr></table></figure>
 
-<p><img data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222130400801.png" alt="image-20220222130400801" loading="lazy" src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222130400801.png"></p>
+<p><img src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222130400801.png" srcset="/img/loading.gif" lazyload alt="image-20220222130400801" loading="lazy" data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222130400801.png"></p>
 <p>这里大概就有我们需要的头文件了，然后在重试一次</p>
-<p><img data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222130524618.png" alt="image-20220222130524618" loading="lazy" src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222130524618.png"></p>
+<p><img src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222130524618.png" srcset="/img/loading.gif" lazyload alt="image-20220222130524618" loading="lazy" data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222130524618.png"></p>
 <p>这一次果断就成功了。</p>
-<h5 id="继续安装一个可选的依赖"><a href="#继续安装一个可选的依赖" class="headerlink" title="继续安装一个可选的依赖"></a>继续安装一个可选的依赖</h5><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pip3 <span class="token function">install</span> webrtcvad-wheels<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h5 id="继续安装一个可选的依赖"><a href="#继续安装一个可选的依赖" class="headerlink" title="继续安装一个可选的依赖"></a>继续安装一个可选的依赖</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">pip3 install webrtcvad-wheels<br></code></pre></td></tr></table></figure>
 
 
 
@@ -407,279 +388,488 @@ yum <span class="token function">install</span> python39-devel <span class="toke
 <td></td>
 </tr>
 </tbody></table>
-<h4 id="3、打开web网页"><a href="#3、打开web网页" class="headerlink" title="3、打开web网页"></a>3、打开web网页</h4><pre class="line-numbers language-python" data-language="python"><code class="language-python">python web<span class="token punctuation">.</span>py<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="3、打开web网页"><a href="#3、打开web网页" class="headerlink" title="3、打开web网页"></a>3、打开web网页</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">python web.py<br></code></pre></td></tr></table></figure>
 
 <p>什么鬼，又一个报错</p>
-<p><img data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222131611301.png" alt="image-20220222131611301" loading="lazy" src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222131611301.png"></p>
+<p><img src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222131611301.png" srcset="/img/loading.gif" lazyload alt="image-20220222131611301" loading="lazy" data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222131611301.png"></p>
 <p>查了下，需要安装</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">yum <span class="token function">install</span> libsndfile<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">yum install libsndfile<br></code></pre></td></tr></table></figure>
 
 
 
 <p> 运行成功后在浏览器打开地址,默认为 <a target="_blank" rel="noopener" href="http://localhost:8080/">http://localhost:8080</a></p>
-<p><img data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222142941022.png" alt="image-20220222142941022" loading="lazy" src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222142941022.png"></p>
+<p><img src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222142941022.png" srcset="/img/loading.gif" lazyload alt="image-20220222142941022" loading="lazy" data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222142941022.png"></p>
 <p>这就表示已经玩起来了。</p>
 <p>注意，开始synthesizer是没有模型的，需要自己把第二步下载好的模型复制到</p>
-<p><img data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222143111766.png" alt="image-20220222143111766" loading="lazy" src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222143111766.png"></p>
+<p><img src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222143111766.png" srcset="/img/loading.gif" lazyload alt="image-20220222143111766" loading="lazy" data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222143111766.png"></p>
 <p>这个目录下。</p>
-<h4 id="4、玩法"><a href="#4、玩法" class="headerlink" title="4、玩法"></a>4、玩法</h4><p><img data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222142829792.png" alt="image-20220222142829792" loading="lazy" src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222142829792.png"></p>
+<h4 id="4、玩法"><a href="#4、玩法" class="headerlink" title="4、玩法"></a>4、玩法</h4><p><img src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222142829792.png" srcset="/img/loading.gif" lazyload alt="image-20220222142829792" loading="lazy" data-src="/2022/02/22/%E5%9C%A8linux%E4%B8%8A%E7%8E%A9%E4%B8%80%E4%B8%8BAI%E6%8B%9F%E5%A3%B0/image-20220222142829792.png"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8A%80%E6%9C%AF/" class="category-chain-item">技术</a>
+  
+  
+
+      </span>
+    
+  
+</span>
 
     </div>
-
-    
-    
-    
-
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/%E9%BB%91%E7%A7%91%E6%8A%80/" rel="tag"># 黑科技</a>
-          </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2022/02/20/go%E5%86%99%E4%B8%80%E4%B8%AA%E4%BA%91%E5%87%BD%E6%95%B0-%E6%94%AF%E6%8C%81%E9%95%BF%E8%BF%9E%E6%8E%A5/" rel="prev" title="Go写一个云函数,支持长连接">
-      <i class="fa fa-chevron-left"></i> Go写一个云函数,支持长连接
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2022/03/11/uni%E8%BD%AC%E6%8D%A2%E7%9A%84async-await/" rel="next" title="Uni转换的async Await">
-      Uni转换的async Await <i class="fa fa-chevron-right"></i>
-    </a></div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E9%BB%91%E7%A7%91%E6%8A%80/" class="print-no-link">#黑科技</a>
+      
     </div>
-      </footer>
-    
-  </article>
   
+</div>
+
+
+              
   
-  
 
-
-
-          </div>
-          
-    <div class="comments" id="gitalk-container"></div>
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>在linux上玩一下AI拟声</div>
+      <div>https://blog.brzhang.club/2022/02/22/在linux上玩一下AI拟声/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>hz</div>
         </div>
-          
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年2月22日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/03/05/%E5%8A%A8%E5%BD%92/" title="动归">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">动归</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/02/20/go%E5%86%99%E4%B8%80%E4%B8%AA%E4%BA%91%E5%87%BD%E6%95%B0-%E6%94%AF%E6%8C%81%E9%95%BF%E8%BF%9E%E6%8E%A5/" title="Go写一个云函数,支持长连接">
+                        <span class="hidden-mobile">Go写一个云函数,支持长连接</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
   
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
+  
+    <article id="comments" lazyload>
+      
 
-  <aside class="sidebar">
-    <div class="sidebar-inner">
+    </article>
+  
 
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
 
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E5%9C%B0%E5%9D%80"><span class="nav-number">1.</span> <span class="nav-text">项目地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E6%96%B9%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">操作方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85"><span class="nav-number">2.1.</span> <span class="nav-text">1、环境安装</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1%E3%80%811%E5%AE%89%E8%A3%85python%E7%8E%AF%E5%A2%83"><span class="nav-number">2.1.1.</span> <span class="nav-text">1、1安装python环境</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1%E3%80%812%E6%8C%87%E5%AE%9A%E7%B3%BB%E7%BB%9F%E9%BB%98%E8%AE%A4python%E7%89%88%E6%9C%AC"><span class="nav-number">2.1.2.</span> <span class="nav-text">1、2指定系统默认python版本</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1%E3%80%813%E5%AE%89%E8%A3%85pytorch"><span class="nav-number">2.1.3.</span> <span class="nav-text">1、3安装pytorch</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1%E3%80%814%E5%AE%89%E8%A3%85ffmpeg%EF%BC%8C%E8%BF%99%E4%B8%AA%E6%AF%94%E8%BE%83%E5%A4%8D%E6%9D%82%EF%BC%8C%E6%9C%80%E5%A5%BD%E6%98%AF%E4%BD%BF%E7%94%A8%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85%E7%9A%84%E6%96%B9%E5%BC%8F%EF%BC%8Cyum%E6%89%BE%E6%BA%90%E5%A4%A7%E6%A6%82%E7%8E%87%E6%8A%A5%E9%94%99"><span class="nav-number">2.1.4.</span> <span class="nav-text">1、4安装ffmpeg，这个比较复杂，最好是使用源码编译安装的方式，yum找源大概率报错</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1%E3%80%815%E5%AE%89%E8%A3%85python%E9%9C%80%E8%A6%81%E7%9A%84%E5%8C%85"><span class="nav-number">2.1.5.</span> <span class="nav-text">1、5安装python需要的包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BB%A7%E7%BB%AD%E5%AE%89%E8%A3%85%E4%B8%80%E4%B8%AA%E5%8F%AF%E9%80%89%E7%9A%84%E4%BE%9D%E8%B5%96"><span class="nav-number">2.1.6.</span> <span class="nav-text">继续安装一个可选的依赖</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E5%87%86%E5%A4%87%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.2.</span> <span class="nav-text">2、准备模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81%E6%89%93%E5%BC%80web%E7%BD%91%E9%A1%B5"><span class="nav-number">2.3.</span> <span class="nav-text">3、打开web网页</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4%E3%80%81%E7%8E%A9%E6%B3%95"><span class="nav-number">2.4.</span> <span class="nav-text">4、玩法</span></a></li></ol></li></ol></div>
+          </article>
+        </div>
       </div>
-      <!--/noindex-->
+    </div>
 
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">hz</p>
-  <div class="site-description" itemprop="description"></div>
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
 </div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives">
-          <span class="site-state-item-count">26</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-        <span class="site-state-item-count">6</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-        <span class="site-state-item-count">21</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
-</div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/bravekingzhang" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;bravekingzhang" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-  </div>
 
 
 
-      </div>
+  </aside>
+
 
     </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2023</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">hz</span>
-</div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
   </div>
+</div>
 
-        
-<div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-user"></i>
-      </span>
-      <span class="site-uv" title="总访客量">
-        <span id="busuanzi_value_site_uv"></span>
-      </span>
-    </span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-eye"></i>
-      </span>
-      <span class="site-pv" title="总访问量">
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+  <script>
+  Fluid.utils.createScript('https://lib.baomitu.com/mermaid/8.14.0/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"default"});
+
+    Fluid.utils.listenDOMLoaded(function() {
+      Fluid.events.registerRefreshCallback(function() {
+        if ('mermaid' in window) {
+          mermaid.init();
+        }
+      });
+    });
+  });
+</script>
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
         <span id="busuanzi_value_site_pv"></span>
+         次
       </span>
-    </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
 </div>
 
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
 
 
 
-
-
-
-
-      </div>
-    </footer>
-  </div>
 
   
-  <script src="//cdn.jsdelivr.net/npm/animejs@3.1.0/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/lozad.js/1.14.0/lozad.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
-
+    <script  src="/js/img-lazyload.js" ></script>
   
 
 
 
 
-
-
-
-
-
-
-
-
-
+  
 <script>
-if (document.querySelectorAll('pre.mermaid').length) {
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
-    mermaid.initialize({
-      theme    : 'forest',
-      logLevel : 3,
-      flowchart: { curve     : 'linear' },
-      gantt    : { axisFormat: '%m/%d/%Y' },
-      sequence : { actorMargin: 50 }
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
     });
-  }, window.mermaid);
-}
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
 </script>
 
 
   
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
 
   
 
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
-
-<script>
-NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
-    var gitalk = new Gitalk({
-      clientID    : 'ba71a05708000167b907',
-      clientSecret: '32c7f2b320469e3c90e930e7548a397773f36bd0',
-      repo        : 'bravekingzhang.github.io',
-      owner       : 'bravekingzhang',
-      admin       : ['bravekingzhang'],
-      id          : '2310fd8f8052f0d2431cc274ac9cdd36',
-        language: 'zh-CN',
-      distractionFreeMode: true
-    });
-    gitalk.render('gitalk-container');
-  }, window.Gitalk);
-});
-</script>
-
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
 </body>
 </html>
