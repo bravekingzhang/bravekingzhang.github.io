@@ -16,28 +16,29 @@
   <meta name="author" content="hz">
   <meta name="keywords" content="">
   
-    <meta name="description" content="App 推荐   应用名称 下载地址 预览图    AgentGpt Mac 下载地址,Windows 下载地址    poe Mac 下载地址,Windows 下载地址    赞赏搬砖不易，如果你觉得这些 App 对你有用，就请我喝一杯咖啡吧。">
+    <meta name="description" content="先前的两篇文章，我们了解了所见即所得编辑器的原理，接下来，我们就要开始在知晓原理情况下搞点事情了，给所见即所得加持上AI的能力。本文，我们将给所见即所得编辑器，当然是基于Tiptap实现的，增加AI能力，大致分为三个功能点。 AI加持后的所见即所得编辑器功能一撇 使用空格键唤起一个与ChatGPT对话的对话框，在基于一个话题对话之后，我们可以选择将对话的内容插入到编辑初，其操作体验如下所示   使">
 <meta property="og:type" content="article">
-<meta property="og:title" content="精美桌面端App推荐">
-<meta property="og:url" content="https://blog.brzhang.club/2023/04/17/%E7%B2%BE%E7%BE%8E%E6%A1%8C%E9%9D%A2%E7%AB%AFApp%E6%8E%A8%E8%8D%90/index.html">
+<meta property="og:title" content="如何让所见即所得编辑器加上AI能力的翅膀">
+<meta property="og:url" content="https://blog.brzhang.club/2023/11/10/%E5%A6%82%E4%BD%95%E8%AE%A9%E6%89%80%E8%A7%81%E5%8D%B3%E6%89%80%E5%BE%97%E7%BC%96%E8%BE%91%E5%99%A8%E5%8A%A0%E4%B8%8AAI%E8%83%BD%E5%8A%9B%E7%9A%84%E7%BF%85%E8%86%80/index.html">
 <meta property="og:site_name" content="心随我动">
-<meta property="og:description" content="App 推荐   应用名称 下载地址 预览图    AgentGpt Mac 下载地址,Windows 下载地址    poe Mac 下载地址,Windows 下载地址    赞赏搬砖不易，如果你觉得这些 App 对你有用，就请我喝一杯咖啡吧。">
+<meta property="og:description" content="先前的两篇文章，我们了解了所见即所得编辑器的原理，接下来，我们就要开始在知晓原理情况下搞点事情了，给所见即所得加持上AI的能力。本文，我们将给所见即所得编辑器，当然是基于Tiptap实现的，增加AI能力，大致分为三个功能点。 AI加持后的所见即所得编辑器功能一撇 使用空格键唤起一个与ChatGPT对话的对话框，在基于一个话题对话之后，我们可以选择将对话的内容插入到编辑初，其操作体验如下所示   使">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://i.328888.xyz/2023/04/17/iewkPk.jpeg">
-<meta property="og:image" content="https://i.328888.xyz/2023/04/17/iewkPk.jpeg">
-<meta property="og:image" content="https://i.328888.xyz/2023/04/17/iewkPk.jpeg">
-<meta property="article:published_time" content="2023-04-17T03:42:57.000Z">
-<meta property="article:modified_time" content="2023-04-17T03:58:10.909Z">
+<meta property="og:image" content="https://blog.brzhang.club/2023/11/10/%E5%A6%82%E4%BD%95%E8%AE%A9%E6%89%80%E8%A7%81%E5%8D%B3%E6%89%80%E5%BE%97%E7%BC%96%E8%BE%91%E5%99%A8%E5%8A%A0%E4%B8%8AAI%E8%83%BD%E5%8A%9B%E7%9A%84%E7%BF%85%E8%86%80/image-20231110165052262.png">
+<meta property="og:image" content="https://blog.brzhang.club/2023/11/10/%E5%A6%82%E4%BD%95%E8%AE%A9%E6%89%80%E8%A7%81%E5%8D%B3%E6%89%80%E5%BE%97%E7%BC%96%E8%BE%91%E5%99%A8%E5%8A%A0%E4%B8%8AAI%E8%83%BD%E5%8A%9B%E7%9A%84%E7%BF%85%E8%86%80/image-20231110165229543.png">
+<meta property="og:image" content="https://blog.brzhang.club/2023/11/10/%E5%A6%82%E4%BD%95%E8%AE%A9%E6%89%80%E8%A7%81%E5%8D%B3%E6%89%80%E5%BE%97%E7%BC%96%E8%BE%91%E5%99%A8%E5%8A%A0%E4%B8%8AAI%E8%83%BD%E5%8A%9B%E7%9A%84%E7%BF%85%E8%86%80/image-20231110165648304.png">
+<meta property="og:image" content="https://blog.brzhang.club/2023/11/10/%E5%A6%82%E4%BD%95%E8%AE%A9%E6%89%80%E8%A7%81%E5%8D%B3%E6%89%80%E5%BE%97%E7%BC%96%E8%BE%91%E5%99%A8%E5%8A%A0%E4%B8%8AAI%E8%83%BD%E5%8A%9B%E7%9A%84%E7%BF%85%E8%86%80/image-20231110171520668.png">
+<meta property="article:published_time" content="2023-11-10T08:14:48.000Z">
+<meta property="article:modified_time" content="2023-11-10T09:18:54.337Z">
 <meta property="article:author" content="hz">
-<meta property="article:tag" content="桌面端App">
+<meta property="article:tag" content="前端">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://i.328888.xyz/2023/04/17/iewkPk.jpeg">
+<meta name="twitter:image" content="https://blog.brzhang.club/2023/11/10/%E5%A6%82%E4%BD%95%E8%AE%A9%E6%89%80%E8%A7%81%E5%8D%B3%E6%89%80%E5%BE%97%E7%BC%96%E8%BE%91%E5%99%A8%E5%8A%A0%E4%B8%8AAI%E8%83%BD%E5%8A%9B%E7%9A%84%E7%BF%85%E8%86%80/image-20231110165052262.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>精美桌面端App推荐 - 心随我动</title>
+  <title>如何让所见即所得编辑器加上AI能力的翅膀 - 心随我动</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -203,7 +204,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="精美桌面端App推荐"></span>
+            <span id="subtitle" data-typed-text="如何让所见即所得编辑器加上AI能力的翅膀"></span>
           
         </div>
 
@@ -219,8 +220,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-04-17 11:42" pubdate>
-          2023年4月17日 中午
+        <time datetime="2023-11-10 16:14" pubdate>
+          2023年11月10日 下午
         </time>
       </span>
     
@@ -231,7 +232,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          97 字
+          1.3k 字
         
       </span>
     
@@ -242,7 +243,7 @@
         
         
         
-          1 分钟
+          11 分钟
         
       </span>
     
@@ -300,31 +301,42 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">精美桌面端App推荐</h1>
+            <h1 id="seo-header">如何让所见即所得编辑器加上AI能力的翅膀</h1>
             
             
               <div class="markdown-body">
                 
-                <h3 id="App-推荐"><a href="#App-推荐" class="headerlink" title="App 推荐"></a>App 推荐</h3><table>
-<thead>
-<tr>
-<th>应用名称</th>
-<th>下载地址</th>
-<th>预览图</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>AgentGpt</td>
-<td>Mac 下载地址,Windows 下载地址</td>
-<td><img src="https://i.328888.xyz/2023/04/17/iewkPk.jpeg" srcset="/img/loading.gif" lazyload width="200px"></td>
-</tr>
-<tr>
-<td>poe</td>
-<td>Mac 下载地址,Windows 下载地址</td>
-<td><img src="https://i.328888.xyz/2023/04/17/iewkPk.jpeg" srcset="/img/loading.gif" lazyload width="200px"></td>
-</tr>
-</tbody></table>
-<h3 id="赞赏"><a href="#赞赏" class="headerlink" title="赞赏"></a>赞赏</h3><p>搬砖不易，如果你觉得这些 App 对你有用，就请我喝一杯咖啡吧。<br><img src="https://i.328888.xyz/2023/04/17/iewkPk.jpeg" srcset="/img/loading.gif" lazyload width="300px"></p>
+                <p>先前的两篇文章，我们了解了所见即所得编辑器的原理，接下来，我们就要开始在知晓原理情况下搞点事情了，给所见即所得加持上AI的能力。本文，我们将给所见即所得编辑器，当然是基于Tiptap实现的，增加AI能力，大致分为<code>三个功能点</code>。</p>
+<h4 id="AI加持后的所见即所得编辑器功能一撇"><a href="#AI加持后的所见即所得编辑器功能一撇" class="headerlink" title="AI加持后的所见即所得编辑器功能一撇"></a>AI加持后的所见即所得编辑器功能一撇</h4><ul>
+<li><p>使用空格键唤起一个与ChatGPT对话的对话框，在基于一个话题对话之后，我们可以选择将对话的内容插入到编辑初，其操作体验如下所示</p>
+<img src="/2023/11/10/%E5%A6%82%E4%BD%95%E8%AE%A9%E6%89%80%E8%A7%81%E5%8D%B3%E6%89%80%E5%BE%97%E7%BC%96%E8%BE%91%E5%99%A8%E5%8A%A0%E4%B8%8AAI%E8%83%BD%E5%8A%9B%E7%9A%84%E7%BF%85%E8%86%80/image-20231110165052262.png" srcset="/img/loading.gif" lazyload alt="image-20231110165052262" style="zoom:50%;" data-src="/2023/11/10/%E5%A6%82%E4%BD%95%E8%AE%A9%E6%89%80%E8%A7%81%E5%8D%B3%E6%89%80%E5%BE%97%E7%BC%96%E8%BE%91%E5%99%A8%E5%8A%A0%E4%B8%8AAI%E8%83%BD%E5%8A%9B%E7%9A%84%E7%BF%85%E8%86%80/image-20231110165052262.png">
+</li>
+<li><p>使用<code>/</code>唤起一个菜单，我们可以选择基于已有的文本进行续写，其大概的体验如下所示：</p>
+<img src="/2023/11/10/%E5%A6%82%E4%BD%95%E8%AE%A9%E6%89%80%E8%A7%81%E5%8D%B3%E6%89%80%E5%BE%97%E7%BC%96%E8%BE%91%E5%99%A8%E5%8A%A0%E4%B8%8AAI%E8%83%BD%E5%8A%9B%E7%9A%84%E7%BF%85%E8%86%80/image-20231110165229543.png" srcset="/img/loading.gif" lazyload alt="image-20231110165229543" style="zoom:50%;" data-src="/2023/11/10/%E5%A6%82%E4%BD%95%E8%AE%A9%E6%89%80%E8%A7%81%E5%8D%B3%E6%89%80%E5%BE%97%E7%BC%96%E8%BE%91%E5%99%A8%E5%8A%A0%E4%B8%8AAI%E8%83%BD%E5%8A%9B%E7%9A%84%E7%BF%85%E8%86%80/image-20231110165229543.png">
+</li>
+<li><p>选中一段文字，弹出一个对话框，我们可以基于选中的文字做，<code>文本扩写</code>，<code>风格改写</code>，<code>文本翻译</code>等等一些操作，其操作体验如下所示：</p>
+</li>
+</ul>
+<img src="/2023/11/10/%E5%A6%82%E4%BD%95%E8%AE%A9%E6%89%80%E8%A7%81%E5%8D%B3%E6%89%80%E5%BE%97%E7%BC%96%E8%BE%91%E5%99%A8%E5%8A%A0%E4%B8%8AAI%E8%83%BD%E5%8A%9B%E7%9A%84%E7%BF%85%E8%86%80/image-20231110165648304.png" srcset="/img/loading.gif" lazyload alt="image-20231110165648304" style="zoom:50%;" data-src="/2023/11/10/%E5%A6%82%E4%BD%95%E8%AE%A9%E6%89%80%E8%A7%81%E5%8D%B3%E6%89%80%E5%BE%97%E7%BC%96%E8%BE%91%E5%99%A8%E5%8A%A0%E4%B8%8AAI%E8%83%BD%E5%8A%9B%E7%9A%84%E7%BF%85%E8%86%80/image-20231110165648304.png">
+
+
+
+<h4 id="如何实现这些功能"><a href="#如何实现这些功能" class="headerlink" title="如何实现这些功能"></a>如何实现这些功能</h4><p>上面，我们领略了一下AI加持后的Tiptap编辑器的样子，看起来时机已经有点<code>NotionAi</code>的影子了。那么，为啥要自己实现呢？因为Notion 引入 ChatGPT辅助创作，这种体验真的很好，沉浸式的编辑体验，但是缺点也是很大。</p>
+<ul>
+<li>Notion AI的能力太贵了，每个月10美元。</li>
+<li>Notion AI据说是接入的 GPT 3 ，从目前看，这已经是一个比较落后的模型了。</li>
+<li>灵活度不够，不能随意切模型，这就意味着我们自己没法基于自己写作风格来fine-tune自己的模型。</li>
+</ul>
+<p>说一千，到一万，反正，我们就是得自己造轮子了。</p>
+<h5 id="实现-敲击空格，唤起对话框与ChatGPT对话，并插入"><a href="#实现-敲击空格，唤起对话框与ChatGPT对话，并插入" class="headerlink" title="实现 敲击空格，唤起对话框与ChatGPT对话，并插入"></a>实现 敲击空格，唤起对话框与ChatGPT对话，并插入</h5><p>实际上，我们首先空格，呼出一个对话框和ChatGPT对话的功能是在 Extension 实现的 addProseMirrorPlugins做的，如下，我们需要监听 <code>event.code === &#39;Space&#39; </code>事件，一旦用户敲击空格，就呼出对话框，对话框就的职责就是和ChatGPT对话，最后将对话的内容插入到编辑器editor的光标处即可，整个流程图如下：</p>
+<img src="/2023/11/10/%E5%A6%82%E4%BD%95%E8%AE%A9%E6%89%80%E8%A7%81%E5%8D%B3%E6%89%80%E5%BE%97%E7%BC%96%E8%BE%91%E5%99%A8%E5%8A%A0%E4%B8%8AAI%E8%83%BD%E5%8A%9B%E7%9A%84%E7%BF%85%E8%86%80/image-20231110171520668.png" srcset="/img/loading.gif" lazyload alt="image-20231110171520668" style="zoom:50%;" data-src="/2023/11/10/%E5%A6%82%E4%BD%95%E8%AE%A9%E6%89%80%E8%A7%81%E5%8D%B3%E6%89%80%E5%BE%97%E7%BC%96%E8%BE%91%E5%99%A8%E5%8A%A0%E4%B8%8AAI%E8%83%BD%E5%8A%9B%E7%9A%84%E7%BF%85%E8%86%80/image-20231110171520668.png">
+
+<p>其核心代码如下所示。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-title function_">addProseMirrorPlugins</span>(<span class="hljs-params"></span>) &#123;<br>     <span class="hljs-keyword">const</span> editor = <span class="hljs-variable language_">this</span>.<span class="hljs-property">editor</span>;<br>     <span class="hljs-keyword">const</span> &#123; enableAIChat &#125; = <span class="hljs-variable language_">this</span>.<span class="hljs-property">options</span>;<br><br>     <span class="hljs-keyword">return</span> [<br>       <span class="hljs-keyword">new</span> <span class="hljs-title class_">Plugin</span>(&#123;<br>         <span class="hljs-attr">key</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">PluginKey</span>(<span class="hljs-string">&#x27;ai-event-handler&#x27;</span>),<br>         <span class="hljs-attr">props</span>: &#123;<br>           <span class="hljs-title function_">handleKeyDown</span>(<span class="hljs-params">_, event</span>) &#123;<br>             <span class="hljs-keyword">if</span> (event.<span class="hljs-property">code</span> === <span class="hljs-string">&#x27;Space&#x27;</span>) &#123;<br>               <span class="hljs-keyword">const</span> nodeText = <span class="hljs-title function_">getTextContentFromNodes</span>(editor.<span class="hljs-property">state</span>.<span class="hljs-property">selection</span>.<span class="hljs-property">$from</span>);<br>							<span class="hljs-comment">// 唤起对话框，与ChatGPT对话</span><br>               <span class="hljs-comment">// 将对话类容格式化为document，插入到 editor 的focus 处</span><br>               <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>             &#125;<br>           &#125;<br>         &#125;<br>       &#125;)<br>     ];<br>   &#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>实现 <code>/</code>，弹出菜单，和实现选中文本弹出菜单，其实现思路和敲击空格键呼出对话框的功能极其类似，就不一一介绍。完整的demo体验可以去utools插件市场，安装 <code>aition</code>体验。</p>
 
                 
               </div>
@@ -358,7 +370,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%A1%8C%E9%9D%A2%E7%AB%AFApp/" class="print-no-link">#桌面端App</a>
+        <a href="/tags/%E5%89%8D%E7%AB%AF/" class="print-no-link">#前端</a>
       
     </div>
   
@@ -370,8 +382,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>精美桌面端App推荐</div>
-      <div>https://blog.brzhang.club/2023/04/17/精美桌面端App推荐/</div>
+      <div>如何让所见即所得编辑器加上AI能力的翅膀</div>
+      <div>https://blog.brzhang.club/2023/11/10/如何让所见即所得编辑器加上AI能力的翅膀/</div>
     </div>
     <div class="license-meta">
       
@@ -383,7 +395,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年4月17日</div>
+          <div>2023年11月10日</div>
         </div>
       
       
@@ -415,18 +427,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/11/10/%E5%A6%82%E4%BD%95%E8%AE%A9%E6%89%80%E8%A7%81%E5%8D%B3%E6%89%80%E5%BE%97%E7%BC%96%E8%BE%91%E5%99%A8%E5%8A%A0%E4%B8%8AAI%E8%83%BD%E5%8A%9B%E7%9A%84%E7%BF%85%E8%86%80/" title="如何让所见即所得编辑器加上AI能力的翅膀">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">如何让所见即所得编辑器加上AI能力的翅膀</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/12/08/cryptomator-Android%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" title="Cryptomator-Android源码分析">
-                        <span class="hidden-mobile">Cryptomator-Android源码分析</span>
+                      <a href="/2023/04/17/%E7%B2%BE%E7%BE%8E%E6%A1%8C%E9%9D%A2%E7%AB%AFApp%E6%8E%A8%E8%8D%90/" title="精美桌面端App推荐">
+                        <span class="hidden-mobile">精美桌面端App推荐</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
