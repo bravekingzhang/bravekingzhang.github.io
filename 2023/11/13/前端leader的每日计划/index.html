@@ -16,29 +16,24 @@
   <meta name="author" content="hz">
   <meta name="keywords" content="">
   
-    <meta name="description" content="先前的两篇文章，我们了解了所见即所得编辑器的原理，接下来，我们就要开始在知晓原理情况下搞点事情了，给所见即所得加持上AI的能力。本文，我们将给所见即所得编辑器，当然是基于Tiptap实现的，增加AI能力，大致分为三个功能点。 AI加持后的所见即所得编辑器功能一撇 使用空格键唤起一个与ChatGPT对话的对话框，在基于一个话题对话之后，我们可以选择将对话的内容插入到编辑初，其操作体验如下所示   使">
+    <meta name="description" content="作为一个前端管理者，提升管理技能通常涉及到领导力、沟通、项目管理、团队建设等方面。以下是一些具体的建议，以及如何逐日实践这些技能： 管理技能提升方向 领导力：提升团队引导和激励的能力。 沟通技巧：提高与团队成员、利益相关者和客户的沟通效率。 项目管理：优化项目管理流程，确保项目按时交付。 团队建设：建立高效、协作的团队文化。 决策能力：提高解决问题和决策的能力。 技术趋势：保持对前端技术趋势的了解">
 <meta property="og:type" content="article">
-<meta property="og:title" content="如何让所见即所得编辑器加上AI能力的翅膀">
-<meta property="og:url" content="https://blog.brzhang.club/2023/11/10/%E5%A6%82%E4%BD%95%E8%AE%A9%E6%89%80%E8%A7%81%E5%8D%B3%E6%89%80%E5%BE%97%E7%BC%96%E8%BE%91%E5%99%A8%E5%8A%A0%E4%B8%8AAI%E8%83%BD%E5%8A%9B%E7%9A%84%E7%BF%85%E8%86%80/index.html">
+<meta property="og:title" content="前端Leader的每日计划">
+<meta property="og:url" content="https://blog.brzhang.club/2023/11/13/%E5%89%8D%E7%AB%AFleader%E7%9A%84%E6%AF%8F%E6%97%A5%E8%AE%A1%E5%88%92/index.html">
 <meta property="og:site_name" content="心随我动">
-<meta property="og:description" content="先前的两篇文章，我们了解了所见即所得编辑器的原理，接下来，我们就要开始在知晓原理情况下搞点事情了，给所见即所得加持上AI的能力。本文，我们将给所见即所得编辑器，当然是基于Tiptap实现的，增加AI能力，大致分为三个功能点。 AI加持后的所见即所得编辑器功能一撇 使用空格键唤起一个与ChatGPT对话的对话框，在基于一个话题对话之后，我们可以选择将对话的内容插入到编辑初，其操作体验如下所示   使">
+<meta property="og:description" content="作为一个前端管理者，提升管理技能通常涉及到领导力、沟通、项目管理、团队建设等方面。以下是一些具体的建议，以及如何逐日实践这些技能： 管理技能提升方向 领导力：提升团队引导和激励的能力。 沟通技巧：提高与团队成员、利益相关者和客户的沟通效率。 项目管理：优化项目管理流程，确保项目按时交付。 团队建设：建立高效、协作的团队文化。 决策能力：提高解决问题和决策的能力。 技术趋势：保持对前端技术趋势的了解">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://blog.brzhang.club/2023/11/10/%E5%A6%82%E4%BD%95%E8%AE%A9%E6%89%80%E8%A7%81%E5%8D%B3%E6%89%80%E5%BE%97%E7%BC%96%E8%BE%91%E5%99%A8%E5%8A%A0%E4%B8%8AAI%E8%83%BD%E5%8A%9B%E7%9A%84%E7%BF%85%E8%86%80/image-20231110165052262.png">
-<meta property="og:image" content="https://blog.brzhang.club/2023/11/10/%E5%A6%82%E4%BD%95%E8%AE%A9%E6%89%80%E8%A7%81%E5%8D%B3%E6%89%80%E5%BE%97%E7%BC%96%E8%BE%91%E5%99%A8%E5%8A%A0%E4%B8%8AAI%E8%83%BD%E5%8A%9B%E7%9A%84%E7%BF%85%E8%86%80/image-20231110165229543.png">
-<meta property="og:image" content="https://blog.brzhang.club/2023/11/10/%E5%A6%82%E4%BD%95%E8%AE%A9%E6%89%80%E8%A7%81%E5%8D%B3%E6%89%80%E5%BE%97%E7%BC%96%E8%BE%91%E5%99%A8%E5%8A%A0%E4%B8%8AAI%E8%83%BD%E5%8A%9B%E7%9A%84%E7%BF%85%E8%86%80/image-20231110165648304.png">
-<meta property="og:image" content="https://blog.brzhang.club/2023/11/10/%E5%A6%82%E4%BD%95%E8%AE%A9%E6%89%80%E8%A7%81%E5%8D%B3%E6%89%80%E5%BE%97%E7%BC%96%E8%BE%91%E5%99%A8%E5%8A%A0%E4%B8%8AAI%E8%83%BD%E5%8A%9B%E7%9A%84%E7%BF%85%E8%86%80/image-20231110171520668.png">
-<meta property="article:published_time" content="2023-11-10T08:14:48.000Z">
-<meta property="article:modified_time" content="2023-11-10T09:18:54.337Z">
+<meta property="article:published_time" content="2023-11-13T12:19:50.000Z">
+<meta property="article:modified_time" content="2023-11-13T12:22:27.407Z">
 <meta property="article:author" content="hz">
 <meta property="article:tag" content="前端">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://blog.brzhang.club/2023/11/10/%E5%A6%82%E4%BD%95%E8%AE%A9%E6%89%80%E8%A7%81%E5%8D%B3%E6%89%80%E5%BE%97%E7%BC%96%E8%BE%91%E5%99%A8%E5%8A%A0%E4%B8%8AAI%E8%83%BD%E5%8A%9B%E7%9A%84%E7%BF%85%E8%86%80/image-20231110165052262.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>如何让所见即所得编辑器加上AI能力的翅膀 - 心随我动</title>
+  <title>前端Leader的每日计划 - 心随我动</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -204,7 +199,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="如何让所见即所得编辑器加上AI能力的翅膀"></span>
+            <span id="subtitle" data-typed-text="前端Leader的每日计划"></span>
           
         </div>
 
@@ -220,8 +215,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-11-10 16:14" pubdate>
-          2023年11月10日 下午
+        <time datetime="2023-11-13 20:19" pubdate>
+          2023年11月13日 晚上
         </time>
       </span>
     
@@ -232,7 +227,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.3k 字
+          1.6k 字
         
       </span>
     
@@ -243,7 +238,7 @@
         
         
         
-          11 分钟
+          14 分钟
         
       </span>
     
@@ -301,42 +296,91 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">如何让所见即所得编辑器加上AI能力的翅膀</h1>
+            <h1 id="seo-header">前端Leader的每日计划</h1>
             
             
               <div class="markdown-body">
                 
-                <p>先前的两篇文章，我们了解了所见即所得编辑器的原理，接下来，我们就要开始在知晓原理情况下搞点事情了，给所见即所得加持上AI的能力。本文，我们将给所见即所得编辑器，当然是基于Tiptap实现的，增加AI能力，大致分为<code>三个功能点</code>。</p>
-<h4 id="AI加持后的所见即所得编辑器功能一撇"><a href="#AI加持后的所见即所得编辑器功能一撇" class="headerlink" title="AI加持后的所见即所得编辑器功能一撇"></a>AI加持后的所见即所得编辑器功能一撇</h4><ul>
-<li><p>使用空格键唤起一个与ChatGPT对话的对话框，在基于一个话题对话之后，我们可以选择将对话的内容插入到编辑初，其操作体验如下所示</p>
-<img src="/2023/11/10/%E5%A6%82%E4%BD%95%E8%AE%A9%E6%89%80%E8%A7%81%E5%8D%B3%E6%89%80%E5%BE%97%E7%BC%96%E8%BE%91%E5%99%A8%E5%8A%A0%E4%B8%8AAI%E8%83%BD%E5%8A%9B%E7%9A%84%E7%BF%85%E8%86%80/image-20231110165052262.png" srcset="/img/loading.gif" lazyload alt="image-20231110165052262" style="zoom:50%;" data-src="/2023/11/10/%E5%A6%82%E4%BD%95%E8%AE%A9%E6%89%80%E8%A7%81%E5%8D%B3%E6%89%80%E5%BE%97%E7%BC%96%E8%BE%91%E5%99%A8%E5%8A%A0%E4%B8%8AAI%E8%83%BD%E5%8A%9B%E7%9A%84%E7%BF%85%E8%86%80/image-20231110165052262.png">
-</li>
-<li><p>使用<code>/</code>唤起一个菜单，我们可以选择基于已有的文本进行续写，其大概的体验如下所示：</p>
-<img src="/2023/11/10/%E5%A6%82%E4%BD%95%E8%AE%A9%E6%89%80%E8%A7%81%E5%8D%B3%E6%89%80%E5%BE%97%E7%BC%96%E8%BE%91%E5%99%A8%E5%8A%A0%E4%B8%8AAI%E8%83%BD%E5%8A%9B%E7%9A%84%E7%BF%85%E8%86%80/image-20231110165229543.png" srcset="/img/loading.gif" lazyload alt="image-20231110165229543" style="zoom:50%;" data-src="/2023/11/10/%E5%A6%82%E4%BD%95%E8%AE%A9%E6%89%80%E8%A7%81%E5%8D%B3%E6%89%80%E5%BE%97%E7%BC%96%E8%BE%91%E5%99%A8%E5%8A%A0%E4%B8%8AAI%E8%83%BD%E5%8A%9B%E7%9A%84%E7%BF%85%E8%86%80/image-20231110165229543.png">
-</li>
-<li><p>选中一段文字，弹出一个对话框，我们可以基于选中的文字做，<code>文本扩写</code>，<code>风格改写</code>，<code>文本翻译</code>等等一些操作，其操作体验如下所示：</p>
-</li>
+                <p>作为一个前端管理者，提升管理技能通常涉及到领导力、沟通、项目管理、团队建设等方面。以下是一些具体的建议，以及如何逐日实践这些技能：</p>
+<h3 id="管理技能提升方向"><a href="#管理技能提升方向" class="headerlink" title="管理技能提升方向"></a>管理技能提升方向</h3><ol>
+<li><strong>领导力</strong>：提升团队引导和激励的能力。</li>
+<li><strong>沟通技巧</strong>：提高与团队成员、利益相关者和客户的沟通效率。</li>
+<li><strong>项目管理</strong>：优化项目管理流程，确保项目按时交付。</li>
+<li><strong>团队建设</strong>：建立高效、协作的团队文化。</li>
+<li><strong>决策能力</strong>：提高解决问题和决策的能力。</li>
+<li><strong>技术趋势</strong>：保持对前端技术趋势的了解，以便更好地指导团队。</li>
+</ol>
+<h3 id="每日实践案例"><a href="#每日实践案例" class="headerlink" title="每日实践案例"></a>每日实践案例</h3><h4 id="步骤1：领导力和沟通"><a href="#步骤1：领导力和沟通" class="headerlink" title="步骤1：领导力和沟通"></a>步骤1：领导力和沟通</h4><ol>
+<li><strong>每日站会</strong>：组织短暂的日常站立会议，了解团队进度，解决阻碍。</li>
+<li><strong>一对一会议</strong>：定期与团队成员进行一对一会议，了解他们的职业发展需求和个人问题。</li>
+<li><strong>公开表扬</strong>：在团队会议中表扬团队成员的优秀表现，增强团队士气。</li>
+</ol>
+<h4 id="步骤2：项目管理"><a href="#步骤2：项目管理" class="headerlink" title="步骤2：项目管理"></a>步骤2：项目管理</h4><ol>
+<li><strong>审查进度</strong>：每天检查项目进度，确保与预期目标一致。</li>
+<li><strong>风险评估</strong>：识别潜在的项目风险，并制定应对策略。</li>
+<li><strong>流程优化</strong>：不断回顾和优化开发流程，减少浪费，提高效率。</li>
+</ol>
+<h4 id="步骤3：团队建设"><a href="#步骤3：团队建设" class="headerlink" title="步骤3：团队建设"></a>步骤3：团队建设</h4><ol>
+<li><strong>团队培训</strong>：安排定期的技术分享或工作坊，促进团队成长。</li>
+<li><strong>团队活动</strong>：组织非正式的团队建设活动，增强团队凝聚力。</li>
+</ol>
+<h4 id="步骤4：决策能力"><a href="#步骤4：决策能力" class="headerlink" title="步骤4：决策能力"></a>步骤4：决策能力</h4><ol>
+<li><strong>数据驱动</strong>：收集相关数据，进行分析，以数据支持决策。</li>
+<li><strong>情景规划</strong>：对于重要决策，制定不同的情景规划，准备应对不同的结果。</li>
+</ol>
+<h4 id="步骤5：技术趋势"><a href="#步骤5：技术趋势" class="headerlink" title="步骤5：技术趋势"></a>步骤5：技术趋势</h4><ol>
+<li><strong>学习时间</strong>：每天花时间阅读关于前端技术的文章、论坛讨论或观看相关的技术演讲。</li>
+<li><strong>技术分享</strong>：定期与团队分享你的学习成果，鼓励团队成员也做同样的事情。</li>
+</ol>
+<h3 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h3><ul>
+<li><strong>短期</strong>：提高团队的日常工作效率和满意度。</li>
+<li><strong>中期</strong>：建立一个自我驱动、持续学习的团队文化。</li>
+<li><strong>长期</strong>：确保团队能够适应快速变化的技术环境，保持竞争力。</li>
 </ul>
-<img src="/2023/11/10/%E5%A6%82%E4%BD%95%E8%AE%A9%E6%89%80%E8%A7%81%E5%8D%B3%E6%89%80%E5%BE%97%E7%BC%96%E8%BE%91%E5%99%A8%E5%8A%A0%E4%B8%8AAI%E8%83%BD%E5%8A%9B%E7%9A%84%E7%BF%85%E8%86%80/image-20231110165648304.png" srcset="/img/loading.gif" lazyload alt="image-20231110165648304" style="zoom:50%;" data-src="/2023/11/10/%E5%A6%82%E4%BD%95%E8%AE%A9%E6%89%80%E8%A7%81%E5%8D%B3%E6%89%80%E5%BE%97%E7%BC%96%E8%BE%91%E5%99%A8%E5%8A%A0%E4%B8%8AAI%E8%83%BD%E5%8A%9B%E7%9A%84%E7%BF%85%E8%86%80/image-20231110165648304.png">
-
-
-
-<h4 id="如何实现这些功能"><a href="#如何实现这些功能" class="headerlink" title="如何实现这些功能"></a>如何实现这些功能</h4><p>上面，我们领略了一下AI加持后的Tiptap编辑器的样子，看起来时机已经有点<code>NotionAi</code>的影子了。那么，为啥要自己实现呢？因为Notion 引入 ChatGPT辅助创作，这种体验真的很好，沉浸式的编辑体验，但是缺点也是很大。</p>
-<ul>
-<li>Notion AI的能力太贵了，每个月10美元。</li>
-<li>Notion AI据说是接入的 GPT 3 ，从目前看，这已经是一个比较落后的模型了。</li>
-<li>灵活度不够，不能随意切模型，这就意味着我们自己没法基于自己写作风格来fine-tune自己的模型。</li>
+<h3 id="结果评估"><a href="#结果评估" class="headerlink" title="结果评估"></a>结果评估</h3><ul>
+<li>定期收集团队反馈，了解管理实践的效果。</li>
+<li>观察项目交付情况和团队士气，作为管理效果的直接指标。</li>
+<li>通过团队成员的个人成长和职业发展来评估长期的管理成效。</li>
 </ul>
-<p>说一千，到一万，反正，我们就是得自己造轮子了。</p>
-<h5 id="实现-敲击空格，唤起对话框与ChatGPT对话，并插入"><a href="#实现-敲击空格，唤起对话框与ChatGPT对话，并插入" class="headerlink" title="实现 敲击空格，唤起对话框与ChatGPT对话，并插入"></a>实现 敲击空格，唤起对话框与ChatGPT对话，并插入</h5><p>实际上，我们首先空格，呼出一个对话框和ChatGPT对话的功能是在 Extension 实现的 addProseMirrorPlugins做的，如下，我们需要监听 <code>event.code === &#39;Space&#39; </code>事件，一旦用户敲击空格，就呼出对话框，对话框就的职责就是和ChatGPT对话，最后将对话的内容插入到编辑器editor的光标处即可，整个流程图如下：</p>
-<img src="/2023/11/10/%E5%A6%82%E4%BD%95%E8%AE%A9%E6%89%80%E8%A7%81%E5%8D%B3%E6%89%80%E5%BE%97%E7%BC%96%E8%BE%91%E5%99%A8%E5%8A%A0%E4%B8%8AAI%E8%83%BD%E5%8A%9B%E7%9A%84%E7%BF%85%E8%86%80/image-20231110171520668.png" srcset="/img/loading.gif" lazyload alt="image-20231110171520668" style="zoom:50%;" data-src="/2023/11/10/%E5%A6%82%E4%BD%95%E8%AE%A9%E6%89%80%E8%A7%81%E5%8D%B3%E6%89%80%E5%BE%97%E7%BC%96%E8%BE%91%E5%99%A8%E5%8A%A0%E4%B8%8AAI%E8%83%BD%E5%8A%9B%E7%9A%84%E7%BF%85%E8%86%80/image-20231110171520668.png">
-
-<p>其核心代码如下所示。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-title function_">addProseMirrorPlugins</span>(<span class="hljs-params"></span>) &#123;<br>     <span class="hljs-keyword">const</span> editor = <span class="hljs-variable language_">this</span>.<span class="hljs-property">editor</span>;<br>     <span class="hljs-keyword">const</span> &#123; enableAIChat &#125; = <span class="hljs-variable language_">this</span>.<span class="hljs-property">options</span>;<br><br>     <span class="hljs-keyword">return</span> [<br>       <span class="hljs-keyword">new</span> <span class="hljs-title class_">Plugin</span>(&#123;<br>         <span class="hljs-attr">key</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">PluginKey</span>(<span class="hljs-string">&#x27;ai-event-handler&#x27;</span>),<br>         <span class="hljs-attr">props</span>: &#123;<br>           <span class="hljs-title function_">handleKeyDown</span>(<span class="hljs-params">_, event</span>) &#123;<br>             <span class="hljs-keyword">if</span> (event.<span class="hljs-property">code</span> === <span class="hljs-string">&#x27;Space&#x27;</span>) &#123;<br>               <span class="hljs-keyword">const</span> nodeText = <span class="hljs-title function_">getTextContentFromNodes</span>(editor.<span class="hljs-property">state</span>.<span class="hljs-property">selection</span>.<span class="hljs-property">$from</span>);<br>							<span class="hljs-comment">// 唤起对话框，与ChatGPT对话</span><br>               <span class="hljs-comment">// 将对话类容格式化为document，插入到 editor 的focus 处</span><br>               <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>             &#125;<br>           &#125;<br>         &#125;<br>       &#125;)<br>     ];<br>   &#125;<br></code></pre></td></tr></table></figure>
-
-
-
-<p>实现 <code>/</code>，弹出菜单，和实现选中文本弹出菜单，其实现思路和敲击空格键呼出对话框的功能极其类似，就不一一介绍。完整的demo体验可以去utools插件市场，安装 <code>aition</code>体验。</p>
+<hr>
+<p>但是管理者自身也不应该抛弃技术能力提升，因此加深对前端框架（以React为例）的理解，并且提升解决问题的能力也是必须的功课。</p>
+<h3 id="工具选择："><a href="#工具选择：" class="headerlink" title="工具选择："></a>工具选择：</h3><ul>
+<li><strong>代码编辑器</strong>：Visual Studio Code（VS Code），因为它免费、开源，且有大量的插件支持前端开发。</li>
+<li><strong>在线平台</strong>：LeetCode或CodeWars进行算法练习，CodePen或JSFiddle进行前端实践。</li>
+<li><strong>版本控制</strong>：Git和GitHub，用于代码版本控制和在线存储代码。</li>
+</ul>
+<h3 id="题目选择："><a href="#题目选择：" class="headerlink" title="题目选择："></a>题目选择：</h3><ul>
+<li><strong>算法题目</strong>：从LeetCode选择Easy或Medium难度的题目，专注于数组、字符串、树、图等数据结构。</li>
+<li><strong>前端小项目</strong>：比如制作一个响应式的导航菜单，或者一个简单的天气应用。</li>
+</ul>
+<h3 id="操作案例："><a href="#操作案例：" class="headerlink" title="操作案例："></a>操作案例：</h3><p>假设今天我们要在LeetCode上解决一个JavaScript算法题目，并在CodePen上实现一个React组件。</p>
+<h4 id="步骤1：算法练习"><a href="#步骤1：算法练习" class="headerlink" title="步骤1：算法练习"></a>步骤1：算法练习</h4><ol>
+<li>打开LeetCode网站。</li>
+<li>选择一道JavaScript相关的算法题目，例如“两数之和”。</li>
+<li>阅读题目，理解题目要求。</li>
+<li>在LeetCode的在线代码编辑器中尝试解题。</li>
+<li>编写代码并运行测试用例。</li>
+<li>提交代码，查看结果，如果没有通过，根据反馈调试代码。</li>
+<li>通过后，查看讨论区优秀的解题思路，学习不同的解题方法。</li>
+</ol>
+<h4 id="步骤2：前端实践"><a href="#步骤2：前端实践" class="headerlink" title="步骤2：前端实践"></a>步骤2：前端实践</h4><ol>
+<li>打开CodePen网站。</li>
+<li>创建一个新的Pen。</li>
+<li>设定目标：实现一个React的Todo List组件。</li>
+<li>在HTML部分添加基本的结构。</li>
+<li>在CSS部分编写样式，使其美观、响应式。</li>
+<li>在JS部分，使用React编写Todo List的功能（添加任务、删除任务、标记完成）。</li>
+<li>调试并确保功能正常运行。</li>
+<li>分享你的Pen到社区，获取反馈。</li>
+</ol>
+<h4 id="目标："><a href="#目标：" class="headerlink" title="目标："></a>目标：</h4><ul>
+<li><strong>算法练习</strong>：提高逻辑思维能力，加深对JavaScript语言特性的理解。</li>
+<li><strong>前端实践</strong>：加强对React框架的掌握，提升组件化开发的能力，学习如何快速将想法转化为代码。</li>
+</ul>
+<h4 id="结果评估："><a href="#结果评估：" class="headerlink" title="结果评估："></a>结果评估：</h4><ul>
+<li>确保每天至少完成一个算法题目，并且理解其解题思路。</li>
+<li>每天至少实现一个小的前端功能或组件，通过实践来巩固学习。</li>
+</ul>
 
                 
               </div>
@@ -355,7 +399,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%8A%80%E6%9C%AF/" class="category-chain-item">技术</a>
+  <a href="/categories/%E7%AE%A1%E7%90%86/" class="category-chain-item">管理</a>
   
   
 
@@ -382,8 +426,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>如何让所见即所得编辑器加上AI能力的翅膀</div>
-      <div>https://blog.brzhang.club/2023/11/10/如何让所见即所得编辑器加上AI能力的翅膀/</div>
+      <div>前端Leader的每日计划</div>
+      <div>https://blog.brzhang.club/2023/11/13/前端leader的每日计划/</div>
     </div>
     <div class="license-meta">
       
@@ -395,7 +439,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年11月10日</div>
+          <div>2023年11月13日</div>
         </div>
       
       
@@ -427,18 +471,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/11/13/%E5%A6%82%E4%BD%95%E5%81%9A%E4%B8%80%E4%B8%AA%E8%87%AA%E5%B7%B1%E7%9A%84gpt%E6%9C%BA%E5%99%A8%E4%BA%BA/" title="如何做一个自己的Gpt机器人">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">如何做一个自己的Gpt机器人</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/04/17/%E7%B2%BE%E7%BE%8E%E6%A1%8C%E9%9D%A2%E7%AB%AFApp%E6%8E%A8%E8%8D%90/" title="精美桌面端App推荐">
-                        <span class="hidden-mobile">精美桌面端App推荐</span>
+                      <a href="/2023/11/13/%E5%A6%82%E4%BD%95%E5%81%9A%E4%B8%80%E4%B8%AA%E8%87%AA%E5%B7%B1%E7%9A%84gpt%E6%9C%BA%E5%99%A8%E4%BA%BA/" title="如何做一个自己的Gpt机器人">
+                        <span class="hidden-mobile">如何做一个自己的Gpt机器人</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
